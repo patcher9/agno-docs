@@ -11,6 +11,57 @@
   "contextual": {
     "options": ["copy", "view", "chatgpt", "claude"]
   },
+
+  "logo": {
+    "light": "/logo/black.svg",
+    "dark": "/logo/white.svg"
+  },
+  "background": {
+    "color": {
+      "light": "#FFFFFF",
+      "dark": "#111113"
+    }
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Discord",
+        "href": "https://agno.link/discord"
+      },
+      {
+        "label": "Community",
+        "href": "https://community.agno.com/"
+      }
+    ],
+    "primary": {
+      "type": "github",
+      "href": "https://github.com/agno-agi/agno"
+    }
+  },
+  "footer": {
+    "socials": {
+      "x": "https://x.com/AgnoAgi",
+      "github": "https://github.com/agno-agi/agno",
+      "discord": "https://agno.link/discord",
+      "youtube": "https://agno.link/youtube",
+      "website": "https://agno.com"
+    }
+  },
+  "fonts": {
+    "heading": {
+      "family": "Inter",
+      "weight": 750
+    },
+    "body": {
+      "family": "Inter",
+      "weight": 400
+    }
+  },
+  "integrations": {
+    "posthog": {
+      "apiKey": "phc_MjuWiUsZe9racJUG1IpiikP0gPInPwL0206gjfsBWSk"
+    }
+  },
   "navigation": {
     "tabs": [
       {
@@ -1661,7 +1712,7 @@
         ]
       },
       {
-        "tab": "Agno OS",
+        "tab": "Agno Infra",
         "groups": [
           {
             "group": "Workspaces",
@@ -1946,55 +1997,5 @@
         ]
       }
     ]
-  },
-  "logo": {
-    "light": "/logo/black.svg",
-    "dark": "/logo/white.svg"
-  },
-  "background": {
-    "color": {
-      "light": "#FFFFFF",
-      "dark": "#111113"
-    }
-  },
-  "navbar": {
-    "links": [
-      {
-        "label": "Discord",
-        "href": "https://agno.link/discord"
-      },
-      {
-        "label": "Community",
-        "href": "https://community.agno.com/"
-      }
-    ],
-    "primary": {
-      "type": "github",
-      "href": "https://github.com/agno-agi/agno"
-    }
-  },
-  "footer": {
-    "socials": {
-      "x": "https://x.com/AgnoAgi",
-      "github": "https://github.com/agno-agi/agno",
-      "discord": "https://agno.link/discord",
-      "youtube": "https://agno.link/youtube",
-      "website": "https://agno.com"
-    }
-  },
-  "fonts": {
-    "heading": {
-      "family": "Inter",
-      "weight": 750
-    },
-    "body": {
-      "family": "Inter",
-      "weight": 400
-    }
-  },
-  "integrations": {
-    "posthog": {
-      "apiKey": "phc_MjuWiUsZe9racJUG1IpiikP0gPInPwL0206gjfsBWSk"
-    }
   }
 }
