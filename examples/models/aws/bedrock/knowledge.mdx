@@ -21,8 +21,7 @@ knowledge_base.load(recreate=True)  # Comment out after first run
 agent = Agent(
     model=AwsBedrock(id="mistral.mistral-large-2402-v1:0"), markdown=True
     knowledge=knowledge_base,
-    show_tool_calls=True,
-)
+    )
 agent.print_response("How to make Thai curry?", markdown=True)
 ```
 
