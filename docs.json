@@ -1349,7 +1349,6 @@
                   "examples/models/anthropic/code_execution",
                   "examples/models/anthropic/tool_use",
                   "examples/models/anthropic/structured_output",
-                  "examples/models/anthropic/storage",
                   "examples/models/anthropic/knowledge",
                   "examples/models/anthropic/file_upload",
                   "examples/models/anthropic/image_input_bytes",
