@@ -1,13 +1,11 @@
 ---
-title: Async Tool Use
+title: Tool Use Stream
 ---
 
 ## Code
 
-```python cookbook/models/xai/async_tool_use.py
-"""Run `pip install ddgs` to install dependencies."""
-
-import asyncio
+```python cookbook/models/xai/tool_use_stream.py
+"""Build a Web Search Agent using xAI."""
 
 from agno.agent import Agent
 from agno.models.xai import xAI
@@ -18,7 +16,7 @@ agent = Agent(
     tools=[DuckDuckGoTools()],
     markdown=True,
 )
-asyncio.run(agent.aprint_response("Whats happening in France?", stream=True))
+agent.print_response("Whats happening in France?", stream=True)
 
 ```
 
@@ -42,11 +40,11 @@ asyncio.run(agent.aprint_response("Whats happening in France?", stream=True))
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/models/xai/async_tool_use.py
+    python cookbook/models/xai/tool_use_stream.py
     ```
 
     ```bash Windows
-    python cookbook/models/xai/async_tool_use.py
+    python cookbook/models/xai/tool_use_stream.py
     ```
     </CodeGroup>
   </Step>

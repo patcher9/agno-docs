@@ -33,6 +33,7 @@ reasoning_agent.print_response(
     show_full_reasoning=True,
     stream_intermediate_steps=True,
 )
+
 ```
 
 ## Usage
@@ -48,13 +49,19 @@ reasoning_agent.print_response(
 
   <Step title="Install libraries">
     ```bash
-    pip install -U openai yfinance agno
+    pip install -U xai agno
     ```
   </Step>
 
   <Step title="Run Agent">
-    ```bash
+    <CodeGroup>
+    ```bash Mac
     python cookbook/models/xai/reasoning_agent.py
     ```
+
+    ```bash Windows
+    python cookbook/models/xai/reasoning_agent.py
+    ```
+    </CodeGroup>
   </Step>
-</Steps> 
+</Steps>
