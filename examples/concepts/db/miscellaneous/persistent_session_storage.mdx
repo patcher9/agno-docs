@@ -1,0 +1,37 @@
+---
+title: Persistent Session Storage
+sidebarTitle: Persistent Storage
+---
+
+Agno supports persistent session storage using databases like PostgreSQL, allowing you to maintain conversation history across sessions and application restarts.
+
+## Usage
+
+Configure your agent with a database to enable persistent session storage.
+
+```python persistent_session_storage.py
+from agno.agent.agent import Agent
+from agno.db.postgres import PostgresDb
+from agno.models.openai import OpenAIChat
+from agno.team.team import Team
+
+# Set up Postgres database
+db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
+db = PostgresDb(db_url=db_url, session_table="sessions")
+
+agent = Agent(name="test_agent", model=OpenAIChat(id="gpt-4o-mini"))
+
+team = Team(
+    members=[agent],
+    db=db,
+    session_id="team_session_storage",
+    add_history_to_context=True,
+)
+
+team.print_response("Tell me a new interesting fact about space")
+```
+
+
+## Developer Resources
+
+- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/db/01_persistent_session_storage.py)

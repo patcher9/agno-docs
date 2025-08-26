@@ -1,0 +1,29 @@
+---
+title: In-Memory Storage for Agents
+sidebarTitle: Agent
+---
+
+Simple example using `InMemoryDb` with agents.
+
+## Usage
+
+```python
+from agno.agent import Agent
+from agno.db.in_memory import InMemoryDb
+
+# Setup in-memory database
+db = InMemoryDb()
+
+# Create agent with database
+agent = Agent(db=db)
+
+# Agent sessions stored in memory
+agent.print_response("Give me an easy dinner recipe")
+```
+## Params
+
+<Snippet file="db-json-params.mdx" />
+
+## Developer Resources
+
+- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/db/json/json_for_team.py)
