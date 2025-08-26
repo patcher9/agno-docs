@@ -3,7 +3,7 @@ title: Redis Storage
 sidebarTitle: Redis
 ---
 
-Agno supports using Redis as a storage backend for Agents using the `RedisStorage` class.
+Agno supports using Redis as a storage backend for Agents using the `RedisDb` class.
 
 ## Usage
 
@@ -12,48 +12,47 @@ Agno supports using Redis as a storage backend for Agents using the `RedisStorag
 Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **Redis** on port **6379** using:
 
 ```bash
-docker run --name my-redis -p 6379:6379 -d redis
+docker run -d \
+  --name my-redis \
+  -p 6379:6379 \
+  redis
 ```
 
-```python redis_storage_for_agent.py
+```python redis_for_agent.py
 from agno.agent import Agent
-from agno.storage.redis import RedisStorage
+from agno.db.base import SessionType
+from agno.db.redis import RedisDb
 from agno.tools.duckduckgo import DuckDuckGoTools
 
-# Initialize Redis storage with default local connection
-storage = RedisStorage(
-    prefix="agno_test",    # Prefix for Redis keys to namespace the sessions
-    host="localhost",      # Redis host address
-    port=6379,             # Redis port number
-)
+# Initialize Redis db (use the right db_url for your setup)
+db = RedisDb(db_url="redis://localhost:6379")
 
-# Create agent with Redis storage
+# Create agent with Redis db
 agent = Agent(
-    storage=storage,
+    db=db,
     tools=[DuckDuckGoTools()],
-    add_history_to_messages=True,
+    add_history_to_context=True,
 )
 
 agent.print_response("How many people live in Canada?")
-
 agent.print_response("What is their national anthem called?")
 
-# Verify storage contents
-print("\nVerifying storage contents...")
-all_sessions = storage.get_all_sessions()
+# Verify db contents
+print("\nVerifying db contents...")
+all_sessions = db.get_sessions(session_type=SessionType.AGENT)
 print(f"Total sessions in Redis: {len(all_sessions)}")
 
 if all_sessions:
     print("\nSession details:")
     session = all_sessions[0]
-    print(f"Session ID: {session.session_id}")
-    print(f"Messages count: {len(session.memory['messages'])}")
+    print(f"The stored session: {session}")
+
 ```
 
 ## Params
 
-<Snippet file="storage-redis-params.mdx" />
+<Snippet file="db-redis-params.mdx" />
 
 ## Developer Resources
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/redis_storage/redis_storage_for_agent.py)
+- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/db/redis/redis_for_agent.py)
