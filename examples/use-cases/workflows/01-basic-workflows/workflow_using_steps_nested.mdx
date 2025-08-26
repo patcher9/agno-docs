@@ -3,7 +3,7 @@ title: Workflow using Steps with Nested Pattern
 description: This example demonstrates **Workflows 2.0** nested patterns using `Steps` to encapsulate a complex workflow with conditional parallel execution.
 ---
 
-This example demonstrates **Workflows 2.0** nested patterns using `Steps` to encapsulate 
+This example demonstrates **Workflows** nested patterns using `Steps` to encapsulate 
 a complex workflow with conditional parallel execution. It combines `Condition`, `Parallel`, 
 and `Steps` for modular and adaptive content creation.
 
@@ -13,11 +13,11 @@ from agno.models.openai import OpenAIChat
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.exa import ExaTools
 from agno.tools.hackernews import HackerNewsTools
-from agno.workflow.v2.condition import Condition
-from agno.workflow.v2.parallel import Parallel
-from agno.workflow.v2.step import Step
-from agno.workflow.v2.steps import Steps
-from agno.workflow.v2.workflow import Workflow
+from agno.workflow.condition import Condition
+from agno.workflow.parallel import Parallel
+from agno.workflow.step import Step
+from agno.workflow.steps import Steps
+from agno.workflow.workflow import Workflow
 
 # Define agents for different tasks
 researcher = Agent(
@@ -70,7 +70,7 @@ initial_research_step = Step(
 # Condition evaluator function
 def is_tech_topic(step_input) -> bool:
     """Check if the topic is tech-related and needs specialized research"""
-    message = step_input.message.lower() if step_input.message else ""
+    message = step_input.input.lower() if step_input.input else ""
     tech_keywords = [
         "ai",
         "machine learning",
@@ -151,7 +151,7 @@ if __name__ == "__main__":
     )
 
     article_workflow.print_response(
-        message="Write an article about the latest AI developments in machine learning",
+        input="Write an article about the latest AI developments in machine learning",
         markdown=True,
         stream=True,
         stream_intermediate_steps=True,
