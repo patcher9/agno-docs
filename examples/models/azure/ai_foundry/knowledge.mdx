@@ -6,7 +6,7 @@ title: Agent with Knowledge Base
 
 ```python cookbook/models/azure/ai_foundry/knowledge.py
 """Run `pip install ddgs sqlalchemy pgvector pypdf openai` to install dependencies."""
-
+import asyncio
 from agno.agent import Agent
 from agno.knowledge.embedder.azure_openai import AzureOpenAIEmbedder
 from agno.knowledge.knowledge import Knowledge
