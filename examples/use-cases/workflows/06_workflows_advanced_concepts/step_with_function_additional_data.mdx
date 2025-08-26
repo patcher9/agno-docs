@@ -12,13 +12,13 @@ This example shows how to pass metadata and contextual information to steps via 
 
 ```python step_with_function_additional_data.py
 from agno.agent import Agent
+from agno.db.sqlite import SqliteDb
 from agno.models.openai import OpenAIChat
-from agno.storage.sqlite import SqliteStorage
 from agno.team import Team
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.hackernews import HackerNewsTools
-from agno.workflow.v2.step import Step, StepInput, StepOutput
-from agno.workflow.v2.workflow import Workfl ow
+from agno.workflow.step import Step, StepInput, StepOutput
+from agno.workflow.workflow import Workflow
 
 # Define agents
 hackernews_agent = Agent(
@@ -58,7 +58,7 @@ def custom_content_planning_function(step_input: StepInput) -> StepOutput:
     Custom function that does intelligent content planning with context awareness
     Now also uses additional_data for extra context
     """
-    message = step_input.message
+    message = step_input.input
     previous_step_content = step_input.previous_step_content
 
     # Access additional_data that was passed with the workflow
@@ -143,17 +143,16 @@ if __name__ == "__main__":
     content_creation_workflow = Workflow(
         name="Content Creation Workflow",
         description="Automated content creation with custom execution options",
-        storage=SqliteStorage(
-            table_name="workflow_v2",
-            db_file="tmp/workflow_v2.db",
-            mode="workflow_v2",
+        db=SqliteDb(
+            session_table="workflow_session",
+            db_file="tmp/workflow.db",
         ),
         steps=[research_step, content_planning_step],
     )
 
     # Run workflow with additional_data
     content_creation_workflow.print_response(
-        message="AI trends in 2024",
+        input="AI trends in 2024",
         additional_data={
             "user_email": "kaustubh@agno.com",
             "priority": "high",
@@ -168,4 +167,4 @@ if __name__ == "__main__":
 ```
 
 To checkout async version, see the cookbook-
-- [Step with Function using Additional Data (async)](https://github.com/agno-agi/agno/tree/main/cookbook/workflows_2/async/01_basic_workflows/step_with_function_additional_data.py)
+- [Step with Function using Additional Data (async)](https://github.com/agno-agi/agno/tree/main/cookbook/workflows/01_basic_workflows/02_step_with_function/async/step_with_function_additional_data.py)

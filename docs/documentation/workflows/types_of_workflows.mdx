@@ -40,7 +40,7 @@ def data_preprocessor(step_input):
 
     # Or you can also run any agent/team over here itself
     # response = some_agent.run(...)
-    return StepOutput(content=f"Processed: {step_input.message}") # <-- Now pass the agent/team response in content here
+    return StepOutput(content=f"Processed: {step_input.input}") # <-- Now pass the agent/team response in content here
 
 workflow = Workflow(
     name="Mixed Execution Pipeline",
@@ -148,7 +148,7 @@ workflow.print_response(
 from agno.workflow import Condition, Step, Workflow
 
 def is_tech_topic(step_input) -> bool:
-    topic = step_input.message.lower()
+    topic = step_input.input.lower()
     return any(keyword in topic for keyword in ["ai", "tech", "software"])
 
 workflow = Workflow(
@@ -262,7 +262,7 @@ workflow.print_response("Research the impact of renewable energy on global marke
 from agno.workflow import Router, Step, Workflow
 
 def route_by_topic(step_input) -> List[Step]:
-    topic = step_input.message.lower()
+    topic = step_input.input.lower()
     
     if "tech" in topic:
         return [Step(name="Tech Research", agent=tech_expert)]
@@ -350,10 +350,10 @@ video_sequence = Steps(
 
 def media_sequence_selector(step_input) -> List[Step]:
     """Route to appropriate media generation pipeline"""
-    if not step_input.message:
+    if not step_input.input:
         return [image_sequence]
         
-    message_lower = step_input.message.lower()
+    message_lower = step_input.input.lower()
     
     if "video" in message_lower:
         return [video_sequence]
