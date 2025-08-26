@@ -1,8 +1,9 @@
 ---
 title: Memory
+description: Learn about memory in agents.
 ---
 
-Memory gives an Agent the ability to recall relavant information. Memory is a part of the Agent's context that helps it provide the best, most personalized response.
+Memory gives an Agent the ability to recall relevant information. Memory is a part of the Agent's context that helps it provide the best, most personalized response.
 
 <Check>
 If the user tells the Agent they like to ski, then future responses can reference this information to provide a more personalized experience.
@@ -14,7 +15,6 @@ In Agno, Memory covers chat history, user preferences and any supplemental infor
 
 2. **User Memories (user preferences):** The Agent can store insights and facts about the user that it learns through conversation. This helps the agents personalize its response to the user it is interacting with. Think of this as adding "ChatGPT like memory" to your agent. **This is called "Memory" in Agno**.
 
-3. **Session Summaries (chat summary):** The Agent can store a condensed representations of the session, useful when chat histories gets too long. **This is called "Summary" in Agno**.
 
 <Note>
 It is relatively easy to use your own memory implementation using `Agent.context`.
@@ -273,71 +273,6 @@ Enabling agentic memory will also add all existing user memories to the agent's 
 
 User memories are stored in the `Memory` object and persisted in the `SqliteMemoryDb` to be used across multiple users and multiple sessions.
 
-
-## Session Summaries
-
-To enable session summaries, set `enable_session_summaries=True` on the `Agent`.
-
-<Steps>
-  <Step title="Session summary example">
-    ```python session_summary.py
-        from agno.agent import Agent
-        from agno.memory.v2.db.sqlite import SqliteMemoryDb
-        from agno.memory.v2.memory import Memory
-        from agno.models.google.gemini import Gemini
-
-        memory_db = SqliteMemoryDb(table_name="memory", db_file="tmp/memory.db")
-        memory = Memory(db=memory_db)
-
-        user_id = "jon_hamm@example.com"
-        session_id = "1001"
-
-        agent = Agent(
-            model=Gemini(id="gemini-2.0-flash-exp"),
-            memory=memory,
-            enable_session_summaries=True,
-        )
-
-        agent.print_response(
-            "What can you tell me about quantum computing?",
-            stream=True,
-            user_id=user_id,
-            session_id=session_id,
-        )
-
-        agent.print_response(
-            "I would also like to know about LLMs?",
-            stream=True,
-            user_id=user_id,
-            session_id=session_id
-        )
-
-        session_summary = memory.get_session_summary(
-            user_id=user_id, session_id=session_id
-        )
-        print(f"Session summary: {session_summary.summary}\n")
-    ```
-  </Step>
-
-  <Step title="Run the example">
-    Install libraries
-
-    ```shell
-    pip install google-genai agno
-    ```
-
-    Export your key
-    ```shell
-    export GOOGLE_API_KEY=xxx
-    ```
-
-    Run the example
-
-    ```shell
-    python session_summary.py
-    ```
-  </Step>
-</Steps>
 
 
 ## Attributes

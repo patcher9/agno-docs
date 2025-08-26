@@ -1,129 +1,262 @@
 ---
-title: Agent Context
+title: Context Engineering
+description: Learn how to write prompts and other context engineering techniques for your agents.
 ---
 
-Agent Context is another amazing feature of Agno. `context` is a dictionary that contains a set of functions (or dependencies) that are resolved before the agent runs.
+You can change the way your Agent behaves by changing the **system** message that is sent to the language model.
 
-<Note>
-Context is a way to inject dependencies into the description and instructions of the agent.
+In Agno, the system message is dynamically created using `description` and `instructions` and a number of other settings.
 
-You can use context to inject memories, dynamic few-shot examples, "retrieved" documents, etc.
-</Note>
+Understanding how these prompts are created will help you build better Agents.
 
-```python agent_context.py
-import json
+<Tip>
+  You can always set the `system_message` to override any dynamically generated system prompt.
+</Tip>
+
+The following are the key parameters that are used to create the system message:
+
+1. **Description**: A description that guides the overall behaviour of the agent.
+2. **Instructions**: A list of precise, task-specific instructions on how to achieve its goal.
+3. **Expected Output**: A description of the expected output from the Agent.
+
+## System message
+
+The system message is created using `description`, `instructions` and a number of other settings. The `description` is added to the start of the system message and `instructions` are added as a list. For example:
+
+```python instructions.py
+from agno.agent import Agent
+
+agent = Agent(
+    description="You are a famous short story writer asked to write for a magazine",
+    instructions=["You are a pilot on a plane flying from Hawaii to Japan."],
+    markdown=True,
+    debug_mode=True,  # Set to True to view the detailed logs
+)
+agent.print_response("Tell me a 2 sentence horror story.", stream=True)
+```
+
+Will produce a system message like this:
+
+```
+You are a famous short story writer asked to write for a magazine                                                                                                                                                                                                                            
+<instructions>                                                                                                                                                                                                                                                                               
+You are a pilot on a plane flying from Hawaii to Japan.                                                                                                                                                                                                                                      
+</instructions>                                                                                                                                                                                                                                                                              
+                                                                                                                                                                                                                                                                                              
+<additional_information>                                                                                                                                                                                                                                                                     
+- Use markdown to format your answers.                                                                                                                                                                                                                                                       
+</additional_information>    
+```
+
+### Set the system message directly
+
+You can manually set the system message using the `system_message` parameter.  This will ignore all other settings and use the system message you provide.
+
+```python
+from agno.agent import Agent
+
+agent = Agent(system_message="Share a 2 sentence story about")
+agent.print_response("Love in the year 12000.")
+```
+
+<Tip>
+Some models via some model providers, like `llama-3.2-11b-vision-preview` on Groq, require no system message with other messages. To remove the system message, set `create_default_system_message=False` and `system_message=None`. Additionally, if `markdown=True` is set, it will add a system message, so either remove it or explicitly disable the system message.
+</Tip>
+
+
+### Additional Context
+
+You can add additional context to the end of the system message using the `additional_context` parameter.
+
+In this example, we add additional context to the system message that the agent has access to specific tables in a database.
+
+```python
 from textwrap import dedent
 
-import httpx
 from agno.agent import Agent
-from agno.models.openai import OpenAIChat
+from agno.models.langdb import LangDB
+from agno.tools.duckdb import DuckDbTools
 
+duckdb_tools = DuckDbTools(
+    create_tables=False, export_tables=False, summarize_tables=False
+)
+duckdb_tools.create_table_from_path(
+    path="https://phidata-public.s3.amazonaws.com/demo_data/IMDB-Movie-Data.csv",
+    table="movies",
+)
 
-def get_top_hackernews_stories(num_stories: int = 5) -> str:
-    """Fetch and return the top stories from HackerNews.
-
-    Args:
-        num_stories: Number of top stories to retrieve (default: 5)
-    Returns:
-        JSON string containing story details (title, url, score, etc.)
-    """
-    # Get top stories
-    stories = [
-        {
-            k: v
-            for k, v in httpx.get(
-                f"https://hacker-news.firebaseio.com/v0/item/{id}.json"
-            )
-            .json()
-            .items()
-            if k != "kids"  # Exclude discussion threads
-        }
-        for id in httpx.get(
-            "https://hacker-news.firebaseio.com/v0/topstories.json"
-        ).json()[:num_stories]
-    ]
-    return json.dumps(stories, indent=4)
-
-
-# Create a Context-Aware Agent that can access real-time HackerNews data
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
-    # Each function in the context is evaluated when the agent is run,
-    # think of it as dependency injection for Agents
-    context={"top_hackernews_stories": get_top_hackernews_stories},
-    # Alternatively, you can manually add the context to the instructions
-    instructions=dedent("""\
-        You are an insightful tech trend observer! 📰
-
-        Here are the top stories on HackerNews:
-        {top_hackernews_stories}\
+    model=LangDB(id="llama3-1-70b-instruct-v1.0"),
+    tools=[duckdb_tools],
+    markdown=True,
+    additional_context=dedent("""\
+    You have access to the following tables:
+    - movies: contains information about movies from IMDB.
     """),
-    # add_state_in_messages will make the `top_hackernews_stories` variable
-    # available in the instructions
-    add_state_in_messages=True,
-    markdown=True,
 )
-
-# Example usage
-agent.print_response(
-    "Summarize the top stories on HackerNews and identify any interesting trends.",
-    stream=True,
-)
+agent.print_response("What is the average rating of movies?", stream=True)
 ```
 
-## Adding the entire context to the user message
+### System message Parameters
 
-Set `add_context=True` to add the entire context to the user message. This way you don't have to manually add the context to the instructions.
+The Agent creates a default system message that can be customized using the following parameters:
 
-```python agent_context_instructions.py
-import json
-from textwrap import dedent
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `description` | `str` | `None` | A description of the Agent that is added to the start of the system message. |
+| `instructions` | `List[str]` | `None` | List of instructions added to the system prompt in `<instructions>` tags. Default instructions are also created depending on values for `markdown`, `output_model` etc. |
+| `additional_context` | `str` | `None` | Additional context added to the end of the system message. |
+| `expected_output` | `str` | `None` | Provide the expected output from the Agent. This is added to the end of the system message. |
+| `markdown` | `bool` | `False` | Add an instruction to format the output using markdown. |
+| `add_datetime_to_instructions` | `bool` | `False` | If True, add the current datetime to the prompt to give the agent a sense of time. This allows for relative times like "tomorrow" to be used in the prompt |
+| `add_name_to_context` | `bool` | `False` | If True, add the name of the agent to the context. |
+| `add_location_to_context` | `bool` | `False` | If True, add the location of the agent to the context.  This allows for location-aware responses and local context. |
+| `add_session_summary_to_context` | `bool` | `False` | If True, add the session summary to the context. See [sessions](/docs/documentation/agents/sessions) for more information. |
+| `add_memories_to_context` | `bool` | `False` | If True, add the user memories to the context. See [memory](/docs/documentation/agents/memory) for more information. |
+| `add_dependencies_to_context` | `bool` | `False` | If True, add the dependencies to the context. See [dependencies](/docs/documentation/agents/dependencies) for more information. |
+| `add_knowledge_to_context` | `bool` | `False` | If True, add retrieved knowledge to the context, to enable RAG. See [knowledge](/docs/documentation/agents/knowledge) for more information. |
+| `system_message` | `str` | `None` | System prompt: provide the system prompt as a string |
+| `system_message_role` | `str` | `system` | Role for the system message. |
+| `build_context` | `bool` | `True` | Optionally disable the building of the context. |
 
-import httpx
-from agno.agent import Agent
+
+## User message
+
+The `input` sent to the `Agent.run()` or `Agent.print_response()` is used as the user message.
+
+See [dependencies](/docs/documentation/agents/dependencies) for how to do dependency injection for your user message.
+
+## Chat history
+
+If you have database storage enabled on your agent, session history is automatically stored (see [sessions](/docs/documentation/agents/sessions)).
+
+You can now add the history of the conversation to the context using `add_history_to_context`.
+
+```python
+from agno.agent.agent import Agent
+from agno.db.postgres import PostgresDb
 from agno.models.openai import OpenAIChat
 
+db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
-def get_top_hackernews_stories(num_stories: int = 5) -> str:
-    """Fetch and return the top stories from HackerNews.
+db = PostgresDb(db_url=db_url)
 
-    Args:
-        num_stories: Number of top stories to retrieve (default: 5)
-    Returns:
-        JSON string containing story details (title, url, score, etc.)
-    """
-    # Get top stories
-    stories = [
-        {
-            k: v
-            for k, v in httpx.get(
-                f"https://hacker-news.firebaseio.com/v0/item/{id}.json"
-            )
-            .json()
-            .items()
-            if k != "kids"  # Exclude discussion threads
-        }
-        for id in httpx.get(
-            "https://hacker-news.firebaseio.com/v0/topstories.json"
-        ).json()[:num_stories]
-    ]
-    return json.dumps(stories, indent=4)
-
-
-# Create a Context-Aware Agent that can access real-time HackerNews data
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
-    # Each function in the context is resolved when the agent is run,
-    # think of it as dependency injection for Agents
-    context={"top_hackernews_stories": get_top_hackernews_stories},
-    # We can add the entire context dictionary to the instructions
-    add_context=True,
-    markdown=True,
+    model=OpenAIChat(id="o3-mini"),
+    db=db,
+    session_id="chat_history",
+    instructions="You are a helpful assistant that can answer questions about space and oceans.",
+    add_history_to_context=True,
+    num_history_runs=2,  # Optionally limit the number of history responses to add to the context
 )
 
-# Example usage
-agent.print_response(
-    "Summarize the top stories on HackerNews and identify any interesting trends.",
-    stream=True,
-)
+agent.print_response("Where is the sea of tranquility?")
+
+agent.print_response("What was my first question?")
 ```
+
+This will add the history of the conversation to the context, which can be used to provide context for the next message.
+
+## Additional input
+
+You can add entire additional messages to your agent's context using the `additional_input` parameter.  
+These messages are added to the context as if they were part of the conversation history.
+
+You can give your agent examples of how it should respond (also called "few-shot prompting"):
+
+```python
+from agno.agent import Agent
+from agno.models.message import Message
+from agno.models.openai.chat import OpenAIChat
+
+# Few-shot examples showing good support patterns
+support_examples = [
+    # Example 1: Simple issue resolution
+    Message(role="user", content="I forgot my password and can't log in"),
+    Message(
+        role="assistant",
+        content="""
+    I'll help you reset your password right away.
+
+    **Steps to Reset Your Password:**
+    . Go to the login page and click "Forgot Password"
+    . Enter your email address
+    . Check your email for the reset link
+    . Follow the link to create a new password
+    . Use a strong password with uppercase, lowercase, numbers, and symbols
+
+    f you don't receive the email within 5 minutes, please check your spam folder. Let me know if you need any assistance with these steps!
+    """.strip(),
+    ),
+    # Example 2: Billing issue pattern
+    Message(
+        role="user",
+        content="I've been charged twice for the same order and I'm frustrated!",
+    ),
+    Message(
+        role="assistant",
+        content="""
+    I sincerely apologize for the billing error and the frustration this has caused you.
+
+    **Immediate Action Plan:**
+    1. I'll investigate your account to confirm the duplicate charge
+    2. Process a full refund for the duplicate transaction
+    3. Ensure this doesn't happen again by checking your payment method settings
+    4. Provide you with a confirmation number once the refund is processed
+
+    The refund typically takes 3-5 business days to appear on your statement. As an apology for this inconvenience, I'd also like to offer you a 10% discount on your next order.
+
+    Is there anything else I can help you with regarding this issue?
+    """.strip(),
+    ),
+    # Example 3: Technical support pattern
+    Message(role="user", content="Your app keeps crashing when I try to upload photos"),
+    Message(
+        role="assistant",
+        content="""
+    I'm sorry you're experiencing crashes with photo uploads. Let me help you troubleshoot this issue.
+
+    **Troubleshooting Steps:**
+    1. **Check App Version:** Ensure you have the latest version from the app store
+    2. **Restart the App:** Close completely and reopen the application
+    3. **Check Storage:** Make sure you have sufficient device storage (at least 1GB free)
+    4. **Photo Size:** Try uploading smaller photos (under 10MB each)
+    5. **Network Connection:** Ensure you have a stable internet connection
+
+    **If the issue persists:**
+    - Try uploading one photo at a time instead of multiple
+    - Clear the app cache in your device settings
+    - Restart your device
+
+    If none of these steps resolve the issue, please let me know your device type and OS version, and I'll escalate this to our technical team for further investigation.
+    """.strip(),
+    ),
+]
+
+if __name__ == "__main__":
+    # Create agent with few-shot learning
+    agent = Agent(
+        name="Customer Support Specialist",
+        model=OpenAIChat(id="o3-mini"),
+        add_name_to_context=True,
+        additional_input=support_examples,  # few-shot learning examples
+        instructions=[
+            "You are an expert customer support specialist.",
+            "Always be empathetic, professional, and solution-oriented.",
+            "Provide clear, actionable steps to resolve customer issues.",
+            "Follow the established patterns for consistent, high-quality support.",
+        ],
+        markdown=True,
+    )
+
+    for i, example in enumerate(support_examples, 1):
+        print(f"📞 Example {i}: {example}")
+        print("-" * 50)
+        agent.print_response(example)
+```
+
+
+## Developer Resources
+
+- View the [Agent schema](/reference/agents/agent)
+- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agents/context_management/)

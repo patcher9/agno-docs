@@ -86,17 +86,16 @@
                 "pages": [
                   "docs/documentation/agents/introduction",
                   "docs/documentation/agents/run",
-                  "docs/documentation/agents/metrics",
                   "docs/documentation/agents/sessions",
+                  "docs/documentation/agents/storage",
+                  "docs/documentation/agents/context",
                   "docs/documentation/agents/state",
                   "docs/documentation/agents/memory",
                   "docs/documentation/agents/tools",
-                  "docs/documentation/agents/structured-output",
-                  "docs/documentation/agents/prompts",
+                  "docs/documentation/agents/structured-input-output",
                   "docs/documentation/agents/knowledge",
-                  "docs/documentation/agents/storage",
-                  "docs/documentation/agents/context",
-                  "docs/documentation/agents/teams"
+                  "docs/documentation/agents/dependencies",
+                  "docs/documentation/agents/metrics"
                 ]
               },
               {
