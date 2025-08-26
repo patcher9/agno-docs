@@ -45,12 +45,13 @@ Note: Multi-user, multi-session currently only works with `Memory.v2`, which wil
 ```python
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
-from agno.memory.v2 import Memory
+from agno.db.sqlite import SqliteDb
+
+db = SqliteDb(db_file="tmp/data.db")
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
-    # Multi-user, multi-session only work with Memory.v2
-    memory=Memory(),
+    db=db,
     add_history_to_messages=True,
     num_history_runs=3,
 )
@@ -95,14 +96,16 @@ import os
 
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
-from agno.storage.sqlite import SqliteStorage
+from agno.db.sqlite import SqliteDb
 
 os.remove("tmp/data.db")
+
+db = SqliteDb(db_file="tmp/data.db")
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
     user_id="user_1",
-    storage=SqliteStorage(table_name="agent_sessions_new", db_file="tmp/data.db"),
+    db=db,
     search_previous_sessions_history=True,  # allow searching previous sessions
     num_history_sessions=2,  # only include the last 2 sessions in the search to avoid context length issues
 )

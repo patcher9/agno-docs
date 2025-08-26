@@ -467,18 +467,20 @@
                 ]
               },
               {
-                "group": "Session Storage",
+                "group": "Storage",
                 "pages": [
                   "docs/documentation/db/introduction",
-                  "docs/documentation/db/dynamodb",
-                  "docs/documentation/db/json",
-                  "docs/documentation/db/mongodb",
-                  "docs/documentation/db/mysql",
                   "docs/documentation/db/postgres",
+                  "docs/documentation/db/mysql",
                   "docs/documentation/db/sqlite",
-                  "docs/documentation/db/yaml",
+                  "docs/documentation/db/in_memory",
+                  "docs/documentation/db/dynamodb",
+                  "docs/documentation/db/mongodb",
+                  "docs/documentation/db/json",
                   "docs/documentation/db/singlestore",
-                  "docs/documentation/db/redis"
+                  "docs/documentation/db/redis",
+                  "docs/documentation/db/gcs",
+                  "docs/documentation/db/firestore"
                 ]
               },
               {
@@ -798,6 +800,14 @@
                     ]
                   },
                   {
+                    "group": "Session",
+                    "pages": [
+                      "examples/concepts/agent/session/chat_history",
+                      "examples/concepts/agent/session/multi_user_multi_session",
+                      "examples/concepts/agent/session/session_summary"
+                    ]
+                  },
+                  {
                     "group": "User Control Flows",
                     "pages": [
                       "examples/concepts/agent/user-control-flows/01-confirmation-required",
@@ -1084,45 +1094,97 @@
                 "group": "Storage",
                 "pages": [
                   {
-                    "group": "Agent Storage",
+                    "group": "MongoDB",
                     "pages": [
-                      "examples/concepts/storage/agent_storage/postgres",
-                      "examples/concepts/storage/agent_storage/sqlite",
-                      "examples/concepts/storage/agent_storage/singlestore",
-                      "examples/concepts/storage/agent_storage/dynamodb",
-                      "examples/concepts/storage/agent_storage/mongodb",
-                      "examples/concepts/storage/agent_storage/mysql",
-                      "examples/concepts/storage/agent_storage/json",
-                      "examples/concepts/storage/agent_storage/yaml",
-                      "examples/concepts/storage/agent_storage/redis"
+                      "examples/concepts/db/mongodb/mongodb_for_agent",
+                      "examples/concepts/db/mongodb/mongodb_for_team",
+                      "examples/concepts/db/mongodb/mongodb_for_workflow" 
                     ]
                   },
                   {
-                    "group": "Team Storage",
+                    "group": "PostgreSQL",
                     "pages": [
-                      "examples/concepts/storage/team_storage/postgres",
-                      "examples/concepts/storage/team_storage/sqlite",
-                      "examples/concepts/storage/team_storage/singlestore",
-                      "examples/concepts/storage/team_storage/dynamodb",
-                      "examples/concepts/storage/team_storage/mongodb",
-                      "examples/concepts/storage/team_storage/mysql",
-                      "examples/concepts/storage/team_storage/json",
-                      "examples/concepts/storage/team_storage/yaml",
-                      "examples/concepts/storage/team_storage/redis"
+                      "examples/concepts/db/postgres/postgres_for_agent",
+                      "examples/concepts/db/postgres/postgres_for_team",
+                      "examples/concepts/db/postgres/postgres_for_workflow"
                     ]
                   },
                   {
-                    "group": "Workflow Storage",
+                    "group": "SQLite",
                     "pages": [
-                      "examples/concepts/storage/workflow_storage/postgres",
-                      "examples/concepts/storage/workflow_storage/sqlite",
-                      "examples/concepts/storage/workflow_storage/singlestore",
-                      "examples/concepts/storage/workflow_storage/dynamodb",
-                      "examples/concepts/storage/workflow_storage/mongodb",
-                      "examples/concepts/storage/workflow_storage/mysql",
-                      "examples/concepts/storage/workflow_storage/json",
-                      "examples/concepts/storage/workflow_storage/yaml",
-                      "examples/concepts/storage/workflow_storage/redis"
+                      "examples/concepts/db/sqlite/sqlite_for_agent",
+                      "examples/concepts/db/sqlite/sqlite_for_team",
+                      "examples/concepts/db/sqlite/sqlite_for_workflow"
+                    ]
+                  },
+                  {
+                    "group": "GCS",
+                    "pages": [
+                      "examples/concepts/db/gcs/gcs_for_agent",
+                      "examples/concepts/db/gcs/gcs_for_team",
+                      "examples/concepts/db/gcs/gcs_for_workflow" 
+                    ]
+                  },
+                  {
+                    "group": "SingleStore",
+                    "pages": [
+                      "examples/concepts/db/singlestore/singlestore_for_agent",
+                      "examples/concepts/db/singlestore/singlestore_for_team",
+                      "examples/concepts/db/singlestore/singlestore_for_workflow"
+                    ]
+                  },
+                  {
+                    "group": "In-Memory",
+                    "pages": [
+                      "examples/concepts/db/in_memory/in_memory_for_agent",
+                      "examples/concepts/db/in_memory/in_memory_for_team",
+                      "examples/concepts/db/in_memory/in_memory_for_workflow"
+                      ]
+                  },
+                  {
+                    "group": "JSON",
+                    "pages": [
+                      "examples/concepts/db/json/json_for_agent",
+                      "examples/concepts/db/json/json_for_team",
+                      "examples/concepts/db/json/json_for_workflow"
+                    ]
+                  },
+                  {
+                    "group": "Redis",
+                    "pages": [
+                      "examples/concepts/db/redis/redis_for_agent",
+                      "examples/concepts/db/redis/redis_for_team",
+                      "examples/concepts/db/redis/redis_for_workflow"
+                    ]
+                  },
+                  {
+                    "group": "Firestore",
+                    "pages": [
+                      "examples/concepts/db/firestore/firestore_for_agent",
+                      "examples/concepts/db/firestore/firestore_for_team",
+                      "examples/concepts/db/firestore/firestore_for_workflow"
+                    ]
+                  },
+                  {
+                    "group": "DynamoDB",
+                    "pages": [
+                      "examples/concepts/db/dynamodb/dynamodb_for_agent",
+                      "examples/concepts/db/dynamodb/dynamodb_for_team",
+                      "examples/concepts/db/dynamodb/dynamodb_for_workflow"
+                    ]
+                  },
+                  {
+                    "group": "MySQL",
+                    "pages": [
+                        "examples/concepts/db/mysql/mysql_for_agent",
+                      "examples/concepts/db/mysql/mysql_for_team",
+                      "examples/concepts/db/mysql/mysql_for_workflow"
+                    ]
+                  },
+                  {
+                    "group": "Miscellaneous",
+                    "pages": [
+                      "examples/concepts/db/miscellaneous/selecting_tables"
                     ]
                   }
                 ]
@@ -1421,7 +1483,10 @@
                 "pages": [
                   "examples/models/cerebras_openai/basic",
                   "examples/models/cerebras_openai/basic_stream",
-                  "examples/models/cerebras_openai/tool_use"
+                  "examples/models/cerebras_openai/tool_use",
+                  "examples/models/cerebras_openai/structured_output",
+                  "examples/models/cerebras_openai/storage",
+                  "examples/models/cerebras_openai/knowledge"
                 ]
               },
               {
@@ -1501,7 +1566,10 @@
                 "pages": [
                   "examples/models/huggingface/basic",
                   "examples/models/huggingface/basic_stream",
-                  "examples/models/huggingface/llama_essay_writer"
+                  "examples/models/huggingface/async_basic",
+                  "examples/models/huggingface/async_basic_stream",
+                  "examples/models/huggingface/llama_essay_writer",
+                  "examples/models/huggingface/tool_use"
                 ]
               },
               {
@@ -1563,14 +1631,14 @@
                 "pages": [
                   "examples/models/meta/basic",
                   "examples/models/meta/basic_stream",
-                  "examples/models/meta/tool_use",
-                  "examples/models/meta/structured_output",
-                  "examples/models/meta/image_input",
                   "examples/models/meta/async_basic",
                   "examples/models/meta/async_stream",
+                  "examples/models/meta/tool_use",
                   "examples/models/meta/async_tool_use",
-                  "examples/models/meta/async_structured_output",
-                  "examples/models/meta/async_image_input"
+                  "examples/models/meta/structured_output",
+                  "examples/models/meta/image_input_bytes",
+                  "examples/models/meta/knowledge",
+                  "examples/models/meta/memory"
                 ]
               },
               {
@@ -1794,10 +1862,7 @@
               {
                 "group": "Workflows",
                 "pages": [
-                  "reference/workflows/workflow",
-                  "reference/workflows/storage/mongodb",
-                  "reference/workflows/storage/postgres",
-                  "reference/workflows/storage/sqlite"
+                  "reference/workflows/workflow"
                 ]
               },
               {
@@ -1907,29 +1972,22 @@
               {
                 "group": "Memory",
                 "pages": [
-                  "reference/memory/memory",
-                  {
-                    "group": "Storage",
-                    "pages": [
-                      "reference/memory/storage/mongo",
-                      "reference/memory/storage/postgres",
-                      "reference/memory/storage/sqlite",
-                      "reference/memory/storage/redis"
-                    ]
-                  }
+                  "reference/memory/memory"
                 ]
               },
               {
                 "group": "Storage",
                 "pages": [
-                  "reference/storage/yaml",
                   "reference/storage/json",
                   "reference/storage/mongodb",
                   "reference/storage/mysql",
                   "reference/storage/postgres",
                   "reference/storage/sqlite",
                   "reference/storage/dynamodb",
-                  "reference/storage/singlestore"
+                  "reference/storage/singlestore",
+                  "reference/storage/firestore",
+                  "reference/storage/redis",
+                  "reference/storage/gcs"
                 ]
               },
               {
