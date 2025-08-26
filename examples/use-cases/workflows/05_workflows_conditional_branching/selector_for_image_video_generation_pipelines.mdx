@@ -16,17 +16,17 @@ This example demonstrates **Workflows 2.0** router pattern for dynamically selec
 - **Modular Design**: Encapsulates the entire workflow as a reusable `Steps` object.
 
 ```python selector_for_image_video_generation_pipelines.py
-rom typing import Any, Dict, List, Optional
+from typing import List, Optional
 
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.models.gemini import GeminiTools
 from agno.tools.openai import OpenAITools
-from agno.workflow.v2.router import Router
-from agno.workflow.v2.step import Step
-from agno.workflow.v2.steps import Steps
-from agno.workflow.v2.types import StepInput
-from agno.workflow.v2.workflow import Workflow
+from agno.workflow.router import Router
+from agno.workflow.step import Step
+from agno.workflow.steps import Steps
+from agno.workflow.types import StepInput
+from agno.workflow.workflow import Workflow
 from pydantic import BaseModel
 
 
@@ -145,11 +145,11 @@ def media_sequence_selector(step_input: StepInput) -> List[Step]:
     """
 
     # Check if message exists and is a string
-    if not step_input.message or not isinstance(step_input.message, str):
+    if not step_input.input or not isinstance(step_input.input, str):
         return [image_sequence]  # Default to image sequence
 
     # Convert message to lowercase for case-insensitive matching
-    message_lower = step_input.message.lower()
+    message_lower = step_input.input.lower()
 
     # Check for video keywords
     if "video" in message_lower:
@@ -188,7 +188,7 @@ if __name__ == "__main__":
     )
 
     media_workflow.print_response(
-        message="Create an image of magical forest for a movie scene",
+        input="Create an image of magical forest for a movie scene",
         markdown=True,
     )
 
@@ -203,7 +203,7 @@ if __name__ == "__main__":
     # )
 
     # media_workflow.print_response(
-    #     message="Create a cinematic video city timelapse",
+    #     input="Create a cinematic video city timelapse",
     #     markdown=True,
     # )
 ```
