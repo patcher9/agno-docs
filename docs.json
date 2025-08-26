@@ -574,10 +574,11 @@
             "group": "How to",
             "hidden": true,
             "pages": [
-              "docs/how-to/install",
-              "docs/how-to/contribute",
-              "docs/how-to/phidata-to-agno",
-              "docs/how-to/authentication"
+              "how-to/install",
+              "how-to/contribute",
+              "how-to/phidata-to-agno",
+              "how-to/authentication",
+              "how-to/v2-migration"
             ]
           }
         ]
