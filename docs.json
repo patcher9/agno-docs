@@ -467,7 +467,7 @@
                 ]
               },
               {
-                "group": "Session Storage",
+                "group": "Storage",
                 "pages": [
                   "docs/documentation/db/introduction",
                   "docs/documentation/db/dynamodb",
@@ -478,7 +478,10 @@
                   "docs/documentation/db/sqlite",
                   "docs/documentation/db/yaml",
                   "docs/documentation/db/singlestore",
-                  "docs/documentation/db/redis"
+                  "docs/documentation/db/redis",
+                  "docs/documentation/db/gcs",
+                  "docs/documentation/db/firestore",
+                  "docs/documentation/db/in_memory"
                 ]
               },
               {

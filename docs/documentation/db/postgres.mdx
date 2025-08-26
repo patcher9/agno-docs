@@ -3,7 +3,7 @@ title: Postgres Storage
 sidebarTitle: Postgres
 ---
 
-Agno supports using PostgreSQL as a storage backend for Agents using the `PostgresStorage` class.
+Agno supports using PostgreSQL as a storage backend for Agents using the `PostgresDb` class.
 
 ## Usage
 
@@ -20,24 +20,26 @@ docker run -d \
   -v pgvolume:/var/lib/postgresql/data \
   -p 5532:5432 \
   --name pgvector \
-  agno/pgvector:16
+  agnohq/pgvector:16
 ```
 
-```python postgres_storage_for_agent.py
-from agno.storage.postgres import PostgresStorage
+```python postgres_for_agent.py
+from agno.agent import Agent
+from agno.db.postgres import PostgresDb
+from agno.tools.duckduckgo import DuckDuckGoTools
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
-# Create a storage backend using the Postgres database
-storage = PostgresStorage(
-    # store sessions in the ai.sessions table
-    table_name="agent_sessions",
-    # db_url: Postgres database URL
-    db_url=db_url,
-)
+db = PostgresDb(db_url=db_url)
 
-# Add storage to the Agent
-agent = Agent(storage=storage)
+agent = Agent(
+    db=db,
+    tools=[DuckDuckGoTools()],
+    add_history_to_context=True,
+)
+agent.print_response("How many people live in Canada?")
+agent.print_response("What is their national anthem called?")
+
 ```
 
 ## Params
@@ -46,4 +48,4 @@ agent = Agent(storage=storage)
 
 ## Developer Resources
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/postgres_storage/postgres_storage_for_agent.py)
+- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/db/postgres/postgres_for_agent.py)
