@@ -10,9 +10,9 @@ from agno.models.azure import AzureOpenAI
 from agno.tools.duckduckgo import DuckDuckGoTools
 
 agent = Agent(
-    model=AzureOpenAI(id="gpt-4o"),
+    model=AzureOpenAI(id="gpt-4o-mini"),
     tools=[DuckDuckGoTools()],
-        markdown=True,
+    markdown=True,
 )
 
 agent.print_response("Whats happening in France?", stream=True)
@@ -33,7 +33,7 @@ agent.print_response("Whats happening in France?", stream=True)
 
   <Step title="Install libraries">
     ```bash
-    pip install -U openai agno duckduckgo-search
+    pip install -U openai agno ddgs
     ```
   </Step>
 
