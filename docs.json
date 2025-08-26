@@ -470,18 +470,17 @@
                 "group": "Storage",
                 "pages": [
                   "docs/documentation/db/introduction",
-                  "docs/documentation/db/dynamodb",
-                  "docs/documentation/db/json",
-                  "docs/documentation/db/mongodb",
-                  "docs/documentation/db/mysql",
                   "docs/documentation/db/postgres",
+                  "docs/documentation/db/mysql",
                   "docs/documentation/db/sqlite",
-                  "docs/documentation/db/yaml",
+                  "docs/documentation/db/in_memory",
+                  "docs/documentation/db/dynamodb",
+                  "docs/documentation/db/mongodb",
+                  "docs/documentation/db/json",
                   "docs/documentation/db/singlestore",
                   "docs/documentation/db/redis",
                   "docs/documentation/db/gcs",
-                  "docs/documentation/db/firestore",
-                  "docs/documentation/db/in_memory"
+                  "docs/documentation/db/firestore"
                 ]
               },
               {
@@ -1969,7 +1968,6 @@
               {
                 "group": "Storage",
                 "pages": [
-                  "reference/storage/yaml",
                   "reference/storage/json",
                   "reference/storage/mongodb",
                   "reference/storage/mysql",

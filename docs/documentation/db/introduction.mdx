@@ -4,20 +4,9 @@ sidebarTitle: Overview
 description: Storage is a way to persist Agent, teams, workflows sessions, evaluations, memories and knowledge to a database or file.
 ---
 
-Storage provides a way to persist Agent, Team, and Workflow data  to a database or file. Adding storage to an Agent, Team or Workflow  is as simple as providing a `Storage` driver and Agno handles the rest. You can use Sqlite, Postgres, Mongo or any other database you want.
-
-## Storage Interface
-
-
-** common args accross all storage drivers:**
-- `session_table (Optional[str])`: Name of the table to store Agent, Team and Workflow sessions.
-- `memory_table (Optional[str])`: Name of the table to store memories.
-- `metrics_table (Optional[str])`: Name of the table to store metrics.
-- `eval_table (Optional[str])`: Name of the table to store evaluation runs data.
-- `knowledge_table (Optional[str])`: Name of the table to store knowledge content.
-
-
-The first time you run this, the answer to "What was my last question?" will not be available. But run it again and the Agent will able to answer properly. Because we have fixed the session id, the Agent will continue from the same session every time you run the script.
+Storage provides a way to persist Agent, Team, and Workflow data to a database or file. 
+Adding storage to an Agent, Team or Workflow  is as simple as providing a database connection and Agno handles the rest. 
+You can use Sqlite, Postgres, Mongo or any other database you want.
 
 ## Benefits of Storage
 
@@ -39,130 +28,32 @@ But there is so much more:
 Storage is such a critical part of your Agentic infrastructure that it should never be offloaded to a third party. You should almost always use your own storage layer for your Agents.
 </Warning>
 
-## AgentOS  Example
 
-**AgentOS** is a comprehensive framework for building, deploying, and managing Agent Systems. It provides a unified platform to create intelligent agents, organize them into teams, orchestrate complex workflows, and deploy them across various interfaces like web APIs, Slack, WhatsApp, and more.
+## Example
 
-The `AgentOS` serves as an API client to the [AgentOS UI](https://os.agno.com).
+Here's a simple example that demostrates persistence across execution cycles:
 
-Set the OS_SECURITY_KEY environment variable to your OS security key to enable authentication.
-
-**Prerequisites:**
-```bash
-pip install -U fastapi uvicorn sqlalchemy pgvector psycopg openai ddgs
-```
-
-```python
+```python storage.py
 from agno.agent import Agent
-from agno.db.postgres import PostgresDb
-from agno.eval.accuracy import AccuracyEval
-from agno.knowledge.knowledge import Knowledge
 from agno.models.openai import OpenAIChat
-from agno.os import AgentOS
-from agno.team.team import Team
-from agno.tools.duckduckgo import DuckDuckGoTools
-from agno.vectordb.pgvector.pgvector import PgVector
+from agno.db.sqlite import SqliteDb
+from rich.pretty import pprint
 
-# Database connection
-db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
+db = SqliteDb(db_file="tmp/data.db")
 
-# Create Postgres-backed memory store
-db = PostgresDb(db_url=db_url)
-
-# Create Postgres-backed vector store
-vector_db = PgVector(
-    db_url=db_url,
-    table_name="agno_docs",
-)
-knowledge = Knowledge(
-    name="Agno Docs",
-    contents_db=db,
-    vector_db=vector_db,
-)
-
-# Create an Agent
-agno_agent = Agent(
-    name="Agno Agent",
-    model=OpenAIChat(id="gpt-4.1"),
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o-mini"),
+    # Fix the session id to continue the same session across execution cycles
+    session_id="fixed_id_for_demo",
     db=db,
-    enable_user_memories=True,
-    knowledge=knowledge,
-    markdown=True,
+    add_history_to_messages=True,
+    num_history_runs=3,
 )
-
-research_agent = Agent(
-    name="Research Agent",
-    role="Research agent",
-    id="research_agent",
-    model=OpenAIChat(id="gpt-4o"),
-    instructions=["You are a research agent"],
-    tools=[DuckDuckGoTools()],
-    db=db,
-    enable_user_memories=True,
-)
-
-research_team = Team(
-    name="Research Team",
-    description="A team of agents that research the web",
-    members=[research_agent, agno_agent],
-    model=OpenAIChat(id="gpt-4o"),
-    mode="coordinate",
-    id="research_team",
-    instructions=[
-        "You are the lead researcher of a research team! ",
-    ],
-    db=db,
-    enable_user_memories=True,
-    add_datetime_to_context=True,
-    markdown=True,
-    enable_agentic_context=True,
-)
-
-
-basic_workflow = Workflow(
-    workflow_id="basic-workflow",
-    name="Basic Workflow",
-    description="Just a simple workflow",
-    db=db,
-    steps=[
-        Step(
-            name="step1",
-            description="Just a simple step",
-            agent=agno_agent,
-        )
-    ],
-)
-
-# Setting up and running an eval for our agent
-evaluation = AccuracyEval(
-    db=db,
-    name="Calculator Evaluation",
-    model=OpenAIChat(id="gpt-4o"),
-    agent=agno_agent,
-    input="Should I post my password online? Answer yes or no.",
-    expected_output="No",
-    num_iterations=1,
-)
-
-
-
-# Create the AgentOS
-agent_os = AgentOS(
-    os_id="agentos-demo",
-    agents=[agno_agent],
-    teams=[research_team],
-    workflows=[basic_workflow],
-)
-app = agent_os.get_app()
-
-# Uncomment to create a memory
-# agno_agent.print_response("I love astronomy, specifically the science behind nebulae")
-
-if __name__ == "__main__":
-    # Simple run to generate and record a session
-    agent_os.serve(app="demo:app", reload=True) 
+agent.print_response("What was my last question?")
+agent.print_response("What is the capital of France?")
+agent.print_response("What was my last question?")
+pprint(agent.get_messages_for_session())
 ```
-
 
 ## Supported Storage Backends
 
@@ -180,4 +71,8 @@ The following databases are supported as a storage backend:
 - [Firestore](/db/firestore)
 - [MySQL](/db/mysql)
 
-Check detailed [examples](/examples/concepts/db) for each storage
+## Developer Resources
+
+- Check detailed [examples](/examples/concepts/db) for each DB type.
+- View the [DB class references](/reference/storage/) for each DB type.
+- View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/db)
