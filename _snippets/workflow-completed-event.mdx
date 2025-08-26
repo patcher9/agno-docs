@@ -3,6 +3,6 @@
 | `event` | `str` | `WorkflowRunEvent.workflow_completed.value` | Event type identifier |
 | `content` | `Optional[Any]` | `None` | Final output content from the workflow |
 | `content_type` | `str` | `"str"` | Type of the content |
-| `step_responses` | `List[StepOutput]` | `[]` | List of all step execution results |
-| `extra_data` | `Optional[Dict[str, Any]]` | `None` | Additional data from workflow execution |
-| *Inherits all fields from `BaseWorkflowRunResponseEvent`* |
+| `step_results` | `List[StepOutput]` | `[]` | List of all step execution results |
+| `metadata` | `Optional[Dict[str, Any]]` | `None` | Additional metadata from workflow execution |
+| *Inherits all fields from `BaseWorkflowRunOutputEvent`* |

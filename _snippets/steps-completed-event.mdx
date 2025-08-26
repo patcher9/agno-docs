@@ -5,5 +5,5 @@
 | `step_index` | `Optional[Union[int, tuple]]` | `None` | Index or position of the steps group |
 | `steps_count` | `Optional[int]` | `None` | Number of steps in the group |
 | `executed_steps` | `Optional[int]` | `None` | Number of steps actually executed |
-| `step_results` | `List[StepOutput]` | `[]` | Results from all executed steps |
-| *Inherits all fields from `BaseWorkflowRunResponseEvent`* |
+| `step_results` | `List[StepOutput]` | `field(default_factory=list)` | Results from all executed steps |
+| *Inherits all fields from `BaseWorkflowRunOutputEvent`* |
