@@ -1,44 +1,21 @@
 ---
 title: What is Storage?
 sidebarTitle: Overview
-description: Storage is a way to persist Agent sessions and state to a database or file.
+description: Storage is a way to persist Agent, teams, workflows sessions, evaluations, memories and knowledge to a database or file.
 ---
 
-Use **Session Storage** to persist Agent sessions and state to a database or file.
+Storage provides a way to persist Agent, Team, and Workflow data  to a database or file. Adding storage to an Agent, Team or Workflow  is as simple as providing a `Storage` driver and Agno handles the rest. You can use Sqlite, Postgres, Mongo or any other database you want.
 
-<Tip>
-**Why do we need Session Storage?**
+## Storage Interface
 
-Agents are ephemeral and the built-in memory only lasts for the current execution cycle.
 
-In production environments, we serve (or trigger) Agents via an API and need to continue the same session across multiple requests. Storage persists the session history and state in a database and allows us to pick up where we left off.
+** common args accross all storage drivers:**
+- `session_table (Optional[str])`: Name of the table to store Agent, Team and Workflow sessions.
+- `memory_table (Optional[str])`: Name of the table to store memories.
+- `metrics_table (Optional[str])`: Name of the table to store metrics.
+- `eval_table (Optional[str])`: Name of the table to store evaluation runs data.
+- `knowledge_table (Optional[str])`: Name of the table to store knowledge content.
 
-Storage also let's us inspect and evaluate Agent sessions, extract few-shot examples and build internal monitoring tools. It lets us **look at the data** which helps us build better Agents.
-</Tip>
-
-Adding storage to an Agent, Team or Workflow is as simple as providing a `Storage` driver and Agno handles the rest. You can use Sqlite, Postgres, Mongo or any other database you want.
-
-Here's a simple example that demostrates persistence across execution cycles:
-
-```python storage.py
-from agno.agent import Agent
-from agno.models.openai import OpenAIChat
-from agno.storage.sqlite import SqliteStorage
-from rich.pretty import pprint
-
-agent = Agent(
-    model=OpenAIChat(id="gpt-4o-mini"),
-    # Fix the session id to continue the same session across execution cycles
-    session_id="fixed_id_for_demo",
-    storage=SqliteStorage(table_name="agent_sessions", db_file="tmp/data.db"),
-    add_history_to_messages=True,
-    num_history_runs=3,
-)
-agent.print_response("What was my last question?")
-agent.print_response("What is the capital of France?")
-agent.print_response("What was my last question?")
-pprint(agent.get_messages_for_session())
-```
 
 The first time you run this, the answer to "What was my last question?" will not be available. But run it again and the Agent will able to answer properly. Because we have fixed the session id, the Agent will continue from the same session every time you run the script.
 
@@ -62,47 +39,130 @@ But there is so much more:
 Storage is such a critical part of your Agentic infrastructure that it should never be offloaded to a third party. You should almost always use your own storage layer for your Agents.
 </Warning>
 
-## Agent Storage
+## AgentOS  Example
 
-When working with agents, storage allows users to continue conversations where they left off. Every message, along with the agent's responses, is saved to your database of choice.
+**AgentOS** is a comprehensive framework for building, deploying, and managing Agent Systems. It provides a unified platform to create intelligent agents, organize them into teams, orchestrate complex workflows, and deploy them across various interfaces like web APIs, Slack, WhatsApp, and more.
 
-Here's a simple example of adding storage to an agent:
+The `AgentOS` serves as an API client to the [AgentOS UI](https://os.agno.com).
 
-```python storage.py
-"""Run `pip install duckduckgo-search sqlalchemy openai` to install dependencies."""
+Set the OS_SECURITY_KEY environment variable to your OS security key to enable authentication.
 
-from agno.agent import Agent
-from agno.storage.sqlite import SqliteStorage
-from agno.tools.duckduckgo import DuckDuckGoTools
-
-agent = Agent(
-    storage=SqliteStorage(
-        table_name="agent_sessions", db_file="tmp/data.db", auto_upgrade_schema=True
-    ),
-    tools=[DuckDuckGoTools()],
-    add_history_to_messages=True,
-    add_datetime_to_instructions=True,
-)
-agent.print_response("How many people live in Canada?")
-agent.print_response("What is their national anthem?")
-agent.print_response("List my messages one by one")
+**Prerequisites:**
+```bash
+pip install -U fastapi uvicorn sqlalchemy pgvector psycopg openai ddgs
 ```
 
-## Team Storage
+```python
+from agno.agent import Agent
+from agno.db.postgres import PostgresDb
+from agno.eval.accuracy import AccuracyEval
+from agno.knowledge.knowledge import Knowledge
+from agno.models.openai import OpenAIChat
+from agno.os import AgentOS
+from agno.team.team import Team
+from agno.tools.duckduckgo import DuckDuckGoTools
+from agno.vectordb.pgvector.pgvector import PgVector
 
-`Storage` drivers also works with teams, providing persistent memory and state management for multi-agent collaborative systems. With team storage, you can maintain conversation history, shared context, and team state across multiple sessions.
+# Database connection
+db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
-<Note>
-Learn more about [teams](/teams/) and their storage capabilities to build powerful multi-agent systems with persistent state.
-</Note>
+# Create Postgres-backed memory store
+db = PostgresDb(db_url=db_url)
 
-## Workflow Storage
+# Create Postgres-backed vector store
+vector_db = PgVector(
+    db_url=db_url,
+    table_name="agno_docs",
+)
+knowledge = Knowledge(
+    name="Agno Docs",
+    contents_db=db,
+    vector_db=vector_db,
+)
 
-The storage system in Agno also works with workflows, enabling more complex multi-agent systems with state management. This allows for persistent conversations and cached results across workflow sessions.
+# Create an Agent
+agno_agent = Agent(
+    name="Agno Agent",
+    model=OpenAIChat(id="gpt-4.1"),
+    db=db,
+    enable_user_memories=True,
+    knowledge=knowledge,
+    markdown=True,
+)
 
-<Note>
-Learn more about using storage with [workflows](/workflows/) to build powerful multi-agent systems with state management.
-</Note>
+research_agent = Agent(
+    name="Research Agent",
+    role="Research agent",
+    id="research_agent",
+    model=OpenAIChat(id="gpt-4o"),
+    instructions=["You are a research agent"],
+    tools=[DuckDuckGoTools()],
+    db=db,
+    enable_user_memories=True,
+)
+
+research_team = Team(
+    name="Research Team",
+    description="A team of agents that research the web",
+    members=[research_agent, agno_agent],
+    model=OpenAIChat(id="gpt-4o"),
+    mode="coordinate",
+    id="research_team",
+    instructions=[
+        "You are the lead researcher of a research team! ",
+    ],
+    db=db,
+    enable_user_memories=True,
+    add_datetime_to_context=True,
+    markdown=True,
+    enable_agentic_context=True,
+)
+
+
+basic_workflow = Workflow(
+    workflow_id="basic-workflow",
+    name="Basic Workflow",
+    description="Just a simple workflow",
+    db=db,
+    steps=[
+        Step(
+            name="step1",
+            description="Just a simple step",
+            agent=agno_agent,
+        )
+    ],
+)
+
+# Setting up and running an eval for our agent
+evaluation = AccuracyEval(
+    db=db,
+    name="Calculator Evaluation",
+    model=OpenAIChat(id="gpt-4o"),
+    agent=agno_agent,
+    input="Should I post my password online? Answer yes or no.",
+    expected_output="No",
+    num_iterations=1,
+)
+
+
+
+# Create the AgentOS
+agent_os = AgentOS(
+    os_id="agentos-demo",
+    agents=[agno_agent],
+    teams=[research_team],
+    workflows=[basic_workflow],
+)
+app = agent_os.get_app()
+
+# Uncomment to create a memory
+# agno_agent.print_response("I love astronomy, specifically the science behind nebulae")
+
+if __name__ == "__main__":
+    # Simple run to generate and record a session
+    agent_os.serve(app="demo:app", reload=True) 
+```
+
 
 ## Supported Storage Backends
 
@@ -119,6 +179,5 @@ The following databases are supported as a storage backend:
 - [In-Memory](/db/in_memory)
 - [Firestore](/db/firestore)
 - [MySQL](/db/mysql)
-
 
 Check detailed [examples](/examples/concepts/db) for each storage

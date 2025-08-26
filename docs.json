@@ -1853,10 +1853,7 @@
               {
                 "group": "Workflows",
                 "pages": [
-                  "reference/workflows/workflow",
-                  "reference/workflows/storage/mongodb",
-                  "reference/workflows/storage/postgres",
-                  "reference/workflows/storage/sqlite"
+                  "reference/workflows/workflow"
                 ]
               },
               {
@@ -1966,16 +1963,7 @@
               {
                 "group": "Memory",
                 "pages": [
-                  "reference/memory/memory",
-                  {
-                    "group": "Storage",
-                    "pages": [
-                      "reference/memory/storage/mongo",
-                      "reference/memory/storage/postgres",
-                      "reference/memory/storage/sqlite",
-                      "reference/memory/storage/redis"
-                    ]
-                  }
+                  "reference/memory/memory"
                 ]
               },
               {
