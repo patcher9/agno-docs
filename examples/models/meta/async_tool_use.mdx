@@ -4,22 +4,21 @@
 
 ## Code
 
-```python cookbook/models/meta/async_tool_use.py
+```python cookbook/models/meta/llama/async_tool_use.py
+"""Run `pip install agno llama-api-client yfinance` to install dependencies."""
+
 import asyncio
 
 from agno.agent import Agent
 from agno.models.meta import Llama
-from agno.tools.duckduckgo import DuckDuckGoTools
+from agno.tools.yfinance import YFinanceTools
 
 agent = Agent(
     model=Llama(id="Llama-4-Maverick-17B-128E-Instruct-FP8"),
-    tools=[DuckDuckGoTools()],
-        markdown=True,
+    tools=[YFinanceTools()],
+    debug_mode=True,
 )
-
-asyncio.run(
-    agent.aprint_response("What's happening in France?", stream=True)
-)
+asyncio.run(agent.aprint_response("Whats the price of AAPL stock?"))
 ```
 
 ## Usage

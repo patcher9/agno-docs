@@ -4,23 +4,22 @@
 
 ## Code
 
-```python cookbook/models/meta/async_stream.py
+```python cookbook/models/meta/llama/async_basic_stream.py
 import asyncio
-from agno.agent import Agent
+from typing import Iterator  # noqa
+
+from agno.agent import Agent, RunOutput  # noqa
 from agno.models.meta import Llama
 
-async def main():
-    agent = Agent(
-        model=Llama(id="Llama-3.3-70B"),
-        markdown=True,
-    )
-    
-    await agent.aprint_response(
-        "Share a two-sentence horror story.",
-        stream=True
-    )
+agent = Agent(model=Llama(id="Llama-4-Maverick-17B-128E-Instruct-FP8"), markdown=True)
 
-asyncio.run(main())
+# Get the response in a variable
+# run_response: Iterator[RunOutputEvent] = asyncio.run(agent.arun("Share a 2 sentence horror story", stream=True))
+# for chunk in run_response:
+#     print(chunk.content)
+
+# Print the response in the terminal
+asyncio.run(agent.aprint_response("Share a 2 sentence horror story", stream=True))
 ```
 
 ## Usage

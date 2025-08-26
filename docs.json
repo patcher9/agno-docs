@@ -1563,14 +1563,14 @@
                 "pages": [
                   "examples/models/meta/basic",
                   "examples/models/meta/basic_stream",
-                  "examples/models/meta/tool_use",
-                  "examples/models/meta/structured_output",
-                  "examples/models/meta/image_input",
                   "examples/models/meta/async_basic",
                   "examples/models/meta/async_stream",
+                  "examples/models/meta/tool_use",
                   "examples/models/meta/async_tool_use",
-                  "examples/models/meta/async_structured_output",
-                  "examples/models/meta/async_image_input"
+                  "examples/models/meta/structured_output",
+                  "examples/models/meta/image_input_bytes",
+                  "examples/models/meta/knowledge",
+                  "examples/models/meta/memory"
                 ]
               },
               {
