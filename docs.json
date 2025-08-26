@@ -1501,7 +1501,10 @@
                 "pages": [
                   "examples/models/huggingface/basic",
                   "examples/models/huggingface/basic_stream",
-                  "examples/models/huggingface/llama_essay_writer"
+                  "examples/models/huggingface/async_basic",
+                  "examples/models/huggingface/async_basic_stream",
+                  "examples/models/huggingface/llama_essay_writer",
+                  "examples/models/huggingface/tool_use"
                 ]
               },
               {
