@@ -4,8 +4,8 @@ title: Basic Agent
 
 ## Code
 
-```python cookbook/models/meta/basic.py
-from agno.agent import Agent
+```python cookbook/models/meta/llama/basic.py
+from agno.agent import Agent, RunOutput  # noqa
 from agno.models.meta import Llama
 
 agent = Agent(
@@ -13,7 +13,12 @@ agent = Agent(
     markdown=True,
 )
 
-agent.print_response("Share a 2 sentence horror story.")
+# Get the response in a variable
+# run: RunOutput = agent.run("Share a 2 sentence horror story")
+# print(run.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story")
 ```
 
 ## Usage
@@ -36,11 +41,11 @@ agent.print_response("Share a 2 sentence horror story.")
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/models/meta/basic.py
+    python cookbook/models/meta/llama/basic.py
     ```
 
     ```bash Windows
-    python cookbook/models/meta/basic.py
+    python cookbook/models/meta/llama/basic.py
     ```
     </CodeGroup>
   </Step>
