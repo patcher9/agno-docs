@@ -12,7 +12,7 @@
 | `audio` | `Optional[List[AudioArtifact]]` | `None` | List of audio artifacts generated |
 | `response_audio` | `Optional[AudioResponse]` | `None` | Audio response from the workflow |
 | `step_responses` | `List[Union[StepOutput, List[StepOutput]]]` | `[]` | Actual step execution results as StepOutput objects |
-| `events` | `Optional[List[WorkflowRunResponseEvent]]` | `None` | Events captured during workflow execution |
+| `events` | `Optional[List[WorkflowRunOutputEvent]]` | `None` | Events captured during workflow execution |
 | `workflow_metrics` | `Optional[WorkflowMetrics]` | `None` | Aggregated metrics from all workflow steps |
 | `extra_data` | `Optional[Dict[str, Any]]` | `None` | Additional data stored with the response |
 | `created_at` | `int` | `int(time())` | Unix timestamp when the response was created |
