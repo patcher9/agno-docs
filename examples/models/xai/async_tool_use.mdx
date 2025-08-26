@@ -11,14 +11,14 @@ import asyncio
 
 from agno.agent import Agent
 from agno.models.xai import xAI
-from agno.tools.duckduckgo import DuckDuckGoTools
+from agno.tools.yfinance import YFinanceTools
 
 agent = Agent(
     model=xAI(id="grok-3"),
-    tools=[DuckDuckGoTools()],
+    tools=[YFinanceTools()],
         markdown=True,
 )
-asyncio.run(agent.aprint_response("Whats happening in France?", stream=True))
+asyncio.run(agent.aprint_response("Write a report on NVDA", stream=True))
 ```
 
 ## Usage

@@ -1,5 +1,5 @@
 ---
-<title>Agent with Structured Outputs</title>
+title: Agent with Structured Outputs
 ---
 
 ## Code
@@ -33,12 +33,12 @@ class MovieScript(BaseModel):
 
 
 # Agent that uses a JSON schema output
-json_schema_output_agent = Agent(
+agent = Agent(
     model=Llama(id="Llama-4-Maverick-17B-128E-Instruct-FP8", temperature=0.1),
     output_schema=MovieScript,
 )
 
-json_schema_output_agent.print_response("New York")
+agent.print_response("New York")
 ```
 
 ## Usage
