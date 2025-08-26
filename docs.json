@@ -801,6 +801,14 @@
                     ]
                   },
                   {
+                    "group": "Session",
+                    "pages": [
+                      "examples/concepts/agent/session/chat_history",
+                      "examples/concepts/agent/session/multi_user_multi_session",
+                      "examples/concepts/agent/session/session_summary"
+                    ]
+                  },
+                  {
                     "group": "User Control Flows",
                     "pages": [
                       "examples/concepts/agent/user-control-flows/01-confirmation-required",
@@ -1175,12 +1183,7 @@
                   {
                     "group": "Miscellaneous",
                     "pages": [
-                      "examples/concepts/db/miscellaneous/chat_history",
-                      "examples/concepts/db/miscellaneous/in_memory_session_storage",
-                      "examples/concepts/db/miscellaneous/multi_user_multi_session",
-                      "examples/concepts/db/miscellaneous/persistent_session_storage",
-                      "examples/concepts/db/miscellaneous/selecting_tables",
-                      "examples/concepts/db/miscellaneous/session_summary"
+                      "examples/concepts/db/miscellaneous/selecting_tables"
                     ]
                   }
                 ]
