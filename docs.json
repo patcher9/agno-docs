@@ -1421,7 +1421,10 @@
                 "pages": [
                   "examples/models/cerebras_openai/basic",
                   "examples/models/cerebras_openai/basic_stream",
-                  "examples/models/cerebras_openai/tool_use"
+                  "examples/models/cerebras_openai/tool_use",
+                  "examples/models/cerebras_openai/structured_output",
+                  "examples/models/cerebras_openai/storage",
+                  "examples/models/cerebras_openai/knowledge"
                 ]
               },
               {
