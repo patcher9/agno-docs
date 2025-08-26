@@ -10,12 +10,12 @@ from agno.models.cohere import Cohere
 from agno.tools.duckduckgo import DuckDuckGoTools
 
 agent = Agent(
-    model=Cohere(id="command-r-08-2024"),
+    model=Cohere(id="command-a-03-2025"),
     tools=[DuckDuckGoTools()],
-        markdown=True,
+    markdown=True,
 )
 
-agent.print_response("Whats happening in France?", stream=True)
+agent.print_response("Whats happening in France?")
 ```
 
 ## Usage
@@ -31,7 +31,7 @@ agent.print_response("Whats happening in France?", stream=True)
 
   <Step title="Install libraries">
     ```bash
-    pip install -U cohere duckduckgo-search agno
+    pip install -U cohere ddgs agno
     ```
   </Step>
 

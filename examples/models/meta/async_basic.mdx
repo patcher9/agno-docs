@@ -1,23 +1,26 @@
 ---
-<title>Asynchronous Agent</title>
+title: Asynchronous Agent
 ---
 
 ## Code
 
-```python cookbook/models/meta/async_basic.py
+```python cookbook/models/meta/llama/async_basic.py
 import asyncio
-from agno.agent import Agent
+
+from agno.agent import Agent, RunOutput  # noqa
 from agno.models.meta import Llama
 
-async def main():
-    agent = Agent(
-        model=Llama(id="Llama-4-Maverick-17B"),
-        markdown=True,
-    )
-    response = await agent.aprint_response(
-        "Generate a succinct summary of the latest research on climate change."
-    )
-asyncio.run(main())
+agent = Agent(
+    model=Llama(id="Llama-4-Maverick-17B-128E-Instruct-FP8"),
+    markdown=True
+)
+
+# Get the response in a variable
+# run: RunOutput = asyncio.run(agent.arun("Share a 2 sentence horror story"))
+# print(run.content)
+
+# Print the response in the terminal
+asyncio.run(agent.aprint_response("Share a 2 sentence horror story"))
 ```
 
 ## Usage
@@ -40,11 +43,11 @@ asyncio.run(main())
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/models/meta/async_basic.py
+    python cookbook/models/meta/llama/async_basic.py
     ```
 
     ```bash Windows
-    python cookbook/models/meta/async_basic.py
+    python cookbook/models/meta/llama/async_basic.py
     ```
     </CodeGroup>
   </Step>
