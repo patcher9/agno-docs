@@ -1,10 +1,10 @@
 ---
-title: Image Agent
+title: Image Agent With Memory
 ---
 
 ## Code
 
-```python cookbook/models/openai/responses/image_agent.py
+```python cookbook/models/openai/responses/image_agent_with_memory.py
 from agno.agent import Agent
 from agno.media import Image
 from agno.models.openai import OpenAIResponses
@@ -14,6 +14,8 @@ agent = Agent(
     model=OpenAIResponses(id="gpt-4o"),
     tools=[GoogleSearchTools()],
     markdown=True,
+    add_history_to_context=True,
+    num_history_runs=3,
 )
 
 agent.print_response(
@@ -23,8 +25,9 @@ agent.print_response(
             url="https://upload.wikimedia.org/wikipedia/commons/0/0c/GoldenGateBridge-001.jpg"
         )
     ],
-    stream=True,
 )
+
+agent.print_response("Tell me where I can get more images?")
 
 ```
 
@@ -48,11 +51,11 @@ agent.print_response(
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/models/openai/responses/image_agent.py
+    python cookbook/models/openai/responses/image_agent_with_memory.py
     ```
 
     ```bash Windows
-    python cookbook/models/openai/responses/image_agent.py
+    python cookbook/models/openai/responses/image_agent_with_memory.py
     ```
     </CodeGroup>
   </Step>

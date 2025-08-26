@@ -1,22 +1,22 @@
 ---
-title: Tool Use
+title: Tool Use Gpt 5
 ---
 
 ## Code
 
-```python cookbook/models/openai/responses/tool_use.py
-"""Run `pip install ddgs` to install dependencies."""
-
+```python cookbook/models/openai/responses/tool_use_gpt_5.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIResponses
-from agno.tools.duckduckgo import DuckDuckGoTools
+from agno.tools.yfinance import YFinanceTools
 
 agent = Agent(
-    model=OpenAIResponses(id="gpt-4o"),
-    tools=[DuckDuckGoTools()],
+    model=OpenAIResponses(id="gpt-5"),
+    tools=[YFinanceTools(cache_results=True)],
     markdown=True,
+    telemetry=False,
 )
-agent.print_response("Whats happening in France?")
+
+agent.print_response("What is the current price of TSLA?", stream=True)
 
 ```
 
@@ -40,11 +40,11 @@ agent.print_response("Whats happening in France?")
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/models/openai/responses/tool_use.py
+    python cookbook/models/openai/responses/tool_use_gpt_5.py
     ```
 
     ```bash Windows
-    python cookbook/models/openai/responses/tool_use.py
+    python cookbook/models/openai/responses/tool_use_gpt_5.py
     ```
     </CodeGroup>
   </Step>

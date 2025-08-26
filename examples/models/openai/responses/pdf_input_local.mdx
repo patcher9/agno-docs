@@ -1,5 +1,5 @@
 ---
-title: Agent with PDF Input (Local File)
+title: Pdf Input Local
 ---
 
 ## Code
@@ -23,7 +23,7 @@ agent = Agent(
     model=OpenAIResponses(id="gpt-4o-mini"),
     tools=[{"type": "file_search"}],
     markdown=True,
-    add_history_to_messages=True,
+    add_history_to_context=True,
 )
 
 agent.print_response(
@@ -31,6 +31,7 @@ agent.print_response(
     files=[File(filepath=pdf_path)],
 )
 agent.print_response("Suggest me a recipe from the attached file.")
+
 ```
 
 ## Usage
