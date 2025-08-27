@@ -1,17 +1,16 @@
 ---
-title: Qdrant FastEmbed Embedder
+title: LangDB Embedder
 ---
 
 ## Code
 
 ```python
-from agno.knowledge.embedder.fastembed import FastEmbedEmbedder
+
+from agno.knowledge.embedder.langdb import LangDBEmbedder
 from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector
 
-embeddings = FastEmbedEmbedder().get_embedding(
-    "The quick brown fox jumps over the lazy dog."
-)
+embeddings = LangDBEmbedder().get_embedding("Embed me")
 
 # Print the embeddings and their dimensions
 print(f"Embeddings: {embeddings[:5]}")
@@ -21,12 +20,11 @@ print(f"Dimensions: {len(embeddings)}")
 knowledge = Knowledge(
     vector_db=PgVector(
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
-        table_name="qdrant_embeddings",
-        embedder=FastEmbedEmbedder(),
+        table_name="langdb_embeddings",
+        embedder=LangDBEmbedder(),
     ),
     max_results=2,
 )
-
 ```
 
 ## Usage
@@ -34,9 +32,16 @@ knowledge = Knowledge(
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
+  <Step title="Set your API key">
+    ```bash
+    export LANGDB_API_KEY=xxx
+    export LANGDB_PROJECT_ID=xxx
+    ```
+  </Step>
+
   <Step title="Install libraries">
     ```bash
-    pip install -U sqlalchemy 'psycopg[binary]' pgvector fastembed agno
+    pip install -U sqlalchemy 'psycopg[binary]' pgvector agno
     ```
   </Step>
 
@@ -57,11 +62,11 @@ knowledge = Knowledge(
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/knowledge/embedders/qdrant_fastembed.py
+    python cookbook/knowledge/embedders/langdb_embedder.py
     ```
 
     ```bash Windows
-    python cookbook/knowledge/embedders/qdrant_fastembed.py 
+    python cookbook/knowledge/embedders/langdb_embedder.py     
     ```
     </CodeGroup>
   </Step>

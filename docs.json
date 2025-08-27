@@ -253,7 +253,9 @@
                       "docs/documentation/knowledge/chunking/agentic-chunking",
                       "docs/documentation/knowledge/chunking/semantic-chunking",
                       "docs/documentation/knowledge/chunking/recursive-chunking",
-                      "docs/documentation/knowledge/chunking/document-chunking"
+                      "docs/documentation/knowledge/chunking/document-chunking",
+                      "docs/documentation/knowledge/chunking/csv-row-chunking",
+                      "docs/documentation/knowledge/chunking/markdown-chunking"
                     ]
                   },
                   {
@@ -989,6 +991,7 @@
                   {
                     "group": "Embedders",
                     "pages": [
+                      "examples/concepts/knowledge/embedders/aws-bedrock-embedder",
                       "examples/concepts/knowledge/embedders/azure-embedder",
                       "examples/concepts/knowledge/embedders/cohere-embedder",
                       "examples/concepts/knowledge/embedders/fireworks-embedder",
@@ -997,7 +1000,28 @@
                       "examples/concepts/knowledge/embedders/mistral-embedder",
                       "examples/concepts/knowledge/embedders/ollama-embedder",
                       "examples/concepts/knowledge/embedders/openai-embedder",
-                      "examples/concepts/knowledge/embedders/qdrant-fastembed"
+                      "examples/concepts/knowledge/embedders/qdrant-fastembed",
+                      "examples/concepts/knowledge/embedders/jina-embedder",
+                      "examples/concepts/knowledge/embedders/langdb-embedder",
+                      "examples/concepts/knowledge/embedders/nebius-embedder",
+                      "examples/concepts/knowledge/embedders/sentence-transformer-embedder",  
+                      "examples/concepts/knowledge/embedders/together-embedder",
+                      "examples/concepts/knowledge/embedders/voyageai-embedder"
+
+
+                   
+                    ]
+                  },
+                  {
+                    "group": "Chunking",
+                    "pages": [
+                      "examples/concepts/knowledge/chunking/fixed-size-chunking",
+                      "examples/concepts/knowledge/chunking/agentic-chunking",
+                      "examples/concepts/knowledge/chunking/semantic-chunking",
+                      "examples/concepts/knowledge/chunking/recursive-chunking",
+                      "examples/concepts/knowledge/chunking/document-chunking",
+                      "examples/concepts/knowledge/chunking/csv-row-chunking",
+                      "examples/concepts/knowledge/chunking/markdown-chunking"
                     ]
                   },
                   {
@@ -2035,7 +2059,9 @@
                   "reference/chunking/agentic",
                   "reference/chunking/semantic",
                   "reference/chunking/recursive",
-                  "reference/chunking/document"
+                  "reference/chunking/document",
+                  "reference/chunking/csv-row",
+                  "reference/chunking/markdown"
                 ]
               },
               {

@@ -1,15 +1,17 @@
 ---
-title: OpenAI Embedder
+title: Jina Embedder
 ---
 
 ## Code
 
 ```python
-from agno.knowledge.embedder.openai import OpenAIEmbedder
+
+from agno.embedder.jina import JinaEmbedder
 from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector
 
-embeddings = OpenAIEmbedder().get_embedding(
+# Basic usage - automatically loads from JINA_API_KEY environment variable
+embeddings = JinaEmbedder().get_embedding(
     "The quick brown fox jumps over the lazy dog."
 )
 
@@ -17,12 +19,29 @@ embeddings = OpenAIEmbedder().get_embedding(
 print(f"Embeddings: {embeddings[:5]}")
 print(f"Dimensions: {len(embeddings)}")
 
-# Example usage:
+custom_embedder = JinaEmbedder(
+    dimensions=1024,
+    late_chunking=True,  # Improved processing for long documents
+    timeout=30.0,  # Request timeout in seconds
+)
+
+# Get embedding with usage information
+embedding, usage = custom_embedder.get_embedding_and_usage(
+    "Advanced text processing with Jina embeddings and late chunking."
+)
+print(f"Embedding dimensions: {len(embedding)}")
+if usage:
+    print(f"Usage info: {usage}")
+
+# Example usage with Knowledge
 knowledge = Knowledge(
     vector_db=PgVector(
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
-        table_name="openai_embeddings",
-        embedder=OpenAIEmbedder(),
+        table_name="jina_embeddings",
+        embedder=JinaEmbedder(
+            late_chunking=True,  # Better handling of long documents
+            timeout=30.0,  # Configure request timeout
+        ),
     ),
     max_results=2,
 )
@@ -36,13 +55,13 @@ knowledge = Knowledge(
 
   <Step title="Set your API key">
     ```bash
-    export OPENAI_API_KEY=xxx
+    export JINA_API_KEY=xxx
     ```
   </Step>
 
   <Step title="Install libraries">
     ```bash
-    pip install -U sqlalchemy 'psycopg[binary]' pgvector openai agno
+    pip install -U sqlalchemy 'psycopg[binary]' pgvector aiohttp requests agno
     ```
   </Step>
 
@@ -63,11 +82,11 @@ knowledge = Knowledge(
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/knowledge/embedders/openai_embedder.py
+    python cookbook/knowledge/embedders/jina_embedder.py
     ```
 
     ```bash Windows
-    python cookbook/knowledge/embedders/openai_embedder.py 
+    python cookbook/knowledge/embedders/jina_embedder.py 
     ```
     </CodeGroup>
   </Step>
