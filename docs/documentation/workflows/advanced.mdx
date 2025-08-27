@@ -496,7 +496,7 @@ class ResearchRequest(BaseModel):
     sources: List[str] = Field(description="Preferred sources")
 
 workflow.print_response(
-    message=ResearchRequest(
+    input=ResearchRequest(
         topic="AI trends 2024",
         depth=8,
         sources=["academic", "industry"]
@@ -504,8 +504,114 @@ workflow.print_response(
 )
 ```
 
+## Input Schema Validation
+
+Along with structured input, Workflows support input schema validation using Pydantic models to ensure type safety and data integrity at the workflow entry point. By defining an `input_schema` on your workflow, you can:
+
+- **Validate Structure**: Ensure all required fields are present and correctly typed
+- **Type Safety**: Automatic validation of input data against your Pydantic model
+- **Clear Contracts**: Define exactly what data your workflow expects
+- **Error Prevention**: Catch invalid inputs before workflow execution begins
+
+### Defining Input Schema
+
+Set the `input_schema` parameter when creating your workflow:
+
+```python
+from typing import List
+from pydantic import BaseModel, Field
+from agno.workflow import Workflow
+
+class ResearchTopic(BaseModel):
+    """Structured research topic with specific requirements"""
+    topic: str
+    focus_areas: List[str] = Field(description="Specific areas to focus on")
+    target_audience: str = Field(description="Who this research is for")
+    sources_required: int = Field(description="Number of sources needed", default=5)
+
+# Create workflow with input schema
+workflow = Workflow(
+    name="Content Creation Workflow",
+    steps=[research_step, content_planning_step],
+    input_schema=ResearchTopic,  # <-- Define expected input structure
+)
+```
+
+### Valid Input Patterns
+
+Once you define an input schema, the workflow accepts several input formats:
+
+#### 1. Pydantic Model Instance (Recommended)
+```python
+# ✅ Pass a properly constructed Pydantic model
+research_topic = ResearchTopic(
+    topic="AI trends in 2024",
+    focus_areas=["Machine Learning", "NLP", "Computer Vision"],
+    target_audience="Tech professionals and business leaders",
+    sources_required=8
+)
+
+workflow.print_response(input=research_topic, markdown=True)
+```
+
+#### 2. Dictionary with Matching Fields
+```python
+# ✅ Pass a dict that matches the schema structure
+workflow.print_response(
+    input={
+        "topic": "AI trends in 2024",
+        "focus_areas": ["Machine Learning", "Computer Vision"],
+        "target_audience": "Tech professionals",
+        "sources_required": 8
+    },
+    markdown=True,
+)
+```
+
+### Input Validation Failures
+
+The workflow will raise validation errors for invalid inputs:
+
+#### Missing Required Fields
+```python
+# ❌ Will fail - missing required 'target_audience' field
+workflow.print_response(
+    input=ResearchTopic(
+        topic="AI trends in 2024",
+        focus_areas=["Machine Learning", "NLP"],
+        # target_audience missing - validation error
+    ),
+    markdown=True,
+)
+```
+
+#### Wrong Model Type
+```python
+class DifferentModel(BaseModel):
+    name: str
+
+# ❌ Will fail - different Pydantic model provided
+workflow.print_response(
+    input=DifferentModel(name="test"),
+    markdown=True,
+)
+```
+
+#### Type Mismatches
+```python
+# ❌ Will fail - wrong data types
+workflow.print_response(
+    input={
+        "topic": 123,  # Should be string
+        "focus_areas": "Machine Learning",  # Should be List[str]
+        "target_audience": ["audience1", "audience2"],  # Should be string
+    },
+    markdown=True,
+)
+```
+
 **More Examples**:
-- [Pydantic Model as Input](/examples/use-cases/workflows/06_workflows_advanced_concepts/pydantic_model_as_input)
+- [Input Schema Validation](/examples/use-cases/workflows/06_workflows_advanced_concepts/workflow_with_input_schema_validation)
 
 ## Structured IO at Each Step Level
 
