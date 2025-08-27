@@ -1374,19 +1374,134 @@
               {
                 "group": "Vector Databases",
                 "pages": [
-                  "examples/concepts/vectordb/cassandra",
-                  "examples/concepts/vectordb/chromadb",
-                  "examples/concepts/vectordb/couchbase",
-                  "examples/concepts/vectordb/clickhouse",
-                  "examples/concepts/vectordb/lancedb",
-                  "examples/concepts/vectordb/milvus",
-                  "examples/concepts/vectordb/mongodb",
-                  "examples/concepts/vectordb/azure_cosmos_mongodb",
-                  "examples/concepts/vectordb/pgvector",
-                  "examples/concepts/vectordb/pinecone",
-                  "examples/concepts/vectordb/qdrant",
-                  "examples/concepts/vectordb/singlestore",
-                  "examples/concepts/vectordb/weaviate"
+                  {
+                    "group": "Cassandra",
+                    "pages": [
+                      "examples/concepts/vectordb/cassandra-db/cassandra-db",
+                      "examples/concepts/vectordb/cassandra-db/async-cassandra-db"
+                    ]
+                  },
+                  {
+                    "group": "ChromaDB",
+                    "pages": [
+                      "examples/concepts/vectordb/chroma-db/chroma-db",
+                      "examples/concepts/vectordb/chroma-db/async-chroma-db"
+                    ]
+                  },
+                  {
+                    "group": "ClickHouse",
+                    "pages": [
+                      "examples/concepts/vectordb/clickhouse-db/clickhouse-db",
+                      "examples/concepts/vectordb/clickhouse-db/async-clickhouse-db"
+                    ]
+                  },
+                  {
+                    "group": "Couchbase",
+                    "pages": [
+                      "examples/concepts/vectordb/couchbase-db/couchbase-db",
+                      "examples/concepts/vectordb/couchbase-db/async-couchbase-db"
+                    ]
+                  },
+                  {
+                    "group": "LanceDB",
+                    "pages": [
+                      "examples/concepts/vectordb/lance-db/lance-db",
+                      "examples/concepts/vectordb/lance-db/async-lance-db",
+                      "examples/concepts/vectordb/lance-db/lance-db-hybrid-search"
+                    ]
+                  },
+                  {
+                    "group": "LangChain",
+                    "pages": [
+                      "examples/concepts/vectordb/langchain/langchain-db",
+                      "examples/concepts/vectordb/langchain/async-langchain-db"
+                    ]
+                  },
+                  {
+                    "group": "LightRAG",
+                    "pages": [
+                      "examples/concepts/vectordb/lightrag/lightrag-db",
+                      "examples/concepts/vectordb/lightrag/async-lightrag-db"
+                    ]
+                  },
+                  {
+                    "group": "LlamaIndex",
+                    "pages": [
+                      "examples/concepts/vectordb/llamaindex-db/llamaindex-db",
+                      "examples/concepts/vectordb/llamaindex-db/async-llamaindex-db"
+                    ]
+                  },
+                  {
+                    "group": "Milvus",
+                    "pages": [
+                      "examples/concepts/vectordb/milvus-db/milvus-db",
+                      "examples/concepts/vectordb/milvus-db/async-milvus-db",
+                      "examples/concepts/vectordb/milvus-db/milvus-db-hybrid-search",
+                      "examples/concepts/vectordb/milvus-db/async-milvus-db-hybrid-search"
+                    ]
+                  },
+                  {
+                    "group": "MongoDB",
+                    "pages": [
+                      "examples/concepts/vectordb/mongo-db/mongo-db",
+                      "examples/concepts/vectordb/mongo-db/async-mongo-db",
+                      "examples/concepts/vectordb/mongo-db/mongo-db-hybrid-search",
+                      "examples/concepts/vectordb/mongo-db/cosmos-mongodb-vcore"
+                    ]
+                  },
+                  {
+                    "group": "PgVector",
+                    "pages": [
+                      "examples/concepts/vectordb/pgvector/pgvector-db",
+                      "examples/concepts/vectordb/pgvector/async-pgvector-db",
+                      "examples/concepts/vectordb/pgvector/pgvector-hybrid-search"
+                    ]
+                  },
+                  {
+                    "group": "Pinecone",
+                    "pages": [
+                      "examples/concepts/vectordb/pinecone-db/pinecone-db",
+                      "examples/concepts/vectordb/pinecone-db/async-pinecone-db"
+                    ]
+                  },
+                  {
+                    "group": "Qdrant",
+                    "pages": [
+                      "examples/concepts/vectordb/qdrant-db/qdrant-db",
+                      "examples/concepts/vectordb/qdrant-db/async-qdrant-db",
+                      "examples/concepts/vectordb/qdrant-db/qdrant-db-hybrid-search"
+                    ]
+                  },
+                  {
+                    "group": "SingleStore",
+                    "pages": [
+                      "examples/concepts/vectordb/singlestore-db/singlestore-db",
+                      "examples/concepts/vectordb/singlestore-db/async-singlestore-db"
+                    ]
+                  },
+                  {
+                    "group": "SurrealDB",
+                    "pages": [
+                      "examples/concepts/vectordb/surrealdb/surreal-db",
+                      "examples/concepts/vectordb/surrealdb/async-surreal-db"
+                    ]
+                  },
+                  {
+                    "group": "Upstash",
+                    "pages": [
+                      "examples/concepts/vectordb/upstash-db/upstash-db",
+                      "examples/concepts/vectordb/upstash-db/async-upstash-db"
+                    ]
+                  },
+                  {
+                    "group": "Weaviate",
+                    "pages": [
+                      "examples/concepts/vectordb/weaviate-db/weaviate-db",
+                      "examples/concepts/vectordb/weaviate-db/async-weaviate-db",
+                      "examples/concepts/vectordb/weaviate-db/weaviate-db-hybrid-search",
+                      "examples/concepts/vectordb/weaviate-db/weaviate-db-upsert"
+                    ]
+                  }
                 ]
               },
 
