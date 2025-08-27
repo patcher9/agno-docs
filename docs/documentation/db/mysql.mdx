@@ -3,7 +3,7 @@ title: MySQL Storage
 sidebarTitle: MySQL
 ---
 
-Agno supports using MySQL as a storage backend for Agents using the `MySQLStorage` class.
+Agno supports using MySQL as a storage backend for Agents using the `MySQLDb` class.
 
 ## Usage
 
@@ -13,36 +13,36 @@ Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) a
 
 ```bash
 docker run -d \
-  -e MYSQL_ROOT_PASSWORD=root \
-  -e MYSQL_DATABASE=agno \
-  -e MYSQL_USER=agno \
-  -e MYSQL_PASSWORD=agno \
-  -p 3306:3306 \
   --name mysql \
-  mysql:8.0
+  -e MYSQL_ROOT_PASSWORD=ai \
+  -e MYSQL_DATABASE=ai \
+  -e MYSQL_USER=ai \
+  -e MYSQL_PASSWORD=ai \
+  -p 3306:3306 \
+  -d mysql:8
 ```
 
-```python postgres_storage_for_agent.py
-from agno.storage.mysql import MySQLStorage
+```python mysql_for_agent.py
+from agno.agent import Agent
+from agno.db.mysql import MySQLDb
 
-db_url = "mysql+pymysql://agno:agno@localhost:3306/agno"
+db_url = "mysql+pymysql://ai:ai@localhost:3306/ai"
 
-# Create a storage backend using the Postgres database
-storage = MySQLStorage(
-    # store sessions in the agno.sessions table
-    table_name="agent_sessions",
-    # db_url: Postgres database URL
-    db_url=db_url,
+db = MySQLDb(db_url=db_url)
+
+agent = Agent(
+    db=db,
+    add_history_to_context=True,
 )
+agent.print_response("How many people live in Canada?")
+agent.print_response("What is their national anthem called?")
 
-# Add storage to the Agent
-agent = Agent(storage=storage)
 ```
 
 ## Params
 
-<Snippet file="storage-mysql-params.mdx" />
+<Snippet file="db-mysql-params.mdx" />
 
 ## Developer Resources
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/storage/mysql_storage/mysql_storage_for_agent.py)
+- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/db/mysql/mysql_for_agent.py)   

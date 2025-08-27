@@ -9,36 +9,68 @@ The Agent can **search** this knowledge at runtime to make better decisions and 
 
 Knowledge content is tracked in a "Contents DB" and vectorized and stored in a "Vector DB". 
 
-<Accordion title="Dynamic Few-Shot Learning: Text2Sql Agent" icon="database">
-Example: If we're building a Text2Sql Agent, we'll need to give the table schemas, column names, data types, example queries, common "gotchas" to help it generate the best-possible SQL query.
+<Tip>
+Example: Say we are building a Text2Sql Agent, we'll need to give the table schemas, column names, data types, example queries, etc to the agent to help it generate the best-possible SQL query.
 
-We're obviously not going to put this all in the system prompt, instead we store this information in a vector database and let the Agent query it at runtime.
+It is not viable to put this all in the system message, instead we store this information as knowledge and let the Agent query it at runtime.
 
-Using this information, the Agent can then generate the best-possible SQL query. This is called dynamic few-shot learning.
-</Accordion>
+Using this information, the Agent can then generate the best-possible SQL query. This is called **dynamic few-shot learning**.
+</Tip>
 
-**Agno Agents use Agentic RAG** by default, meaning when we provide `knowledge` to an Agent, it will search this knowledge base, at runtime, for the specific information it needs to achieve its task.
+Agno Agents use **Agentic RAG** by default, meaning when we provide `knowledge` to an Agent, it will search this knowledge base, at runtime, for the specific information it needs to achieve its task.
 
-The pseudo steps for adding knowledge to an Agent are:
+For example:
 
 ```python
-from agno.agent import Agent, AgentKnowledge
+import asyncio
 
-# Create a knowledge base for the Agent
-knowledge_base = AgentKnowledge(vector_db=...)
+from agno.agent import Agent
+from agno.db.postgres.postgres import PostgresDb
+from agno.knowledge.knowledge import Knowledge
+from agno.vectordb.pgvector import PgVector
 
-# Add information to the knowledge base
-knowledge_base.load_text("The sky is blue")
+db = PostgresDb(
+    db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
+    knowledge_table="knowledge_contents",
+)
 
-# Add the knowledge base to the Agent and
-# give it a tool to search the knowledge base as needed
-agent = Agent(knowledge=knowledge_base, search_knowledge=True)
+# Create Knowledge Instance
+knowledge = Knowledge(
+    name="Basic SDK Knowledge Base",
+    description="Agno 2.0 Knowledge Implementation",
+    contents_db=db,
+    vector_db=PgVector(
+        table_name="vectors", db_url="postgresql+psycopg://ai:ai@localhost:5532/ai"
+    ),
+)
+# Add from URL to the knowledge base
+asyncio.run(
+    knowledge.add_content(
+        name="Recipes",
+        url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf",
+        metadata={"user_tag": "Recipes from website"},
+    )
+)
+
+agent = Agent(
+    name="My Agent",
+    description="Agno 2.0 Agent Implementation",
+    knowledge=knowledge,
+    search_knowledge=True,
+)
+
+agent.print_response(
+    "How do I make chicken and galangal in coconut milk soup?",
+    markdown=True,
+)
 ```
 
 We can give our agent access to the knowledge base in the following ways:
 
 - We can set `search_knowledge=True` to add a `search_knowledge_base()` tool to the Agent. `search_knowledge` is `True` **by default** if you add `knowledge` to an Agent.
-- We can set `add_references=True` to automatically add references from the knowledge base to the Agent's prompt. This is the traditional 2023 RAG approach.
+- We can set `add_knowledge_to_context=True` to automatically add references from the knowledge base to the Agent's context, based in your user message. This is the traditional RAG approach.
+
+## Custom Retriever
 
 <Tip>
 

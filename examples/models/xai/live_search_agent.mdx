@@ -6,7 +6,7 @@ title: Live Search Agent
 
 ```python cookbook/models/xai/live_search_agent.py
 from agno.agent import Agent
-from agno.models.xai import xAI
+from agno.models.xai.xai import xAI
 
 agent = Agent(
     model=xAI(
@@ -20,6 +20,7 @@ agent = Agent(
     markdown=True,
 )
 agent.print_response("Provide me a digest of world news in the last 24 hours.")
+
 ```
 
 ## Usage
@@ -35,13 +36,19 @@ agent.print_response("Provide me a digest of world news in the last 24 hours.")
 
   <Step title="Install libraries">
     ```bash
-    pip install -U openai agno
+    pip install -U xai agno
     ```
   </Step>
 
   <Step title="Run Agent">
-    ```bash
+    <CodeGroup>
+    ```bash Mac
     python cookbook/models/xai/live_search_agent.py
     ```
+
+    ```bash Windows
+    python cookbook/models/xai/live_search_agent.py
+    ```
+    </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

@@ -6,6 +6,7 @@ title: Image Input Bytes Content
 
 ```python cookbook/models/anthropic/image_input_bytes.py
 from pathlib import Path
+
 from agno.agent import Agent
 from agno.media import Image
 from agno.models.anthropic.claude import Claude
@@ -13,7 +14,7 @@ from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.utils.media import download_image
 
 agent = Agent(
-    model=Claude(id="claude-3-5-sonnet-20241022"),
+    model=Claude(id="claude-sonnet-4-20250514"),
     tools=[DuckDuckGoTools()],
     markdown=True,
 )

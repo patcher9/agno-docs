@@ -247,10 +247,12 @@ from agno.db.sqlite import SqliteDb
 
 os.remove("tmp/data.db")
 
+db = SqliteDb(db_file="tmp/data.db")
+
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
     user_id="user_1",
-    db=SqliteDb(db_file="tmp/data.db"),
+    db=db,
     search_session_history=True,  # allow searching previous sessions
     num_history_sessions=2,  # only include the last 2 sessions in the search to avoid context length issues
 )

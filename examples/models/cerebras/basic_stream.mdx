@@ -5,17 +5,15 @@ title: Streaming Agent
 ## Code
 
 ```python cookbook/models/cerebras/basic_stream.py
-from agno.agent import Agent, RunResponse  # noqa
-import asyncio
+from agno.agent import Agent  # noqa
 from agno.models.cerebras import Cerebras
 
 agent = Agent(
-    model=Cerebras(
-        id="llama-4-scout-17b-16e-instruct",
-    ),
+    model=Cerebras(id="llama-4-scout-17b-16e-instruct"),
     markdown=True,
 )
 
+# Print the response in the terminal
 agent.print_response("write a two sentence horror story", stream=True)
 ```
 

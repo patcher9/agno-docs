@@ -5,9 +5,6 @@ title: Llama Essay Writer
 ## Code
 
 ```python cookbook/models/huggingface/llama_essay_writer.py
-import os
-from getpass import getpass
-
 from agno.agent import Agent
 from agno.models.huggingface import HuggingFace
 
@@ -19,6 +16,7 @@ agent = Agent(
     description="You are an essay writer. Write a 300 words essay on topic that will be provided by user",
 )
 agent.print_response("topic: AI")
+
 ```
 
 ## Usage

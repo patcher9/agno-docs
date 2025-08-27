@@ -1,17 +1,17 @@
 ---
-title: Structured Output Agent
+title: Structured Output
 ---
 
 ## Code
 
 ```python cookbook/models/xai/structured_output.py
-import asyncio
 from typing import List
 
 from agno.agent import Agent
-from agno.models.xai import xAI
-from agno.run.response import RunResponse
+from agno.models.xai.xai import xAI
+from agno.run.agent import RunOutput
 from pydantic import BaseModel, Field
+from rich.pretty import pprint  # noqa
 
 
 class MovieScript(BaseModel):
@@ -37,10 +37,15 @@ class MovieScript(BaseModel):
 structured_output_agent = Agent(
     model=xAI(id="grok-2-latest"),
     description="You write movie scripts.",
-    response_model=MovieScript,
+    output_schema=MovieScript,
 )
 
-structured_output_agent.print_response("Llamas ruling the world")
+# Run the agent synchronously
+structured_output_response: RunOutput = structured_output_agent.run(
+    "Llamas ruling the world"
+)
+pprint(structured_output_response.content)
+
 ```
 
 ## Usage
@@ -56,13 +61,19 @@ structured_output_agent.print_response("Llamas ruling the world")
 
   <Step title="Install libraries">
     ```bash
-    pip install -U openai agno rich
+    pip install -U xai agno
     ```
   </Step>
 
   <Step title="Run Agent">
-    ```bash
+    <CodeGroup>
+    ```bash Mac
     python cookbook/models/xai/structured_output.py
     ```
+
+    ```bash Windows
+    python cookbook/models/xai/structured_output.py
+    ```
+    </CodeGroup>
   </Step>
-</Steps> 
+</Steps>
