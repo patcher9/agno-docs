@@ -1709,16 +1709,30 @@
                   {
                     "group": "OpenAI Responses",
                     "pages": [
+                      "examples/models/openai/responses/agent_flex_tier",
+                      "examples/models/openai/responses/async_basic",
+                      "examples/models/openai/responses/async_basic_stream",
+                      "examples/models/openai/responses/async_tool_use",
                       "examples/models/openai/responses/basic",
                       "examples/models/openai/responses/basic_stream",
-                      "examples/models/openai/responses/tool_use",
-                      "examples/models/openai/responses/structured_output",
-                      "examples/models/openai/responses/storage",
-                      "examples/models/openai/responses/knowledge",
+                      "examples/models/openai/responses/db",
+                      "examples/models/openai/responses/deep_research_agent",
                       "examples/models/openai/responses/image_agent",
                       "examples/models/openai/responses/image_agent_bytes",
+                      "examples/models/openai/responses/image_agent_with_memory",
+                      "examples/models/openai/responses/image_generation_agent",
+                      "examples/models/openai/responses/knowledge",
+                      "examples/models/openai/responses/memory",
                       "examples/models/openai/responses/pdf_input_local",
-                      "examples/models/openai/responses/pdf_input_url"
+                      "examples/models/openai/responses/pdf_input_url",
+                      "examples/models/openai/responses/reasoning_o3_mini",
+                      "examples/models/openai/responses/structured_output",
+                      "examples/models/openai/responses/tool_use",
+                      "examples/models/openai/responses/tool_use_gpt_5",
+                      "examples/models/openai/responses/tool_use_o3",
+                      "examples/models/openai/responses/tool_use_stream",
+                      "examples/models/openai/responses/verbosity_control",
+                      "examples/models/openai/responses/websearch_builtin_tool"
                     ]
                   }
                 ]

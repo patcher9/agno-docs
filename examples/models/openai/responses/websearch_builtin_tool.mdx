@@ -1,19 +1,18 @@
 ---
-title: Tool Use
+title: Websearch Builtin Tool
 ---
 
 ## Code
 
-```python cookbook/models/openai/responses/tool_use.py
-"""Run `pip install ddgs` to install dependencies."""
-
+```python cookbook/models/openai/responses/websearch_builtin_tool.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIResponses
-from agno.tools.duckduckgo import DuckDuckGoTools
+from agno.tools.file import FileTools
 
 agent = Agent(
     model=OpenAIResponses(id="gpt-4o"),
-    tools=[DuckDuckGoTools()],
+    tools=[{"type": "web_search_preview"}, FileTools()],
+    instructions="Save the results to a file with a relevant name.",
     markdown=True,
 )
 agent.print_response("Whats happening in France?")
@@ -40,11 +39,11 @@ agent.print_response("Whats happening in France?")
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/models/openai/responses/tool_use.py
+    python cookbook/models/openai/responses/websearch_builtin_tool.py
     ```
 
     ```bash Windows
-    python cookbook/models/openai/responses/tool_use.py
+    python cookbook/models/openai/responses/websearch_builtin_tool.py
     ```
     </CodeGroup>
   </Step>
