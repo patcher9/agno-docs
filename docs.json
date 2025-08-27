@@ -463,7 +463,6 @@
                     "group": "Reasoning Tools",
                     "pages": [
                       "docs/documentation/tools/reasoning_tools/reasoning-tools",
-                      "docs/documentation/tools/reasoning_tools/thinking-tools",
                       "docs/documentation/tools/reasoning_tools/knowledge-tools"
                     ]
                   },
@@ -935,9 +934,7 @@
                     "pages": [
                       "examples/concepts/reasoning/tools/reasoning-tools",
                       "examples/concepts/reasoning/tools/knowledge-tools",
-                      "examples/concepts/reasoning/tools/thinking-tools",
-                      "examples/concepts/reasoning/tools/gemini-reasoning-tools",
-                      "examples/concepts/reasoning/tools/gemini-thinking-tools"
+                      "examples/concepts/reasoning/tools/gemini-reasoning-tools"
                     ]
                   }
                 ]
