@@ -29,7 +29,7 @@ class MovieScript(BaseModel):
 json_mode_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     description="You write movie scripts.",
-    response_model=MovieScript,
+    output_schema=MovieScript,
     use_json_mode=True,
 )
 json_mode_agent.print_response("New York")
@@ -38,7 +38,7 @@ json_mode_agent.print_response("New York")
 structured_output_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     description="You write movie scripts.",
-    response_model=MovieScript,
+    output_schema=MovieScript,
 )
 
 structured_output_agent.print_response("New York")
@@ -84,7 +84,7 @@ You can use an additional model to parse and structure the output from your prim
 agent = Agent(
     model=Claude(id="claude-sonnet-4-20250514"),
     description="You write movie scripts.",
-    response_model=MovieScript,
+    output_schema=MovieScript,
     parser_model=OpenAIChat(id="gpt-4o"),
 )
 ```
@@ -93,7 +93,7 @@ You can also provide a custom `parser_model_prompt` to your Parser Model.
 
 ## Streaming Structured Output
 
-Streaming can be used in combination with `response_model`. This returns the structured output as a single event in the stream of events.
+Streaming can be used in combination with `output_schema`. This returns the structured output as a single event in the stream of events.
 
 ```python streaming_agent.py
 import asyncio
@@ -131,7 +131,7 @@ class MovieScript(BaseModel):
 structured_output_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     description="You write movie scripts.",
-    response_model=MovieScript,
+    output_schema=MovieScript,
 )
 
 structured_output_agent.print_response(

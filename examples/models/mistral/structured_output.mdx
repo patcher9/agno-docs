@@ -43,8 +43,7 @@ json_mode_agent = Agent(
     ),
     tools=[DuckDuckGoTools()],
     description="You help people write movie scripts.",
-    response_model=MovieScript,
-        debug_mode=True,
+    output_schema=MovieScript,
 )
 
 # Get the response in a variable

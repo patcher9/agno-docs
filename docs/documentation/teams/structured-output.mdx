@@ -36,7 +36,7 @@ class StockReport(BaseModel):
 stock_searcher = Agent(
     name="Stock Searcher",
     model=OpenAIChat("gpt-4o"),
-    response_model=StockAnalysis,
+    output_schema=StockAnalysis,
     role="Searches for current stock information and price data.",
     tools=[
         YFinanceTools(
@@ -50,7 +50,7 @@ company_info_agent = Agent(
     name="Company Info Searcher", 
     model=OpenAIChat("gpt-4o"),
     role="Researches company fundamentals and recent news.",
-    response_model=CompanyAnalysis,
+    output_schema=CompanyAnalysis,
     tools=[
         YFinanceTools(
             stock_price=False,
@@ -66,7 +66,7 @@ stock_research_team = Team(
     mode="coordinate",
     model=OpenAIChat("gpt-4o"),
     members=[stock_searcher, company_info_agent],
-    response_model=StockReport,
+    output_schema=StockReport,
     markdown=True,
     show_members_responses=True,
 )
@@ -96,7 +96,7 @@ team = Team(
     mode="coordinate",
     model=Claude(id="claude-sonnet-4-20250514"),
     members=[stock_searcher, company_info_agent],
-    response_model=StockReport,
+    output_schema=StockReport,
     parser_model=OpenAIChat(id="gpt-4o"),
 )
 ```
@@ -143,7 +143,7 @@ market_research_team = Team(
     mode="coordinate", 
     model=OpenAIChat("gpt-4o"),
     members=[trend_analyst, risk_assessor],
-    response_model=MarketAnalysis,
+    output_schema=MarketAnalysis,
     markdown=True,
     show_members_responses=True,
 )
