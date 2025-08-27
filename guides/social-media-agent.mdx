@@ -3,7 +3,6 @@ title: "Build a Social Media Intelligence Agent with Agno, X Tools, and Exa"
 description: "Create a professional-grade social media intelligence system that monitors X (Twitter), performs advanced sentiment analysis, and generates reports using Agno framework"
 ---
 
-
 ## Overview
 
 In this guide, you will build a multi-agent intelligence pipeline using:
@@ -39,49 +38,44 @@ Your social media intelligence system will:
 - **Basic Python knowledge** including async programming concepts
 - **Git** for version control
 
-## Step 1: Project Setup
+## Step 1: Project Setup with Agno Infrastructure
 
-**Why isolation matters:** Virtual environments prevent dependency conflicts and ensure reproducible builds across different development machines.
+**Why Agno's infrastructure setup?** Agno provides a streamlined project creation flow that automatically sets up the optimal environment with proper dependency management, secrets handling, and infrastructure orchestration.
 
 ```bash
-mkdir social-media-intelligence
-cd social-media-intelligence
+mkdir social-intel && cd social-intel
 python3 -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+source venv/bin/activate     # Windows: venv\Scripts\activate
 ```
 
 Create and activate an isolated Python environment.
 
-## Step 2: Install Dependencies
+## Step 2: Install Agno Infrastructure and Create Project
 
-**Why these specific packages?** Each dependency serves a critical role in the intelligence pipeline - Agno for agent orchestration, specific tool integrations for data access, and utility libraries for environment management.
-
-```bash
-pip install agno[tools] openai exa_py python-dotenv schedule
-pip freeze > requirements.txt
-```
-
-Install required packages and create dependency lockfile.
-
-**Dependency breakdown:**
-- `agno[tools]` - Core framework with X and Exa tool integrations
-- `openai` - GPT-4 API access for advanced analysis
-- `exa_py` - Semantic web search capabilities  
-- `python-dotenv` - Secure environment variable management
-- `schedule` - Task scheduling for continuous monitoring
-
-## Step 3: Configure Environment Variables
-
-**Why environment-based configuration?** Keeps API credentials secure, enables environment-specific settings, and prevents accidental credential exposure in version control.
+**Why this approach?** The infrastructure-first setup ensures proper project scaffolding, secrets management, and deployment capabilities from the start.
 
 ```bash
-touch .env
-echo ".env" >> .gitignore
+pip install "agno[infra]"    # Keep quotes on zsh
+ag infra create              # Choose: [1] agent-infra-docker (default)
+# Infra Name: social-intel (or press Enter)
 ```
 
-Create environment file and exclude from version control.
+This creates the complete project scaffolding in your current directory with proper folder structure and configuration templates.
 
-Add your API credentials to `.env`:
+<Tip>
+If you re-run with the same name and see a conflict, delete the folder and try again: `rm -rf social-intel`
+</Tip>
+
+## Step 3: Configure API Keys and Secrets
+
+**Why centralized secrets?** The infrastructure setup creates a proper secrets management system that both your agents and infrastructure can share safely.
+
+```bash
+mkdir -p infra/secrets
+cp infra/example_secrets/.env infra/secrets/.env 2>/dev/null || true
+```
+
+Add your API credentials to `infra/secrets/.env`:
 
 ```env
 # OpenAI Configuration
@@ -101,26 +95,51 @@ EXA_API_KEY=your-exa-api-key
 AGNO_TELEMETRY=false
 ```
 
-Configure API access for all integrated services.
+## Step 4: Start Infrastructure Services
 
-## Step 4: Create the Intelligence Agent
-
-**Why this agent architecture?** Centralizes all intelligence logic while leveraging Agno's built-in tool orchestration and OpenAI's advanced reasoning capabilities for nuanced sentiment analysis.
+**Why infrastructure-first?** This approach ensures monitoring, logging, and deployment capabilities are available from development through production.
 
 ```bash
-touch social_media_agent.py
+ag infra up
+# Later, to stop: ag infra down
+```
+
+Your infrastructure services are now running and ready to support your intelligence agents.
+
+## Step 5: Install Agent Dependencies
+
+**Why these specific packages?** Each dependency serves a critical role in the intelligence pipeline while leveraging the infrastructure setup for optimal integration.
+
+```bash
+pip install "agno[tools]" openai exa_py python-dotenv schedule
+```
+
+**Dependency breakdown:**
+- `agno[tools]` - Core framework with X and Exa tool integrations
+- `openai` - GPT-4 API access for advanced analysis
+- `exa_py` - Semantic web search capabilities  
+- `python-dotenv` - Environment variable management (integrated with infra)
+- `schedule` - Task scheduling for continuous monitoring
+
+## Step 6: Create the Intelligence Agent
+
+**Why this agent architecture?** Centralizes all intelligence logic while leveraging Agno's built-in tool orchestration and the infrastructure's secrets management for secure, scalable operation.
+
+```bash
+mkdir -p app
+touch app/social_media_agent.py
 ```
 
 Create your main intelligence agent:
 
-```python social_media_agent.py
+```python app/social_media_agent.py
 """Social Media Intelligence Agent
 
 Provides enterprise-grade social media monitoring and analysis,
 transforming raw social data into actionable business intelligence.
 """
 
-import os
+from pathlib import Path
 from textwrap import dedent
 from dotenv import load_dotenv
 
@@ -129,8 +148,8 @@ from agno.models.openai import OpenAIChat
 from agno.tools.x import XTools
 from agno.tools.exa import ExaTools
 
-# Load environment variables
-load_dotenv()
+# Load the infra secrets so agent & infra share one config
+load_dotenv(dotenv_path=Path(__file__).resolve().parents[1] / "infra" / "secrets" / ".env")
 
 # Create the intelligence agent
 social_media_agent = Agent(
@@ -239,14 +258,14 @@ if __name__ == "__main__":
     analyze_brand_sentiment("Agno OR AgnoAGI", tweet_count=25)
 ```
 
-Complete intelligence agent implementation.
+Complete intelligence agent implementation with infrastructure integration.
 
-## Step 5: Test Your Intelligence Agent
+## Step 7: Test Your Intelligence Agent
 
 **Why testing matters:** Validates API connectivity, data processing pipeline, and report generation before deploying monitoring systems.
 
 ```bash
-python social_media_agent.py
+python app/social_media_agent.py
 ```
 
 Run the intelligence agent for immediate analysis.
@@ -275,19 +294,19 @@ Run the intelligence agent for immediate analysis.
 
 Sample intelligence report output.
 
-## Step 6: Add Continuous Monitoring
+## Step 8: Add Continuous Monitoring
 
 **Why continuous monitoring?** Enables proactive brand management by detecting trends, risks, and opportunities in near real-time without manual intervention.
 
 Create monitoring system:
 
 ```bash
-touch monitoring_system.py
+touch app/monitoring_system.py
 ```
 
 Implement scheduled monitoring:
 
-```python monitoring_system.py
+```python app/monitoring_system.py
 """Continuous Social Media Monitoring System"""
 
 import schedule
@@ -298,7 +317,8 @@ from social_media_agent import analyze_brand_sentiment
 class SocialMediaMonitor:
     """
     Why this approach: Provides flexible monitoring with configurable intervals
-    and error handling to ensure continuous operation.
+    and error handling to ensure continuous operation while leveraging the
+    infrastructure setup for reliability.
     """
     
     def __init__(self, brands_to_monitor: list):
@@ -354,30 +374,39 @@ if __name__ == "__main__":
     # monitor.schedule_monitoring()
 ```
 
-Monitoring system with scheduling and error handling.
+Monitoring system with scheduling and error handling integrated with infrastructure.
 
-## Step 7: Deploy Your Intelligence System
+## Step 9: Operate Your Intelligence System
 
-**Why proper deployment matters:** Ensures reliable operation, proper error handling, and scalable monitoring across multiple brands or topics.
+**Why proper operation matters:** The Agno infrastructure provides built-in capabilities for reliable deployment, monitoring, and maintenance.
+
+### Start/stop infrastructure services:
+```bash
+ag infra up      # Start all services
+ag infra down    # Stop all services
+```
 
 ### Run immediate analysis:
 ```bash
-python social_media_agent.py
+python app/social_media_agent.py
 ```
 
 ### Start continuous monitoring:
 ```bash
-python monitoring_system.py
+python app/monitoring_system.py
 ```
 
 ### Configuration options:
 - Adjust `tweet_count` for analysis depth vs. API usage balance
 - Modify monitoring intervals based on brand volatility and resource constraints
 - Customize Exa domain filters for industry-specific intelligence
+- Leverage infrastructure monitoring and logging capabilities
 
 ## Advanced Features
 
-Your intelligence system now provides:
+Your infrastructure-powered intelligence system now provides:
+
+**Infrastructure Integration**: Built on Agno's infrastructure framework with proper secrets management, service orchestration, and deployment capabilities.
 
 **Multi-Source Intelligence**: Combines direct social media data with broader web discussions for comprehensive brand monitoring that captures emerging trends before mainstream attention.
 
@@ -387,45 +416,31 @@ Your intelligence system now provides:
 
 **Strategic Recommendations**: Generates actionable insights with clear priority levels and specific response strategies rather than generic sentiment scores.
 
-**Continuous Monitoring**: Provides automated intelligence gathering with configurable intervals and robust error handling for reliable operation.
+**Production Ready**: Infrastructure services provide monitoring, logging, and deployment capabilities for reliable continuous operation.
 
 ## Next Steps
 
-**Platform Expansion**: Add LinkedIn, Reddit, and industry-specific forums for broader intelligence coverage.
+**Infrastructure Scaling**: Use `ag infra` commands to add additional services, databases, and monitoring capabilities as your system grows.
 
-**Alert Integration**: Connect to Slack, email, or dashboard systems for immediate notification of significant sentiment changes or crisis indicators.
+**Platform Expansion**: Add LinkedIn, Reddit, and industry-specific forums for broader intelligence coverage using Agno's expanding tool ecosystem.
 
-**Visual Analytics**: Implement charts, graphs, and trend visualizations for easier pattern recognition and executive presentation.
+**Alert Integration**: Connect to Slack, email, or webhook systems using the infrastructure's integration capabilities for immediate notification of significant sentiment changes.
 
-**Industry Customization**: Develop domain-specific analysis patterns, terminology, and alert thresholds for enhanced relevance.
+**Visual Analytics**: Implement charts, graphs, and trend visualizations through the infrastructure's data services for easier pattern recognition and executive presentation.
 
-**Competitive Intelligence**: Expand monitoring to track competitor mentions, feature comparisons, and market positioning discussions.
+**Industry Customization**: Develop domain-specific analysis patterns, terminology, and alert thresholds leveraging the infrastructure's configuration management.
 
-## Troubleshooting
-
-**API Authentication Issues**:
-- Verify all API keys are correctly set in `.env` file
-- Ensure X Developer Account has appropriate access levels
-- Check Exa API credit balance and rate limits
-
-**Analysis Quality Concerns**:
-- Increase `tweet_count` for more comprehensive analysis
-- Adjust Exa domain filters for industry-relevant sources
-- Verify search queries capture brand mentions accurately
-
-**Performance Optimization**:
-- Implement caching for frequently accessed data
-- Use separate processes for monitoring multiple brands
-- Consider async processing for large-scale analysis
+**Competitive Intelligence**: Expand monitoring to track competitor mentions, feature comparisons, and market positioning discussions with additional agent specialization.
 
 ## Conclusion
 
-You have built a comprehensive social media intelligence system that transforms raw social media data into strategic business intelligence. The system demonstrates how modern AI agents can provide proactive brand management through:
+You have built a comprehensive social media intelligence system powered by Agno's infrastructure framework that transforms raw social media data into strategic business intelligence. The system demonstrates how modern AI infrastructure enables:
 
-- **Real-time monitoring** across multiple platforms and sources
-- **Weighted sentiment analysis** that accounts for influence and engagement
-- **Strategic recommendations** with clear priority levels and action items  
+- **Infrastructure-powered development** with proper secrets, services, and deployment management
+- **Real-time monitoring** across multiple platforms and sources with reliable operation
+- **Weighted sentiment analysis** that accounts for influence and engagement patterns
+- **Strategic recommendations** with clear priority levels and actionable insights  
 - **Crisis detection** capabilities for early warning and rapid response
-- **Continuous operation** with robust error handling and scheduling
+- **Production deployment** with monitoring, logging, and scaling capabilities
 
-This architecture showcases Agno's capability for building production-ready AI systems that deliver measurable business value through intelligent automation and comprehensive analysis. The modular design enables easy extension for additional platforms, custom analysis patterns, and integration with existing business systems.
+This architecture showcases Agno's capability for building production-ready AI systems that deliver measurable business value through intelligent automation, proper infrastructure management, and comprehensive analysis. The infrastructure-first approach ensures your system can scale from development through enterprise deployment with reliability and maintainability.
