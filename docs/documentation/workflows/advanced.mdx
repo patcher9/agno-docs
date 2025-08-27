@@ -81,6 +81,9 @@ def custom_content_planning_function(step_input: StepInput) -> StepOutput:
     return StepOutput(content=enhanced_content)
 ```
 
+**More Examples**:
+- [Step with a Custom Function](/examples/use-cases/workflows/01-basic-workflows/step_with_function)
+
 ## Run a Workflow non-blocking (in the background)
 
 You can run a workflow as a non-blocking task by passing `background=True` to `Workflow.arun()`. This will return a `WorkflowRunOutput` object with a `run_id` that you can use to poll for the result of the workflow until it is completed.
@@ -205,8 +208,68 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-**More Examples**:
-- [Step with a Custom Function](/examples/use-cases/workflows/01-basic-workflows/step_with_function)
+## Workflow Cancellation
+
+Workflows can be cancelled during execution to stop processing immediately and free up resources. This is particularly useful for long-running workflows, background tasks, or when user requirements change mid-execution.
+
+The cancellation system provides graceful termination with proper cleanup and event logging.
+
+### When to Use Cancellation
+
+- **User-initiated stops**: Allow users to cancel long-running processes
+- **Resource management**: Free up computational resources when workflows are no longer needed
+- **Priority changes**: Cancel lower-priority workflows to make room for urgent tasks
+
+### Cancelling Background Workflows
+
+For workflows running in the background (using `background=True`), you can cancel them using the `run_id`:
+
+```python
+import asyncio
+from agno.workflow import Workflow
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.workflow.step import Step
+
+# Setup workflow
+long_running_workflow = Workflow(
+    name="Long Running Analysis",
+    steps=[
+        Step(name="Research", agent=Agent(model=OpenAIChat(id="gpt-4o"), instructions="You are a helpful assistant that can research the web.")),
+        Step(name="Deep Analysis", agent=Agent(model=OpenAIChat(id="gpt-4o"), instructions="You are a helpful assistant that can analyze the web.")),
+        Step(name="Report Generation", agent=Agent(model=OpenAIChat(id="gpt-4o"), instructions="You are a helpful assistant that can generate a report.")),
+    ]
+)
+
+async def main():
+    # Start background workflow
+    bg_response = await long_running_workflow.arun(
+        input="Comprehensive market analysis for emerging technologies",
+        background=True
+    )
+    
+    print(f"Started workflow with run_id: {bg_response.run_id}")
+    
+    # Simulate some time passing
+    await asyncio.sleep(5)
+    
+    # Cancel the workflow
+    cancellation_result = long_running_workflow.cancel_run(bg_response.run_id)
+    
+    if cancellation_result:  # cancellation_result is a bool
+        print(f"✅ Workflow {bg_response.run_id} cancelled successfully")
+    else:
+        print(f"❌ Failed to cancel workflow {bg_response.run_id}")
+
+asyncio.run(main())
+```
+
+<Note>
+When a workflow in streaming mode is cancelled, a specific event is triggered: `WorkflowRunEvent.workflow_cancelled` or simply known as `WorkflowCancelledEvent`
+</Note>
+
+**More Examples**: 
+- [Workflow Cancellation](/examples/use-cases/workflows/06_workflows_advanced_concepts/workflow_cancellation)   
 
 ## Early Stopping
 
@@ -347,6 +410,7 @@ from agno.run.workflow import WorkflowRunEvent
 events_to_skip = [
     WorkflowRunEvent.workflow_started,
     WorkflowRunEvent.workflow_completed,
+    WorkflowRunEvent.workflow_cancelled,
     WorkflowRunEvent.step_started,
     WorkflowRunEvent.step_completed,
     WorkflowRunEvent.parallel_execution_started,
@@ -496,7 +560,7 @@ class ResearchRequest(BaseModel):
     sources: List[str] = Field(description="Preferred sources")
 
 workflow.print_response(
-    input=ResearchRequest(
+    message=ResearchRequest(
         topic="AI trends 2024",
         depth=8,
         sources=["academic", "industry"]
@@ -504,114 +568,8 @@ workflow.print_response(
 )
 ```
 
-## Input Schema Validation
-
-Along with structured input, Workflows support input schema validation using Pydantic models to ensure type safety and data integrity at the workflow entry point. By defining an `input_schema` on your workflow, you can:
-
-- **Validate Structure**: Ensure all required fields are present and correctly typed
-- **Type Safety**: Automatic validation of input data against your Pydantic model
-- **Clear Contracts**: Define exactly what data your workflow expects
-- **Error Prevention**: Catch invalid inputs before workflow execution begins
-
-### Defining Input Schema
-
-Set the `input_schema` parameter when creating your workflow:
-
-```python
-from typing import List
-from pydantic import BaseModel, Field
-from agno.workflow import Workflow
-
-class ResearchTopic(BaseModel):
-    """Structured research topic with specific requirements"""
-    topic: str
-    focus_areas: List[str] = Field(description="Specific areas to focus on")
-    target_audience: str = Field(description="Who this research is for")
-    sources_required: int = Field(description="Number of sources needed", default=5)
-
-# Create workflow with input schema
-workflow = Workflow(
-    name="Content Creation Workflow",
-    steps=[research_step, content_planning_step],
-    input_schema=ResearchTopic,  # <-- Define expected input structure
-)
-```
-
-### Valid Input Patterns
-
-Once you define an input schema, the workflow accepts several input formats:
-
-#### 1. Pydantic Model Instance (Recommended)
-```python
-# ✅ Pass a properly constructed Pydantic model
-research_topic = ResearchTopic(
-    topic="AI trends in 2024",
-    focus_areas=["Machine Learning", "NLP", "Computer Vision"],
-    target_audience="Tech professionals and business leaders",
-    sources_required=8
-)
-
-workflow.print_response(input=research_topic, markdown=True)
-```
-
-#### 2. Dictionary with Matching Fields
-```python
-# ✅ Pass a dict that matches the schema structure
-workflow.print_response(
-    input={
-        "topic": "AI trends in 2024",
-        "focus_areas": ["Machine Learning", "Computer Vision"],
-        "target_audience": "Tech professionals",
-        "sources_required": 8
-    },
-    markdown=True,
-)
-```
-
-### Input Validation Failures
-
-The workflow will raise validation errors for invalid inputs:
-
-#### Missing Required Fields
-```python
-# ❌ Will fail - missing required 'target_audience' field
-workflow.print_response(
-    input=ResearchTopic(
-        topic="AI trends in 2024",
-        focus_areas=["Machine Learning", "NLP"],
-        # target_audience missing - validation error
-    ),
-    markdown=True,
-)
-```
-
-#### Wrong Model Type
-```python
-class DifferentModel(BaseModel):
-    name: str
-
-# ❌ Will fail - different Pydantic model provided
-workflow.print_response(
-    input=DifferentModel(name="test"),
-    markdown=True,
-)
-```
-
-#### Type Mismatches
-```python
-# ❌ Will fail - wrong data types
-workflow.print_response(
-    input={
-        "topic": 123,  # Should be string
-        "focus_areas": "Machine Learning",  # Should be List[str]
-        "target_audience": ["audience1", "audience2"],  # Should be string
-    },
-    markdown=True,
-)
-```
-
 **More Examples**:
-- [Input Schema Validation](/examples/use-cases/workflows/06_workflows_advanced_concepts/workflow_with_input_schema_validation)
+- [Pydantic Model as Input](/examples/use-cases/workflows/06_workflows_advanced_concepts/pydantic_model_as_input)
 
 ## Structured IO at Each Step Level
 
@@ -627,7 +585,7 @@ Workflows features a powerful type-safe data flow system where each step in your
    - Subsequent steps receive the previous step's structured output
 
 2. **Output Processing**:
-   - Each Agent processes the input using its `response_model`
+   - Each Agent processes the input using its `output_schema`
    - The output is automatically validated against the model
 
 ```python
@@ -635,13 +593,13 @@ Workflows features a powerful type-safe data flow system where each step in your
 research_agent = Agent(
     name="Research Specialist",
     model=OpenAIChat(id="gpt-4"),
-    response_model=ResearchFindings,  # <-- Set on Agent
+    output_schema=ResearchFindings,  # <-- Set on Agent
 )
 
 analysis_agent = Agent(
     name="Analysis Expert", 
     model=OpenAIChat(id="gpt-4"),
-    response_model=AnalysisResults,  # <-- Set on Agent
+    output_schema=AnalysisResults,  # <-- Set on Agent
 )
 
 # Steps reference these agents

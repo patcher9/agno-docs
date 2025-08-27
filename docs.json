@@ -695,7 +695,8 @@
                       "examples/use-cases/workflows/06_workflows_advanced_concepts/access_multiple_previous_steps_output",
                       "examples/use-cases/workflows/06_workflows_advanced_concepts/store_events_and_events_to_skip_in_a_workflow",
                       "examples/use-cases/workflows/06_workflows_advanced_concepts/structured_io_at_each_step_level",
-                      "examples/use-cases/workflows/06_workflows_advanced_concepts/workflow_with_input_schema"
+                      "examples/use-cases/workflows/06_workflows_advanced_concepts/workflow_with_input_schema",
+                      "examples/use-cases/workflows/06_workflows_advanced_concepts/workflow_cancellation"
                     ]
                   },
                   "examples/use-cases/workflows/blog-post-generator",
