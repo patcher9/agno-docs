@@ -29,6 +29,34 @@ Example companies to analyze:
 Run `pip install openai yfinance agno` to install dependencies.
 
 ```python investment_report_generator.py
+"""💰 Investment Report Generator - Your AI Financial Analysis Studio!
+
+This advanced example demonstrates how to build a sophisticated investment analysis system that combines
+market research, financial analysis, and portfolio management. The workflow uses a three-stage
+approach:
+1. Comprehensive stock analysis and market research
+2. Investment potential evaluation and ranking
+3. Strategic portfolio allocation recommendations
+
+Key capabilities:
+- Real-time market data analysis
+- Professional financial research
+- Investment risk assessment
+- Portfolio allocation strategy
+- Detailed investment rationale
+
+Example companies to analyze:
+- "AAPL, MSFT, GOOGL" (Tech Giants)
+- "NVDA, AMD, INTC" (Semiconductor Leaders)
+- "TSLA, F, GM" (Automotive Innovation)
+- "JPM, BAC, GS" (Banking Sector)
+- "AMZN, WMT, TGT" (Retail Competition)
+- "PFE, JNJ, MRNA" (Healthcare Focus)
+- "XOM, CVX, BP" (Energy Sector)
+
+Run `pip install openai yfinance agno` to install dependencies.
+"""
+
 import asyncio
 import random
 from pathlib import Path
@@ -36,11 +64,12 @@ from shutil import rmtree
 from textwrap import dedent
 
 from agno.agent import Agent
+from agno.db.sqlite import SqliteDb
 from agno.models.openai import OpenAIChat
 from agno.tools.yfinance import YFinanceTools
 from agno.utils.pprint import pprint_run_response
-from agno.workflow.v2.types import WorkflowExecutionInput
-from agno.workflow.v2.workflow import Workflow
+from agno.workflow.types import WorkflowExecutionInput
+from agno.workflow.workflow import Workflow
 from pydantic import BaseModel
 
 
@@ -115,7 +144,7 @@ stock_analyst = Agent(
        - Identify potential red flags
     Note: This analysis is for educational purposes only.\
     """),
-    response_model=StockAnalysisResult,
+    output_schema=StockAnalysisResult,
 )
 
 research_analyst = Agent(
@@ -147,7 +176,7 @@ research_analyst = Agent(
        - Consider risk-adjusted returns
        - Explain competitive advantages\
     """),
-    response_model=InvestmentRanking,
+    output_schema=InvestmentRanking,
 )
 
 investment_lead = Agent(
@@ -179,7 +208,7 @@ investment_lead = Agent(
        - Provide actionable insights
        - Include risk considerations\
     """),
-    response_model=PortfolioAllocation,
+    output_schema=PortfolioAllocation,
 )
 
 
@@ -191,7 +220,7 @@ async def investment_analysis_execution(
     """Execute the complete investment analysis workflow"""
 
     # Get inputs
-    message: str = execution_input.message
+    message: str = execution_input.input
     company_symbols: str = companies
 
     if not company_symbols:
@@ -201,31 +230,30 @@ async def investment_analysis_execution(
     print(f"💼 Analysis request: {message}")
 
     # Phase 1: Stock Analysis
-    print(f"\n📊 PHASE 1: COMPREHENSIVE STOCK ANALYSIS")
+    print("\n📊 PHASE 1: COMPREHENSIVE STOCK ANALYSIS")
     print("=" * 60)
 
     analysis_prompt = f"""
     {message}
-    
+
     Please conduct a comprehensive analysis of the following companies: {company_symbols}
-    
+
     For each company, provide:
     1. Current market position and financial metrics
     2. Recent performance and analyst recommendations
     3. Industry trends and competitive landscape
     4. Risk factors and growth potential
     5. News impact and market sentiment
-    
     Companies to analyze: {company_symbols}
     """
 
-    print(f"🔍 Analyzing market data and fundamentals...")
+    print("🔍 Analyzing market data and fundamentals...")
     stock_analysis_result = await stock_analyst.arun(analysis_prompt)
     stock_analysis = stock_analysis_result.content
 
     # Save to file
     with open(stock_analyst_report, "w") as f:
-        f.write(f"# Stock Analysis Report\n\n")
+        f.write("# Stock Analysis Report\n\n")
         f.write(f"**Companies:** {stock_analysis.company_symbols}\n\n")
         f.write(f"## Market Analysis\n{stock_analysis.market_analysis}\n\n")
         f.write(f"## Financial Metrics\n{stock_analysis.financial_metrics}\n\n")
@@ -235,18 +263,16 @@ async def investment_analysis_execution(
     print(f"✅ Stock analysis completed and saved to {stock_analyst_report}")
 
     # Phase 2: Investment Ranking
-    print(f"\n🏆 PHASE 2: INVESTMENT POTENTIAL RANKING")
+    print("\n🏆 PHASE 2: INVESTMENT POTENTIAL RANKING")
     print("=" * 60)
 
     ranking_prompt = f"""
     Based on the comprehensive stock analysis below, please rank these companies by investment potential.
-    
     STOCK ANALYSIS:
     - Market Analysis: {stock_analysis.market_analysis}
     - Financial Metrics: {stock_analysis.financial_metrics}
     - Risk Assessment: {stock_analysis.risk_assessment}
     - Initial Recommendations: {stock_analysis.recommendations}
-    
     Please provide:
     1. Detailed ranking of companies from best to worst investment potential
     2. Investment rationale for each company
@@ -254,13 +280,13 @@ async def investment_analysis_execution(
     4. Growth potential assessment
     """
 
-    print(f"📈 Ranking companies by investment potential...")
+    print("📈 Ranking companies by investment potential...")
     ranking_result = await research_analyst.arun(ranking_prompt)
     ranking_analysis = ranking_result.content
 
     # Save to file
     with open(research_analyst_report, "w") as f:
-        f.write(f"# Investment Ranking Report\n\n")
+        f.write("# Investment Ranking Report\n\n")
         f.write(f"## Company Rankings\n{ranking_analysis.ranked_companies}\n\n")
         f.write(f"## Investment Rationale\n{ranking_analysis.investment_rationale}\n\n")
         f.write(f"## Risk Evaluation\n{ranking_analysis.risk_evaluation}\n\n")
@@ -269,18 +295,16 @@ async def investment_analysis_execution(
     print(f"✅ Investment ranking completed and saved to {research_analyst_report}")
 
     # Phase 3: Portfolio Allocation Strategy
-    print(f"\n💼 PHASE 3: PORTFOLIO ALLOCATION STRATEGY")
+    print("\n💼 PHASE 3: PORTFOLIO ALLOCATION STRATEGY")
     print("=" * 60)
 
     portfolio_prompt = f"""
     Based on the investment ranking and analysis below, create a strategic portfolio allocation.
-    
     INVESTMENT RANKING:
     - Company Rankings: {ranking_analysis.ranked_companies}
     - Investment Rationale: {ranking_analysis.investment_rationale}
     - Risk Evaluation: {ranking_analysis.risk_evaluation}
     - Growth Potential: {ranking_analysis.growth_potential}
-    
     Please provide:
     1. Specific allocation percentages for each company
     2. Investment thesis and strategic rationale
@@ -288,13 +312,13 @@ async def investment_analysis_execution(
     4. Final actionable recommendations
     """
 
-    print(f"💰 Developing portfolio allocation strategy...")
+    print("💰 Developing portfolio allocation strategy...")
     portfolio_result = await investment_lead.arun(portfolio_prompt)
     portfolio_strategy = portfolio_result.content
 
     # Save to file
     with open(investment_report, "w") as f:
-        f.write(f"# Investment Portfolio Report\n\n")
+        f.write("# Investment Portfolio Report\n\n")
         f.write(f"## Allocation Strategy\n{portfolio_strategy.allocation_strategy}\n\n")
         f.write(f"## Investment Thesis\n{portfolio_strategy.investment_thesis}\n\n")
         f.write(f"## Risk Management\n{portfolio_strategy.risk_management}\n\n")
@@ -307,21 +331,21 @@ async def investment_analysis_execution(
     # Final summary
     summary = f"""
     🎉 INVESTMENT ANALYSIS WORKFLOW COMPLETED!
-    
+
     📊 Analysis Summary:
     • Companies Analyzed: {company_symbols}
     • Market Analysis: ✅ Completed
-    • Investment Ranking: ✅ Completed  
+    • Investment Ranking: ✅ Completed
     • Portfolio Strategy: ✅ Completed
-    
+
     📁 Reports Generated:
     • Stock Analysis: {stock_analyst_report}
     • Investment Ranking: {research_analyst_report}
     • Portfolio Strategy: {investment_report}
-    
+
     💡 Key Insights:
     {portfolio_strategy.allocation_strategy[:200]}...
-    
+
     ⚠️ Disclaimer: This analysis is for educational purposes only and should not be considered as financial advice.
     """
 
@@ -332,8 +356,12 @@ async def investment_analysis_execution(
 investment_workflow = Workflow(
     name="Investment Report Generator",
     description="Automated investment analysis with market research and portfolio allocation",
+    db=SqliteDb(
+        session_table="workflow_session",
+        db_file="tmp/workflows.db",
+    ),
     steps=investment_analysis_execution,
-    workflow_session_state={},  # Initialize empty workflow session state
+    session_state={},  # Initialize empty workflow session state
 )
 
 
@@ -364,7 +392,7 @@ if __name__ == "__main__":
         print("=" * 70)
 
         result = await investment_workflow.arun(
-            message="Generate comprehensive investment analysis and portfolio allocation recommendations",
+            input="Generate comprehensive investment analysis and portfolio allocation recommendations",
             companies=companies,
         )
 

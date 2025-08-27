@@ -8,14 +8,14 @@ You can also use this pattern to create a custom function that can be used in an
 3. Generate reports while preserving type safety.
 
 ```python structured_io_at_each_step_level_agent.py
-from typing import List, Optional
+from typing import List
 
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.hackernews import HackerNewsTools
-from agno.workflow.v2.step import Step
-from agno.workflow.v2.workflow import Workflow
+from agno.workflow.step import Step
+from agno.workflow.workflow import Workflow
 from pydantic import BaseModel, Field
 
 
@@ -73,7 +73,7 @@ research_agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[HackerNewsTools(), DuckDuckGoTools()],
     role="Research AI trends and extract structured insights",
-    response_model=ResearchFindings,
+    output_schema=ResearchFindings,
     instructions=[
         "Research the given topic thoroughly using available tools",
         "Provide structured findings with confidence scores",
@@ -86,7 +86,7 @@ strategy_agent = Agent(
     name="Content Strategy Expert",
     model=OpenAIChat(id="gpt-4o-mini"),
     role="Create content strategies based on research findings",
-    response_model=ContentStrategy,
+    output_schema=ContentStrategy,
     instructions=[
         "Analyze the research findings provided from the previous step",
         "Create a comprehensive content strategy based on the structured research data",
@@ -99,7 +99,7 @@ planning_agent = Agent(
     name="Content Planning Specialist",
     model=OpenAIChat(id="gpt-4o"),
     role="Create detailed content plans and calendars",
-    response_model=FinalContentPlan,
+    output_schema=FinalContentPlan,
     instructions=[
         "Use the content strategy from the previous step to create a detailed implementation plan",
         "Include specific timelines and success metrics",
@@ -136,12 +136,11 @@ if __name__ == "__main__":
 
     # Test with simple string input
     structured_workflow.print_response(
-        message="Latest developments in artificial intelligence and machine learning"
+        input="Latest developments in artificial intelligence and machine learning"
     )
 ```
 
 Examples for some more scenarios where you can use this pattern:
-- [Structured IO at each Step level Agent](https://github.com/agno-agi/agno/tree/main/cookbook/workflows_2/sync/06_workflows_advanced_concepts/structured_io_at_each_step_level_agent_stream.py)
-- [Structured IO at each Step level Team](https://github.com/agno-agi/agno/tree/main/cookbook/workflows_2/async/06_workflows_advanced_concepts/structured_io_at_each_step_level_team_stream.py)
-- [Structured IO at each Step level Custom Function-1](https://github.com/agno-agi/agno/tree/main/cookbook/workflows_2/sync/06_workflows_advanced_concepts/structured_io_at_each_step_level_function_1.py)
-- [Structured IO at each Step level Custom Function-2](https://github.com/agno-agi/agno/tree/main/cookbook/workflows_2/sync/06_workflows_advanced_concepts/structured_io_at_each_step_level_function_2.py)
+- [Structured IO at each Step level Team](https://github.com/agno-agi/agno/tree/main/cookbook/workflows/06_advanced_concepts/01_structured_io_at_each_level/structured_io_at_each_step_level_team_stream.py)
+- [Structured IO at each Step level Custom Function-1](https://github.com/agno-agi/agno/tree/main/cookbook/workflows/06_advanced_concepts/01_structured_io_at_each_level/structured_io_at_each_step_level_function_1.py)
+- [Structured IO at each Step level Custom Function-2](https://github.com/agno-agi/agno/tree/main/cookbook/workflows/06_advanced_concepts/01_structured_io_at_each_level/structured_io_at_each_step_level_function_2.py)

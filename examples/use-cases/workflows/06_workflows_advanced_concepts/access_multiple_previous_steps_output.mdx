@@ -17,9 +17,9 @@ This example demonstrates **Workflows 2.0** shows how to:
 from agno.agent.agent import Agent
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.hackernews import HackerNewsTools
-from agno.workflow.v2.step import Step
-from agno.workflow.v2.types import StepInput, StepOutput
-from agno.workflow.v2.workflow import Workflow
+from agno.workflow.step import Step
+from agno.workflow.types import StepInput, StepOutput
+from agno.workflow.workflow import Workflow
 
 # Define the research agents
 hackernews_agent = Agent(
@@ -62,16 +62,14 @@ def create_comprehensive_report(step_input: StepInput) -> StepOutput:
     """
 
     # Access original workflow input
-    original_topic = step_input.message or ""
-
-    print(f"--> Original topic: {original_topic}")
+    original_topic = step_input.input or ""
 
     # Access specific step outputs by name
     hackernews_data = step_input.get_step_content("research_hackernews") or ""
     web_data = step_input.get_step_content("research_web") or ""
 
     # Or access ALL previous content
-    all_research = step_input.get_all_previous_content()
+    _ = step_input.get_all_previous_content()
 
     # Create a comprehensive report combining all sources
     report = f"""
@@ -110,7 +108,7 @@ workflow = Workflow(
     description="Multi-source research with custom data flow and reasoning",
     steps=[
         research_hackernews,
-        # research_web,
+        research_web,
         comprehensive_report_step,  # Has access to both previous steps
         reasoning_step,  # Gets the last step output (comprehensive report)
     ],

@@ -17,8 +17,8 @@ from typing import List
 from agno.agent import Agent
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.hackernews import HackerNewsTools
-from agno.workflow.v2 import Loop, Step, Workflow
-from agno.workflow.v2.types import StepOutput
+from agno.workflow import Loop, Step, Workflow
+from agno.workflow.types import StepOutput
 
 # Create agents for research
 research_agent = Agent(
@@ -96,11 +96,11 @@ workflow = Workflow(
 if __name__ == "__main__":
     # Test the workflow
     workflow.print_response(
-        message="Research the latest trends in AI and machine learning, then create a summary",
+        input="Research the latest trends in AI and machine learning, then create a summary",
     )
 ```
 
 This was a synchronous non-streaming example of this pattern. To checkout async and streaming versions, see the cookbooks-
-- [Loop Steps Workflow (sync streaming)](https://github.com/agno-agi/agno/tree/main/cookbook/workflows_2/sync/03_workflows_loop_execution/loop_steps_workflow_stream.py)
-- [Loop Steps Workflow (async non-streaming)](https://github.com/agno-agi/agno/tree/main/cookbook/workflows_2/async/03_workflows_loop_execution/loop_steps_workflow.py)
-- [Loop Steps Workflow (async streaming)](https://github.com/agno-agi/agno/tree/main/cookbook/workflows_2/async/03_workflows_loop_execution/loop_steps_workflow_stream.py)
+- [Loop Steps Workflow (sync streaming)](https://github.com/agno-agi/agno/tree/main/cookbook/workflows/03_workflows_loop_execution/sync/loop_steps_workflow_stream.py)
+- [Loop Steps Workflow (async non-streaming)](https://github.com/agno-agi/agno/tree/main/cookbook/workflows/03_workflows_loop_execution/async/loop_steps_workflow.py)
+- [Loop Steps Workflow (async streaming)](https://github.com/agno-agi/agno/tree/main/cookbook/workflows/03_workflows_loop_execution/async/loop_steps_workflow_stream.py)

@@ -14,9 +14,10 @@ continuing with invalid inputs could cause problems.
 
 ```python early_stop_workflow_with_agents.py
 from agno.agent import Agent
+from agno.agent import Agent
 from agno.models.openai import OpenAIChat
-from agno.workflow.v2 import Workflow
-from agno.workflow.v2.types import StepInput, StepOutput
+from agno.workflow import Workflow
+from agno.workflow.types import StepInput, StepOutput
 
 # Create agents with more specific validation criteria
 data_validator = Agent(
@@ -82,18 +83,18 @@ workflow = Workflow(
 if __name__ == "__main__":
     print("\n=== Testing with INVALID data ===")
     workflow.print_response(
-        message="Process this data: {'user_count': -50, 'revenue': 'invalid_amount', 'date': 'bad_date'}"
+        input="Process this data: {'user_count': -50, 'revenue': 'invalid_amount', 'date': 'bad_date'}"
     )
 
     print("=== Testing with VALID data ===")
     workflow.print_response(
-        message="Process this data: {'user_count': 1000, 'revenue': 50000, 'date': '2024-01-15'}"
+        input="Process this data: {'user_count': 1000, 'revenue': 50000, 'date': '2024-01-15'}"
     )
 ```
 
 To checkout async version, see the cookbook-
-- [Early Stop Workflow with Loop](https://github.com/agno-agi/agno/tree/main/cookbook/workflows_2/sync/06_workflows_advanced_concepts/early_stop_workflow_with_loop.py)
-- [Early Stop Workflow with Parallel](https://github.com/agno-agi/agno/tree/main/cookbook/workflows_2/sync/06_workflows_advanced_concepts/early_stop_workflow_with_parallel.py)
-- [Early Stop Workflow with Router](https://github.com/agno-agi/agno/tree/main/cookbook/workflows_2/sync/06_workflows_advanced_concepts/early_stop_workflow_with_router.py)
-- [Early Stop Workflow with Step](https://github.com/agno-agi/agno/tree/main/cookbook/workflows_2/sync/06_workflows_advanced_concepts/early_stop_workflow_with_step.py)
-- [Early Stop Workflow with Steps](https://github.com/agno-agi/agno/tree/main/cookbook/workflows_2/sync/06_workflows_advanced_concepts/early_stop_workflow_with_steps.py)
+- [Early Stop Workflow with Loop](https://github.com/agno-agi/agno/tree/main/cookbook/workflows/06_advanced_concepts/02_early_stopping/early_stop_workflow_with_loop.py)
+- [Early Stop Workflow with Parallel](https://github.com/agno-agi/agno/tree/main/cookbook/workflows/06_advanced_concepts/02_early_stopping/early_stop_workflow_with_parallel.py)
+- [Early Stop Workflow with Router](https://github.com/agno-agi/agno/tree/main/cookbook/workflows/06_advanced_concepts/02_early_stopping/early_stop_workflow_with_router.py)
+- [Early Stop Workflow with Step](https://github.com/agno-agi/agno/tree/main/cookbook/workflows/06_advanced_concepts/02_early_stopping/early_stop_workflow_with_step.py)
+- [Early Stop Workflow with Steps](https://github.com/agno-agi/agno/tree/main/cookbook/workflows/06_advanced_concepts/02_early_stopping/early_stop_workflow_with_steps.py)

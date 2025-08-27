@@ -13,10 +13,10 @@ adaptive workflows that respond to intermediate results.
 ```python condition_steps_workflow_stream.py
 from agno.agent.agent import Agent
 from agno.tools.duckduckgo import DuckDuckGoTools
-from agno.workflow.v2.condition import Condition
-from agno.workflow.v2.step import Step
-from agno.workflow.v2.types import StepInput
-from agno.workflow.v2.workflow import Workflow
+from agno.workflow.condition import Condition
+from agno.workflow.step import Step
+from agno.workflow.types import StepInput
+from agno.workflow.workflow import Workflow
 
 # === BASIC AGENTS ===
 researcher = Agent(
@@ -117,7 +117,7 @@ if __name__ == "__main__":
 
     try:
         basic_workflow.print_response(
-            message="Recent breakthroughs in quantum computing",
+            input="Recent breakthroughs in quantum computing",
             stream=True,
             stream_intermediate_steps=True,
         )
@@ -129,4 +129,4 @@ if __name__ == "__main__":
 ```
 
 To see the async example, see the cookbook-
-- [Condition steps workflow (async streaming)](https://github.com/agno-agi/agno/tree/main/cookbook/workflows_2/async/02_conditional_execution/condition_steps_workflow_stream.py)
+- [Condition steps workflow (async streaming)](https://github.com/agno-agi/agno/tree/main/cookbook/workflows/02_workflows_conditional_execution/async/condition_steps_workflow_stream.py)

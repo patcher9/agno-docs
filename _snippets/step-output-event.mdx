@@ -4,9 +4,9 @@
 | `step_name` | `Optional[str]` | `None` | Name of the step that produced output |
 | `step_index` | `Optional[Union[int, tuple]]` | `None` | Index or position of the step |
 | `step_output` | `Optional[StepOutput]` | `None` | Complete step execution result |
-| *Inherits all fields from `BaseWorkflowRunResponseEvent`* |
+| *Inherits all fields from `BaseWorkflowRunOutputEvent`* |
 | **Properties (read-only):** |
-| `content` | `Optional[str]` | - | Content from the step output |
+| `content` | `Optional[Union[str, Dict[str, Any], List[Any], BaseModel, Any]]` | - | Content from the step output |
 | `images` | `Optional[List[ImageArtifact]]` | - | Images from the step output |
 | `videos` | `Optional[List[VideoArtifact]]` | - | Videos from the step output |
 | `audio` | `Optional[List[AudioArtifact]]` | - | Audio from the step output |

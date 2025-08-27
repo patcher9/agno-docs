@@ -3,7 +3,7 @@ title: Workflow using steps
 description: This example demonstrates how to use the Steps object to organize multiple individual steps into logical sequences.
 ---
 
-This example demonstrates **Workflows 2.0** using the Steps object to organize multiple 
+This example demonstrates **Workflows** using the Steps object to organize multiple 
 individual steps into logical sequences. This pattern allows you to define reusable step 
 sequences and choose which sequences to execute in your workflow.
 
@@ -15,9 +15,9 @@ and matched based on different scenarios.
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.duckduckgo import DuckDuckGoTools
-from agno.workflow.v2.step import Step
-from agno.workflow.v2.steps import Steps
-from agno.workflow.v2.workflow import Workflow
+from agno.workflow.step import Step
+from agno.workflow.steps import Steps
+from agno.workflow.workflow import Workflow
 
 # Define agents for different tasks
 researcher = Agent(
@@ -74,10 +74,10 @@ if __name__ == "__main__":
     )
 
     article_workflow.print_response(
-        message="Write an article about the benefits of renewable energy",
+        input="Write an article about the benefits of renewable energy",
         markdown=True,
     )
 ``` 
 
 To see the async example, see the cookbook-
-- [Workflow using steps (async)](https://github.com/agno-agi/agno/tree/main/cookbook/workflows_2/async/01_basic_workflows/workflow_using_steps.py)
+- [Workflow using steps (async)](https://github.com/agno-agi/agno/tree/main/cookbook/workflows/01_basic_workflows/01_sequence_of_steps/async/workflow_using_steps.py)

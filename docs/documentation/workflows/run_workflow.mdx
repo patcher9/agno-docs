@@ -3,7 +3,7 @@ title: Running your Workflow
 description: Learn how to run a workflow and get the response.
 ---
 
-The `Workflow.run()` function runs the agent and generates a response, either as a `WorkflowRunResponse` object or a stream of `WorkflowRunResponse` objects.
+The `Workflow.run()` function runs the agent and generates a response, either as a `WorkflowRunOutput` object or a stream of `WorkflowRunOutput` objects.
 
 Many of our examples use `workflow.print_response()` which is a helper utility to print the response in the terminal. This uses `workflow.run()` under the hood.
 
@@ -14,13 +14,12 @@ Here's how to run your workflow. The response is captured in the `response`.
 ```python
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
-from agno.storage.sqlite import SqliteStorage
+from agno.db.sqlite import SqliteDb
 from agno.team import Team
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.hackernews import HackerNewsTools
-from agno.workflow.v2.step import Step
-from agno.workflow.v2.workflow import Workflow
-from agno.run.v2.workflow import WorkflowRunResponse
+from agno.workflow import Step, Workflow
+from agno.run.workflow import WorkflowRunOutput
 from agno.utils.pprint import pprint_run_response
 
 # Define agents
@@ -57,17 +56,13 @@ content_planner = Agent(
 content_creation_workflow = Workflow(
     name="Content Creation Workflow",
     description="Automated content creation from blog posts to social media",
-    storage=SqliteStorage(
-        table_name="workflow_v2",
-        db_file="tmp/workflow_v2.db",
-        mode="workflow_v2",
-    ),
+    db=SqliteDb(db_file="tmp/workflow.db"),
     steps=[research_team, content_planner],
 )
 
 # Create and use workflow
 if __name__ == "__main__":
-    response: WorkflowRunResponse = content_creation_workflow.run(
+    response: WorkflowRunOutput = content_creation_workflow.run(
         message="AI trends in 2024",
         markdown=True,
     )
@@ -76,8 +71,8 @@ if __name__ == "__main__":
 ```
 
 <Note>
-The `Workflow.run()` function returns a `WorkflowRunResponse` object when not streaming. 
-Here is detailed documentation for [`WorkflowRunResponse](/reference/workflows_2/workflow_run_response).
+The `Workflow.run()` function returns a `WorkflowRunOutput` object when not streaming. 
+Here is detailed documentation for [`WorkflowRunOutput](/reference/workflows/workflow_run_output).
 </Note>
 
 ## Async Execution
@@ -92,11 +87,8 @@ import asyncio
 
 from agno.agent.agent import Agent
 from agno.tools.duckduckgo import DuckDuckGoTools
-from agno.workflow.v2.condition import Condition
-from agno.workflow.v2.step import Step
-from agno.workflow.v2.types import StepInput
-from agno.workflow.v2.workflow import Workflow
-from agno.run.v2.workflow import WorkflowRunResponseEvent, WorkflowRunEvent
+from agno.workflow import Condition, Step, Workflow, StepInput
+from agno.run.workflow import WorkflowRunOutput, WorkflowRunOutputEvent
 
 # === BASIC AGENTS ===
 researcher = Agent(
@@ -192,7 +184,7 @@ basic_workflow = Workflow(
 
 async def main():
     try:
-        response: WorkflowRunResponseEvent = await basic_workflow.arun(
+        response: WorkflowRunOutput = await basic_workflow.arun(
             message="Recent breakthroughs in quantum computing",
         )
         pprint_run_response(response, markdown=True)
@@ -204,7 +196,7 @@ if __name__ == "__main__":
 
 ## Streaming Responses
 
-To enable streaming, set `stream=True` when calling `run()`. This will return an iterator of `WorkflowRunResponseEvent` objects instead of a single response.
+To enable streaming, set `stream=True` when calling `run()`. This will return an iterator of `WorkflowRunOutputEvent` objects instead of a single response.
 
 ```python
 # Define your agents/team
@@ -213,17 +205,13 @@ To enable streaming, set `stream=True` when calling `run()`. This will return an
 content_creation_workflow = Workflow(
     name="Content Creation Workflow",
     description="Automated content creation from blog posts to social media",
-    storage=SqliteStorage(
-        table_name="workflow_v2",
-        db_file="tmp/workflow_v2.db",
-        mode="workflow_v2",
-    ),
+    db=SqliteDb(db_file="tmp/workflow.db"),
     steps=[research_team, content_planner],
 )
 
 # Create and use workflow
 if __name__ == "__main__":
-    response: Iterator[WorkflowRunResponseEvent] = content_creation_workflow.run(
+    response: Iterator[WorkflowRunOutputEvent] = content_creation_workflow.run(
         message="AI trends in 2024",
         markdown=True,
         stream=True,
@@ -247,11 +235,8 @@ from typing import Iterator
 
 from agno.agent.agent import Agent
 from agno.tools.duckduckgo import DuckDuckGoTools
-from agno.workflow.v2.condition import Condition
-from agno.workflow.v2.step import Step
-from agno.workflow.v2.types import StepInput
-from agno.workflow.v2.workflow import Workflow
-from agno.run.v2.workflow import WorkflowRunResponseEvent, WorkflowRunEvent
+from agno.workflow import Condition, Step, Workflow, StepInput
+from agno.run.workflow import WorkflowRunOutput, WorkflowRunOutputEvent
 
 # === BASIC AGENTS ===
 researcher = Agent(
@@ -347,7 +332,7 @@ basic_workflow = Workflow(
 
 if __name__ == "__main__":
     try:
-        response: Iterator[WorkflowRunResponseEvent] = basic_workflow.run(
+        response: Iterator[WorkflowRunOutputEvent] = basic_workflow.run(
             message="Recent breakthroughs in quantum computing",
             stream=True,
             stream_intermediate_steps=True,
@@ -381,7 +366,7 @@ if __name__ == "__main__":
 
 ### Async Streaming
 
-The `Workflow.arun(stream=True)` returns an async iterator of `WorkflowRunResponseEvent` objects instead of a single response.
+The `Workflow.arun(stream=True)` returns an async iterator of `WorkflowRunOutputEvent` objects instead of a single response.
 So for example, if you want to stream the response, you can do the following:
 
 ```Python
@@ -391,7 +376,7 @@ So for example, if you want to stream the response, you can do the following:
 
 async def main():
     try:
-        response: AsyncIterator[WorkflowRunResponseEvent] = await basic_workflow.arun(
+        response: AsyncIterator[WorkflowRunOutputEvent] = await basic_workflow.arun(
             message="Recent breakthroughs in quantum computing",
             stream=True,
             stream_intermediate_steps=True,
@@ -482,7 +467,7 @@ The following events are yielded by the `Workflow.run()` and `Workflow.arun()` f
 | `StepsExecutionCompleted` | Signals successful completion of `Steps` execution |
 
 
-See detailed documentation in the [WorkflowRunResponseEvent](/reference/workflows_2/workflow-run-response-event) documentation.
+See detailed documentation in the [WorkflowRunOutputEvent](/reference/workflows/workflow_run_output) documentation.
 
 
 
