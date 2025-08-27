@@ -166,10 +166,68 @@ To enable session summaries, set `enable_session_summaries=True` on the `Agent`.
   </Step>
 </Steps>
 
+## Session history
 
-## Search the session history
+Agents with storage enabled automatically have access to the message and run history of the session.
 
-In some scenarios, you might want to fetch messages from the last N sessions to provide context or continuity in conversations.
+You can access these messages using:
+- `agent.get_messages_for_session()` -> Gets access to all the messages for the session, for the current agent.
+- `agent.get_chat_history()` -> Gets access to all the unique messages for the session.
+
+We can give the Agent access to the chat history in the following ways:
+
+- We can set `add_history_to_context=True` and `num_history_runs=5` to add the messages from the last 5 runs automatically to every message sent to the agent.
+- We can set `read_chat_history=True` to provide a `get_chat_history()` tool to your agent allowing it to read any message in the entire chat history.
+- **We recommend setting all 3: `add_history_to_messages=True`, `num_history_runs=3` and `read_chat_history=True` for the best experience.**
+- We can also set `read_tool_call_history=True` to provide a `get_tool_call_history()` tool to your agent allowing it to read tool calls in reverse chronological order.
+
+Take a look at this example:
+
+<Steps>
+  <Step title="Session history example">
+    ```python session_history.py
+    from agno.agent import Agent
+    from agno.models.google.gemini import Gemini
+    from agno.db.sqlite import SqliteDb
+
+    agent = Agent(
+        model=Gemini(id="gemini-2.0-flash-exp"),
+        db=SqliteDb(db_file="tmp/data.db"),
+        add_history_to_context=True,
+        num_history_runs=3,
+        read_chat_history=True,
+        description="You are a helpful assistant that always responds in a polite, upbeat and positive manner.",
+    )
+
+    agent.print_response("Share a 2 sentence horror story", stream=True)
+
+    agent.print_response("What was my first message?", stream=True)
+    ```
+  </Step>
+  <Step title="Run the example">
+    Install libraries
+
+    ```shell
+    pip install google-genai agno
+    ```
+
+    Export your key
+    ```shell
+    export GOOGLE_API_KEY=xxx
+    ```
+
+    Run the example
+
+    ```shell
+    python session_history.py
+    ```
+  </Step>
+</Steps>
+
+
+### Search the session history
+
+In some scenarios, you might want to fetch messages from across multiple sessions to provide context or continuity in conversations.
 
 To enable fetching messages from the last N sessions, you need to use the following flags:
 - `search_session_history`: Set this to `True` to allow searching through previous sessions.
