@@ -1033,7 +1033,8 @@
                       "examples/concepts/knowledge/rag/agentic-rag-lancedb",
                       "examples/concepts/knowledge/rag/agentic-rag-with-reranking",
                       "examples/concepts/knowledge/rag/agentic-rag-agent-ui",
-                      "examples/concepts/knowledge/rag/rag-with-lance-db-and-sqlite"
+                      "examples/concepts/knowledge/rag/rag-with-lance-db-and-sqlite",
+                      "examples/concepts/knowledge/rag/rag_sentence_transformer"
                     ]
                   },
                   {
@@ -1101,13 +1102,7 @@
                       "examples/concepts/knowledge/hybrid-search/milvusdb",
                       "examples/concepts/knowledge/hybrid-search/mongodb"
                     ]
-                  },
-                  "examples/concepts/knowledge/arxiv-kb",
-                  "examples/concepts/knowledge/combined-kb",
-                  "examples/concepts/knowledge/csv-kb",
-                  "examples/concepts/knowledge/csv-url-kb",
-                  "examples/concepts/knowledge/doc-kb",
-                  "examples/concepts/knowledge/docx-kb"
+                  }
                 ]
               },
               {
