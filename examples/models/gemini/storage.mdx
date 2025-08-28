@@ -4,19 +4,21 @@ title: Agent with Storage
 
 ## Code
 
-```python cookbook/models/google/gemini/storage.py
+```python cookbook/models/google/gemini/db.py
 from agno.agent import Agent
+from agno.db.postgres import PostgresDb
 from agno.models.google import Gemini
-from agno.storage.postgres import PostgresStorage
 from agno.tools.duckduckgo import DuckDuckGoTools
 
+# Setup the database
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
+db = PostgresDb(db_url=db_url)
 
 agent = Agent(
-    model=Gemini(id="gemini-2.0-flash-exp"),
-    storage=PostgresStorage(table_name="agent_sessions", db_url=db_url),
+    model=Gemini(id="gemini-2.0-flash-001"),
+    db=db,
     tools=[DuckDuckGoTools()],
-    add_history_to_messages=True,
+    add_history_to_context=True,
 )
 agent.print_response("How many people live in Canada?")
 agent.print_response("What is their national anthem called?")
@@ -35,7 +37,7 @@ agent.print_response("What is their national anthem called?")
 
   <Step title="Install libraries">
     ```bash
-    pip install -U google-genai sqlalchemy psycopg duckduckgo-search agno
+    pip install -U google-genai sqlalchemy psycopg ddgs agno
     ```
   </Step>
 
@@ -56,11 +58,11 @@ agent.print_response("What is their national anthem called?")
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/models/google/gemini/storage.py
+    python cookbook/models/google/gemini/db.py
     ```
 
     ```bash Windows
-    python cookbook/models/google/gemini/storage.py
+    python cookbook/models/google/gemini/db.py
     ```
     </CodeGroup>
   </Step>

@@ -7,7 +7,7 @@ title: Agent with Structured Outputs
 ```python cookbook/models/google/gemini/structured_output.py
 from typing import List
 
-from agno.agent import Agent, RunResponse  # noqa
+from agno.agent import Agent, RunOutput  # noqa
 from agno.models.google import Gemini
 from pydantic import BaseModel, Field
 from rich.pretty import pprint  # noqa
@@ -32,13 +32,13 @@ class MovieScript(BaseModel):
     )
 
 
-movie_agent = Agent(
-    model=Gemini(id="gemini-2.0-flash-exp"),
+structured_output_agent = Agent(
+    model=Gemini(id="gemini-2.0-flash-001"),
     description="You help people write movie scripts.",
     output_schema=MovieScript,
 )
 
-movie_agent.print_response("New York")
+structured_output_agent.print_response("New York")
 ```
 
 ## Usage
