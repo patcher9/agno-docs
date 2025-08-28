@@ -61,19 +61,14 @@
           "href": "https://github.com/agno-agi/agno"
         },
         {
-          "anchor": "Discord",
-          "icon": "discord",
-          "href": "https://agno.link/discord"
-        },
-        {
           "anchor": "Forum",
           "icon": "discourse",
           "href": "https://community.agno.com/"
         },
         {
-          "anchor": "Book a call",
-          "icon": "calendar-days",
-          "href": "https://cal.com/team/agno/intro"
+          "anchor": "Discord",
+          "icon": "discord",
+          "href": "https://agno.link/discord"
         }
       ]
     },
@@ -84,7 +79,7 @@
           {
             "group": "Getting Started",
             "pages": [
-              "docs/getting_started/introduction",
+              "introduction",
               "docs/getting_started/agents",
               "docs/getting_started/multi-agent-systems",
               "docs/getting_started/playground",
@@ -1004,12 +999,9 @@
                       "examples/concepts/knowledge/embedders/jina-embedder",
                       "examples/concepts/knowledge/embedders/langdb-embedder",
                       "examples/concepts/knowledge/embedders/nebius-embedder",
-                      "examples/concepts/knowledge/embedders/sentence-transformer-embedder",  
+                      "examples/concepts/knowledge/embedders/sentence-transformer-embedder",
                       "examples/concepts/knowledge/embedders/together-embedder",
                       "examples/concepts/knowledge/embedders/voyageai-embedder"
-
-
-                   
                     ]
                   },
                   {
@@ -1048,16 +1040,16 @@
                       {
                         "group": "VectorDBs",
                         "pages": [
-                        "examples/concepts/knowledge/filters/vector-dbs/filtering_chroma_db",
-                        "examples/concepts/knowledge/filters/vector-dbs/filtering_lance_db",
-                        "examples/concepts/knowledge/filters/vector-dbs/filtering_milvus_db",
-                        "examples/concepts/knowledge/filters/vector-dbs/filtering_mongo_db",
-                        "examples/concepts/knowledge/filters/vector-dbs/filtering_pgvector",
-                        "examples/concepts/knowledge/filters/vector-dbs/filtering_pinecone",
-                        "examples/concepts/knowledge/filters/vector-dbs/filtering_weaviate",
-                        "examples/concepts/knowledge/filters/vector-dbs/filtering_surreal_db"
-                      ]
-                    }
+                          "examples/concepts/knowledge/filters/vector-dbs/filtering_chroma_db",
+                          "examples/concepts/knowledge/filters/vector-dbs/filtering_lance_db",
+                          "examples/concepts/knowledge/filters/vector-dbs/filtering_milvus_db",
+                          "examples/concepts/knowledge/filters/vector-dbs/filtering_mongo_db",
+                          "examples/concepts/knowledge/filters/vector-dbs/filtering_pgvector",
+                          "examples/concepts/knowledge/filters/vector-dbs/filtering_pinecone",
+                          "examples/concepts/knowledge/filters/vector-dbs/filtering_weaviate",
+                          "examples/concepts/knowledge/filters/vector-dbs/filtering_surreal_db"
+                        ]
+                      }
                     ]
                   },
                   {
@@ -1095,7 +1087,6 @@
                   {
                     "group": "Readers",
                     "pages": [
-                    
                       {
                         "group": "ArXiv Readers",
                         "pages": [
@@ -1173,7 +1164,7 @@
                   }
                 ]
               },
-          
+
               {
                 "group": "Memory",
                 "pages": [
