@@ -201,9 +201,11 @@ from any sources. For a full example of the usage, see the [Content Types](../do
 Furthermore, we now support deletion of individual vectors using the `remove_vectors_by_id()`, `remove_vectors_by_name()` and remove_vectors by metadata()` methods.
 You can also delete all vectors created by a specific piece of content using `remove_content_by_id()`.
 
-4.4. The `retriever` field has been renamed to `knowledge_retriever`.
+4.4 In order to support the deletion mentioned above, VectorDB tables have been updated. Two new columns, `content_hash` and `content_id` have been added.
 
-4.5. The `add_references` method has been renamed to `add_knowledge_to_context`.
+4.5. The `retriever` field has been renamed to `knowledge_retriever`.
+
+4.6. The `add_references` method has been renamed to `add_knowledge_to_context`.
 
 **Renamed**
 - `retriever` -> `knowledge_retriever`
