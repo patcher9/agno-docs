@@ -5,9 +5,6 @@ title: Upstash
 ## Code
 
 ```python cookbook/knowledge/vector_db/upstash_db/upstash_db.py
-# install upstash-vector - `uv pip install upstash-vector`
-# Add OPENAI_API_KEY to your environment variables for the agent response
-
 import os
 
 from agno.agent import Agent
@@ -63,6 +60,7 @@ vector_db.delete_by_metadata({"doc_type": "recipe_book"})
     ```bash
     export UPSTASH_VECTOR_REST_URL="your-upstash-vector-rest-url"
     export UPSTASH_VECTOR_REST_TOKEN="your-upstash-vector-rest-token"
+    export OPENAI_API_KEY=xxx
     ```
   </Step>
 

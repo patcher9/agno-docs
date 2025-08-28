@@ -16,7 +16,6 @@ vector_db = LanceDb(
     uri="tmp/lancedb",
 )
 
-# Create Knowledge Instance with LanceDB
 knowledge = Knowledge(
     name="Basic SDK Knowledge Base",
     description="Agno 2.0 Knowledge Implementation with LanceDB",
@@ -31,7 +30,6 @@ asyncio.run(
     )
 )
 
-# Create and use the agent
 agent = Agent(knowledge=knowledge)
 agent.print_response("List down the ingredients to make Massaman Gai", markdown=True)
 
@@ -48,6 +46,12 @@ vector_db.delete_by_metadata({"doc_type": "recipe_book"})
   <Step title="Install libraries">
     ```bash
     pip install -U lancedb pypdf openai agno
+    ```
+  </Step>
+
+  <Step title="Set environment variables">
+    ```bash
+    export OPENAI_API_KEY=xxx
     ```
   </Step>
 

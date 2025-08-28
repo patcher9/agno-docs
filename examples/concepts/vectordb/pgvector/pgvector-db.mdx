@@ -26,16 +26,14 @@ knowledge.add_content_sync(
 
 agent = Agent(
     knowledge=knowledge,
-    # Enable the agent to search the knowledge base
     search_knowledge=True,
-    # Enable the agent to read the chat history
     read_chat_history=True,
 )
 
 agent.print_response("How do I make pad thai?", markdown=True)
 
 vector_db.delete_by_name("Recipes")
-# or
+
 vector_db.delete_by_metadata({"doc_type": "recipe_book"})
 ```
 
@@ -50,6 +48,11 @@ vector_db.delete_by_metadata({"doc_type": "recipe_book"})
     ```
   </Step>
   <Snippet file="run-pgvector.mdx" />
+  <Step title="Set environment variables">
+    ```bash
+    export OPENAI_API_KEY=xxx
+    ```
+  </Step>
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac

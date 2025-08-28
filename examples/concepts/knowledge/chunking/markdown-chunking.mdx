@@ -7,6 +7,7 @@ Markdown chunking is a method of splitting documents into smaller chunks of a sp
 ## Code
 
 ```python
+import asyncio
 from agno.agent import Agent
 from agno.knowledge.chunking.markdown import MarkdownChunking
 from agno.knowledge.knowledge import Knowledge
@@ -31,7 +32,7 @@ agent = Agent(
     search_knowledge=True,
 )
 
-agent.print_response("What is Agno?", markdown=True)
+asyncio.run(agent.print_response("What is Agno?", markdown=True))
 
 ```
 ## Usage

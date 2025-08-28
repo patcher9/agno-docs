@@ -25,7 +25,6 @@ knowledge_base.add_content(
     url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"
 )
 
-# Create and use the agent
 agent = Agent(knowledge=knowledge_base)
 
 agent.print_response("How to make Thai curry?", markdown=True)

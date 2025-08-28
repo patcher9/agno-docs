@@ -16,18 +16,15 @@ vector_db = LanceDb(
     uri="tmp/lancedb",
 )
 
-# Create Knowledge Instance with LanceDB
 knowledge = Knowledge(
     name="Basic SDK Knowledge Base",
     description="Agno 2.0 Knowledge Implementation with LanceDB",
     vector_db=vector_db,
 )
 
-# Create and use the agent
 agent = Agent(knowledge=knowledge)
 
 if __name__ == "__main__":
-    # Comment out after first run
     asyncio.run(
         knowledge.add_content(
             name="Recipes",
@@ -36,7 +33,6 @@ if __name__ == "__main__":
         )
     )
 
-    # Create and use the agent
     asyncio.run(
         agent.aprint_response("List down the ingredients to make Massaman Gai", markdown=True)
     )

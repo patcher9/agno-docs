@@ -23,7 +23,6 @@ knowledge = Knowledge(
     vector_db=vector_db,
 )
 
-# Create and use the agent
 agent = Agent(
     knowledge=knowledge,
     search_knowledge=True,
@@ -31,7 +30,6 @@ agent = Agent(
 )
 
 if __name__ == "__main__":
-    # Comment out after first run
     asyncio.run(
         knowledge.add_content(
             name="Recipes",
@@ -80,6 +78,7 @@ if __name__ == "__main__":
   <Step title="Set environment variables">
     ```bash
     export LIGHTRAG_API_KEY="your-lightrag-api-key"
+    export OPENAI_API_KEY=xxx
     ```
   </Step>
 

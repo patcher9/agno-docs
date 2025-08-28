@@ -42,16 +42,13 @@ db = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory=str(chroma_
 # Create a knowledge retriever from the vector store
 knowledge_retriever = db.as_retriever()
 
-# Create a knowledge instance
 knowledge = Knowledge(
     vector_db=LangChainVectorDb(knowledge_retriever=knowledge_retriever)
 )
 
-# Create an agent with the knowledge base
 agent = Agent(knowledge=knowledge)
 
 if __name__ == "__main__":
-    # Comment out after first run
     asyncio.run(
         agent.aprint_response("What did the president say?", markdown=True)
     )
@@ -65,6 +62,12 @@ if __name__ == "__main__":
   <Step title="Install libraries">
     ```bash
     pip install -U langchain langchain-community langchain-openai langchain-chroma pypdf openai agno
+    ```
+  </Step>
+
+  <Step title="Set environment variables">
+    ```bash
+    export OPENAI_API_KEY=xxx
     ```
   </Step>
 

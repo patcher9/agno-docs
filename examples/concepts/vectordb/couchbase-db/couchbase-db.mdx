@@ -135,9 +135,7 @@ knowledge.add_content(
 )
 agent = Agent(
     knowledge=knowledge,
-    # Enable the agent to search the knowledge base
     search_knowledge=True,
-    # Enable the agent to read the chat history
     read_chat_history=True,
 )
 
@@ -178,7 +176,7 @@ vector_db.delete_by_metadata({"doc_type": "recipe_book"})
     export COUCHBASE_USER="Administrator"
     export COUCHBASE_PASSWORD="password"
     export COUCHBASE_CONNECTION_STRING="couchbase://localhost"
-    export OPENAI_API_KEY="your-openai-api-key"
+    export OPENAI_API_KEY=xxx
     ```
   </Step>
   <Step title="Run Agent">

@@ -7,6 +7,7 @@ Document chunking is a method of splitting documents into smaller chunks based o
 ## Code
 
 ```python
+import asyncio
 from agno.agent import Agent
 from agno.knowledge.chunking.document import DocumentChunking
 from agno.knowledge.knowledge import Knowledge
@@ -32,7 +33,7 @@ agent = Agent(
     search_knowledge=True,
 )
 
-agent.print_response("How to make Thai curry?", markdown=True)
+asyncio.run(agent.print_response("How to make Thai curry?", markdown=True))
 
 
 ```

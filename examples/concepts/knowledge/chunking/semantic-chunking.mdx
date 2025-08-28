@@ -6,7 +6,8 @@ Semantic chunking is a method of splitting documents into smaller chunks by anal
 
 ## Code
 
-```python
+```python 
+import asyncio
 from agno.agent import Agent
 from agno.knowledge.chunking.semantic import SemanticChunking
 from agno.knowledge.knowledge import Knowledge
@@ -31,7 +32,7 @@ agent = Agent(
     search_knowledge=True,
 )
 
-agent.print_response("How to make Thai curry?", markdown=True)
+asyncio.run(agent.print_response("How to make Thai curry?", markdown=True))
 
 ```
 ## Usage

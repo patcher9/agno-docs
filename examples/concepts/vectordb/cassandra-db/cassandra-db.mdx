@@ -82,6 +82,15 @@ vector_db.delete_by_metadata({"doc_type": "recipe_book"})
     cassandra:latest
     ```
   </Step>
+  <Step title="Set environment variables">
+    ```bash
+    export CASSANDRA_HOST="localhost"
+    export CASSANDRA_PORT="9042"
+    export CASSANDRA_USER="cassandra"
+    export CASSANDRA_PASSWORD="cassandra"
+    export OPENAI_API_KEY=xxx
+    ```
+  </Step>
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
