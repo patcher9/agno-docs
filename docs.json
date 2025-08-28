@@ -541,29 +541,29 @@
             "pages": [
               {
                 "group": "Agent UI",
-                "pages": ["agent-ui/introduction"]
+                "pages": ["docs/other/agent-ui/introduction"]
               },
               {
                 "group": "Agent API",
-                "pages": ["agent-api/introduction"]
+                "pages": ["docs/other/agent-api/introduction"]
               },
               {
                 "group": "Observability",
                 "pages": [
-                  "observability/introduction",
-                  "observability/agentops",
-                  "observability/arize",
-                  "observability/atla",
-                  "observability/langdb",
-                  "observability/langfuse",
-                  "observability/langsmith",
-                  "observability/langtrace",
-                  "observability/weave"
+                  "docs/other/observability/introduction",
+                  "docs/other/observability/agentops",
+                  "docs/other/observability/arize",
+                  "docs/other/observability/atla",
+                  "docs/other/observability/langdb",
+                  "docs/other/observability/langfuse",
+                  "docs/other/observability/langsmith",
+                  "docs/other/observability/langtrace",
+                  "docs/other/observability/weave"
                 ]
               },
               {
                 "group": "Testing",
-                "pages": ["testing/scenario-testing"]
+                "pages": ["docs/other/testing/scenario-testing"]
               }
             ]
           },
@@ -571,10 +571,10 @@
             "group": "How to",
             "hidden": true,
             "pages": [
-              "how-to/install",
-              "how-to/contribute",
-              "how-to/phidata-to-agno",
-              "how-to/authentication"
+              "docs/how-to/install",
+              "docs/how-to/contribute",
+              "docs/how-to/phidata-to-agno",
+              "docs/how-to/authentication"
             ]
           }
         ]
@@ -1864,11 +1864,113 @@
       },
       {
         "tab": "AgentOS API Reference",
-        "hidden": true,
         "groups": [
           {
-            "group": "AgentOS API Reference",
-            "pages": ["reference_api/overview"]
+            "group": "Introduction",
+            "pages": [
+              "reference-api/overview"
+            ]
+          },
+          {
+            "group": "Core",
+            "pages": [
+              "reference-api/schema/core/config"
+            ]
+          },
+          {
+            "group": "Agents",
+            "pages": [
+              "reference-api/schema/agents/create-agent-run",
+              "reference-api/schema/agents/create-agent-run",
+              "reference-api/schema/agents/cancel-agent-run",
+              "reference-api/schema/agents/continue-agent-run",
+              "reference-api/schema/agents/get-agents",
+              "reference-api/schema/agents/get-agent",
+              "reference-api/schema/agents/get-agent-sessions",
+              "reference-api/schema/agents/get-agent-session-by-id",
+              "reference-api/schema/agents/get-agent-session-runs",
+              "reference-api/schema/agents/delete-agent-session",
+              "reference-api/schema/agents/rename-agent-session"
+            ]
+          },
+          {
+            "group": "Teams",
+            "pages": [
+              "reference-api/schema/teams/create-team-run",
+              "reference-api/schema/teams/cancel-team-run",
+              "reference-api/schema/teams/get-teams",
+              "reference-api/schema/teams/get-team",
+              "reference-api/schema/teams/get-team-sessions",
+              "reference-api/schema/teams/get-team-session-by-id",
+              "reference-api/schema/teams/get-team-session-runs",
+              "reference-api/schema/teams/delete-team-session",
+              "reference-api/schema/teams/rename-team-session"
+            ]
+          },
+          {
+            "group": "Workflows",
+            "pages": [
+              "reference-api/schema/workflows/create-workflow-run",
+              "reference-api/schema/workflows/cancel-workflow-run",
+              "reference-api/schema/workflows/get-workflows",
+              "reference-api/schema/workflows/get-workflow",
+              "reference-api/schema/workflows/get-workflow-sessions",
+              "reference-api/schema/workflows/get-workflow-session-by-id",
+              "reference-api/schema/workflows/get-workflow-session-runs"
+            ]
+          },
+          {
+            "group": "Sessions",
+            "pages": [
+              "reference-api/schema/sessions/get-sessions",
+              "reference-api/schema/sessions/get-session-by-id",
+              "reference-api/schema/sessions/get-session-runs",
+              "reference-api/schema/sessions/rename-session",
+              "reference-api/schema/sessions/delete-session",
+              "reference-api/schema/sessions/delete-sessions"
+            ]
+          },
+          {
+            "group": "Memory",
+            "pages": [
+              "reference-api/schema/memory/get-memory",
+              "reference-api/schema/memory/get-memories",
+              "reference-api/schema/memory/create-memory",
+              "reference-api/schema/memory/update-memory",
+              "reference-api/schema/memory/delete-memory",
+              "reference-api/schema/memory/delete-memories",
+              "reference-api/schema/memory/get-topics",
+              "reference-api/schema/memory/get-user-memory-stats"
+            ]
+          },
+          {
+            "group": "Evals",
+            "pages": [
+              "reference-api/schema/evals/get-eval-runs",
+              "reference-api/schema/evals/get-eval-run",
+              "reference-api/schema/evals/delete-eval-runs",
+              "reference-api/schema/evals/run-eval",
+              "reference-api/schema/evals/update-eval-run"
+            ]
+          },
+          {
+            "group": "Knowledge",
+            "pages": [
+              "reference-api/schema/knowledge/upload-content",
+              "reference-api/schema/knowledge/get-content",
+              "reference-api/schema/knowledge/get-content-by-id",
+              "reference-api/schema/knowledge/get-content-status",
+              "reference-api/schema/knowledge/update-content",
+              "reference-api/schema/knowledge/delete-all-content",
+              "reference-api/schema/knowledge/delete-content-by-id"
+            ]
+          },
+          {
+            "group": "Metrics",
+            "pages": [
+              "reference-api/schema/metrics/get-metrics",
+              "reference-api/schema/metrics/calculate-metrics"
+            ]
           }
         ]
       },
