@@ -505,7 +505,9 @@
                   "docs/documentation/db/singlestore",
                   "docs/documentation/db/redis",
                   "docs/documentation/db/gcs",
-                  "docs/documentation/db/firestore"
+                  "docs/documentation/db/firestore",
+                  "docs/documentation/db/supabase",
+                  "docs/documentation/db/neon"
                 ]
               },
               {
