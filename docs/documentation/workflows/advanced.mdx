@@ -81,6 +81,9 @@ def custom_content_planning_function(step_input: StepInput) -> StepOutput:
     return StepOutput(content=enhanced_content)
 ```
 
+**More Examples**:
+- [Step with a Custom Function](/examples/use-cases/workflows/01-basic-workflows/step_with_function)
+
 ## Run a Workflow non-blocking (in the background)
 
 You can run a workflow as a non-blocking task by passing `background=True` to `Workflow.arun()`. This will return a `WorkflowRunOutput` object with a `run_id` that you can use to poll for the result of the workflow until it is completed.
@@ -205,8 +208,68 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-**More Examples**:
-- [Step with a Custom Function](/examples/use-cases/workflows/01-basic-workflows/step_with_function)
+## Workflow Cancellation
+
+Workflows can be cancelled during execution to stop processing immediately and free up resources. This is particularly useful for long-running workflows, background tasks, or when user requirements change mid-execution.
+
+The cancellation system provides graceful termination with proper cleanup and event logging.
+
+### When to Use Cancellation
+
+- **User-initiated stops**: Allow users to cancel long-running processes
+- **Resource management**: Free up computational resources when workflows are no longer needed
+- **Priority changes**: Cancel lower-priority workflows to make room for urgent tasks
+
+### Cancelling Background Workflows
+
+For workflows running in the background (using `background=True`), you can cancel them using the `run_id`:
+
+```python
+import asyncio
+from agno.workflow import Workflow
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.workflow.step import Step
+
+# Setup workflow
+long_running_workflow = Workflow(
+    name="Long Running Analysis",
+    steps=[
+        Step(name="Research", agent=Agent(model=OpenAIChat(id="gpt-4o"), instructions="You are a helpful assistant that can research the web.")),
+        Step(name="Deep Analysis", agent=Agent(model=OpenAIChat(id="gpt-4o"), instructions="You are a helpful assistant that can analyze the web.")),
+        Step(name="Report Generation", agent=Agent(model=OpenAIChat(id="gpt-4o"), instructions="You are a helpful assistant that can generate a report.")),
+    ]
+)
+
+async def main():
+    # Start background workflow
+    bg_response = await long_running_workflow.arun(
+        input="Comprehensive market analysis for emerging technologies",
+        background=True
+    )
+    
+    print(f"Started workflow with run_id: {bg_response.run_id}")
+    
+    # Simulate some time passing
+    await asyncio.sleep(5)
+    
+    # Cancel the workflow
+    cancellation_result = long_running_workflow.cancel_run(bg_response.run_id)
+    
+    if cancellation_result:  # cancellation_result is a bool
+        print(f"✅ Workflow {bg_response.run_id} cancelled successfully")
+    else:
+        print(f"❌ Failed to cancel workflow {bg_response.run_id}")
+
+asyncio.run(main())
+```
+
+<Note>
+When a workflow in streaming mode is cancelled, a specific event is triggered: `WorkflowRunEvent.workflow_cancelled` or simply known as `WorkflowCancelledEvent`
+</Note>
+
+**More Examples**: 
+- [Workflow Cancellation](/examples/use-cases/workflows/06_workflows_advanced_concepts/workflow_cancellation)   
 
 ## Early Stopping
 
@@ -347,6 +410,7 @@ from agno.run.workflow import WorkflowRunEvent
 events_to_skip = [
     WorkflowRunEvent.workflow_started,
     WorkflowRunEvent.workflow_completed,
+    WorkflowRunEvent.workflow_cancelled,
     WorkflowRunEvent.step_started,
     WorkflowRunEvent.step_completed,
     WorkflowRunEvent.parallel_execution_started,
