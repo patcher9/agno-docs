@@ -1102,9 +1102,89 @@
                       "examples/concepts/knowledge/hybrid-search/milvusdb",
                       "examples/concepts/knowledge/hybrid-search/mongodb"
                     ]
+                  },
+                  {
+                    "group": "Readers",
+                    "pages": [
+                    
+                      {
+                        "group": "ArXiv Readers",
+                        "pages": [
+                          "examples/concepts/knowledge/readers/arxiv/arxiv-reader",
+                          "examples/concepts/knowledge/readers/arxiv/arxiv-reader-async"
+                        ]
+                      },
+                      {
+                        "group": "CSV Readers",
+                        "pages": [
+                          "examples/concepts/knowledge/readers/csv/csv-reader",
+                          "examples/concepts/knowledge/readers/csv/csv-reader-async",
+                          "examples/concepts/knowledge/readers/csv/csv-url-reader"
+                        ]
+                      },
+                      {
+                        "group": "Firecrawl Readers",
+                        "pages": [
+                          "examples/concepts/knowledge/readers/firecrawl/firecrawl-reader",
+                          "examples/concepts/knowledge/readers/firecrawl/firecrawl-reader-async"
+                        ]
+                      },
+                      {
+                        "group": "JSON Readers",
+                        "pages": [
+                          "examples/concepts/knowledge/readers/json/json-reader",
+                          "examples/concepts/knowledge/readers/json/json-reader-async"
+                        ]
+                      },
+                      {
+                        "group": "Markdown Readers",
+                        "pages": [
+                          "examples/concepts/knowledge/readers/markdown/markdown-reader",
+                          "examples/concepts/knowledge/readers/markdown/markdown-reader-async"
+                        ]
+                      },
+                      {
+                        "group": "PDF Readers",
+                        "pages": [
+                          "examples/concepts/knowledge/readers/pdf/pdf-reader",
+                          "examples/concepts/knowledge/readers/pdf/pdf-reader-async",
+                          "examples/concepts/knowledge/readers/pdf/pdf-password-reader",
+                          "examples/concepts/knowledge/readers/pdf/pdf-url-password-reader"
+                        ]
+                      },
+                      {
+                        "group": "URL Readers",
+                        "pages": [
+                          "examples/concepts/knowledge/readers/url/url-reader",
+                          "examples/concepts/knowledge/readers/url/url-reader-async"
+                        ]
+                      },
+                      {
+                        "group": "Website Readers",
+                        "pages": [
+                          "examples/concepts/knowledge/readers/website/website-reader",
+                          "examples/concepts/knowledge/readers/website/website-reader-async"
+                        ]
+                      },
+                      {
+                        "group": "Wikipedia Readers",
+                        "pages": [
+                          "examples/concepts/knowledge/readers/wikipedia/wikipedia-reader",
+                          "examples/concepts/knowledge/readers/wikipedia/wikipedia-reader-async"
+                        ]
+                      },
+                      {
+                        "group": "YouTube Readers",
+                        "pages": [
+                          "examples/concepts/knowledge/readers/youtube/youtube-reader",
+                          "examples/concepts/knowledge/readers/youtube/youtube-reader-async"
+                        ]
+                      }
+                    ]
                   }
                 ]
               },
+          
               {
                 "group": "Memory",
                 "pages": [
@@ -2085,26 +2165,6 @@
                 ]
               },
               {
-                "group": "Knowledge",
-                "pages": [
-                  "reference/knowledge/base",
-                  "reference/knowledge/arxiv",
-                  "reference/knowledge/combined",
-                  "reference/knowledge/csv",
-                  "reference/knowledge/csv_url",
-                  "reference/knowledge/docx",
-                  "reference/knowledge/json",
-                  "reference/knowledge/langchain",
-                  "reference/knowledge/llamaindex",
-                  "reference/knowledge/pdf",
-                  "reference/knowledge/pdf_url",
-                  "reference/knowledge/text",
-                  "reference/knowledge/website",
-                  "reference/knowledge/wikipedia",
-                  "reference/knowledge/youtube"
-                ]
-              },
-              {
                 "group": "Vector Databases",
                 "pages": [
                   "reference/vector_db/cassandra",
@@ -2175,22 +2235,20 @@
                 ]
               },
               {
-                "group": "Document Reader",
+                "group": "Readers",
                 "pages": [
-                  "reference/document_reader/arxiv",
-                  "reference/document_reader/base",
-                  "reference/document_reader/csv",
-                  "reference/document_reader/csv_url",
-                  "reference/document_reader/docx",
-                  "reference/document_reader/json",
-                  "reference/document_reader/pdf_image_url",
-                  "reference/document_reader/pdf_image",
-                  "reference/document_reader/pdf_url",
-                  "reference/document_reader/pdf",
-                  "reference/document_reader/text",
-                  "reference/document_reader/website",
-                  "reference/document_reader/youtube",
-                  "reference/document_reader/firecrawl"
+                  "reference/reader/arxiv",
+                  "reference/reader/base",
+                  "reference/reader/csv",
+                  "reference/reader/csv_url",
+                  "reference/reader/docx",
+                  "reference/reader/json",
+                  "reference/reader/pdf",
+                  "reference/reader/text",
+                  "reference/reader/website",
+                  "reference/reader/youtube",
+                  "reference/reader/firecrawl",
+                  "reference/reader/wikipedia"
                 ]
               }
             ]

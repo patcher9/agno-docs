@@ -1,0 +1,73 @@
+---
+title: URL Reader (Async)
+---
+
+The **URL Reader** with asynchronous processing allows you to fetch and process content from web URLs efficiently and integrate them with knowledge bases.
+
+## Code
+
+```python examples/concepts/knowledge/readers/url_reader_async.py
+import asyncio
+
+from agno.agent import Agent
+from agno.knowledge.knowledge import Knowledge
+from agno.knowledge.chunking.recursive import RecursiveChunking
+from agno.knowledge.reader.url_reader import URLReader
+from agno.vectordb.pgvector import PgVector
+
+db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
+
+knowledge = Knowledge(
+    vector_db=PgVector(
+        table_name="url_documents",
+        db_url=db_url,
+    ),
+)
+
+agent = Agent(
+    knowledge=knowledge,
+    search_knowledge=True,
+)
+
+async def main():
+    # Add URL content to knowledge base
+    await knowledge.add_content(
+        url="https://docs.agno.com/introduction",
+        reader=URLReader(chunking_strategy=RecursiveChunking(chunk_size=1000)),
+    )
+
+    # Query the knowledge base
+    await agent.aprint_response(
+        "What is Agno and how does it work?",
+        markdown=True,
+    )
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+    ```bash
+    pip install -U requests beautifulsoup4 sqlalchemy 'psycopg[binary]' pgvector agno
+    ```
+  </Step>
+
+  <Snippet file="run-pgvector-step.mdx" />
+
+  <Step title="Run Agent">
+    <CodeGroup>
+    ```bash Mac
+    python examples/concepts/knowledge/readers/url_reader_async.py
+    ```
+
+    ```bash Windows
+    python examples/concepts/knowledge/readers/url_reader_async.py
+    ```
+    </CodeGroup>
+  </Step>
+</Steps>
