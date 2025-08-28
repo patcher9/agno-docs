@@ -189,7 +189,12 @@ Knowledge gives an Agent the ability to search and retrieve relevant, domain-spe
 
 These are the changes we have made for v2:
 
-4.1. The `retriever` field has been renamed to `knowledge_retriever`.
+4.1. `AgentKnowledge` has been deprecated in favor of the new `Knowledge` class. 
+Along with this, all of the child classes that used `AgentKnowledge` as a base have been removed. Their capabilities are now supported
+by default in `Knowledge`. This also means that the correct reader for the content that you are adding is now selected automatically, with
+the option to override it at any time.
+
+4.2. The `retriever` field has been renamed to `knowledge_retriever`.
 4.2. The `add_references` method has been renamed to `add_knowledge_to_context`.
 
 **Renamed**

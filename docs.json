@@ -2042,8 +2042,8 @@
               {
                 "group": "Document Reader",
                 "pages": [
-                  "reference/document_reader/arxiv",
                   "reference/document_reader/base",
+                  "reference/document_reader/arxiv",
                   "reference/document_reader/csv",
                   "reference/document_reader/csv_url",
                   "reference/document_reader/docx",
