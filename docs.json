@@ -1038,69 +1038,58 @@
                     ]
                   },
                   {
-                    "group": "Knowledge Filters",
+                    "group": "Filters",
                     "pages": [
+                      "examples/concepts/knowledge/filters/agentic-filtering",
+                      "examples/concepts/knowledge/filters/async-filtering",
+                      "examples/concepts/knowledge/filters/filtering",
+                      "examples/concepts/knowledge/filters/filtering_on_load",
+                      "examples/concepts/knowledge/filters/filtering_with_invalid_keys",
                       {
-                        "group": "Pdf",
+                        "group": "VectorDBs",
                         "pages": [
-                          "examples/concepts/knowledge/filters/pdf/filtering",
-                          "examples/concepts/knowledge/filters/pdf/agentic_filtering",
-                          "examples/concepts/knowledge/filters/pdf/filtering_on_load"
-                        ]
-                      },
-                      {
-                        "group": "Pdf-Url",
-                        "pages": [
-                          "examples/concepts/knowledge/filters/pdf_url/filtering",
-                          "examples/concepts/knowledge/filters/pdf_url/agentic_filtering",
-                          "examples/concepts/knowledge/filters/pdf_url/filtering_on_load"
-                        ]
-                      },
-                      {
-                        "group": "Json",
-                        "pages": [
-                          "examples/concepts/knowledge/filters/json/filtering",
-                          "examples/concepts/knowledge/filters/json/agentic_filtering",
-                          "examples/concepts/knowledge/filters/json/filtering_on_load"
-                        ]
-                      },
-                      {
-                        "group": "Docx",
-                        "pages": [
-                          "examples/concepts/knowledge/filters/docx/filtering",
-                          "examples/concepts/knowledge/filters/docx/agentic_filtering",
-                          "examples/concepts/knowledge/filters/docx/filtering_on_load"
-                        ]
-                      },
-                      {
-                        "group": "Text",
-                        "pages": [
-                          "examples/concepts/knowledge/filters/text/filtering",
-                          "examples/concepts/knowledge/filters/text/agentic_filtering",
-                          "examples/concepts/knowledge/filters/text/filtering_on_load"
-                        ]
-                      },
-                      "examples/concepts/knowledge/filters/filtering_qdrant_db",
-                      "examples/concepts/knowledge/filters/filtering_milvus_db",
-                      "examples/concepts/knowledge/filters/filtering_mongo_db",
-                      "examples/concepts/knowledge/filters/filtering_pgvector",
-                      "examples/concepts/knowledge/filters/filtering_weaviate",
-                      "examples/concepts/knowledge/filters/filtering_lance_db",
-                      "examples/concepts/knowledge/filters/filtering_chroma_db",
-                      "examples/concepts/knowledge/filters/filtering_pinecone",
-                      "examples/concepts/knowledge/filters/filtering_surreal_db",
-                      "examples/concepts/knowledge/filters/filtering-traditional-RAG"
+                        "examples/concepts/knowledge/filters/vector-dbs/filtering_chroma_db",
+                        "examples/concepts/knowledge/filters/vector-dbs/filtering_lance_db",
+                        "examples/concepts/knowledge/filters/vector-dbs/filtering_milvus_db",
+                        "examples/concepts/knowledge/filters/vector-dbs/filtering_mongo_db",
+                        "examples/concepts/knowledge/filters/vector-dbs/filtering_pgvector",
+                        "examples/concepts/knowledge/filters/vector-dbs/filtering_pinecone",
+                        "examples/concepts/knowledge/filters/vector-dbs/filtering_weaviate",
+                        "examples/concepts/knowledge/filters/vector-dbs/filtering_surreal_db"
+                      ]
+                    }
                     ]
                   },
                   {
-                    "group": "Hybrid Search",
+                    "group": "Search Type",
                     "pages": [
-                      "examples/concepts/knowledge/hybrid-search/lancedb",
-                      "examples/concepts/knowledge/hybrid-search/pgvector",
-                      "examples/concepts/knowledge/hybrid-search/qdrantdb",
-                      "examples/concepts/knowledge/hybrid-search/weaviate",
-                      "examples/concepts/knowledge/hybrid-search/milvusdb",
-                      "examples/concepts/knowledge/hybrid-search/mongodb"
+                      "examples/concepts/knowledge/search_type/vector-search",
+                      "examples/concepts/knowledge/search_type/keyword-search",
+                      "examples/concepts/knowledge/search_type/hybrid-search"
+                    ]
+                  },
+                  {
+                    "group": "Remote Content",
+                    "pages": [
+                      "examples/concepts/knowledge/remote-content/gcs-content",
+                      "examples/concepts/knowledge/remote-content/s3-content"
+                    ]
+                  },
+                  {
+                    "group": "Basic Operations",
+                    "pages": [
+                      "examples/concepts/knowledge/basic-operations/include-exclude-files",
+                      "examples/concepts/knowledge/basic-operations/remove-content",
+                      "examples/concepts/knowledge/basic-operations/remove-vectors",
+                      "examples/concepts/knowledge/basic-operations/skip-if-exists",
+                      "examples/concepts/knowledge/basic-operations/sync-operations"
+                    ]
+                  },
+                  {
+                    "group": "Custom Retriever",
+                    "pages": [
+                      "examples/concepts/knowledge/custom_retriever/custom-retriever",
+                      "examples/concepts/knowledge/custom_retriever/async-custom-retriever"
                     ]
                   },
                   {
@@ -2249,6 +2238,13 @@
                   "reference/reader/youtube",
                   "reference/reader/firecrawl",
                   "reference/reader/wikipedia"
+                ]
+              },
+              {
+                "group": "Remote Content",
+                "pages": [
+                  "reference/remote-content/gcs-content",
+                  "reference/remote-content/s3-content"
                 ]
               }
             ]
