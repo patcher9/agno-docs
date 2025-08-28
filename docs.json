@@ -1581,7 +1581,13 @@
                   "examples/models/groq/structured_output",
                   "examples/models/groq/storage",
                   "examples/models/groq/knowledge",
-                  "examples/models/groq/image_agent"
+                  "examples/models/groq/image_agent",
+                  "examples/models/groq/deep_knowledge",
+                  "examples/models/groq/browser_search",
+                  "examples/models/groq/metrics",
+                  "examples/models/groq/reasoning_agent",
+                  "examples/models/groq/transcription_agent",
+                  "examples/models/groq/translation_agent"
                 ]
               },
               {
