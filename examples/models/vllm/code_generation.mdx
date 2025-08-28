@@ -5,12 +5,6 @@ title: Code Generation
 ## Code
 
 ```python cookbook/models/vllm/code_generation.py
-"""Code generation example with DeepSeek-Coder.
-Run vLLM model: vllm serve deepseek-ai/deepseek-coder-6.7b-instruct \
-        --dtype float32 \
-        --tool-call-parser pythonic
-"""
-
 from agno.agent import Agent
 from agno.models.vllm import VLLM
 
