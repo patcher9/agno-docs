@@ -202,6 +202,7 @@
                 "group": "Knowledge",
                 "pages": [
                   "docs/documentation/knowledge/introduction",
+                  "docs/documentation/knowledge/content_types",
                   "docs/documentation/knowledge/search",
                   "docs/documentation/knowledge/hybrid_search",
                   {
@@ -250,6 +251,12 @@
                     ]
                   },
                   {
+                    "group": "Readers",
+                    "pages": [
+                      "docs/documentation/knowledge/readers/pdf_reader"
+                    ]
+                  },
+                  {
                     "group": "Vector DBs",
                     "pages": [
                       "docs/documentation/knowledge/vectordb/introduction",
@@ -259,6 +266,7 @@
                       "docs/documentation/knowledge/vectordb/couchbase",
                       "docs/documentation/knowledge/vectordb/clickhouse",
                       "docs/documentation/knowledge/vectordb/lancedb",
+                      "docs/documentation/knowledge/vectordb/lightrag",
                       "docs/documentation/knowledge/vectordb/milvus",
                       "docs/documentation/knowledge/vectordb/pinecone",
                       "docs/documentation/knowledge/vectordb/qdrant",
@@ -287,7 +295,8 @@
                       "docs/documentation/knowledge/embedder/voyageai",
                       "docs/documentation/knowledge/embedder/aws_bedrock"
                     ]
-                  }
+                  },
+                  "docs/documentation/knowledge/custom_retriever"
                 ]
               },
               {

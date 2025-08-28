@@ -13,107 +13,123 @@ We're obviously not going to put this all in the system prompt, instead we store
 Using this information, the Agent can then generate the best-possible SQL query. This is called dynamic few-shot learning.
 </Accordion>
 
-**Agno Agents use Agentic RAG** by default, meaning if you add `knowledge` to an Agent, it will search this knowledge base, at runtime, for the specific information it needs to achieve its task.
+**Agno Agents use Agentic RAG** by default, meaning if you add `knowledge` to an Agent, it will search this knowledge, at runtime, for the specific information it needs to achieve its task.
 
 The pseudo steps for adding knowledge to an Agent are:
 
 ```python
-from agno.agent import Agent, AgentKnowledge
+from agno.agent import Agent
+from agno.knowledge.knowledge import Knowledge
 
-# Create a knowledge base for the Agent
-knowledge_base = AgentKnowledge(vector_db=...)
+# Create a knowledge instance for the Agent
+knowledge = Knowledge(vector_db=...)
 
-# Add information to the knowledge base
-knowledge_base.load_text("The sky is blue")
+# Add some knowledge content
+asyncio.run(
+    knowledge.add_content(
+        text_content="The sky is blue",
+    )
+)
 
-# Add the knowledge base to the Agent and
-# give it a tool to search the knowledge base as needed
-agent = Agent(knowledge=knowledge_base, search_knowledge=True)
+# Add the Knowledge to the Agent and
+# give it a tool to search its knowledge as needed
+agent = Agent(knowledge=knowledge, search_knowledge=True)
 ```
-
-We can give our agent access to the knowledge base in the following ways:
-
-- We can set `search_knowledge=True` to add a `search_knowledge_base()` tool to the Agent. `search_knowledge` is `True` **by default** if you add `knowledge` to an Agent.
-- We can set `add_references=True` to automatically add references from the knowledge base to the Agent's prompt. This is the traditional 2023 RAG approach.
 
 <Tip>
 
 If you need complete control over the knowledge base search, you can pass your own `retriever` function with the following signature:
 
 ```python
-def retriever(agent: Agent, query: str, num_documents: Optional[int], **kwargs) -> Optional[list[dict]]:
+def knowledge_retriever(
+    query: str, agent: Optional[Agent] = None, num_documents: int = 5, **kwargs
+) -> Optional[list[dict]]:
   ...
+
+my_retriever = knowledge_retriever(...)
+agent = Agent(
+  knowledge_retriever=my_retriever
+)
 ```
 
-This function is called during `search_knowledge_base()` and is used by the Agent to retrieve references from the knowledge base.
+This function is called during `search_knowledge_base()` and is used by the Agent to retrieve references from the knowledge.
 For more details check out the [Custom Retriever](../knowledge/custom_retriever) page.
 
 </Tip>
 
 ## Vector Databases
 
-While any type of storage can act as a knowledge base, vector databases offer the best solution for retrieving relevant results from dense information quickly. Here's how vector databases are used with Agents:
+While any type of storage can be used for knowledge, vector databases offer the best solution for retrieving relevant results from dense information quickly. Here's how vector databases are used with Agents:
 
 <Steps>
   <Step title="Chunk the information">
-    Break down the knowledge into smaller chunks to ensure our search query
+    Break down the knowledge content into smaller chunks to ensure our search query
     returns only relevant results.
   </Step>
-  <Step title="Load the knowledge base">
+  <Step title="Load the knowledge">
     Convert the chunks into embedding vectors and store them in a vector
     database.
   </Step>
-  <Step title="Search the knowledge base">
+  <Step title="Search the knowledge">
     When the user sends a message, we convert the input message into an
     embedding and "search" for nearest neighbors in the vector database.
   </Step>
 </Steps>
 
-## Loading the Knowledge Base
+## Loading the Knowledge
 
-Before you can use a knowledge base, it needs to be loaded with embeddings that will be used for retrieval. 
+Before you can use knowledge, it needs to be loaded with embeddings that will be used for retrieval. 
 
 ### Asynchronous Loading
 
-Many vector databases support asynchronous operations, which can significantly improve performance when loading large knowledge bases. You can leverage this capability using the `aload()` method:
+Many vector databases support asynchronous operations, which can significantly improve performance when loading large amounts of contents into knowledge. You can leverage this capability using the `aload()` method:
 
 ```python
 import asyncio
 
 from agno.agent import Agent
-from agno.knowledge.pdf import PDFKnowledgeBase, PDFReader
+from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.qdrant import Qdrant
 
-COLLECTION_NAME = "pdf-reader"
+COLLECTION_NAME = "pdf-documents"
 
 vector_db = Qdrant(collection=COLLECTION_NAME, url="http://localhost:6333")
 
-# Create a knowledge base with the PDFs from the data/pdfs directory
-knowledge_base = PDFKnowledgeBase(
-    path="data/pdf",
+# Create a knowledge instance using Qdrant vector storage
+knowledge = Knowledge(
     vector_db=vector_db,
-    reader=PDFReader(chunk=True),
 )
 
-# Create an agent with the knowledge base
+
+# Create an agent with the knowledge
 agent = Agent(
-    knowledge=knowledge_base,
+    knowledge=knowledge,
     search_knowledge=True,
 )
 
 if __name__ == "__main__":
-    # Comment out after first run
-    asyncio.run(knowledge_base.aload(recreate=False))
+    # Asynchronously add the content of the PDF file to the knowledge.
+    asyncio.run(
+        knowledge.add_content(
+            path="data/pdf",
+        )
+    )
 
     # Create and use the agent
     asyncio.run(agent.aprint_response("How to make Thai curry?", markdown=True))
 ```
 
-Using `aload()` ensures you take full advantage of the non-blocking operations, concurrent processing, and reduced latency that async vector database operations offer. This is especially valuable in production environments with high throughput requirements.
+The `add_content()` function is async by default. Call `add_content_sync()` if you don't want to use async.
+Using `add_content()` ensures you take full advantage of the non-blocking operations, concurrent processing, and reduced latency that async vector database operations offer. This is especially valuable in production environments with high throughput requirements.
 
-For more details on vector database async capabilities, see the [Vector Database Introduction](/vectordb/introduction).
+For more details on vector database async capabilities, see the [Vector Database Introduction](../knowledge/vectordb/introduction).
 
 
+Knowledge content needs to be read before it can be passed to any VectorDB for chunking, embedding and storage.
+For more details on readers, auto selection and content types, see the [Content Types](../knowledge/content_types) page.
+
+
+TODO: Update these into files showing how we add content from these sources
 Use one of the following knowledge bases to simplify the chunking, loading, searching and optimization process:
 - [ArXiv knowledge base](/knowledge/arxiv): Load ArXiv papers to a knowledge base
 - [Combined knowledge base](/knowledge/combined): Combine multiple knowledge bases into 1
