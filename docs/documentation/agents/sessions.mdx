@@ -1,31 +1,33 @@
 ---
-title: Sessions
+title: Agent Sessions
 ---
 
 When we call `Agent.run()`, it creates a stateless, singular Agent run.
 
-But what if we want to continue this run i.e. have a multi-turn conversation? That's where `sessions` come in. A session is collection of consecutive runs.
+But what if we want to continue this run i.e. have a multi-turn conversation? That's where "Sessions" come in. A session is collection of consecutive runs.
 
 In practice, a session is a multi-turn conversation between a user and an Agent. Using a `session_id`, we can connect the conversation history and state across multiple runs.
 
-Let's outline some key concepts:
+Here are the core concepts:
 
-- **Session:** A session is collection of consecutive runs like a multi-turn conversation between a user and an Agent. Sessions are identified by a `session_id` and each turn is a **run**.
+- **Session:** A session is collection of consecutive runs like a multi-turn conversation between a user and an Agent. Sessions are identified by a `session_id` and house all runs, metrics, state and other data that belong to the session.
 - **Run:** Every interaction (i.e. chat or turn) with an Agent is called a **run**. Runs are identified by a `run_id` and `Agent.run()` creates a new `run_id` when called.
 - **Messages:** are the individual messages sent between the model and the Agent. Messages are the communication protocol between the Agent and model.
 
-Let's start with an example where a single run is created with an Agent. A `run_id` is automatically generated, as well as a `session_id` (because we didn't provide one to continue the conversation). This run is not yet associated with a user.
+## Single session
+Here we have an example where a single run is created with an Agent. A `run_id` is automatically generated, as well as a `session_id` (because we didn't provide one tot yet associated with a user.
 
 ```python
-from typing import Iterator
-from agno.agent import Agent, RunResponse
+from agno.agent import Agent
 from agno.models.openai import OpenAIChat
-from agno.utils.pprint import pprint_run_response
 
-agent = Agent(model=OpenAIChat(id="gpt-4o-mini"))
+agent = Agent(model=OpenAIChat(id="o3-mini"))
 
 # Run agent and return the response as a variable
-agent.print_response("Tell me a 5 second short story about a robot")
+response = agent.run("Tell me a 5 second short story about a robot")
+print(response.content)
+print(response.run_id)
+print(response.session_id)
 ```
 
 ## Multi-user, multi-session Agents
@@ -34,61 +36,206 @@ Each user that is interacting with an Agent gets a unique set of sessions and yo
 
 Set a `user_id` to connect a user to their sessions with the Agent.
 
-In the example below, we set a `session_id` to demo how to have multi-turn conversations with multiple users at the same time. In production, the `session_id` is auto generated.
+In the example below, we set a `session_id` to demo how to have multi-turn conversations with multiple users at the same time.
 
-<Note>
 
-Note: Multi-user, multi-session currently only works with `Memory.v2`, which will become the default memory implementation in the next release.
+<Steps>
+  <Step title="Multi-user, multi-session example">
+    ```python
+    from agno.agent import Agent
+    from agno.models.openai import OpenAIChat
+    from agno.db.sqlite import SqliteDb
 
-</Note>
+    db = SqliteDb(db_file="tmp/data.db")
 
-```python
-from agno.agent import Agent
-from agno.models.openai import OpenAIChat
-from agno.db.sqlite import SqliteDb
+    agent = Agent(
+        model=OpenAIChat(id="gpt-4o-mini"),
+        db=db,
+        add_history_to_context=True,
+        num_history_runs=3,
+    )
 
-db = SqliteDb(db_file="tmp/data.db")
+    user_1_id = "user_101"
+    user_2_id = "user_102"
 
-agent = Agent(
-    model=OpenAIChat(id="gpt-4o-mini"),
-    db=db,
-    add_history_to_messages=True,
-    num_history_runs=3,
-)
+    user_1_session_id = "session_101"
+    user_2_session_id = "session_102"
 
-user_1_id = "user_101"
-user_2_id = "user_102"
+    # Start the session with user 1
+    agent.print_response(
+        "Tell me a 5 second short story about a robot.",
+        user_id=user_1_id,
+        session_id=user_1_session_id,
+    )
+    # Continue the session with user 1
+    agent.print_response("Now tell me a joke.", user_id=user_1_id, session_id=user_1_session_id)
 
-user_1_session_id = "session_101"
-user_2_session_id = "session_102"
+    # Start the session with user 2
+    agent.print_response("Tell me about quantum physics.", user_id=user_2_id, session_id=user_2_session_id)
+    # Continue the session with user 2
+    agent.print_response("What is the speed of light?", user_id=user_2_id, session_id=user_2_session_id)
 
-# Start the session with user 1
-agent.print_response(
-    "Tell me a 5 second short story about a robot.",
-    user_id=user_1_id,
-    session_id=user_1_session_id,
-)
-# Continue the session with user 1
-agent.print_response("Now tell me a joke.", user_id=user_1_id, session_id=user_1_session_id)
+    # Ask the agent to give a summary of the conversation, this will use the history from the previous messages (but only for user 1)
+    agent.print_response(
+        "Give me a summary of our conversation.",
+        user_id=user_1_id,
+        session_id=user_1_session_id,
+    )
+    ```
+  </Step>
+  <Step title="Run the example">
+    Install libraries
 
-# Start the session with user 2
-agent.print_response("Tell me about quantum physics.", user_id=user_2_id, session_id=user_2_session_id)
-# Continue the session with user 2
-agent.print_response("What is the speed of light?", user_id=user_2_id, session_id=user_2_session_id)
+    ```shell
+    pip install agno
+    ```
 
-# Ask the agent to give a summary of the conversation, this will use the history from the previous messages
-agent.print_response(
-    "Give me a summary of our conversation.",
-    user_id=user_1_id,
-    session_id=user_1_session_id,
-)
-```
+    Export your key
+    ```shell
+    export GOOGLE_API_KEY=xxx
+    ```
 
-## Fetch messages from last N sessions
+    Run the example
 
-In some scenarios, you might want to fetch messages from the last N sessions to provide context or continuity in conversations.
+    ```shell
+    python session_summary.py
+    ```
+  </Step>
+</Steps>
 
-Here's an example of how you can achieve this:
+## Session Summaries
+
+The Agent can store a condensed representations of the session, useful when chat histories gets too long. This is called a "Session Summary" in Agno.
+
+To enable session summaries, set `enable_session_summaries=True` on the `Agent`.
+
+<Steps>
+  <Step title="Session summary example">
+    ```python session_summary.py
+        from agno.agent import Agent
+        from agno.models.google.gemini import Gemini
+        from agno.db.sqlite import SqliteDb
+
+        db = SqliteDb(db_file="tmp/data.db")
+
+        user_id = "jon_hamm@example.com"
+        session_id = "1001"
+
+        agent = Agent(
+            model=Gemini(id="gemini-2.0-flash-exp"),
+            db=db,
+            enable_session_summaries=True,
+        )
+
+        agent.print_response(
+            "What can you tell me about quantum computing?",
+            stream=True,
+            user_id=user_id,
+            session_id=session_id,
+        )
+
+        agent.print_response(
+            "I would also like to know about LLMs?",
+            stream=True,
+            user_id=user_id,
+            session_id=session_id
+        )
+
+        session_summary = agent.get_session_summary(session_id=session_id)
+        print(f"Session summary: {session_summary.summary}")
+    ```
+  </Step>
+
+  <Step title="Run the example">
+    Install libraries
+
+    ```shell
+    pip install google-genai agno
+    ```
+
+    Export your key
+    ```shell
+    export GOOGLE_API_KEY=xxx
+    ```
+
+    Run the example
+
+    ```shell
+    python session_summary.py
+    ```
+  </Step>
+</Steps>
+
+## Session history
+
+Agents with storage enabled automatically have access to the message and run history of the session.
+
+You can access these messages using:
+- `agent.get_messages_for_session()` -> Gets access to all the messages for the session, for the current agent.
+- `agent.get_chat_history()` -> Gets access to all the unique messages for the session.
+
+We can give the Agent access to the chat history in the following ways:
+
+- We can set `add_history_to_context=True` and `num_history_runs=5` to add the messages from the last 5 runs automatically to every message sent to the agent.
+- We can set `read_chat_history=True` to provide a `get_chat_history()` tool to your agent allowing it to read any message in the entire chat history.
+- **We recommend setting all 3: `add_history_to_messages=True`, `num_history_runs=3` and `read_chat_history=True` for the best experience.**
+- We can also set `read_tool_call_history=True` to provide a `get_tool_call_history()` tool to your agent allowing it to read tool calls in reverse chronological order.
+
+Take a look at this example:
+
+<Steps>
+  <Step title="Session history example">
+    ```python session_history.py
+    from agno.agent import Agent
+    from agno.models.google.gemini import Gemini
+    from agno.db.sqlite import SqliteDb
+
+    agent = Agent(
+        model=Gemini(id="gemini-2.0-flash-exp"),
+        db=SqliteDb(db_file="tmp/data.db"),
+        add_history_to_context=True,
+        num_history_runs=3,
+        read_chat_history=True,
+        description="You are a helpful assistant that always responds in a polite, upbeat and positive manner.",
+    )
+
+    agent.print_response("Share a 2 sentence horror story", stream=True)
+
+    agent.print_response("What was my first message?", stream=True)
+    ```
+  </Step>
+  <Step title="Run the example">
+    Install libraries
+
+    ```shell
+    pip install google-genai agno
+    ```
+
+    Export your key
+    ```shell
+    export GOOGLE_API_KEY=xxx
+    ```
+
+    Run the example
+
+    ```shell
+    python session_history.py
+    ```
+  </Step>
+</Steps>
+
+
+### Search the session history
+
+In some scenarios, you might want to fetch messages from across multiple sessions to provide context or continuity in conversations.
+
+To enable fetching messages from the last N sessions, you need to use the following flags:
+- `search_session_history`: Set this to `True` to allow searching through previous sessions.
+- `num_history_sessions`: Specify the number of past sessions to include in the search. In the example below, it is set to `2` to include only the last 2 sessions.
+
+It's advisable to keep this number low (2 or 3), as a larger number might fill up the context length of the model, potentially leading to performance issues.
+
+Here's an example of searching through the last 2 sessions:
 
 ```python
 # Remove the tmp db file before running the script
@@ -106,7 +253,7 @@ agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
     user_id="user_1",
     db=db,
-    search_previous_sessions_history=True,  # allow searching previous sessions
+    search_session_history=True,  # allow searching previous sessions
     num_history_sessions=2,  # only include the last 2 sessions in the search to avoid context length issues
 )
 
@@ -125,14 +272,35 @@ agent.print_response(
 )  # It should only include the last 2 sessions
 ```
 
-<Note>
+## Session Storage
 
-To enable fetching messages from the last N sessions, you need to use the following flags:
+If you have a `db` configured for your agent, the sessions will be stored in the a sessions table in your database.
 
-- `search_previous_sessions_history`: Set this to `True` to allow searching through previous sessions.
-- `num_history_sessions`: Specify the number of past sessions to include in the search. In this example, it is set to `2` to include only the last 2 sessions.
-It's advisable to keep this number to 2 or 3 for now, as a larger number might fill up the context length of the model, potentially leading to performance issues.
+The schema for the sessions table is as follows:
 
-These flags help manage the context length and ensure that only relevant session history is included in the conversation.
+| Field | Type | Description |
+|-------|------|-------------|
+| `session_id` | `str` | The unique identifier for the session. |
+| `session_type` | `str` | The type of the session. |
+| `agent_id` | `str` | The agent ID of the session. |
+| `team_id` | `str` | The team ID of the session. |
+| `workflow_id` | `str` | The workflow ID of the session. |
+| `user_id` | `str` | The user ID of the session. |
+| `session_data` | `dict` | The data of the session. |
+| `agent_data` | `dict` | The data of the agent. |
+| `team_data` | `dict` | The data of the team. |
+| `workflow_data` | `dict` | The data of the workflow. |
+| `metadata` | `dict` | The metadata of the session. |
+| `runs` | `list` | The runs of the session. |
+| `summary` | `dict` | The summary of the session. |
+| `created_at` | `int` | The timestamp when the session was created. |
+| `updated_at` | `int` | The timestamp when the session was last updated. |
 
-</Note>
+This data is best displayed on the [sessions page of the AgentOS UI](https://os.agno.com/sessions).
+
+
+## Developer Resources
+
+- View the [Agent schema](/reference/agents/agent)
+- View the [Session schema](/reference/agents/session)
+- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agents/session/)

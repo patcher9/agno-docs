@@ -4,87 +4,76 @@ description: Understanding agent run and session metrics in Agno
 ---
 
 ## Overview
-When you run an agent in Agno, the response you get (**RunResponse**) includes detailed metrics about the run. These metrics help you understand resource usage (like **token usage** and **time**), performance, and other aspects of the model and tool calls.
+When you run an agent in Agno, the response you get (**RunOutput**) includes detailed metrics about the run. These metrics help you understand resource usage (like **token usage** and **time**), performance, and other aspects of the model and tool calls.
 
 Metrics are available at multiple levels:
-- **Per-message**: Each message (assistant, tool, etc.) has its own metrics.
-- **Per-tool call**: Each tool execution has its own metrics.
-- **Aggregated**: The `RunResponse` aggregates metrics across all messages in the run.
+- **Per message**: Each message (assistant, tool, etc.) has its own metrics.
+- **Per run**: Each `RunOutput` has its own metrics.
+- **Per session**: The `AgentSession` contains aggregated `session_metrics` that are the sum of all `RunOutput.metrics` for the session.
 
-<Note>
-Where Metrics Live
-- `RunResponse.metrics`: Aggregated metrics for the whole run, as a dictionary.
-- `ToolExecution.metrics`: Metrics for each tool call.
-- `Message.metrics`: Metrics for each message (assistant, tool, etc.).
-</Note>
 
 ## Example Usage
 Suppose you have an agent that performs some tasks and you want to analyze the metrics after running it. Here's how you can access and print the metrics:
 
 You run the following code to create an agent and run it with the following configuration:
 ```python
-from typing import Iterator
-
-from agno.agent import Agent, RunResponse
+from agno.agent import Agent
 from agno.models.google import Gemini
-from agno.tools.yfinance import YFinanceTools
+from agno.tools.duckduckgo import DuckDuckGoTools
+from agno.db.in_memory import InMemoryDb
 from rich.pretty import pprint
+
+db = InMemoryDb()
 
 agent = Agent(
     model=Gemini(id="gemini-2.0-flash-001"),
-    tools=[YFinanceTools(stock_price=True)],
+    tools=[DuckDuckGoTools()],
+    db=db,
     markdown=True,
 )
 
-agent.print_response(
-    "What is the stock price of NVDA", stream=True
+run_response = agent.run(
+    "What is currently happening in the world?"
 )
 
 # Print metrics per message
-if agent.run_response.messages:
-    for message in agent.run_response.messages:
+if run_response.messages:
+    for message in run_response.messages:
         if message.role == "assistant":
             if message.content:
                 print(f"Message: {message.content}")
             elif message.tool_calls:
                 print(f"Tool calls: {message.tool_calls}")
             print("---" * 5, "Metrics", "---" * 5)
-            pprint(message.metrics)
+            pprint(message.metrics.to_dict())
             print("---" * 20)
 
 # Print the aggregated metrics for the whole run
-print("---" * 5, "Collected Metrics", "---" * 5)
-pprint(agent.run_response.metrics)
+print("---" * 5, "Run Metrics", "---" * 5)
+pprint(run_response.metrics.to_dict())
 # Print the aggregated metrics for the whole session
 print("---" * 5, "Session Metrics", "---" * 5)
-pprint(agent.session_metrics)
+pprint(agent.get_session_metrics().to_dict())
 ```
 
-You'd see the outputs with following information:
-### Tool Execution Metrics
+You'll see the outputs with following information:
 
-This section provides metrics for each tool execution. It includes details about the resource usage and performance of individual tool calls.
+- `input_tokens`: The number of tokens sent to the model.
+- `output_tokens`: The number of tokens received from the model.
+- `total_tokens`: The sum of `input_tokens` and `output_tokens`.
+- `audio_input_tokens`: The number of tokens sent to the model for audio input.
+- `audio_output_tokens`: The number of tokens received from the model for audio output.
+- `audio_total_tokens`: The sum of `audio_input_tokens` and `audio_output_tokens`.
+- `cache_read_tokens`: The number of tokens read from the cache.
+- `cache_write_tokens`: The number of tokens written to the cache.
+- `reasoning_tokens`: The number of tokens used for reasoning.
+- `duration`: The duration of the run in seconds.
+- `time_to_first_token`: The time taken until the first token was generated.
+- `provider_metrics`: Any provider-specific metrics.
 
-![Tool Run Message Metrics](../images/tools-run-message-metrics.png)
 
-### Message Metrics
+## Developer Resources
 
-Here, you can see the metrics for each message response from the agent. All "assistant" responses will have metrics like this, helping you understand the performance and resource usage at the message level.
-
-![Agent Run Message Metrics](../images/agent-run-message-metrics.png)
-
-### Aggregated Run Metrics
-
-The aggregated metrics provide a comprehensive view of the entire run. This includes a summary of all messages and tool calls, giving you an overall picture of the agent's performance and resource usage.
-
-![Aggregated Run Metrics](../images/agent-run-aggregated-metrics.png)
-
-Similarly for the session metrics, you can see the aggregated metrics across all runs in the session, providing insights into the overall performance and resource usage of the agent across multiple runs.
-
-## How Metrics Are Aggregated
-- **Per-message**: Each message (assistant, tool, etc.) has its own metrics object.
-- **Run-level**: RunResponse.metrics is a dictionary where each key (e.g., input_tokens) maps to a list of values from all assistant messages in the run.
-- **Session-level**: `SessionMetrics` (see `agent.session_metrics`) aggregates metrics across all runs in the session.
-
-## `MessageMetrics` Params
-<Snippet file="message_metrics_params.mdx" />
+- View the [RunOutput schema](/reference/agents/run-response)
+- View the [Metrics schema](/reference/agents/metrics)
+- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agents/other/agent_metrics.py)

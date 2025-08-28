@@ -1,48 +1,66 @@
 ---
-title: RunResponse
-sidebarTitle: Run Response & Events
+title: RunOutput
+sidebarTitle: Run Output & Events
 ---
 
-## RunResponse Attributes
+## RunOutput Attributes
 
-| Attribute        | Type                   | Default                       | Description                                                                                                                      |
-| ---------------- | ---------------------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `content`        | `Any`                  | `None`                        | Content of the response.                                                                                                         |
-| `content_type`   | `str`                  | `"str"`                       | Specifies the data type of the content.                                                                                          |
-| `thinking`       | `str`                  | `None`                        | Any thinking content the model produced (used by Anthropic models).                                                                                       |
-| `reasoning_content` | `str`               | `None`                     | Any reasoning content the model produced.                                                                                       |
-| `messages`       | `List[Message]`        | `None`                        | A list of messages included in the response.                                                                                     |
-| `metrics`        | `Dict[str, Any]`       | `None`                        | Usage metrics of the run.                                                                                                        |
-| `model`          | `str`                  | `None`                        | The model used in the run.                                                                                                       |
-| `model_provider` | `str`                  | `None`                        | The model provider used in the run.                                                                                              |
-| `run_id`         | `str`                  | `None`                        | Run Id.                                                                                                                          |
-| `agent_id`       | `str`                  | `None`                        | Agent Id for the run.                                                                                                            |
-| `session_id`     | `str`                  | `None`                        | Session Id for the run.                                                                                                          |
-| `tools`          | `List[Dict[str, Any]]` | `None`                        | List of tools provided to the model.                                                                                             |
-| `images`         | `List[Image]`          | `None`                        | List of images the model produced.                                                                                               |
-| `videos`         | `List[Video]`          | `None`                        | List of videos the model produced.                                                                                               |
-| `audio`          | `List[Audio]`          | `None`                        | List of audio snippets the model produced.                                                                                       |
-| `response_audio` | `ModelResponseAudio`   | `None`                        | The model's raw response in audio.                                                                                               |
-| `citations`      | `Citations`            | `None`                        | Any citations used in the response.                                                                                              |
-| `created_at`     | `int`                  | -                             | Unix timestamp of the response creation.                                                                                         |
-| `extra_data`     | `RunResponseExtraData` | `None`                        | Extra data containing optional fields like `references`, `add_messages`, `history`, `reasoning_steps`, and `reasoning_messages`. |
+| Attribute          | Type                         | Default                       | Description                                                                                        |
+| ------------------ | ---------------------------- | ----------------------------- | -------------------------------------------------------------------------------------------------- |
+| `run_id`           | `Optional[str]`              | `None`                        | Run ID                                                                                             |
+| `agent_id`         | `Optional[str]`              | `None`                        | Agent ID for the run                                                                               |
+| `agent_name`       | `Optional[str]`              | `None`                        | Agent name for the run                                                                             |
+| `session_id`       | `Optional[str]`              | `None`                        | Session ID for the run                                                                             |
+| `parent_run_id`    | `Optional[str]`              | `None`                        | Parent run ID                                                                                      |
+| `workflow_id`      | `Optional[str]`              | `None`                        | Workflow ID if this run is part of a workflow                                                      |
+| `user_id`          | `Optional[str]`              | `None`                        | User ID associated with the run                                                                    |
+| `content`          | `Optional[Any]`              | `None`                        | Content of the response                                                                            |
+| `content_type`     | `str`                        | `"str"`                       | Specifies the data type of the content                                                            |
+| `thinking`         | `Optional[str]`              | `None`                        | Any thinking content the model produced (used by Anthropic models)                                |
+| `reasoning_content`| `Optional[str]`              | `None`                        | Any reasoning content the model produced                                                           |
+| `reasoning_steps`  | `Optional[List[ReasoningStep]]` | `None`                        | List of reasoning steps                                                                            |
+| `reasoning_messages` | `Optional[List[Message]]`   | `None`                        | List of reasoning messages                                                                         |
+| `model`            | `Optional[str]`              | `None`                        | The model used in the run                                                                          |
+| `model_provider`   | `Optional[str]`              | `None`                        | The model provider used in the run                                                                |
+| `messages`         | `Optional[List[Message]]`    | `None`                        | A list of messages included in the response                                                       |
+| `metrics`          | `Optional[Metrics]`          | `None`                        | Usage metrics of the run                                                                          |
+| `additional_input` | `Optional[List[Message]]`    | `None`                        | Additional input messages                                                                          |
+| `tools`            | `Optional[List[ToolExecution]]` | `None`                        | List of tool executions                                                                           |
+| `images`           | `Optional[List[ImageArtifact]]` | `None`                        | List of images attached to the response                                                           |
+| `videos`           | `Optional[List[VideoArtifact]]` | `None`                        | List of videos attached to the response                                                           |
+| `audio`            | `Optional[List[AudioArtifact]]` | `None`                        | List of audio snippets attached to the response                                                   |
+| `response_audio`   | `Optional[AudioResponse]`    | `None`                        | The model's raw response in audio                                                                 |
+| `citations`        | `Optional[Citations]`        | `None`                        | Any citations used in the response                                                                |
+| `references`       | `Optional[List[MessageReferences]]` | `None`                        | References used in the response                                                                    |
+| `metadata`         | `Optional[Dict[str, Any]]`   | `None`                        | Metadata associated with the run                                                                  |
+| `created_at`       | `int`                        | Current timestamp             | Unix timestamp of the response creation                                                           |
+| `events`           | `Optional[List[RunOutputEvent]]` | `None`                        | List of events that occurred during the run                                                       |
+| `status`           | `RunStatus`                  | `RunStatus.running`           | Status of the run (running, completed, paused, cancelled, error)                                  |
+| `workflow_step_id` | `Optional[str]`              | `None`                        | Workflow step ID (foreign key relationship)                                                       |
 
-## RunResponseEvent Types and Attributes
+## RunOutputEvent Types and Attributes
 
-### Base RunResponseEvent Attributes
+### Base RunOutputEvent Attributes
 
-All events inherit from `BaseAgentRunResponseEvent` which provides these common attributes:
+All events inherit from `BaseAgentRunEvent` which provides these common attributes:
 
 | Attribute | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `created_at` | `int` | Current timestamp | Unix timestamp of the event creation |
 | `event` | `str` | Event type value | The type of event |
 | `agent_id` | `str` | `""` | ID of the agent generating the event |
+| `agent_name` | `str` | `""` | Name of the agent generating the event |
 | `run_id` | `Optional[str]` | `None` | ID of the current run |
 | `session_id` | `Optional[str]` | `None` | ID of the current session |
+| `workflow_id` | `Optional[str]` | `None` | ID of the workflow if part of workflow execution |
+| `workflow_run_id` | `Optional[str]` | `None` | ID of the workflow run |
+| `step_id` | `Optional[str]` | `None` | ID of the workflow step |
+| `step_name` | `Optional[str]` | `None` | Name of the workflow step |
+| `step_index` | `Optional[int]` | `None` | Index of the workflow step |
+| `tools` | `Optional[List[ToolExecution]]` | `None` | Tools associated with this event |
 | `content` | `Optional[Any]` | `None` | For backwards compatibility |
 
-### RunResponseStartedEvent
+### RunStartedEvent
 
 | Attribute | Type | Default | Description |
 |-----------|------|---------|-------------|
@@ -50,20 +68,32 @@ All events inherit from `BaseAgentRunResponseEvent` which provides these common 
 | `model` | `str` | `""` | The model being used |
 | `model_provider` | `str` | `""` | The provider of the model |
 
-### RunResponseContentEvent
+### RunContentEvent
 
 | Attribute | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"RunResponseContent"` | Event type |
+| `event` | `str` | `"RunContent"` | Event type |
 | `content` | `Optional[Any]` | `None` | The content of the response |
 | `content_type` | `str` | `"str"` | Type of the content |
 | `thinking` | `Optional[str]` | `None` | Internal thoughts of the model |
+| `reasoning_content` | `Optional[str]` | `None` | Reasoning content produced |
 | `citations` | `Optional[Citations]` | `None` | Citations used in the response |
 | `response_audio` | `Optional[AudioResponse]` | `None` | Model's audio response |
 | `image` | `Optional[ImageArtifact]` | `None` | Image attached to the response |
-| `extra_data` | `Optional[RunResponseExtraData]` | `None` | Additional response data |
+| `references` | `Optional[List[MessageReferences]]` | `None` | References used in the response |
+| `additional_input` | `Optional[List[Message]]` | `None` | Additional input messages |
+| `reasoning_steps` | `Optional[List[ReasoningStep]]` | `None` | Reasoning steps |
+| `reasoning_messages` | `Optional[List[Message]]` | `None` | Reasoning messages |
 
-### RunResponseCompletedEvent
+### IntermediateRunContentEvent
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `event` | `str` | `"RunIntermediateContent"` | Event type |
+| `content` | `Optional[Any]` | `None` | Intermediate content of the response |
+| `content_type` | `str` | `"str"` | Type of the content |
+
+### RunCompletedEvent
 
 | Attribute | Type | Default | Description |
 |-----------|------|---------|-------------|
@@ -77,16 +107,19 @@ All events inherit from `BaseAgentRunResponseEvent` which provides these common 
 | `videos` | `Optional[List[VideoArtifact]]` | `None` | Videos attached to the response |
 | `audio` | `Optional[List[AudioArtifact]]` | `None` | Audio snippets attached to the response |
 | `response_audio` | `Optional[AudioResponse]` | `None` | Model's audio response |
-| `extra_data` | `Optional[RunResponseExtraData]` | `None` | Additional response data |
+| `references` | `Optional[List[MessageReferences]]` | `None` | References used in the response |
+| `additional_input` | `Optional[List[Message]]` | `None` | Additional input messages |
+| `reasoning_steps` | `Optional[List[ReasoningStep]]` | `None` | Reasoning steps |
+| `reasoning_messages` | `Optional[List[Message]]` | `None` | Reasoning messages |
 
-### RunResponsePausedEvent
+### RunPausedEvent
 
 | Attribute | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `event` | `str` | `"RunPaused"` | Event type |
 | `tools` | `Optional[List[ToolExecution]]` | `None` | Tools that require confirmation |
 
-### RunResponseContinuedEvent
+### RunContinuedEvent
 
 | Attribute | Type | Default | Description |
 |-----------|------|---------|-------------|
@@ -94,14 +127,14 @@ All events inherit from `BaseAgentRunResponseEvent` which provides these common 
 
 
 
-### RunResponseErrorEvent
+### RunErrorEvent
 
 | Attribute | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `event` | `str` | `"RunError"` | Event type |
 | `content` | `Optional[str]` | `None` | Error message |
 
-### RunResponseCancelledEvent
+### RunCancelledEvent
 
 | Attribute | Type | Default | Description |
 |-----------|------|---------|-------------|
@@ -162,3 +195,27 @@ All events inherit from `BaseAgentRunResponseEvent` which provides these common 
 | Attribute | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `event` | `str` | `"MemoryUpdateCompleted"` | Event type |
+
+### ParserModelResponseStartedEvent
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `event` | `str` | `"ParserModelResponseStarted"` | Event type |
+
+### ParserModelResponseCompletedEvent
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `event` | `str` | `"ParserModelResponseCompleted"` | Event type |
+
+### OutputModelResponseStartedEvent
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `event` | `str` | `"OutputModelResponseStarted"` | Event type |
+
+### OutputModelResponseCompletedEvent
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `event` | `str` | `"OutputModelResponseCompleted"` | Event type |

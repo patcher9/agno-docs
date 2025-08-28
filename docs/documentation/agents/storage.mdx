@@ -7,29 +7,31 @@ Use **Session Storage** to persist Agent sessions and state to a database or fil
 <Tip>
 **Why do we need Session Storage?**
 
-Agents are ephemeral and the built-in memory only lasts for the current execution cycle.
+Agents are ephemeral and the built-in memory only lasts for the current execution run.
 
-In production environments, we serve (or trigger) Agents via an API and need to continue the same session across multiple requests. Storage persists the session history and state in a database and allows us to pick up where we left off.
+In production environments, we serve (or trigger) Agents via an API and need to continue the same session across multiple requests.
 
-Storage also let's us inspect and evaluate Agent sessions, extract few-shot examples and build internal monitoring tools. It lets us **look at the data** which helps us build better Agents.
+Storage persists the session history and state in a database and allows us to pick up where we left off.
+
+Storage also lets us inspect and evaluate Agent sessions, extract few-shot examples and build internal monitoring tools. It lets us **look at the data** which helps us build better Agents.
 </Tip>
 
-Adding storage to an Agent, Team or Workflow is as simple as providing a `Storage` driver and Agno handles the rest. You can use Sqlite, Postgres, Mongo or any other database you want.
+Adding storage to an Agent, Team or Workflow is as simple as providing a `DB` driver and Agno handles the rest. You can use Sqlite, Postgres, Mongo or any other database you want.
 
-Here's a simple example that demostrates persistence across execution cycles:
+Here's a simple example that demonstrates persistence across execution cycles:
 
 ```python storage.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
-from agno.storage.sqlite import SqliteStorage
+from agno.db.sqlite import SqliteDb
 from rich.pretty import pprint
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="o3-mini"),
     # Fix the session id to continue the same session across execution cycles
     session_id="fixed_id_for_demo",
-    storage=SqliteStorage(table_name="agent_sessions", db_file="tmp/data.db"),
-    add_history_to_messages=True,
+    db=SqliteDb(db_file="tmp/data.db"),
+    add_history_to_context=True,
     num_history_runs=3,
 )
 agent.print_response("What was my last question?")
@@ -46,13 +48,13 @@ Storage has typically been an under-discussed part of Agent Engineering -- but w
 
 In production, you need storage to:
 
-- Continue sessions: retrieve sessions history and pick up where you left off.
+- Continue sessions: retrieve session history and pick up where you left off.
 - Get list of sessions: To continue a previous session, you need to maintain a list of sessions available for that agent.
-- Save state between runs: save the Agent's state to a database or file so you can inspect it later.
+- Save session state between runs: save the Agent's state to a database or file so you can inspect it later.
 
 But there is so much more:
 
-- Storage saves our Agent's session data for inspection and evaluations.
+- Storage saves our Agent's session data for inspection and evaluations, including session metrics.
 - Storage helps us extract few-shot examples, which can be used to improve the Agent.
 - Storage enables us to build internal monitoring tools and dashboards.
 
@@ -80,61 +82,29 @@ Storage is such a critical part of your Agentic infrastructure that it should ne
     ```
 
   </Step>
-  <Step title="Create an Agent with Storage">
-    Create a file `agent_with_storage.py` with the following contents
+  <Step title="Create an Agent with Session Storage">
+    Create a file `agent_with_db.py` with the following contents
 
     ```python
-    import typer
-    from typing import Optional, List
     from agno.agent import Agent
-    from agno.storage.postgres import PostgresStorage
-    from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
-    from agno.vectordb.pgvector import PgVector, SearchType
+    from agno.db.postgres import PostgresDb
 
     db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
-    knowledge_base = PDFUrlKnowledgeBase(
-        urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-        vector_db=PgVector(table_name="recipes", db_url=db_url, search_type=SearchType.hybrid),
+    db = PostgresDb(db_url=db_url)
+
+    session_id = "test-session"
+    user = "john@gmail.com"
+
+    agent = Agent(
+        session_id=session_id,
+        user_id=user,
+        db=db,
+        add_history_to_context=True,
+        # Alternatively, enable the agent to read the chat history using a tool
+        # read_chat_history=True,
     )
-    storage = PostgresStorage(table_name="pdf_agent", db_url=db_url)
 
-    def pdf_agent(new: bool = False, user: str = "user"):
-        session_id: Optional[str] = None
-
-        if not new:
-            existing_sessions: List[str] = storage.get_all_session_ids(user)
-            if len(existing_sessions) > 0:
-                session_id = existing_sessions[0]
-
-        agent = Agent(
-            session_id=session_id,
-            user_id=user,
-            knowledge=knowledge_base,
-            storage=storage,
-            # Enable the agent to read the chat history
-            read_chat_history=True,
-            # We can also automatically add the chat history to the messages sent to the model
-            # But giving the model the chat history is not always useful, so we give it a tool instead
-            # to only use when needed.
-            # add_history_to_messages=True,
-            # Number of historical responses to add to the messages.
-            # num_history_responses=3,
-        )
-        if session_id is None:
-            session_id = agent.session_id
-            print(f"Started Session: {session_id}\n")
-        else:
-            print(f"Continuing Session: {session_id}\n")
-
-        # Runs the agent as a cli app
-        agent.cli_app(markdown=True)
-
-
-    if __name__ == "__main__":
-        # Load the knowledge base: Comment after first run
-        knowledge_base.load(upsert=True)
-
-        typer.run(pdf_agent)
+    agent.cli_app(markdown=True)
     ```
 
   </Step>
@@ -143,12 +113,8 @@ Storage is such a critical part of your Agentic infrastructure that it should ne
 
     <CodeGroup>
 
-    ```bash Mac
-    pip install -U agno openai pgvector pypdf "psycopg[binary]" sqlalchemy
-    ```
-
-    ```bash Windows
-    pip install -U agno openai pgvector pypdf "psycopg[binary]" sqlalchemy
+    ```bash Mac/Windows
+    pip install -U agno openai pgvector psycopg sqlalchemy
     ```
 
     </CodeGroup>
@@ -156,64 +122,33 @@ Storage is such a critical part of your Agentic infrastructure that it should ne
     Run the agent
 
     ```bash
-    python agent_with_storage.py
+    python agent_with_db.py
     ```
 
-    Now the agent continues across sessions. Ask a question:
+    Now tell the agent anything, and refer to previous messages in the conversation to see the benefits of storage:
 
     ```
-    How do I make pad thai?
+    Hi, my name is John!
     ```
 
     Then message `bye` to exit, start the app again and ask:
 
     ```
-    What was my last message?
+    What did I tell you last time?
     ```
 
   </Step>
   <Step title="Start a new run">
-    Run the `agent_with_storage.py` file with the `--new` flag to start a new run.
+    Run the `agent_with_db.py` file.
 
     ```bash
-    python agent_with_storage.py --new
+    python agent_with_db.py 
     ```
 
   </Step>
 </Steps>
 
-## Schema Upgrades
+## Developer Resources
 
-When using `AgentStorage`, the SQL-based storage classes have fixed schemas. As new Agno features are released, the schemas might need to be updated.
-
-Upgrades can either be done manually or automatically.
-
-### Automatic Upgrades
-
-Automatic upgrades are done when the `auto_upgrade_schema` parameter is set to `True` in the storage class constructor.
-You only need to set this once for an agent run and the schema would be upgraded.
-
-```python
-db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
-storage = PostgresStorage(table_name="agent_sessions", db_url=db_url, auto_upgrade_schema=True)
-```
-
-### Manual Upgrades
-
-Manual schema upgrades can be done by calling the `upgrade_schema` method on the storage class.
-
-```python
-db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
-storage = PostgresStorage(table_name="agent_sessions", db_url=db_url)
-storage.upgrade_schema()
-```
-
-## Params
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `storage` | `Optional[AgentStorage]` | `None` | Storage mechanism for the agent. |
-
- ## Developer Resources
-
-- View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/storage)
+- View the [Agent schema](/reference/agents/agent)
+- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agents/db/)
