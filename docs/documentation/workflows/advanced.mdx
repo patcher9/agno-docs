@@ -521,7 +521,7 @@ Workflows features a powerful type-safe data flow system where each step in your
    - Subsequent steps receive the previous step's structured output
 
 2. **Output Processing**:
-   - Each Agent processes the input using its `response_model`
+   - Each Agent processes the input using its `output_schema`
    - The output is automatically validated against the model
 
 ```python
@@ -529,13 +529,13 @@ Workflows features a powerful type-safe data flow system where each step in your
 research_agent = Agent(
     name="Research Specialist",
     model=OpenAIChat(id="gpt-4"),
-    response_model=ResearchFindings,  # <-- Set on Agent
+    output_schema=ResearchFindings,  # <-- Set on Agent
 )
 
 analysis_agent = Agent(
     name="Analysis Expert", 
     model=OpenAIChat(id="gpt-4"),
-    response_model=AnalysisResults,  # <-- Set on Agent
+    output_schema=AnalysisResults,  # <-- Set on Agent
 )
 
 # Steps reference these agents

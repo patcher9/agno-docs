@@ -110,14 +110,18 @@ image_agent = Agent(
     markdown=True,
 )
 
-image_agent.print_response("Generate an image of a white siamese cat")
+response = image_agent.run("Generate an image of a white siamese cat")
 
-images = image_agent.get_images()
-if images and isinstance(images, list):
-    for image_response in images:
-        image_url = image_response.url
+if response.images:
+    for image in response.images:
+        image_url = image.url
         print(image_url)
 ```
+
+<Note>
+The output of the tool generating a media also goes to the model's input as a message so it has access to the media (images, audio, video) and can use it in the response.
+For example, if you say "Generate an image of a dog and tell me its color." the model will have access to the image and can use it to describe the dog's color in the response in the same run.
+</Note>
 
 ### Audio Response
 

@@ -35,7 +35,7 @@ class MovieScript(BaseModel):
 json_mode_agent = Agent(
     model=DeepInfra(id="meta-llama/Llama-2-70b-chat-hf"),
     description="You help people write movie scripts.",
-    response_model=MovieScript,
+    output_schema=MovieScript,
 )
 
 # Get the response in a variable
