@@ -5,7 +5,9 @@ description: Learn how to use tools in Agno to build AI agents.
 
 **Agents use tools to take actions and interact with external systems**.
 
-Tools are functions that an Agent can run to achieve tasks. For example: searching the web, running SQL, sending an email or calling APIs. You can use any python function as a tool or use a pre-built **toolkit**. The general syntax is:
+Tools are functions that an Agent can run to achieve tasks. For example: searching the web, running SQL, sending an email or calling APIs. You can use any python function as a tool or use a pre-built Agno **toolkit**. 
+
+The general syntax is:
 
 ```python
 from agno.agent import Agent
@@ -39,7 +41,7 @@ Agno provides many pre-built **toolkits** that you can add to your Agents. For e
     Install libraries
 
     ```shell
-    pip install openai duckduckgo-search agno
+    pip install openai ddgs agno
     ```
 
     Run the agent
@@ -66,9 +68,6 @@ def get_top_hackernews_stories(num_stories: int = 10) -> str:
 
     Args:
         num_stories (int): Number of stories to return. Defaults to 10.
-
-    Returns:
-        str: JSON string of top stories.
     """
 
     # Fetch top story IDs
@@ -92,22 +91,36 @@ agent.print_response("Summarize the top 5 stories on hackernews?", stream=True)
 Read more about:
 
 - [Available toolkits](/tools/toolkits)
+- [Making your own toolkits](/tools/custom-toolkits)
 - [Using functions as tools](/tools/tool-decorator)
 
-## Attributes
 
-The following attributes allow an `Agent` to use tools
+## MCP Tools
+Agno supports [Model Context Protocol (MCP)](/tools/mcp) tools.
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `tools` | `List[Union[Tool, Toolkit, Callable, Dict, Function]]` | - | A list of tools provided to the Model. Tools are functions the model may generate JSON inputs for. |
-| `tool_call_limit` | `int` | - | Maximum number of tool calls allowed for a single run. |
-| `tool_choice` | `Union[str, Dict[str, Any]]` | - | Controls which (if any) tool is called by the model. "none" means the model will not call a tool and instead generates a message. "auto" means the model can pick between generating a message or calling a tool. Specifying a particular function via `{"type": "function", "function": {"name": "my_function"}}` forces the model to call that tool. "none" is the default when no tools are present. "auto" is the default if tools are present. |
-| `read_chat_history` | `bool` | `False` | Add a tool that allows the Model to read the chat history. |
-| `search_knowledge` | `bool` | `False` | Add a tool that allows the Model to search the knowledge base (aka Agentic RAG). |
-| `update_knowledge` | `bool` | `False` | Add a tool that allows the Model to update the knowledge base. |
-| `read_tool_call_history` | `bool` | `False` | Add a tool that allows the Model to get the tool call history. |
+The general syntax is:
 
- ## Developer Resources
+```python
+from agno.agent import Agent
+from agno.tools.mcp import MCPTools
 
-- View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/tools)
+async def run_mcp_agent():
+
+    # Initialize the MCP tools
+    mcp_tools = MCPTools(command=f"uvx mcp-server-git")
+
+    # Connect to the MCP server
+    await mcp_tools.connect()
+    
+    agent = Agent(tools=[mcp_tools], markdown=True)
+    await agent.aprint_response("What is the license for this project?", stream=True)
+    ...
+```
+
+<Tip> Learn more about MCP tools in the [MCP tools](/tools/mcp) guide.</Tip>
+
+## Developer Resources
+
+- View the [Agent schema](/reference/agents/agent)
+- View the [Knowledge schema](/reference/knowledge/knowledge)
+- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/knowledge/)
