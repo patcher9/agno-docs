@@ -20,19 +20,19 @@ knowledge = Knowledge(
     vector_db=PgVector(table_name="recipes_fixed_size_chunking", db_url=db_url),
 )
 
-knowledge.add_content(
+asyncio.run(knowledge.add_content(
     url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf",
     reader=PDFUrlReader(
         name="Fixed Size Chunking Reader",
         chunking_strategy=FixedSizeChunking(),
     ),
-)
+))
 agent = Agent(
     knowledge=knowledge,
     search_knowledge=True,
 )
 
-asyncio.run(agent.print_response("How to make Thai curry?", markdown=True))
+agent.print_response("How to make Thai curry?", markdown=True)
 
 ```
 ## Usage

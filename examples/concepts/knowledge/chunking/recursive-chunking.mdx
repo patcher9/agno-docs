@@ -20,20 +20,20 @@ knowledge = Knowledge(
     vector_db=PgVector(table_name="recipes_recursive_chunking", db_url=db_url),
 )
 
-knowledge.add_content(
+asyncio.run(knowledge.add_content(
     url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf",
     reader=PDFUrlReader(
         name="Recursive Chunking Reader",
         chunking_strategy=RecursiveChunking(),
     ),
-)
+))
 
 agent = Agent(
     knowledge=knowledge,
     search_knowledge=True,
 )
 
-asyncio.run(agent.print_response("How to make Thai curry?", markdown=True))
+agent.print_response("How to make Thai curry?", markdown=True)
 
 
 ```

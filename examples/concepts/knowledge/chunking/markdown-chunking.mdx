@@ -20,19 +20,19 @@ knowledge = Knowledge(
     vector_db=PgVector(table_name="recipes_markdown_chunking", db_url=db_url),
 )
 
-knowledge.add_content(
+asyncio.run(knowledge.add_content(
     url="https://github.com/agno-agi/agno/blob/main/README.md",
     reader=MarkdownReader(
         name="Markdown Chunking Reader",
         chunking_strategy=MarkdownChunking(),
     ),
-)
+))
 agent = Agent(
     knowledge=knowledge,
     search_knowledge=True,
 )
 
-asyncio.run(agent.print_response("What is Agno?", markdown=True))
+agent.print_response("What is Agno?", markdown=True)
 
 ```
 ## Usage
