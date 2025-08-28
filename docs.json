@@ -1768,7 +1768,10 @@
                   "examples/models/together/basic",
                   "examples/models/together/basic_stream",
                   "examples/models/together/tool_use",
-                  "examples/models/together/structured_output"
+                  "examples/models/together/structured_output",
+                  "examples/models/together/image_agent",
+                  "examples/models/together/image_agent_bytes",
+                  "examples/models/together/image_agent_memory"
                 ]
               },
               {
