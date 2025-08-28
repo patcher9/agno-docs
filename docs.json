@@ -494,7 +494,7 @@
               {
                 "group": "Storage",
                 "pages": [
-                  "docs/documentation/db/introduction",
+                  "docs/documentation/db/overview",
                   "docs/documentation/db/postgres",
                   "docs/documentation/db/mysql",
                   "docs/documentation/db/sqlite",
@@ -1112,7 +1112,7 @@
                     "pages": [
                       "examples/concepts/db/mongodb/mongodb_for_agent",
                       "examples/concepts/db/mongodb/mongodb_for_team",
-                      "examples/concepts/db/mongodb/mongodb_for_workflow" 
+                      "examples/concepts/db/mongodb/mongodb_for_workflow"
                     ]
                   },
                   {
@@ -1136,7 +1136,7 @@
                     "pages": [
                       "examples/concepts/db/gcs/gcs_for_agent",
                       "examples/concepts/db/gcs/gcs_for_team",
-                      "examples/concepts/db/gcs/gcs_for_workflow" 
+                      "examples/concepts/db/gcs/gcs_for_workflow"
                     ]
                   },
                   {
