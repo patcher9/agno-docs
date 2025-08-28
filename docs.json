@@ -1795,7 +1795,9 @@
                 "pages": [
                   "examples/models/vercel/basic",
                   "examples/models/vercel/basic_stream",
-                  "examples/models/vercel/tool_use"
+                  "examples/models/vercel/tool_use",
+                  "examples/models/vercel/knowledge",
+                  "examples/models/vercel/image_agent"
                 ]
               },
               {
