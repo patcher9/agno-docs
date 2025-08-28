@@ -22,6 +22,13 @@
     }
   },
   "navbar": {
+    "links": [
+      {
+        "label": "Github",
+        "icon": "github",
+        "href": "https://github.com/agno-agi/agno"
+      }
+    ],
     "primary": {
       "type": "button",
       "label": "Try AgentOS",
@@ -55,11 +62,6 @@
   "navigation": {
     "global": {
       "anchors": [
-        {
-          "anchor": "Github",
-          "icon": "github",
-          "href": "https://github.com/agno-agi/agno"
-        },
         {
           "anchor": "Forum",
           "icon": "discourse",
