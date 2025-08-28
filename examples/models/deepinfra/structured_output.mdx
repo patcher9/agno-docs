@@ -4,11 +4,11 @@ title: Agent with Structured Outputs
 
 ## Code
 
-```python cookbook/models/deepinfra/structured_output.py
+```python cookbook/models/deepinfra/json_output.py
 from typing import List
 
-from agno.agent import Agent, RunResponse  # noqa
-from agno.models.deepinfra import DeepInfra
+from agno.agent import Agent, RunOutput  # noqa
+from agno.models.deepinfra import DeepInfra  # noqa
 from pydantic import BaseModel, Field
 from rich.pretty import pprint  # noqa
 
@@ -32,17 +32,18 @@ class MovieScript(BaseModel):
     )
 
 
-json_mode_agent = Agent(
-    model=DeepInfra(id="meta-llama/Llama-2-70b-chat-hf"),
-    description="You help people write movie scripts.",
+# Agent that uses JSON mode
+agent = Agent(
+    model=DeepInfra(id="microsoft/phi-4"),
+    description="You write movie scripts.",
     output_schema=MovieScript,
 )
 
 # Get the response in a variable
-# json_mode_response: RunResponse = json_mode_agent.run("New York")
-# pprint(json_mode_response.content)
+# response: RunOutput = agent.run("New York")
+# pprint(response.content)
 
-json_mode_agent.print_response("New York")
+agent.print_response("New York")
 ```
 
 ## Usage
@@ -65,11 +66,11 @@ json_mode_agent.print_response("New York")
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/models/deepinfra/structured_output.py
+    python cookbook/models/deepinfra/json_output.py
     ```
 
     ```bash Windows
-    python cookbook/models/deepinfra/structured_output.py
+    python cookbook/models/deepinfra/json_output.py
     ```
     </CodeGroup>
   </Step>
