@@ -1,7 +1,8 @@
 ---
 title: vLLM
 ---
-[vLLM](https://docs.vllm.ai/en/latest/) is a fast and easy-to-use library for LLM inference and serving, designed for high-throughput and memory-efficient LLM serving. 
+
+[vLLM](https://docs.vllm.ai/en/latest/) is a fast and easy-to-use library for LLM inference and serving, designed for high-throughput and memory-efficient LLM serving.
 
 ## Prerequisites
 
@@ -22,13 +23,12 @@ vllm serve Qwen/Qwen2.5-7B-Instruct \
 
 This spins up the vLLM server with an OpenAI-compatible API.
 
-<Note>
-  The default vLLM server URL is `http://localhost:8000/`
-</Note>
+<Note>The default vLLM server URL is `http://localhost:8000/`</Note>
 
-## Example  
+## Example
 
 Basic Agent
+
 <CodeGroup>
 
 ```python agent.py
@@ -37,7 +37,7 @@ from agno.models.vllm import vLLM
 
 agent = Agent(
     model=vLLM(
-        id="meta-llama/Llama-3.1-8B-Instruct", 
+        id="meta-llama/Llama-3.1-8B-Instruct",
         base_url="http://localhost:8000/",
     ),
     markdown=True
