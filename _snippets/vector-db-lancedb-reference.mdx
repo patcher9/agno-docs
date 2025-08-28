@@ -11,3 +11,5 @@
 | `nprobes` | `Optional[int]` | `None` | Number of probes for approximate nearest neighbor search |
 | `reranker` | `Optional[Reranker]` | `None` | Optional reranker instance to rerank search results |
 | `use_tantivy` | `bool` | `True` | Whether to use Tantivy for full-text search indexing |
+| `on_bad_vectors` | `str` | `None` | What to do if the vector is bad. One of "error", "drop", "fill", "null". |
+| `fill_value` | `float` | `None` | The value to fill the vector with if on_bad_vectors is "fill". |

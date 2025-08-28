@@ -9,3 +9,12 @@
 | `cosmos_compatibility` | `bool` | `False` | Whether to enable support for azure cosmos db mongodb vcore |
 | `wait_until_index_ready_in_seconds` | `Optional[float]` | `None` | Time in seconds to wait until the index is ready |
 | `wait_after_insert_in_seconds` | `Optional[float]` | `None` | Time in seconds to wait after inserting documents |
+| `max_pool_size` | `int` | `100` | Maximum number of connections in the connection pool |
+| `retry_writes` | `bool` | `True` | Whether to retry write operations |
+| `client` | `Optional[MongoClient]` | `None` | An existing MongoClient instance. |
+| `search_index_name` | `str` | `"vector_index_1"` | Name of the search index |
+| `cosmos_compatibility` | `bool` | `False` | Whether to use Azure Cosmos DB Mongovcore compatibility mode. |
+| `search_type` | `str` | `vector` | The search type to use when searching for documents. |
+| `hybrid_vector_weight` | `float` | `0.5` | Default weight for vector search results in hybrid search. |
+| `hybrid_keyword_weight` | `float` | `0.5` | Default weight for keyword search results in hybrid search. |
+| `hybrid_rank_constant` | `int` | `60` | Default rank constant (k) for Reciprocal Rank Fusion in hybrid search. This constant is added to the rank before taking the reciprocal, helping to smooth scores. A common value is 60. |

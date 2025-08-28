@@ -6,38 +6,41 @@ title: Agentic RAG with Reranking
 
 ```python
 from agno.agent import Agent
-from agno.embedder.openai import OpenAIEmbedder
-from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
+from agno.knowledge.embedder.openai import OpenAIEmbedder
+from agno.knowledge.knowledge import Knowledge
+from agno.knowledge.reranker import CohereReranker
 from agno.models.openai import OpenAIChat
-from agno.reranker.cohere import CohereReranker
 from agno.vectordb.lancedb import LanceDb, SearchType
 
-# Create a knowledge base of PDFs from URLs
-knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-    # Use LanceDB as the vector database and store embeddings in the `recipes` table
+knowledge = Knowledge(
     vector_db=LanceDb(
-        table_name="recipes",
         uri="tmp/lancedb",
-        search_type=SearchType.vector,
-        embedder=OpenAIEmbedder(id="text-embedding-3-small"),
-        reranker=CohereReranker(model="rerank-multilingual-v3.0"),  # Add a reranker
+        table_name="agno_docs",
+        search_type=SearchType.hybrid,
+        embedder=OpenAIEmbedder(
+            id="text-embedding-3-small"
+        ),
+        reranker=CohereReranker(
+            model="rerank-multilingual-v3.0"
+        ),
     ),
 )
-# Load the knowledge base: Comment after first run as the knowledge base is already loaded
-knowledge_base.load()
+
+knowledge.add_content_sync(
+    name="Agno Docs", url="https://docs.agno.com/introduction.md"
+)
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
-    knowledge=knowledge_base,
-    # Add a tool to search the knowledge base which enables agentic RAG.
-    # This is enabled by default when `knowledge` is provided to the Agent.
-    search_knowledge=True,
-        markdown=True,
+    knowledge=knowledge,
+    markdown=True,
 )
-agent.print_response(
-    "How do I make chicken and galangal in coconut milk soup", stream=True
-)
+
+if __name__ == "__main__":
+    # Load the knowledge base, comment after first run
+    # agent.knowledge.load(recreate=True)
+    agent.print_response("What are Agno's key features?")
+
 ```
 
 ## Usage
@@ -61,11 +64,11 @@ agent.print_response(
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agent_concepts/rag/agentic_rag_with_reranking.py
+    python cookbook/agents/rag/agentic_rag_with_reranking.py
     ```
 
     ```bash Windows
-    python cookbook/agent_concepts/rag/agentic_rag_with_reranking.py
+    python cookbook/agents/rag/agentic_rag_with_reranking.py
     ```
     </CodeGroup>
   </Step>
