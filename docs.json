@@ -109,6 +109,7 @@
               },
               {
                 "group": "Teams",
+                "hidden": true,
                 "pages": [
                   "docs/documentation/teams/introduction",
                   "docs/documentation/teams/run",
@@ -301,6 +302,7 @@
               },
               {
                 "group": "Memory",
+                "hidden": true,
                 "pages": [
                   "docs/documentation/memory/introduction",
                   "docs/documentation/memory/memory",
@@ -309,6 +311,7 @@
               },
               {
                 "group": "Reasoning",
+                "hidden": true,
                 "pages": [
                   "docs/documentation/reasoning/introduction",
                   "docs/documentation/reasoning/reasoning-models",
@@ -319,6 +322,7 @@
 
               {
                 "group": "Tools",
+                "hidden": true,
                 "pages": [
                   "docs/documentation/tools/introduction",
                   "docs/documentation/tools/tool-decorator",
@@ -484,10 +488,12 @@
               },
               {
                 "group": "Multimodal",
+                "hidden": true,
                 "pages": ["docs/documentation/multimodal/overview"]
               },
               {
                 "group": "User Control Flow",
+                "hidden": true,
                 "pages": ["docs/documentation/user_control_flow/overview"]
               },
               {
@@ -509,6 +515,7 @@
               },
               {
                 "group": "Evals",
+                "hidden": true,
                 "pages": [
                   "docs/documentation/evals/introduction",
                   "docs/documentation/evals/platform"
@@ -516,6 +523,7 @@
               },
               {
                 "group": "Applications",
+                "hidden": true,
                 "pages": [
                   "applications/playground/introduction",
                   "applications/fastapi/introduction",
@@ -529,6 +537,7 @@
           },
           {
             "group": "Other",
+            "hidden": true,
             "pages": [
               {
                 "group": "Agent UI",
@@ -560,6 +569,7 @@
           },
           {
             "group": "How to",
+            "hidden": true,
             "pages": [
               "how-to/install",
               "how-to/contribute",
@@ -571,6 +581,7 @@
       },
       {
         "tab": "Guides",
+        "hidden": true,
         "groups": [
           {
             "group": "Guides",
@@ -1807,6 +1818,7 @@
       },
       {
         "tab": "Agno Infra",
+        "hidden": true,
         "groups": [
           {
             "group": "Workspaces",
@@ -1852,6 +1864,7 @@
       },
       {
         "tab": "AgentOS API Reference",
+        "hidden": true,
         "groups": [
           {
             "group": "AgentOS API Reference",
@@ -2045,6 +2058,7 @@
       },
       {
         "tab": "FAQs",
+        "hidden": true,
         "groups": [
           {
             "group": "FAQs",
