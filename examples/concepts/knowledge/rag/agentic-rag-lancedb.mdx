@@ -12,7 +12,6 @@ from agno.models.openai import OpenAIChat
 from agno.vectordb.lancedb import LanceDb, SearchType
 
 knowledge = Knowledge(
-    # Use LanceDB as the vector database and store embeddings in the `recipes` table
     vector_db=LanceDb(
         table_name="recipes",
         uri="tmp/lancedb",
@@ -28,8 +27,6 @@ knowledge.add_content_sync(
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     knowledge=knowledge,
-    # Add a tool to search the knowledge base which enables agentic RAG.
-    # This is enabled by default when `knowledge` is provided to the Agent.
     search_knowledge=True,
     markdown=True,
 )

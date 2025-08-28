@@ -37,19 +37,19 @@ knowledge.add_content_sync(
 )
 
 
-# Set up SQL storage for the agent's data
+
 db = SqliteDb(db_file="data.db")
 
-# Initialize the Agent with various configurations including the knowledge base and storage
+
 agent = Agent(
-    session_id="session_id",  # use any unique identifier to identify the run
-    user_id="user",  # user identifier to identify the user
+    session_id="session_id", 
+    user_id="user",  
     model=model,
     knowledge=knowledge,
     db=db,
 )
 
-# Use the agent to generate and print a response to a query, formatted in Markdown
+
 agent.print_response(
     "What is the first step of making Gluai Buat Chi from the knowledge base?",
     markdown=True,

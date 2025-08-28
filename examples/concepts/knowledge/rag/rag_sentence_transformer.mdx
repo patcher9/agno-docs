@@ -75,9 +75,15 @@ if __name__ == "__main__":
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
+  <Step title="Set environment variables">
+    ```bash
+    export OPENAI_API_KEY=xxx
+    ```
+  </Step>
+
   <Step title="Install libraries">
     ```bash
-    pip install -U openai sqlalchemy 'psycopg[binary]' pgvector agno
+    pip install -U openai sqlalchemy 'psycopg[binary]' pgvector agno sentence-transformers 
     ```
   </Step>       
 
