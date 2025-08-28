@@ -9,9 +9,8 @@
   },
   "favicon": "/favicon.png",
   "contextual": {
-    "options": ["copy", "mcp", "cursor","chatgpt", "claude"]
+    "options": ["copy", "mcp", "cursor", "chatgpt", "claude"]
   },
-
   "logo": {
     "light": "/logo/black.svg",
     "dark": "/logo/white.svg"
@@ -23,19 +22,10 @@
     }
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Discord",
-        "href": "https://agno.link/discord"
-      },
-      {
-        "label": "Community",
-        "href": "https://community.agno.com/"
-      }
-    ],
     "primary": {
-      "type": "github",
-      "href": "https://github.com/agno-agi/agno"
+      "type": "button",
+      "label": "Try AgentOS",
+      "href": "https://os.agno.com"
     }
   },
   "footer": {
@@ -66,8 +56,23 @@
     "global": {
       "anchors": [
         {
+          "anchor": "Github",
+          "icon": "github",
+          "href": "https://github.com/agno-agi/agno"
+        },
+        {
+          "anchor": "Discord",
+          "icon": "discord",
+          "href": "https://agno.link/discord"
+        },
+        {
+          "anchor": "Forum",
+          "icon": "discourse",
+          "href": "https://community.agno.com/"
+        },
+        {
           "anchor": "Book a call",
-          "icon": "calendar",
+          "icon": "calendar-days",
           "href": "https://cal.com/team/agno/intro"
         }
       ]
@@ -253,9 +258,7 @@
                   },
                   {
                     "group": "Readers",
-                    "pages": [
-                      "docs/documentation/knowledge/readers/pdf_reader"
-                    ]
+                    "pages": ["docs/documentation/knowledge/readers/pdf_reader"]
                   },
                   {
                     "group": "Vector DBs",
@@ -580,8 +583,7 @@
         ]
       },
       {
-        "tab": "Guides",
-        "hidden": true,
+        "tab": "Tutorials",
         "groups": [
           {
             "group": "Guides",
@@ -1122,7 +1124,7 @@
                     "pages": [
                       "examples/concepts/db/mongodb/mongodb_for_agent",
                       "examples/concepts/db/mongodb/mongodb_for_team",
-                      "examples/concepts/db/mongodb/mongodb_for_workflow" 
+                      "examples/concepts/db/mongodb/mongodb_for_workflow"
                     ]
                   },
                   {
@@ -1146,7 +1148,7 @@
                     "pages": [
                       "examples/concepts/db/gcs/gcs_for_agent",
                       "examples/concepts/db/gcs/gcs_for_team",
-                      "examples/concepts/db/gcs/gcs_for_workflow" 
+                      "examples/concepts/db/gcs/gcs_for_workflow"
                     ]
                   },
                   {
@@ -1163,7 +1165,7 @@
                       "examples/concepts/db/in_memory/in_memory_for_agent",
                       "examples/concepts/db/in_memory/in_memory_for_team",
                       "examples/concepts/db/in_memory/in_memory_for_workflow"
-                      ]
+                    ]
                   },
                   {
                     "group": "JSON",
@@ -1200,7 +1202,7 @@
                   {
                     "group": "MySQL",
                     "pages": [
-                        "examples/concepts/db/mysql/mysql_for_agent",
+                      "examples/concepts/db/mysql/mysql_for_agent",
                       "examples/concepts/db/mysql/mysql_for_team",
                       "examples/concepts/db/mysql/mysql_for_workflow"
                     ]
@@ -1817,8 +1819,7 @@
         ]
       },
       {
-        "tab": "Agno Infra",
-        "hidden": true,
+        "tab": "Deploy",
         "groups": [
           {
             "group": "Workspaces",
@@ -1863,122 +1864,10 @@
         ]
       },
       {
-        "tab": "AgentOS API Reference",
+        "tab": "Reference",
         "groups": [
           {
-            "group": "Introduction",
-            "pages": [
-              "reference-api/overview"
-            ]
-          },
-          {
-            "group": "Core",
-            "pages": [
-              "reference-api/schema/core/config"
-            ]
-          },
-          {
-            "group": "Agents",
-            "pages": [
-              "reference-api/schema/agents/create-agent-run",
-              "reference-api/schema/agents/create-agent-run",
-              "reference-api/schema/agents/cancel-agent-run",
-              "reference-api/schema/agents/continue-agent-run",
-              "reference-api/schema/agents/get-agents",
-              "reference-api/schema/agents/get-agent",
-              "reference-api/schema/agents/get-agent-sessions",
-              "reference-api/schema/agents/get-agent-session-by-id",
-              "reference-api/schema/agents/get-agent-session-runs",
-              "reference-api/schema/agents/delete-agent-session",
-              "reference-api/schema/agents/rename-agent-session"
-            ]
-          },
-          {
-            "group": "Teams",
-            "pages": [
-              "reference-api/schema/teams/create-team-run",
-              "reference-api/schema/teams/cancel-team-run",
-              "reference-api/schema/teams/get-teams",
-              "reference-api/schema/teams/get-team",
-              "reference-api/schema/teams/get-team-sessions",
-              "reference-api/schema/teams/get-team-session-by-id",
-              "reference-api/schema/teams/get-team-session-runs",
-              "reference-api/schema/teams/delete-team-session",
-              "reference-api/schema/teams/rename-team-session"
-            ]
-          },
-          {
-            "group": "Workflows",
-            "pages": [
-              "reference-api/schema/workflows/create-workflow-run",
-              "reference-api/schema/workflows/cancel-workflow-run",
-              "reference-api/schema/workflows/get-workflows",
-              "reference-api/schema/workflows/get-workflow",
-              "reference-api/schema/workflows/get-workflow-sessions",
-              "reference-api/schema/workflows/get-workflow-session-by-id",
-              "reference-api/schema/workflows/get-workflow-session-runs"
-            ]
-          },
-          {
-            "group": "Sessions",
-            "pages": [
-              "reference-api/schema/sessions/get-sessions",
-              "reference-api/schema/sessions/get-session-by-id",
-              "reference-api/schema/sessions/get-session-runs",
-              "reference-api/schema/sessions/rename-session",
-              "reference-api/schema/sessions/delete-session",
-              "reference-api/schema/sessions/delete-sessions"
-            ]
-          },
-          {
-            "group": "Memory",
-            "pages": [
-              "reference-api/schema/memory/get-memory",
-              "reference-api/schema/memory/get-memories",
-              "reference-api/schema/memory/create-memory",
-              "reference-api/schema/memory/update-memory",
-              "reference-api/schema/memory/delete-memory",
-              "reference-api/schema/memory/delete-memories",
-              "reference-api/schema/memory/get-topics",
-              "reference-api/schema/memory/get-user-memory-stats"
-            ]
-          },
-          {
-            "group": "Evals",
-            "pages": [
-              "reference-api/schema/evals/get-eval-runs",
-              "reference-api/schema/evals/get-eval-run",
-              "reference-api/schema/evals/delete-eval-runs",
-              "reference-api/schema/evals/run-eval",
-              "reference-api/schema/evals/update-eval-run"
-            ]
-          },
-          {
-            "group": "Knowledge",
-            "pages": [
-              "reference-api/schema/knowledge/upload-content",
-              "reference-api/schema/knowledge/get-content",
-              "reference-api/schema/knowledge/get-content-by-id",
-              "reference-api/schema/knowledge/get-content-status",
-              "reference-api/schema/knowledge/update-content",
-              "reference-api/schema/knowledge/delete-all-content",
-              "reference-api/schema/knowledge/delete-content-by-id"
-            ]
-          },
-          {
-            "group": "Metrics",
-            "pages": [
-              "reference-api/schema/metrics/get-metrics",
-              "reference-api/schema/metrics/calculate-metrics"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "SDK reference",
-        "groups": [
-          {
-            "group": "Reference",
+            "group": "SDK",
             "pages": [
               {
                 "group": "Agents",
@@ -2102,9 +1991,7 @@
               },
               {
                 "group": "Memory",
-                "pages": [
-                  "reference/memory/memory"
-                ]
+                "pages": ["reference/memory/memory"]
               },
               {
                 "group": "Storage",
@@ -2155,12 +2042,114 @@
                 ]
               }
             ]
+          },
+          {
+            "group": "AgentOS API",
+            "pages": ["reference-api/overview"]
+          },
+          {
+            "group": "Core",
+            "pages": ["reference-api/schema/core/config"]
+          },
+          {
+            "group": "Agents",
+            "pages": [
+              "reference-api/schema/agents/create-agent-run",
+              "reference-api/schema/agents/create-agent-run",
+              "reference-api/schema/agents/cancel-agent-run",
+              "reference-api/schema/agents/continue-agent-run",
+              "reference-api/schema/agents/get-agents",
+              "reference-api/schema/agents/get-agent",
+              "reference-api/schema/agents/get-agent-sessions",
+              "reference-api/schema/agents/get-agent-session-by-id",
+              "reference-api/schema/agents/get-agent-session-runs",
+              "reference-api/schema/agents/delete-agent-session",
+              "reference-api/schema/agents/rename-agent-session"
+            ]
+          },
+          {
+            "group": "Teams",
+            "pages": [
+              "reference-api/schema/teams/create-team-run",
+              "reference-api/schema/teams/cancel-team-run",
+              "reference-api/schema/teams/get-teams",
+              "reference-api/schema/teams/get-team",
+              "reference-api/schema/teams/get-team-sessions",
+              "reference-api/schema/teams/get-team-session-by-id",
+              "reference-api/schema/teams/get-team-session-runs",
+              "reference-api/schema/teams/delete-team-session",
+              "reference-api/schema/teams/rename-team-session"
+            ]
+          },
+          {
+            "group": "Workflows",
+            "pages": [
+              "reference-api/schema/workflows/create-workflow-run",
+              "reference-api/schema/workflows/cancel-workflow-run",
+              "reference-api/schema/workflows/get-workflows",
+              "reference-api/schema/workflows/get-workflow",
+              "reference-api/schema/workflows/get-workflow-sessions",
+              "reference-api/schema/workflows/get-workflow-session-by-id",
+              "reference-api/schema/workflows/get-workflow-session-runs"
+            ]
+          },
+          {
+            "group": "Sessions",
+            "pages": [
+              "reference-api/schema/sessions/get-sessions",
+              "reference-api/schema/sessions/get-session-by-id",
+              "reference-api/schema/sessions/get-session-runs",
+              "reference-api/schema/sessions/rename-session",
+              "reference-api/schema/sessions/delete-session",
+              "reference-api/schema/sessions/delete-sessions"
+            ]
+          },
+          {
+            "group": "Memory",
+            "pages": [
+              "reference-api/schema/memory/get-memory",
+              "reference-api/schema/memory/get-memories",
+              "reference-api/schema/memory/create-memory",
+              "reference-api/schema/memory/update-memory",
+              "reference-api/schema/memory/delete-memory",
+              "reference-api/schema/memory/delete-memories",
+              "reference-api/schema/memory/get-topics",
+              "reference-api/schema/memory/get-user-memory-stats"
+            ]
+          },
+          {
+            "group": "Evals",
+            "pages": [
+              "reference-api/schema/evals/get-eval-runs",
+              "reference-api/schema/evals/get-eval-run",
+              "reference-api/schema/evals/delete-eval-runs",
+              "reference-api/schema/evals/run-eval",
+              "reference-api/schema/evals/update-eval-run"
+            ]
+          },
+          {
+            "group": "Knowledge",
+            "pages": [
+              "reference-api/schema/knowledge/upload-content",
+              "reference-api/schema/knowledge/get-content",
+              "reference-api/schema/knowledge/get-content-by-id",
+              "reference-api/schema/knowledge/get-content-status",
+              "reference-api/schema/knowledge/update-content",
+              "reference-api/schema/knowledge/delete-all-content",
+              "reference-api/schema/knowledge/delete-content-by-id"
+            ]
+          },
+          {
+            "group": "Metrics",
+            "pages": [
+              "reference-api/schema/metrics/get-metrics",
+              "reference-api/schema/metrics/calculate-metrics"
+            ]
           }
         ]
       },
       {
         "tab": "FAQs",
-        "hidden": true,
         "groups": [
           {
             "group": "FAQs",
@@ -2181,6 +2170,7 @@
       },
       {
         "tab": "Changelog",
+        "hidden": true,
         "groups": [
           {
             "group": "Changelog",
