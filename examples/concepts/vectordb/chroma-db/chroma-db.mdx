@@ -5,8 +5,6 @@ title: ChromaDB
 ## Code
 
 ```python cookbook/knowledge/vector_db/chroma_db/chroma_db.py
-import asyncio
-
 from agno.agent import Agent
 from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.chroma import ChromaDb
@@ -20,13 +18,13 @@ knowledge = Knowledge(
     ),
 )
 
-asyncio.run(
-    knowledge.add_content(
+
+    knowledge.add_content_sync(
         name="Recipes",
         url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf",
         metadata={"doc_type": "recipe_book"},
     )
-)
+
 
 # Create and use the agent
 agent = Agent(knowledge=knowledge)

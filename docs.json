@@ -1562,8 +1562,7 @@
                     "pages": [
                       "examples/concepts/vectordb/weaviate-db/weaviate-db",
                       "examples/concepts/vectordb/weaviate-db/async-weaviate-db",
-                      "examples/concepts/vectordb/weaviate-db/weaviate-db-hybrid-search",
-                      "examples/concepts/vectordb/weaviate-db/weaviate-db-upsert"
+                      "examples/concepts/vectordb/weaviate-db/weaviate-db-hybrid-search"
                     ]
                   }
                 ]

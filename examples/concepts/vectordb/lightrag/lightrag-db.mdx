@@ -5,7 +5,7 @@ title: LightRAG
 ## Code
 
 ```python cookbook/knowledge/vector_db/lightrag/lightrag.py
-import asyncio
+
 from os import getenv
 
 from agno.agent import Agent
@@ -24,28 +24,25 @@ knowledge = Knowledge(
 )
 
 
-asyncio.run(
-    knowledge.add_content(
+
+    knowledge.add_content_sync(
         name="Recipes",
         path="cookbook/knowledge/testing_resources/cv_1.pdf",
         metadata={"doc_type": "recipe_book"},
     )
-)
 
-asyncio.run(
-    knowledge.add_content(
+
+    knowledge.add_content_sync(
         name="Recipes",
         topics=["Manchester United"],
         reader=WikipediaReader(),
     )
-)
 
-asyncio.run(
-    knowledge.add_content(
+
+    knowledge.add_content_sync(
         name="Recipes",
         url="https://en.wikipedia.org/wiki/Manchester_United_F.C.",
     )
-)
 
 
 agent = Agent(
@@ -55,15 +52,14 @@ agent = Agent(
 )
 
 
-asyncio.run(
-    agent.aprint_response("What skills does Jordan Mitchell have?", markdown=True)
-)
 
-asyncio.run(
-    agent.aprint_response(
+    agent.print_response("What skills does Jordan Mitchell have?", markdown=True)
+
+
+    agent.print_response(
         "In what year did Manchester United change their name?", markdown=True
     )
-)
+
 ```
 
 ## Usage

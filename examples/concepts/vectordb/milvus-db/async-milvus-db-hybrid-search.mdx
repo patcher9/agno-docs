@@ -6,27 +6,24 @@ title: Milvus Async Hybrid Search
 
 ```python cookbook/knowledge/vector_db/milvus_db/async_milvus_db_hybrid_search.py
 import asyncio
-
 from agno.agent import Agent
-from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
+from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.milvus import Milvus, SearchType
 
 vector_db = Milvus(
     collection="recipes", uri="tmp/milvus.db", search_type=SearchType.hybrid
 )
-# Create knowledge base
-knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+
+knowledge = Knowledge(
     vector_db=vector_db,
 )
 
-# Create and use the agent
-agent = Agent(knowledge=knowledge_base, show_tool_calls=True)
+asyncio.run(knowledge.add_content(
+    url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf",
+))
 
-
+agent = Agent(knowledge=knowledge, show_tool_calls=True)
 if __name__ == "__main__":
-    asyncio.run(knowledge_base.aload(recreate=True)) 
-
     asyncio.run(agent.aprint_response("How to make Tom Kha Gai", markdown=True))
 ```
 
