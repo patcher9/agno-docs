@@ -22,120 +22,369 @@ Your social media intelligence system will:
 - Perform weighted sentiment analysis that accounts for influence and engagement
 - Detect viral content, controversy signals, and high-influence discussions  
 - Generate executive-ready reports with strategic recommendations
-- Provide continuous monitoring with configurable alert thresholds
-- Suggest context-specific response strategies for different scenarios
+- Serve insights via AgentOS API for integration with your applications
 
-## Prerequisites
+## Prerequisites and Setup
 
-<Check>
-**Why these requirements?** A controlled environment prevents dependency conflicts while ensuring access to all necessary APIs for comprehensive social media intelligence.
-</Check>
+You'll need:
+- **Python 3.9+** and **Git** installed
+- API keys for: **X (Twitter) Developer Account** ([Apply here](https://developer.twitter.com/en/apply-for-access)), **OpenAI API** ([Get key](https://platform.openai.com/api-keys)), **Exa API** ([Sign up](https://exa.ai))
 
-- **Python 3.9+** installed on your machine
-- **X (Twitter) Developer Account** with API v2 access - [Apply here](https://developer.twitter.com/en/apply-for-access)
-- **OpenAI API Key** for GPT-4 access - [Get your key](https://platform.openai.com/api-keys)
-- **Exa API Key** for semantic search - [Sign up here](https://exa.ai)
-- **Basic Python knowledge** including async programming concepts
-- **Git** for version control
-
-## Step 1: Project Setup with Agno Infrastructure
-
-**Why Agno's infrastructure setup?** Agno provides a streamlined project creation flow that automatically sets up the optimal environment with proper dependency management, secrets handling, and infrastructure orchestration.
+**Setup your environment:**
 
 ```bash
 mkdir social-intel && cd social-intel
 python3 -m venv venv
 source venv/bin/activate     # Windows: venv\Scripts\activate
-```
 
-Create and activate an isolated Python environment.
+# Install Agno with infrastructure support
+pip install "agno[infra,tools]" openai exa_py python-dotenv
 
-## Step 2: Install Agno Infrastructure and Create Project
-
-**Why this approach?** The infrastructure-first setup ensures proper project scaffolding, secrets management, and deployment capabilities from the start.
-
-```bash
-pip install "agno[infra]"    # Keep quotes on zsh
+# Create project with AgentOS API
 ag infra create              # Choose: [1] agent-infra-docker (default)
-# Infra Name: social-intel (or press Enter)
+# Infra Name: social-intel
 ```
 
-This creates the complete project scaffolding in your current directory with proper folder structure and configuration templates.
-
-<Tip>
-If you re-run with the same name and see a conflict, delete the folder and try again: `rm -rf social-intel`
-</Tip>
-
-## Step 3: Configure API Keys and Secrets
-
-**Why centralized secrets?** The infrastructure setup creates a proper secrets management system that both your agents and infrastructure can share safely.
-
-```bash
-mkdir -p infra/secrets
-cp infra/example_secrets/.env infra/secrets/.env 2>/dev/null || true
-```
-
-Add your API credentials to `infra/secrets/.env`:
+**Configure your API keys in `infra/secrets/.env`:**
 
 ```env
-# OpenAI Configuration
 OPENAI_API_KEY=sk-your-openai-api-key-here
-
-# X (Twitter) API Configuration
 X_API_KEY=your-x-api-key
 X_API_SECRET=your-x-api-secret
 X_ACCESS_TOKEN=your-access-token
 X_ACCESS_TOKEN_SECRET=your-access-token-secret
 X_BEARER_TOKEN=your-bearer-token
-
-# Exa API Configuration
 EXA_API_KEY=your-exa-api-key
 ```
 
-## Step 4: Start Infrastructure Services
-
-**Why infrastructure-first?** This approach ensures monitoring, logging, and deployment capabilities are available from development through production.
-
+**Start the infrastructure:**
 ```bash
 ag infra up
-# Later, to stop: ag infra down
 ```
 
-Your infrastructure services are now running and ready to support your intelligence agents.
+Your AgentOS API is now running and ready! Let's build the intelligence agent.
 
-## Step 5: Install Agent Dependencies
+## Step 1: Choose Your AI Model
 
-**Why these specific packages?** Each dependency serves a critical role in the intelligence pipeline while leveraging the infrastructure setup for optimal integration.
+**Which model should I use?** We are using OpenAI with GPT-4o because it is a cost-effective model that is good at using tools and following complex analysis instructions.
 
-```bash
-pip install "agno[tools]" openai exa_py python-dotenv schedule
-```
-
-**Dependency breakdown:**
-- `agno[tools]` - Core framework with X and Exa tool integrations
-- `openai` - GPT-4 API access for advanced analysis
-- `exa_py` - Semantic web search capabilities  
-- `python-dotenv` - Environment variable management (integrated with infra)
-- `schedule` - Task scheduling for continuous monitoring
-
-## Step 6: Create the Intelligence Agent
-
-**Why this agent architecture?** Centralizes all intelligence logic while leveraging Agno's built-in tool orchestration and the infrastructure's secrets management for secure, scalable operation.
-
+Create your agent file:
 ```bash
 mkdir -p app
 touch app/social_media_agent.py
 ```
 
-Create your main intelligence agent:
+**Why GPT-4o specifically?**
+- **Cost-effective**: Better price/performance ratio than GPT-4
+- **Tool usage**: Excellent at deciding when and how to use tools
+- **Complex reasoning**: Can follow detailed analysis methodologies
+- **Structured output**: Reliable at generating formatted reports
 
-```python app/social_media_agent.py
-"""Social Media Intelligence Agent
+Start with the basic imports and model setup:
 
-Provides enterprise-grade social media monitoring and analysis,
-transforming raw social data into actionable business intelligence.
+```python
+from pathlib import Path
+from dotenv import load_dotenv
+from agno.models.openai import OpenAIChat
+
+# Load infrastructure secrets
+load_dotenv(dotenv_path=Path(__file__).resolve().parents[1] / "infra" / "secrets" / ".env")
+
+# Choose the AI model for your agent
+model = OpenAIChat(id="gpt-4o")
+print(f"Model selected: {model.id}")
+```
+
+**Test your model setup:**
+
+```python
+# Quick test to verify model works
+if __name__ == "__main__":
+    test_response = model.invoke("Explain social media sentiment analysis in one sentence.")
+    print(f"Model test: {test_response}")
+```
+
+This confirms your model is working before we add complexity.
+
+## Step 2: Add Social Media Tools
+
+**Which tools should I use?** We are adding XTools because we need direct Twitter/X data with engagement metrics, and ExaTools because we need broader web context that social media alone can't provide.
+
+### 2a. Add XTools for Twitter/X Data
+
+**Why XTools?** Direct access to Twitter/X with engagement metrics is crucial for understanding influence patterns and viral content.
+
+```python
+from agno.tools.x import XTools
+
+# Configure X Tools for social media data
+x_tools = XTools(
+    include_post_metrics=True,    # Critical: gets likes, retweets, replies for influence analysis
+    wait_on_rate_limit=True,      # Handles API limits gracefully
+)
+
+print("XTools configured with post metrics enabled")
+```
+
+**What `include_post_metrics=True` gives you:**
+- Like counts (engagement volume)
+- Retweet counts (viral spread)
+- Reply counts (conversation depth)
+- Author verification status (influence weighting)
+
+### 2b. Add ExaTools for Web Intelligence
+
+**Why ExaTools?** Social media discussions often reference broader conversations happening across the web. ExaTools finds this context.
+
+```python
+from agno.tools.exa import ExaTools
+
+# Configure Exa for broader web intelligence
+exa_tools = ExaTools(
+    num_results=10,               # Comprehensive but not overwhelming
+    include_domains=["reddit.com", "news.ycombinator.com", "medium.com"],
+    exclude_domains=["spam-site.com"],
+)
+
+print("ExaTools configured for web search")
+```
+
+**Why these specific domains?**
+- **Reddit**: Early discussion indicators, community sentiment
+- **HackerNews**: Tech industry insights, developer opinions  
+- **Medium**: Thought leadership, analysis articles
+
+### 2c. Combine Your Tools
+
+```python
+# Create your complete tools list
+tools = [x_tools, exa_tools]
+print(f"Total tools configured: {len(tools)}")
+```
+
+**Test your tools (optional):**
+
+```python
+# Test X tool (uncomment to test)
+# x_result = x_tools.search_tweets("AI sentiment", max_results=5)
+# print(f"X tool test: Found {len(x_result)} tweets")
+
+# Test Exa tool (uncomment to test) 
+# exa_result = exa_tools.search("AI market analysis")
+# print(f"Exa tool test: Found {len(exa_result)} web results")
+```
+
+## Step 3: Define Intelligence Strategy
+
+**Why do we need instructions?** We need to describe the strategy that the agent should take to collect and analyze content. Without clear instructions, the agent won't know how to use the tools effectively or what kind of analysis to provide.
+
+### 3a. Define the Data Collection Strategy
+
+```python
+from textwrap import dedent
+
+# Define how the agent should gather data
+data_collection_strategy = dedent("""
+    DATA COLLECTION STRATEGY:
+    - Use X Tools to gather direct social media mentions with full engagement metrics
+    - Use Exa Tools to find broader web discussions, articles, and forum conversations
+    - Cross-reference findings between social and web sources for comprehensive coverage
+""")
+
+print("Data collection strategy defined")
+```
+
+### 3b. Define the Analysis Framework
+
+```python
+# Define how the agent should analyze the data
+analysis_framework = dedent("""
+    ANALYSIS FRAMEWORK:
+    - Classify sentiment as Positive/Negative/Neutral/Mixed with detailed reasoning
+    - Weight analysis by engagement volume and author influence (verified accounts = 1.5x)
+    - Identify engagement patterns: viral advocacy, controversy, influence concentration
+    - Extract cross-platform themes and recurring discussion points
+""")
+
+print("Analysis framework defined")
+```
+
+### 3c. Define the Intelligence Synthesis
+
+```python
+# Define how to turn analysis into actionable insights
+intelligence_synthesis = dedent("""
+    INTELLIGENCE SYNTHESIS:
+    - Detect crisis indicators through sentiment velocity and coordination patterns
+    - Identify competitive positioning and feature gap discussions
+    - Surface growth opportunities and advocacy moments
+    - Generate strategic recommendations with clear priority levels
+""")
+
+print("Intelligence synthesis defined")
+```
+
+### 3d. Define the Report Format
+
+```python
+# Define the expected output structure
+report_format = dedent("""
+    REPORT FORMAT:
+    
+    ### Executive Dashboard
+    - **Brand Health Score**: [1-10] with supporting evidence
+    - **Net Sentiment**: [%positive - %negative] with trend analysis
+    - **Key Drivers**: Top 3 positive and negative factors
+    - **Alert Level**: Normal/Monitor/Crisis with threshold reasoning
+    
+    ### Quantitative Metrics
+    | Sentiment | Posts | % | Avg Engagement | Influence Score |
+    |-----------|-------|---|----------------|-----------------|
+    [Detailed breakdown with engagement weighting]
+    
+    ### Strategic Recommendations
+    **IMMEDIATE (≤48h)**: Crisis response, high-impact replies
+    **SHORT-TERM (1-2 weeks)**: Content strategy, community engagement  
+    **LONG-TERM (1-3 months)**: Product positioning, market strategy
+""")
+
+print("Report format defined")
+```
+
+### 3e. Define Analysis Principles
+
+```python
+# Define the quality standards for analysis
+analysis_principles = dedent("""
+    ANALYSIS PRINCIPLES:
+    - Evidence-based conclusions with supporting metrics
+    - Actionable insights that drive business decisions
+    - Cross-platform correlation analysis
+    - Influence-weighted sentiment scoring
+    - Proactive risk and opportunity identification
+""")
+
+print("Analysis principles defined")
+```
+
+### 3f. Combine Into Complete Instructions
+
+```python
+# Combine all instruction components
+complete_instructions = f"""
+You are a Senior Social Media Intelligence Analyst specializing in cross-platform 
+brand monitoring and strategic analysis.
+
+CORE METHODOLOGY:
+
+{data_collection_strategy}
+
+{analysis_framework}
+
+{intelligence_synthesis}
+
+{report_format}
+
+{analysis_principles}
 """
 
+print(f"Complete instructions created: {len(complete_instructions)} characters")
+```
+
+## Step 4: Create the Complete Agent
+
+Now let's put all the pieces together - model, tools, and instructions - to create your complete social media intelligence agent.
+
+### 4a. Import the Agent Class
+
+```python
+from agno.agent import Agent
+
+print("Agent class imported")
+```
+
+### 4b. Create the Agent
+
+```python
+# Combine model, tools, and instructions into a complete agent
+social_media_agent = Agent(
+    name="Social Media Intelligence Analyst",
+    model=model,                 # The GPT-4o model we chose
+    tools=tools,                 # The X and Exa tools we configured
+    instructions=complete_instructions,  # The strategy we defined
+    markdown=True,               # Enable rich formatting for reports
+    show_tool_calls=True,        # Show transparency in data collection
+)
+
+print(f"Agent created: {social_media_agent.name}")
+```
+
+**What each parameter does:**
+- `name`: Identifies your agent in logs and API calls
+- `model`: The AI that powers your agent's reasoning
+- `tools`: The capabilities your agent can use to gather data
+- `instructions`: The methodology and strategy for analysis
+- `markdown=True`: Enables rich formatting in reports
+- `show_tool_calls=True`: Shows which tools are being used for transparency
+
+### 4c. Create the Analysis Function
+
+```python
+def analyze_brand_sentiment(query: str, tweet_count: int = 20):
+    """
+    Execute comprehensive social media intelligence analysis.
+    
+    Args:
+        query: Brand or topic search query (e.g., "Tesla OR @elonmusk")
+        tweet_count: Number of recent tweets to analyze
+    """
+    
+    # Create a detailed prompt for the agent
+    analysis_prompt = f"""
+    Conduct comprehensive social media intelligence analysis for: "{query}"
+    
+    ANALYSIS PARAMETERS:
+    - Twitter Analysis: {tweet_count} most recent tweets with engagement metrics
+    - Web Intelligence: Related articles, discussions, and broader context via Exa
+    - Cross-Platform Synthesis: Correlate social sentiment with web discussions
+    - Strategic Focus: Brand positioning, competitive analysis, risk assessment
+    
+    METHODOLOGY:
+    1. Gather direct social media mentions and engagement data
+    2. Search for related web discussions and broader context
+    3. Analyze sentiment patterns and engagement indicators
+    4. Identify cross-platform themes and influence networks
+    5. Generate strategic recommendations with evidence backing
+    
+    Provide comprehensive intelligence report following the structured format.
+    """
+    
+    # Execute the analysis
+    return social_media_agent.print_response(analysis_prompt, stream=True)
+
+print("Analysis function created")
+```
+
+### 4d. Create a Test Function
+
+```python
+def test_agent():
+    """Test the complete agent with a sample query."""
+    print("Testing social media intelligence agent...")
+    analyze_brand_sentiment("Agno OR AgnoAGI", tweet_count=10)
+
+print("Test function ready")
+```
+
+### 4e. Complete Working Example
+
+Here's your complete `app/social_media_agent.py` file:
+
+```python
+"""
+Complete Social Media Intelligence Agent
+Built with Agno framework
+"""
 from pathlib import Path
 from textwrap import dedent
 from dotenv import load_dotenv
@@ -145,91 +394,87 @@ from agno.models.openai import OpenAIChat
 from agno.tools.x import XTools
 from agno.tools.exa import ExaTools
 
-# Load the infra secrets so agent & infra share one config
+# Load infrastructure secrets
 load_dotenv(dotenv_path=Path(__file__).resolve().parents[1] / "infra" / "secrets" / ".env")
 
-# Create the intelligence agent
+# Step 1: Choose the AI model
+model = OpenAIChat(id="gpt-4o")
+
+# Step 2: Configure tools
+tools = [
+    XTools(
+        include_post_metrics=True,
+        wait_on_rate_limit=True,
+    ),
+    ExaTools(
+        num_results=10,
+        include_domains=["reddit.com", "news.ycombinator.com", "medium.com"],
+        exclude_domains=["spam-site.com"],
+    )
+]
+
+# Step 3: Define instructions
+complete_instructions = dedent("""
+    You are a Senior Social Media Intelligence Analyst specializing in cross-platform 
+    brand monitoring and strategic analysis.
+
+    CORE METHODOLOGY:
+    
+    DATA COLLECTION STRATEGY:
+    - Use X Tools to gather direct social media mentions with full engagement metrics
+    - Use Exa Tools to find broader web discussions, articles, and forum conversations
+    - Cross-reference findings between social and web sources for comprehensive coverage
+    
+    ANALYSIS FRAMEWORK:
+    - Classify sentiment as Positive/Negative/Neutral/Mixed with detailed reasoning
+    - Weight analysis by engagement volume and author influence (verified accounts = 1.5x)
+    - Identify engagement patterns: viral advocacy, controversy, influence concentration
+    - Extract cross-platform themes and recurring discussion points
+    
+    INTELLIGENCE SYNTHESIS:
+    - Detect crisis indicators through sentiment velocity and coordination patterns
+    - Identify competitive positioning and feature gap discussions
+    - Surface growth opportunities and advocacy moments
+    - Generate strategic recommendations with clear priority levels
+    
+    REPORT FORMAT:
+    
+    ### Executive Dashboard
+    - **Brand Health Score**: [1-10] with supporting evidence
+    - **Net Sentiment**: [%positive - %negative] with trend analysis
+    - **Key Drivers**: Top 3 positive and negative factors
+    - **Alert Level**: Normal/Monitor/Crisis with threshold reasoning
+    
+    ### Quantitative Metrics
+    | Sentiment | Posts | % | Avg Engagement | Influence Score |
+    |-----------|-------|---|----------------|-----------------|
+    [Detailed breakdown with engagement weighting]
+    
+    ### Strategic Recommendations
+    **IMMEDIATE (≤48h)**: Crisis response, high-impact replies
+    **SHORT-TERM (1-2 weeks)**: Content strategy, community engagement  
+    **LONG-TERM (1-3 months)**: Product positioning, market strategy
+    
+    ANALYSIS PRINCIPLES:
+    - Evidence-based conclusions with supporting metrics
+    - Actionable insights that drive business decisions
+    - Cross-platform correlation analysis
+    - Influence-weighted sentiment scoring
+    - Proactive risk and opportunity identification
+""")
+
+# Step 4: Create the complete agent
 social_media_agent = Agent(
     name="Social Media Intelligence Analyst",
-    model=OpenAIChat(id="gpt-4o"),
-    tools=[
-        XTools(
-            include_post_metrics=True,    # Critical for influence weighting
-            wait_on_rate_limit=True,      # Handles API rate limits gracefully
-        ),
-        ExaTools(
-            num_results=10,
-            include_domains=["reddit.com", "news.ycombinator.com", "medium.com"],
-            exclude_domains=["spam-site.com"],
-        )
-    ],
-    instructions=dedent("""
-        You are a Senior Social Media Intelligence Analyst specializing in cross-platform 
-        brand monitoring and strategic analysis.
-
-        CORE METHODOLOGY:
-        
-        1. DATA COLLECTION STRATEGY:
-           - Use X Tools to gather direct social media mentions with full engagement metrics
-           - Use Exa Tools to find broader web discussions, articles, and forum conversations
-           - Cross-reference findings between social and web sources for comprehensive coverage
-        
-        2. ANALYSIS FRAMEWORK:
-           - Classify sentiment as Positive/Negative/Neutral/Mixed with detailed reasoning
-           - Weight analysis by engagement volume and author influence (verified accounts = 1.5x)
-           - Identify engagement patterns: viral advocacy, controversy, influence concentration
-           - Extract cross-platform themes and recurring discussion points
-        
-        3. INTELLIGENCE SYNTHESIS:
-           - Detect crisis indicators through sentiment velocity and coordination patterns
-           - Identify competitive positioning and feature gap discussions
-           - Surface growth opportunities and advocacy moments
-           - Generate strategic recommendations with clear priority levels
-        
-        REPORT FORMAT:
-        
-        ### Executive Dashboard
-        - **Brand Health Score**: [1-10] with supporting evidence
-        - **Net Sentiment**: [%positive - %negative] with trend analysis
-        - **Key Drivers**: Top 3 positive and negative factors
-        - **Alert Level**: Normal/Monitor/Crisis with threshold reasoning
-        
-        ### Quantitative Metrics
-        | Sentiment | Posts | % | Avg Engagement | Influence Score |
-        |-----------|-------|---|----------------|-----------------|
-        [Detailed breakdown with engagement weighting]
-        
-        ### Strategic Recommendations
-        **IMMEDIATE (≤48h)**: Crisis response, high-impact replies
-        **SHORT-TERM (1-2 weeks)**: Content strategy, community engagement  
-        **LONG-TERM (1-3 months)**: Product positioning, market strategy
-        
-        ### Response Playbook
-        For high-impact posts: URL, suggested response, recommended responder, strategic goal
-        
-        ANALYSIS PRINCIPLES:
-        - Evidence-based conclusions with supporting metrics
-        - Actionable insights that drive business decisions
-        - Cross-platform correlation analysis
-        - Influence-weighted sentiment scoring
-        - Proactive risk and opportunity identification
-    """),
+    model=model,
+    tools=tools,
+    instructions=complete_instructions,
     markdown=True,
     show_tool_calls=True,
 )
 
 def analyze_brand_sentiment(query: str, tweet_count: int = 20):
-    """
-    Execute comprehensive social media intelligence analysis.
-    
-    Why this approach: Combines direct social media data with broader web context
-    to provide complete brand intelligence that captures both immediate sentiment
-    and emerging trends before they reach mainstream attention.
-    
-    Args:
-        query: Brand or topic search query
-        tweet_count: Number of recent tweets to analyze
-    """
+    """Execute comprehensive social media intelligence analysis."""
     prompt = f"""
     Conduct comprehensive social media intelligence analysis for: "{query}"
     
@@ -252,192 +497,73 @@ def analyze_brand_sentiment(query: str, tweet_count: int = 20):
     return social_media_agent.print_response(prompt, stream=True)
 
 if __name__ == "__main__":
+    # Test the complete agent
     analyze_brand_sentiment("Agno OR AgnoAGI", tweet_count=25)
 ```
 
-Complete intelligence agent implementation with infrastructure integration.
-
-## Step 7: Test Your Intelligence Agent
-
-**Why testing matters:** Validates API connectivity, data processing pipeline, and report generation before deploying monitoring systems.
+### 4f. Test Your Complete Agent
 
 ```bash
 python app/social_media_agent.py
 ```
 
-Run the intelligence agent for immediate analysis.
+You should see your agent:
+1. **Use X Tools** to gather Twitter data with engagement metrics
+2. **Use Exa Tools** to find broader web context
+3. **Generate a structured report** following your defined format
+4. **Provide strategic recommendations** based on the analysis
 
-**Expected output structure:**
+## Step 5: Deploy via AgentOS API
 
-```markdown
-### Executive Dashboard
-- **Brand Health Score**: 7.2/10 (Strong positive momentum, UX concerns flagged)
-- **Net Sentiment**: +34% (67% positive, 33% negative, +5% vs baseline)  
-- **Key Drivers**: Performance improvements, community engagement, pricing advantage
-- **Alert Level**: Monitor (UX complaint volume trending upward)
+**Why API-first?** The AgentOS infrastructure automatically exposes your agent as a REST API, making it ready for production integration without additional deployment work.
 
-### Quantitative Metrics
-| Sentiment | Posts | %   | Avg Engagement | Influence Score |
-|-----------|-------|-----|----------------|-----------------|
-| Positive  | 17    | 68% | High (24.3)    | 8.2/10          |
-| Negative  | 6     | 24% | Medium (12.7)  | 6.1/10          |
-| Neutral   | 2     | 8%  | Low (5.2)      | 3.4/10          |
+Your agent is automatically available via the AgentOS API. Let's test it!
 
-### Strategic Recommendations
-**IMMEDIATE**: Address login flow UX complaints mentioned in 3 high-engagement threads
-**SHORT-TERM**: Amplify positive performance messaging, engage developer community  
-**LONG-TERM**: Consider UX audit based on recurring feedback themes
+**Find your API endpoint:**
+```bash
+# Your AgentOS API is running on localhost:7777
+curl http://localhost:7777/v1/agents
 ```
 
-Sample intelligence report output.
-
-## Step 8: Add Continuous Monitoring
-
-**Why continuous monitoring?** Enables proactive brand management by detecting trends, risks, and opportunities in near real-time without manual intervention.
-
-Create monitoring system:
+**Test with Postman or curl:**
 
 ```bash
-touch app/monitoring_system.py
+curl -X POST http://localhost:7777/v1/agents/social_media_agent/runs \
+  -H "Content-Type: application/json" \
+  -d '{
+    "message": "Analyze social media sentiment for: Tesla OR @elonmusk",
+    "stream": false
+  }'
 ```
 
-Implement scheduled monitoring:
-
-```python app/monitoring_system.py
-"""Continuous Social Media Monitoring System"""
-
-import schedule
-import time
-from datetime import datetime
-from social_media_agent import analyze_brand_sentiment
-
-class SocialMediaMonitor:
-    """
-    Why this approach: Provides flexible monitoring with configurable intervals
-    and error handling to ensure continuous operation while leveraging the
-    infrastructure setup for reliability.
-    """
-    
-    def __init__(self, brands_to_monitor: list):
-        self.brands = brands_to_monitor
-        
-    def run_analysis(self, brand: str):
-        """Execute analysis with error handling and logging."""
-        print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] Analyzing: {brand}")
-        
-        try:
-            analyze_brand_sentiment(brand, tweet_count=20)
-            print(f"✓ Analysis completed for {brand}")
-        except Exception as e:
-            print(f"✗ Error analyzing {brand}: {str(e)}")
-    
-    def schedule_monitoring(self):
-        """Set up recurring analysis schedule."""
-        for brand in self.brands:
-            # Standard monitoring every 2 hours
-            schedule.every(2).hours.do(self.run_analysis, brand=brand)
-            
-        print(f"Monitoring scheduled for: {', '.join(self.brands)}")
-        print("Starting continuous monitoring... (Press Ctrl+C to stop)")
-        
-        try:
-            while True:
-                schedule.run_pending()
-                time.sleep(300)  # Check every 5 minutes
-        except KeyboardInterrupt:
-            print("\\nMonitoring stopped by user")
-    
-    def manual_analysis(self, brand: str = None):
-        """Execute immediate analysis on demand."""
-        brands_to_analyze = [brand] if brand else self.brands
-        
-        for target_brand in brands_to_analyze:
-            self.run_analysis(target_brand)
-
-# Configuration
-MONITORED_BRANDS = [
-    "Agno OR AgnoAGI",
-    # Add your brands here
-]
-
-if __name__ == "__main__":
-    monitor = SocialMediaMonitor(MONITORED_BRANDS)
-    
-    # Run immediate analysis
-    print("Running immediate analysis...")
-    monitor.manual_analysis()
-    
-    # Uncomment to start continuous monitoring
-    # monitor.schedule_monitoring()
+**Expected response structure:**
+```json
+{
+  "run_id": "run_123",
+  "content": "### Executive Dashboard\n- **Brand Health Score**: 7.2/10...",
+  "metrics": {
+    "tokens_used": 1250,
+    "tools_called": ["x_tools", "exa_tools"],
+    "analysis_time": "23.4s"
+  }
+}
 ```
-
-Monitoring system with scheduling and error handling integrated with infrastructure.
-
-## Step 9: Operate Your Intelligence System
-
-**Why proper operation matters:** The Agno infrastructure provides built-in capabilities for reliable deployment, monitoring, and maintenance.
-
-### Start/stop infrastructure services:
-```bash
-ag infra up      # Start all services
-ag infra down    # Stop all services
-```
-
-### Run immediate analysis:
-```bash
-python app/social_media_agent.py
-```
-
-### Start continuous monitoring:
-```bash
-python app/monitoring_system.py
-```
-
-### Configuration options:
-- Adjust `tweet_count` for analysis depth vs. API usage balance
-- Modify monitoring intervals based on brand volatility and resource constraints
-- Customize Exa domain filters for industry-specific intelligence
-- Leverage infrastructure monitoring and logging capabilities
-
-## Advanced Features
-
-Your infrastructure-powered intelligence system now provides:
-
-**Infrastructure Integration**: Built on Agno's infrastructure framework with proper secrets management, service orchestration, and deployment capabilities.
-
-**Multi-Source Intelligence**: Combines direct social media data with broader web discussions for comprehensive brand monitoring that captures emerging trends before mainstream attention.
-
-**Weighted Analysis**: Accounts for author influence, engagement metrics, and source credibility to provide accurate sentiment assessment rather than simple mention counting.
-
-**Crisis Detection**: Monitors sentiment velocity, engagement patterns, and coordination indicators to identify potential issues before they escalate.
-
-**Strategic Recommendations**: Generates actionable insights with clear priority levels and specific response strategies rather than generic sentiment scores.
-
-**Production Ready**: Infrastructure services provide monitoring, logging, and deployment capabilities for reliable continuous operation.
 
 ## Next Steps
 
-**Infrastructure Scaling**: Use `ag infra` commands to add additional services, databases, and monitoring capabilities as your system grows.
+Your social media intelligence system is now live with a production-ready API! Consider:
 
-**Platform Expansion**: Add LinkedIn, Reddit, and industry-specific forums for broader intelligence coverage using Agno's expanding tool ecosystem.
-
-**Alert Integration**: Connect to Slack, email, or webhook systems using the infrastructure's integration capabilities for immediate notification of significant sentiment changes.
-
-**Visual Analytics**: Implement charts, graphs, and trend visualizations through the infrastructure's data services for easier pattern recognition and executive presentation.
-
-**Industry Customization**: Develop domain-specific analysis patterns, terminology, and alert thresholds leveraging the infrastructure's configuration management.
-
-**Competitive Intelligence**: Expand monitoring to track competitor mentions, feature comparisons, and market positioning discussions with additional agent specialization.
+- **Specialized Agents**: Create focused agents for crisis detection, competitive analysis, or influencer identification
+- **Alert Integration**: Connect webhooks to Slack, email, or your existing monitoring systems
+- **Visual Analytics**: Build dashboards that consume the API for executive reporting
+- **Multi-Brand Monitoring**: Scale to monitor multiple brands or competitors simultaneously
 
 ## Conclusion
 
-You have built a comprehensive social media intelligence system powered by Agno's infrastructure framework that transforms raw social media data into strategic business intelligence. The system demonstrates how modern AI infrastructure enables:
+You've built a comprehensive social media intelligence system that:
+- Combines direct social data with broader web intelligence
+- Provides weighted sentiment analysis with strategic recommendations  
+- Serves insights via production-ready AgentOS API
+- Scales from development through enterprise deployment
 
-- **Infrastructure-powered development** with proper secrets, services, and deployment management
-- **Real-time monitoring** across multiple platforms and sources with reliable operation
-- **Weighted sentiment analysis** that accounts for influence and engagement patterns
-- **Strategic recommendations** with clear priority levels and actionable insights  
-- **Crisis detection** capabilities for early warning and rapid response
-- **Production deployment** with monitoring, logging, and scaling capabilities
-
-This architecture showcases Agno's capability for building production-ready AI systems that deliver measurable business value through intelligent automation, proper infrastructure management, and comprehensive analysis. The infrastructure-first approach ensures your system can scale from development through enterprise deployment with reliability and maintainability.
+This demonstrates Agno's infrastructure-first approach, where your AI agents become immediately deployable services with proper monitoring, scaling, and integration capabilities built-in.
