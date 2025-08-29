@@ -166,6 +166,39 @@ To enable session summaries, set `enable_session_summaries=True` on the `Agent`.
   </Step>
 </Steps>
 
+## Adjusting the Session Summaries
+
+You can adjust the session summaries by providing a custom `session_summary_prompt` to the `Agent`.
+
+
+The `SessionSummaryManager` class is responsible for handling the LLM used to create and update session summaries.
+You can adjust it to personalize how summaries are created and updated:
+
+```python
+from agno.agent import Agent
+from agno.session import SessionSummaryManager
+from agno.models.openai import OpenAIChat
+from agno.db.sqlite import SQLiteDb
+
+# Setup your database
+db = SQLiteDb(db_file="agno.db")
+
+# Setup your Session Summary Manager, to adjust how summaries are created
+session_summary_manager = SessionSummaryManager(
+    # Select the model used for session summary creation and updates
+    model=OpenAIChat(id="gpt-4o"),
+    # You can also overwrite the prompt used for session summary creation
+    session_summary_prompt="Create a very succinct summary of the following conversation:",
+)
+
+# Now provide the adjusted Memory Manager to your Agent
+agent = Agent(
+    db=db,
+    session_summary_manager=session_summary_manager,
+    enable_session_summaries=True,
+)
+```
+
 ## Session history
 
 Agents with storage enabled automatically have access to the message and run history of the session.

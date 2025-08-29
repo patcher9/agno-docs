@@ -1,8 +1,10 @@
 ---
-title: Advanced Usage of Memory
+title: Advanced Memory Usage
 description: Learn what else is doable with Memory.
+sidebarTitle: Advanced Usage
 ---
 
+<<<<<<< Updated upstream
 WIP
 
 
@@ -14,11 +16,50 @@ If you set `enable_user_memories=True` or `enable_agentic_memory=True`, the memo
 You can optionally disable this by setting `add_memories_to_context=False`.
 
 For example:
+=======
+### Adjusting the Memory Manager
+
+The `MemoryManager` class is responsible for handling the LLM used to create and update memories.
+You can adjust it to personalize how memories are created and updated:
+
+```python
+from agno.agent import Agent
+from agno.db.sqlite import SQLiteDb
+from agno.memory import MemoryManager
+from agno.models.openai import OpenAIChat
+
+# Setup your database
+db = SQLiteDb(db_file="agno.db")
+
+# Setup your Memory Manager, to adjust how memories are created
+memory_manager = MemoryManager(
+    db=db,
+    # Select the model used for memory creation and updates
+    model=OpenAIChat(id="gpt-4o"),
+    # You can also provide additional instructions
+    additional_instructions="Don't store the user's real name",
+)
+
+# Now provide the adjusted Memory Manager to your Agent
+agent = Agent(
+    db=db,
+    memory_manager=memory_manager,
+    enable_user_memories=True,
+)
+```
+
+### Memories and Context
+
+When using Memory with your Agents, memories about the current user will be added to the context by default, for the LLM to consider them.
+
+If you want your Agent to create and update memories, but not have them added to the context of each request to the LLM, you can use the `add_memories_to_context` flag:
+>>>>>>> Stashed changes
 
 ```python
 from agno.agent import Agent
 from agno.db.sqlite import SQLiteDb
 
+<<<<<<< Updated upstream
 db = SQLiteDb(db_file="agno.db")
 
 agent = Agent(db=db, enable_user_memories=True, add_memories_to_context=False)
@@ -26,3 +67,40 @@ agent = Agent(db=db, enable_user_memories=True, add_memories_to_context=False)
 ```
 
 In the example above, memories are still created at the end of a run, but the agent won't have access to those memories in its context.
+=======
+# Setup your database
+db = SQLiteDb(db_file="agno.db")
+
+# Setup your Agent with Memory
+agent = Agent(
+    db=db,
+    enable_user_memories=True, # This enables Memory for the Agent
+    add_memories_to_context=False, # This disables adding memories to the context
+)
+```
+
+### Sharing Memory Between Agents
+
+Often, you will want multiple Agents to share the same memories.
+To achieve this, you just need to provide the same database to those agents.
+All Agents will then have access to the same memories for a given user:
+
+```python
+from agno.agent import Agent
+from agno.db.sqlite import SQLiteDb
+
+# Setup your database
+db = SQLiteDb(db_file="agno.db")
+
+# Setup your Agents with the same database and Memory enabled
+agent_1 = Agent(db=db, enable_user_memories=True)
+agent_2 = Agent(db=db, enable_user_memories=True)
+
+# The first Agent will create a Memory about the user name here:
+agent_1.print_response("Hi! My name is John Doe")
+
+# The second Agent will be able to retrieve the Memory about the user name here:
+agent_2.print_response("What is my name?")
+```
+
+>>>>>>> Stashed changes
