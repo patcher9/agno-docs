@@ -106,9 +106,9 @@ result: Optional[AccuracyResult] = evaluation.run(print_results=True)
 assert result is not None and result.avg_score >= 8
 ```
 
-## Accuracy with given answer
+## Accuracy with given output
 
-For comprehensive evaluation, run with a given answer:
+For comprehensive evaluation, run with a given output:
 
 ```python accuracy_with_given_answer.py
 from typing import Optional
@@ -128,9 +128,9 @@ result_with_given_answer: Optional[AccuracyResult] = evaluation.run_with_output(
 assert result_with_given_answer is not None and result_with_given_answer.avg_score >= 8
 ```
 
-## Accuracy with asyncronous functions
+## Accuracy with asynchronous functions
 
-Evaluate accuracy with asyncronous functions:
+Evaluate accuracy with asynchronous functions:
 
 ```python async_accuracy.py
 """This example shows how to run an Accuracy evaluation asynchronously."""
@@ -161,7 +161,7 @@ assert result is not None and result.avg_score >= 8
 
 ```
 
-## Accuracy with using team
+## Accuracy with Teams
 
 Evaluate accuracy with a team:
 ```python accuracy_with_team.py
@@ -327,7 +327,9 @@ assert result is not None and result.avg_score >= 8
   </Step>
 </Steps>
 
-## Track Evals in AgnoOS platform
+## Track Evals in your AgentOS
+
+The best way to track your Agno Evals is with the AgentOS platform.
 
 <video
   autoPlay
