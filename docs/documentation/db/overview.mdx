@@ -33,7 +33,7 @@ db = SQLiteDb(db_file="agno.db")
 agent = Agent(db=db)
 ```
 
-Agents with a `db` will persist their [sessions](/agents/sessions) in the database. You can also automatically add the persisted history to the context, effectively enabling Agents to remember previous messages:
+Agents with a `db` will persist their [sessions](/agents/sessions) in the database. You can also automatically add the persisted history to the context, effectively enabling Agents to persist sessions:
 
 ```python
 from agno.agent import Agent
