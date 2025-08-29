@@ -1900,7 +1900,10 @@
                 "pages": [
                   "examples/models/nvidia/basic",
                   "examples/models/nvidia/basic_stream",
-                  "examples/models/nvidia/tool_use"
+                  "examples/models/nvidia/async_basic",
+                  "examples/models/nvidia/async_basic_stream",
+                  "examples/models/nvidia/tool_use",
+                  "examples/models/nvidia/async_tool_use"               
                 ]
               },
               {

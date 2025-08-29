@@ -1,21 +1,18 @@
 ---
-title: Agent with Tools
+title: Async Basic Agent
 ---
 
 ## Code
 
-```python cookbook/models/nvidia/tool_use.py
+```python cookbook/models/nvidia/async_basic.py
+import asyncio
+
 from agno.agent import Agent
 from agno.models.nvidia import Nvidia
-from agno.tools.duckduckgo import DuckDuckGoTools
 
-agent = Agent(
-    model=Nvidia(id="meta/llama-3.3-70b-instruct"),
-    tools=[DuckDuckGoTools()],
-    markdown=True,
-)
+agent = Agent(model=Nvidia(id="meta/llama-3.3-70b-instruct"), markdown=True)
 
-agent.print_response("Whats happening in France?", stream=True)
+asyncio.run(agent.aprint_response("Share a 2 sentence horror story"))
 
 ```
 
@@ -32,18 +29,18 @@ agent.print_response("Whats happening in France?", stream=True)
 
   <Step title="Install libraries">
     ```bash
-    pip install -U agno ddgs
+    pip install -U agno openai
     ```
   </Step>
 
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/models/nvidia/tool_use.py
+    python cookbook/models/nvidia/async_basic.py
     ```
 
     ```bash Windows
-    python cookbook/models/nvidia/tool_use.py
+    python cookbook/models/nvidia/async_basic.py
     ```
     </CodeGroup>
   </Step>
