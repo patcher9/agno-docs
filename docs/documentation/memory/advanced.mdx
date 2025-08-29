@@ -4,19 +4,6 @@ description: Learn what else is doable with Memory.
 sidebarTitle: Advanced Usage
 ---
 
-<<<<<<< Updated upstream
-WIP
-
-
-
-### Memories in context
-
-If you set `enable_user_memories=True` or `enable_agentic_memory=True`, the memories will be added to the context of the Agent automatically.
-
-You can optionally disable this by setting `add_memories_to_context=False`.
-
-For example:
-=======
 ### Adjusting the Memory Manager
 
 The `MemoryManager` class is responsible for handling the LLM used to create and update memories.
@@ -53,21 +40,11 @@ agent = Agent(
 When using Memory with your Agents, memories about the current user will be added to the context by default, for the LLM to consider them.
 
 If you want your Agent to create and update memories, but not have them added to the context of each request to the LLM, you can use the `add_memories_to_context` flag:
->>>>>>> Stashed changes
 
 ```python
 from agno.agent import Agent
 from agno.db.sqlite import SQLiteDb
 
-<<<<<<< Updated upstream
-db = SQLiteDb(db_file="agno.db")
-
-agent = Agent(db=db, enable_user_memories=True, add_memories_to_context=False)
-
-```
-
-In the example above, memories are still created at the end of a run, but the agent won't have access to those memories in its context.
-=======
 # Setup your database
 db = SQLiteDb(db_file="agno.db")
 
@@ -103,4 +80,3 @@ agent_1.print_response("Hi! My name is John Doe")
 agent_2.print_response("What is my name?")
 ```
 
->>>>>>> Stashed changes
