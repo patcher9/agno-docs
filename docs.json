@@ -1911,12 +1911,23 @@
                 "pages": [
                   "examples/models/ollama/basic",
                   "examples/models/ollama/basic_stream",
+                  "examples/models/ollama/async_basic",
+                  "examples/models/ollama/async_basic_stream",
                   "examples/models/ollama/tool_use",
-                  "examples/models/ollama/structured_output",
-                  "examples/models/ollama/storage",
+                  "examples/models/ollama/tool_use_stream",
+                  "examples/models/ollama/db",
                   "examples/models/ollama/knowledge",
+                  "examples/models/ollama/memory",
+                  "examples/models/ollama/demo_deepseek_r1",
+                  "examples/models/ollama/demo_gemma",
+                  "examples/models/ollama/demo_phi4",
+                  "examples/models/ollama/demo_qwen",
                   "examples/models/ollama/image_agent",
-                  "examples/models/ollama/set_client"
+                  "examples/models/ollama/multimodal",
+                  "examples/models/ollama/set_client",
+                  "examples/models/ollama/set_temperature",
+                  "examples/models/ollama/storage",
+                  "examples/models/ollama/structured_output"
                 ]
               },
               {

@@ -1,25 +1,23 @@
 ---
-title: Image Agent
+title: Demo Gemma
 ---
 
 ## Code
 
-```python cookbook/models/ollama/image_agent.py
+```python cookbook/models/ollama/demo_gemma.py
 from pathlib import Path
 
 from agno.agent import Agent
 from agno.media import Image
 from agno.models.ollama import Ollama
 
-agent = Agent(
-    model=Ollama(id="llama3.2-vision"),
-    markdown=True,
-)
+agent = Agent(model=Ollama(id="gemma3:12b"), markdown=True)
 
 image_path = Path(__file__).parent.joinpath("super-agents.png")
 agent.print_response(
     "Write a 3 sentence fiction story about the image",
     images=[Image(filepath=image_path)],
+    stream=True,
 )
 
 ```
@@ -32,7 +30,7 @@ agent.print_response(
   <Step title="Install Ollama">
     Follow the [Ollama installation guide](https://github.com/ollama/ollama?tab=readme-ov-file#macos) and run:
     ```bash
-    ollama pull llama3.2-vision
+    ollama pull gemma3:12b
     ```
   </Step>
 
@@ -45,11 +43,11 @@ agent.print_response(
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/models/ollama/image_agent.py
+    python cookbook/models/ollama/demo_gemma.py
     ```
 
     ```bash Windows
-    python cookbook/models/ollama/image_agent.py
+    python cookbook/models/ollama/demo_gemma.py
     ```
     </CodeGroup>
   </Step>
