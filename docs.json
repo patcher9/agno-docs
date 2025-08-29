@@ -675,6 +675,7 @@
               {
                 "group": "Workflows",
                 "pages": [
+                  "examples/use-cases/workflows/company-description",
                   "examples/use-cases/workflows/blog-post-generator",
                   "examples/use-cases/workflows/employee-recruiter",
                   "examples/use-cases/workflows/investment-report-generator",
