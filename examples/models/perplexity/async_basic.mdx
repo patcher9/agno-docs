@@ -1,23 +1,23 @@
 ---
-title: Basic Streaming Agent
+title: Async Basic Agent
 ---
 
 ## Code
 
-```python cookbook/models/perplexity/basic_stream.py
-from typing import Iterator  # noqa
+```python cookbook/models/perplexity/async_basic.py
+import asyncio
+
 from agno.agent import Agent, RunOutput  # noqa
 from agno.models.perplexity import Perplexity
 
 agent = Agent(model=Perplexity(id="sonar"), markdown=True)
 
 # Get the response in a variable
-# run_response: Iterator[RunOutputEvent] = agent.run("Share a 2 sentence horror story", stream=True)
-# for chunk in run_response:
-#     print(chunk.content)
+# run: RunOutput = agent.run("Share a 2 sentence horror story")
+# print(run.content)
 
 # Print the response in the terminal
-agent.print_response("Share a 2 sentence horror story", stream=True)
+asyncio.run(agent.aprint_response("Share a 2 sentence horror story"))
 
 ```
 
@@ -34,18 +34,18 @@ agent.print_response("Share a 2 sentence horror story", stream=True)
 
   <Step title="Install libraries">
     ```bash
-    pip install -U openai agno
+    pip install -U agno openai
     ```
   </Step>
 
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/models/perplexity/basic_stream.py
+    python cookbook/models/perplexity/async_basic.py
     ```
 
     ```bash Windows
-    python cookbook/models/perplexity/basic_stream.py
+    python cookbook/models/perplexity/async_basic.py
     ```
     </CodeGroup>
   </Step>

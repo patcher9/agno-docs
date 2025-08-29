@@ -1970,7 +1970,13 @@
                 "group": "Perplexity",
                 "pages": [
                   "examples/models/perplexity/basic",
-                  "examples/models/perplexity/basic_stream"
+                  "examples/models/perplexity/basic_stream",
+                  "examples/models/perplexity/async_basic",
+                  "examples/models/perplexity/async_basic_stream",                 
+                  "examples/models/perplexity/knowledge",
+                  "examples/models/perplexity/memory",
+                  "examples/models/perplexity/structured_output"
+
                 ]
               },
               {
