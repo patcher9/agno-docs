@@ -6,7 +6,7 @@ sidebarTitle: Overview
 
 Using **Storage**, you can enable your Agents to remember previous messages.
 
-It works by equipping your Agents with a database that they will use to store and retrieve their [sessions](/agents/sessions) from.
+It works by equipping your Agents with a database that they will use to store and retrieve their [sessions](/docs/documentation/agents/sessions) from.
 
 <Tip>
 **When should I use Storage?**
@@ -33,7 +33,7 @@ db = SQLiteDb(db_file="agno.db")
 agent = Agent(db=db)
 ```
 
-Agents with a `db` will persist their [sessions](/agents/sessions) in the database. You can also automatically add the persisted history to the context, effectively enabling Agents to persist sessions:
+Agents with a `db` will persist their [sessions](/docs/documentation/agents/sessions) in the database. You can also automatically add the persisted history to the context, effectively enabling Agents to persist sessions:
 
 ```python
 from agno.agent import Agent
@@ -130,7 +130,7 @@ workflow = Workflow(db=db, ...)
 ```
 
 <Note>
-Learn more about [Teams](/teams/) and [Workflows](/workflows/), Agno abstractions to build multi-agent systems.
+Learn more about [Teams](/docs/documentation/teams/introduction) and [Workflows](/docs/documentation/workflows/overview), Agno abstractions to build multi-agent systems.
 </Note>
 
 
@@ -138,19 +138,19 @@ Learn more about [Teams](/teams/) and [Workflows](/workflows/), Agno abstraction
 
 This is the list of the databases we currently support:
 
-- [DynamoDB](/db/dynamodb)
-- [FireStore](/db/firestore)
-- [JSON](/db/json)
-- [JSON on GCS](/db/gcs)
-- [MongoDB](/db/mongodb)
-- [MySQL](/db/mysql)
-- [Neon](/db/neon)
-- [PostgreSQL](/db/postgres)
-- [Redis](/db/redis)
-- [SingleStore](/db/singlestore)
-- [SQLite](/db/sqlite)
-- [Supabase](/db/supabase)
+- [DynamoDB](/docs/documentation/db/dynamodb)
+- [FireStore](/docs/documentation/db/firestore)
+- [JSON](/docs/documentation/db/json)
+- [JSON on GCS](/docs/documentation/db/gcs)
+- [MongoDB](/docs/documentation/db/mongodb)
+- [MySQL](/docs/documentation/db/mysql)
+- [Neon](/docs/documentation/db/neon)
+- [PostgreSQL](/docs/documentation/db/postgres)
+- [Redis](/docs/documentation/db/redis)
+- [SingleStore](/docs/documentation/db/singlestore)
+- [SQLite](/docs/documentation/db/sqlite)
+- [Supabase](/docs/documentation/db/supabase)
 
-We also support using an [In-Memory](/db/in_memory) database. This is not recommended for production, but perfect for demos and testing.
+We also support using an [In-Memory](/docs/documentation/db/in_memory) database. This is not recommended for production, but perfect for demos and testing.
 
-You can see a detailed list of [examples](/examples/db/) for all supported databases.
+You can see a detailed list of [examples](/examples/concepts/db) for all supported databases.
