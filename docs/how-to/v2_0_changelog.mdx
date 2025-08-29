@@ -1,10 +1,6 @@
 ---
-title: "Product updates"
-mode: "wide"
+title: "v2.0 Changelog"
 ---
-
-
-<Update label="2025-09-09" description="v2.0.0">
 
 <img height="200" src="/images/changelogs/agent_os_stack.png" /> 
 
@@ -18,7 +14,12 @@ This is a major release that introduces a completely new approach to building mu
 - Added `AgentOS` to `agno` as a comprehensive API solution for building multi-agent systems. This also replaces `Playground` and other Apps. See details below.
 - Cookbook has been completely restructured, with new and more valuable READMEs, better coverage of concepts, and more examples.
 
-## Apps
+## AgentOS
+- Introducing `AgentOS`, a system for hosting agents, teams and workflows as a production-ready API. See full details in the [AgentOS](../agentos) section.
+- This adds routes for session management, memory management, knowledge management, evals management, and metrics.
+- This enables you to host agents, teams and workflows, and use the [Agent OS UI](https://os.agno.com) to manage them.
+
+### Apps Deprecations
 - Removed `Playground`. Its functionality has been replaced by `AgentOS`.
 - Removed `AGUIApp` and replace with `AGUI` interface on `AgentOS`.
 - Removed `SlackApi` and replace with `Slack` interface on `AgentOS`.
@@ -26,12 +27,12 @@ This is a major release that introduces a completely new approach to building mu
 - Removed `FastAPIApp`. Its functionality has been replaced by `AgentOS`.
 - `DiscordClient` has been moved to `/integrations/discord`.
 
-## AgentOS
-- Introducing `AgentOS`, a system for hosting agents, teams and workflows as a production-ready API. See full details in the [AgentOS](../agentos) section.
-- This adds routes for session management, memory management, knowledge management, evals management, and metrics.
-- This enables you to host agents, teams and workflows, and use the [Agent OS UI](https://os.agno.com) to manage them.
+## Session & Run State
+- We have made significant changes to the innerworkings of `Agent`, `Team` and `Workflow` to make them completely stateless.
+- This means that `agent_session`, `session_metrics`, `session_state`, etc. should not be seen as stateful variables that would be updated during the course of a run, but rather as "defaults" for the agent if they can be set on initialisation.
+- This means that, for example, `agent.session_state` should not be accessed directly 
 
-## Run Objects
+### Run Objects
 - For agents:
     - `RunResponse` -> `RunOutput`
     - `RunResponseStartedEvent` -> `RunStartedEvent`
@@ -59,7 +60,7 @@ This is a major release that introduces a completely new approach to building mu
 - For `RunOutput`, `TeamRunOutput` and `WorkflowRunOutput` the `extra_data` attribute has been removed and the internal attributes are now top-level. This is `references`, `additional_input`, `reasoning_steps`, and `reasoning_messages`.
 - `metadata` added to `RunOutput`, `TeamRunOutput` and `WorkflowRunOutput`. This represents all the set metadata for the run.
 
-## Session Objects
+### Session Objects
 - Session storage now stores `AgentSession`, `TeamSession` and `WorkflowSession` with new schemas. See full details in the [Session](../session) section.
 - Session objects now have `runs` directly on it.
 - Session objects support new convenience methods:
@@ -83,7 +84,6 @@ This is a major release that introduces a completely new approach to building mu
     - `JsonStorage` -> `JsonDb`
     - `GCSJsonStorage` -> `GCSJsonDb`
 
-
 ## Memory
 - With the above changes to storage, memory has been simplified.
 - `memory` has been removed from `Agent` and `Team`. Instead memory is enabled with `enable_user_memories: bool` (like before) and persisted in the `db` instance.
@@ -98,17 +98,13 @@ This is a major release that introduces a completely new approach to building mu
 - `AgentKnowledge` and all other knowledge base classes have been removed.
 - Import locations for `embedder`, `document`, `chunking`, `reranker` and `reader` have been moved to `agno.knowledge`. See [examples](../examples/knowledge) for more details.
 
-## State
-- We have made significant changes to the innerworkings of `Agent`, `Team` and `Workflow` to make them completely stateless.
-- This means that `agent_session`, `session_metrics`, `session_state`, etc. should not be seen as stateful variables that would be updated during the course of a run, but rather as "defaults" for the agent if they can be set on initialisation.
-- This means that, for example, `agent.session_state` should not be accessed directly 
-
 
 ## Tools updates
 - General:
     - Since Agents and Teams are now stateless, using attributes from the agent/team object inside a function will give you access to the attributes set on initialisation of that agent/team. E.g. `agent.session_state` should not be used, instead `session_state` can now be directly accessed and would have the "current" state of the session.
     - A new flow allows images, audio and video files generated during tool execution to be passed back in a `FunctionExecutionResult` object and this will ensure these artifacts are made available to the model and agent as needed. See [here](../tools/function) for more details.
 - Changed `clickup_tools` to just `clickup`
+- All tools that handle media (e.g. image generation tools) now correctly add this generated media to the `RunOutput`, but also make it available for subsequent model calls.
 
 ## Cancelling Runs
 - You can now cancel a run by calling `cancel_run` on the `Agent`, `Team` or `Workflow`.
@@ -288,11 +284,3 @@ This is a major release that introduces a completely new approach to building mu
 - Added `get_session_metrics` to retrieve the metrics for a session.
 - Added `get_session_state` to retrieve the session state from a session.
 - Added `get_session_summary` to retrieve the session summary from a session.
-
-
-
-
-
-
-</Update>
-

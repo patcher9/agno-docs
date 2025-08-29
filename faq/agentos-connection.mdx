@@ -1,9 +1,9 @@
 ---
-title: Playground Connection Issues
-sidebarTitle: Playground Connection Issues
+title: AgentOS Connection Issues
+sidebarTitle: AgentOS Connection Issues
 ---
 
-If you're experiencing connection issues in the Agno Playground, particularly when trying to connect to **local endpoints**, this guide will help you resolve them.
+If you're experiencing connection issues with AgentOS, particularly when trying to connect to **local instances**, this guide will help you resolve them.
 
 ## Browser Compatibility
 
@@ -49,7 +49,7 @@ You can use tunneling services to expose your local endpoint to the internet:
 ```bash
 ngrok http <your-local-port>
 ```
-4. Use the provided ngrok URL in the playground
+4. Use the provided ngrok URL on [AgentOS](https://os.agno.com).
 
 ##### Using Cloudflare Tunnel
 1. Install Cloudflare Tunnel (cloudflared) from [Cloudflare's website](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/installation/)
@@ -58,4 +58,4 @@ ngrok http <your-local-port>
 ```bash
 cloudflared tunnel --url http://localhost:<your-local-port>
 ```
-4. Use the provided Cloudflare URL in the playground
+4. Use the provided Cloudflare URL on [AgentOS](https://os.agno.com).
