@@ -1,12 +1,14 @@
 ---
-title: Basic Stream
+title: Async Basic Stream
 ---
 
 ## Code
 
-```python cookbook/models/ollama/basic_stream.py
+```python cookbook/models/ollama/async_basic_stream.py
+import asyncio
 from typing import Iterator  # noqa
-from agno.agent import Agent, RunOutputEvent  # noqa
+
+from agno.agent import Agent, RunOutput  # noqa
 from agno.models.ollama import Ollama
 
 agent = Agent(model=Ollama(id="llama3.1:8b"), markdown=True)
@@ -17,7 +19,7 @@ agent = Agent(model=Ollama(id="llama3.1:8b"), markdown=True)
 #     print(chunk.content)
 
 # Print the response in the terminal
-agent.print_response("Share a 2 sentence horror story", stream=True)
+asyncio.run(agent.aprint_response("Share a 2 sentence horror story", stream=True))
 
 ```
 
@@ -39,14 +41,14 @@ agent.print_response("Share a 2 sentence horror story", stream=True)
     ```
   </Step>
 
-  <Step title="Run Agent">
+  <Step title="Run the example">
     <CodeGroup>
-    ```bash Mac
-    python cookbook/models/ollama/basic_stream.py
+    ```bash Mac/Linux
+    python examples/models/ollama/async_basic_stream.py
     ```
 
     ```bash Windows
-    python cookbook/models/ollama/basic_stream.py
+    python examples/models/ollama/async_basic_stream.py
     ```
     </CodeGroup>
   </Step>
