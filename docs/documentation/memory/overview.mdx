@@ -33,9 +33,9 @@ agent = Agent(
 
 ### Agentic Memory
 
-When configuring your Agent with `enable_user_memories=True`, memories will be created/updated after each run.
+When configuring your Agent with `enable_user_memories=True`, memories will be automatically created/updated after each run.
 
-To give your Agent more control over the memories, you can instead use `enable_agentic_memory=True`:
+You can also give the Agent full control over the memory management by using `enable_agentic_memory=True`:
 
 ```python
 from agno.agent import Agent
@@ -56,13 +56,11 @@ In this case, the Agent will be equipped with a tool to create, update or delete
 
 ### Where are memories stored?
 
-Memories are stored in the database you provide to the Agent. In the [Storage](/db/introduction) section, you can read more about adding a database to your Agent and which databases are supported.
+Memories are stored in the database you provide to the Agent. In the [Storage](/docs/documentation/db/introduction) section, you can read more about adding a database to your Agent and which databases are supported.
 
 By default, memories are stored in the `agno_memories` table of the database.
 
 If the table or collection doesn't exist, it is created automatically when first storing a memory.
-
-You can specify where the sessions are stored exactly using the `session_table` parameter:
 
 ```python
 from agno.agent import Agent
@@ -71,24 +69,33 @@ from agno.db.postgres import PostgresDb
 # Setup your database
 db = PostgresDb(
     db_url="postgresql://user:password@localhost:5432/my_database",
-    session_table="my_session_table", # Specify the table to store sessions
+    memory_table="my_memory_table", # Specify the table to store memories
 )
 
 # Setup your Agent with the database
-agent = Agent(db=db)
+agent = Agent(db=db, enable_user_memories=True)
 
-# Run the Agent. This will store a session in our "my_session_table"
-agent.print_response("What is the capital of France?")
+# Run the Agent. This will store a session in our "my_memory_table"
+agent.print_response("Hi! My name is John Doe and I like to play basketball on the weekends.")
+
+agent.print_response("What are my hobbies?")
 ```
 
 ### Data Model
 
 These are the fields stored in the database when using Memory:
 
-- **memory_id** - Unique identifier for the memory
-- **user_id** - The ID of the user that the memory is about
-- **agent_id** - The ID of the Agent that created the memory
-- **memory** - The content of the memory
-- **topics** - The topics associated with the memory
-- **updated_at** - The timestamp of the last update
+| Field | Type | Description |
+|-------|------|-------------|
+| `memory_id` | `str` | The unique identifier for the memory. |
+| `memory` | `dict` | The memory data, stored as a JSON object. |
+| `topics` | `list` | The topics of the memory. |
+| `input` | `str` | The input that generated the memory. |
+| `user_id` | `str` | The user ID of the memory. |
+| `agent_id` | `str` | The agent ID of the memory. |
+| `team_id` | `str` | The team ID of the memory. |
+| `updated_at` | `int` | The timestamp when the memory was last updated. |
+
+
+This data is best displayed on the [Memories page of the AgentOS UI](https://os.agno.com/memory).
 
