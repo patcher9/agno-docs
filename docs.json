@@ -688,7 +688,6 @@
                         "pages": [
                           "examples/use-cases/teams/route/ai_support_team",
                           "examples/use-cases/teams/route/multi_language_team",
-                          "examples/use-cases/teams/route/multi_purpose_team",
                           "examples/use-cases/teams/route/reasoning_team"
                         ]
                       }
