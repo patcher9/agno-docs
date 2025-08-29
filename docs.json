@@ -304,7 +304,8 @@
               {
                 "group": "Memory",
                 "pages": [
-                  "docs/documentation/memory/overview"
+                  "docs/documentation/memory/overview",
+                  "docs/documentation/memory/advanced"
                 ]
               },
               {
