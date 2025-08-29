@@ -4,3 +4,25 @@ description: Learn what else is doable with Memory.
 ---
 
 WIP
+
+
+
+### Memories in context
+
+If you set `enable_user_memories=True` or `enable_agentic_memory=True`, the memories will be added to the context of the Agent automatically.
+
+You can optionally disable this by setting `add_memories_to_context=False`.
+
+For example:
+
+```python
+from agno.agent import Agent
+from agno.db.sqlite import SQLiteDb
+
+db = SQLiteDb(db_file="agno.db")
+
+agent = Agent(db=db, enable_user_memories=True, add_memories_to_context=False)
+
+```
+
+In the example above, memories are still created at the end of a run, but the agent won't have access to those memories in its context.
