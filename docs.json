@@ -318,7 +318,10 @@
               },
               {
                 "group": "Memory",
-                "pages": ["docs/documentation/memory/overview"]
+                "pages": [
+                  "docs/documentation/memory/overview",
+                  "docs/documentation/memory/advanced"
+                ]
               },
               {
                 "group": "Reasoning",
@@ -641,17 +644,32 @@
               {
                 "group": "Agents",
                 "pages": [
-                  "examples/use-cases/agents/finance-agent",
-                  "examples/use-cases/agents/tweet-analysis-agent",
-                  "examples/use-cases/agents/youtube-agent",
+                  "examples/use-cases/agents/agno_assist",
+                  "examples/use-cases/agents/airbnb_mcp",
+                  "examples/use-cases/agents/books-recommender",
+                  "examples/use-cases/agents/competitor_analysis_agent",
+                  "examples/use-cases/agents/deep_knowledge",
+                  "examples/use-cases/agents/deep_research_agent_exa",
+                  "examples/use-cases/agents/legal_consultant",
+                  "examples/use-cases/agents/media_trend_analysis_agent",
+                  "examples/use-cases/agents/meeting_summarizer_agent",
+                  "examples/use-cases/agents/movie-recommender",
+                  "examples/use-cases/agents/readme_generator",
+                  "examples/use-cases/agents/recipe-creator",
+                  "examples/use-cases/agents/recipe_rag_image",
+                  "examples/use-cases/agents/reddit-post-generator",
                   "examples/use-cases/agents/research-agent",
                   "examples/use-cases/agents/research-agent-exa",
-                  "examples/use-cases/agents/teaching-assistant",
-                  "examples/use-cases/agents/recipe-creator",
-                  "examples/use-cases/agents/movie-recommender",
-                  "examples/use-cases/agents/books-recommender",
+                  "examples/use-cases/agents/run_as_cli",
+                  "examples/use-cases/agents/shopping_partner",
+                  "examples/use-cases/agents/social_media_agent",
+                  "examples/use-cases/agents/startup-analyst-agent",
+                  "examples/use-cases/agents/study-partner",
                   "examples/use-cases/agents/travel-planner",
-                  "examples/use-cases/agents/startup-analyst-agent"
+                  "examples/use-cases/agents/tweet-analysis-agent",
+                  "examples/use-cases/agents/translation_agent",
+                  "examples/use-cases/agents/web_extraction_agent",
+                  "examples/use-cases/agents/youtube-agent"
                 ]
               },
               {
@@ -688,60 +706,10 @@
               {
                 "group": "Workflows",
                 "pages": [
-                  {
-                    "group": "Basic Workflows",
-                    "pages": [
-                      "examples/use-cases/workflows/01-basic-workflows/function_instead_of_steps",
-                      "examples/use-cases/workflows/01-basic-workflows/sequence_of_functions_and_agents",
-                      "examples/use-cases/workflows/01-basic-workflows/sequence_of_steps",
-                      "examples/use-cases/workflows/01-basic-workflows/step_with_function",
-                      "examples/use-cases/workflows/01-basic-workflows/workflow_using_steps",
-                      "examples/use-cases/workflows/01-basic-workflows/workflow_using_steps_nested"
-                    ]
-                  },
-                  {
-                    "group": "Conditional Execution",
-                    "pages": [
-                      "examples/use-cases/workflows/02-workflows-conditional-execution/condition_steps_workflow_stream",
-                      "examples/use-cases/workflows/02-workflows-conditional-execution/condition_with_list_of_steps",
-                      "examples/use-cases/workflows/02-workflows-conditional-execution/condition_and_parallel_steps_stream"
-                    ]
-                  },
-                  {
-                    "group": "Parallel Execution",
-                    "pages": [
-                      "examples/use-cases/workflows/04-workflows-parallel-execution/parallel_steps_workflow"
-                    ]
-                  },
-                  {
-                    "group": "Loop Execution",
-                    "pages": [
-                      "examples/use-cases/workflows/03_workflows_loop_execution/loop_steps_workflow",
-                      "examples/use-cases/workflows/03_workflows_loop_execution/loop_with_parallel_steps_stream"
-                    ]
-                  },
-                  {
-                    "group": "Conditional Branching (Router)",
-                    "pages": [
-                      "examples/use-cases/workflows/05_workflows_conditional_branching/router_steps_workflow",
-                      "examples/use-cases/workflows/05_workflows_conditional_branching/router_with_loop_steps",
-                      "examples/use-cases/workflows/05_workflows_conditional_branching/selector_for_image_video_generation_pipelines"
-                    ]
-                  },
-                  {
-                    "group": "Advanced Concepts",
-                    "pages": [
-                      "examples/use-cases/workflows/06_workflows_advanced_concepts/early_stop_workflow",
-                      "examples/use-cases/workflows/06_workflows_advanced_concepts/step_with_function_additional_data",
-                      "examples/use-cases/workflows/06_workflows_advanced_concepts/access_multiple_previous_steps_output",
-                      "examples/use-cases/workflows/06_workflows_advanced_concepts/store_events_and_events_to_skip_in_a_workflow",
-                      "examples/use-cases/workflows/06_workflows_advanced_concepts/structured_io_at_each_step_level",
-                      "examples/use-cases/workflows/06_workflows_advanced_concepts/workflow_with_input_schema",
-                      "examples/use-cases/workflows/06_workflows_advanced_concepts/workflow_cancellation"
-                    ]
-                  },
+                  "examples/use-cases/workflows/company-description",
                   "examples/use-cases/workflows/blog-post-generator",
                   "examples/use-cases/workflows/employee-recruiter",
+                  "examples/use-cases/workflows/investment-report-generator",
                   "examples/use-cases/workflows/startup-idea-validator"
                 ]
               },
@@ -891,7 +859,63 @@
                   }
                 ]
               },
-
+              {
+                "group": "Workflows",
+                "pages": [
+                  {
+                    "group": "Basic Workflows",
+                    "pages": [
+                      "examples/concepts/workflows/01-basic-workflows/function_instead_of_steps",
+                      "examples/concepts/workflows/01-basic-workflows/sequence_of_functions_and_agents",
+                      "examples/concepts/workflows/01-basic-workflows/sequence_of_steps",
+                      "examples/concepts/workflows/01-basic-workflows/step_with_function",
+                      "examples/concepts/workflows/01-basic-workflows/workflow_using_steps",
+                      "examples/concepts/workflows/01-basic-workflows/workflow_using_steps_nested"
+                    ]
+                  },
+                  {
+                    "group": "Conditional Execution",
+                    "pages": [
+                      "examples/concepts/workflows/02-workflows-conditional-execution/condition_steps_workflow_stream",
+                      "examples/concepts/workflows/02-workflows-conditional-execution/condition_with_list_of_steps",
+                      "examples/concepts/workflows/02-workflows-conditional-execution/condition_and_parallel_steps_stream"
+                    ]
+                  },
+                  {
+                    "group": "Parallel Execution",
+                    "pages": [
+                      "examples/concepts/workflows/04-workflows-parallel-execution/parallel_steps_workflow"
+                    ]
+                  },
+                  {
+                    "group": "Loop Execution",
+                    "pages": [
+                      "examples/concepts/workflows/03_workflows_loop_execution/loop_steps_workflow",
+                      "examples/concepts/workflows/03_workflows_loop_execution/loop_with_parallel_steps_stream"
+                    ]
+                  },
+                  {
+                    "group": "Conditional Branching (Router)",
+                    "pages": [
+                      "examples/concepts/workflows/05_workflows_conditional_branching/router_steps_workflow",
+                      "examples/concepts/workflows/05_workflows_conditional_branching/router_with_loop_steps",
+                      "examples/concepts/workflows/05_workflows_conditional_branching/selector_for_image_video_generation_pipelines"
+                    ]
+                  },
+                  {
+                    "group": "Advanced Concepts",
+                    "pages": [
+                      "examples/concepts/workflows/06_workflows_advanced_concepts/early_stop_workflow",
+                      "examples/concepts/workflows/06_workflows_advanced_concepts/step_with_function_additional_data",
+                      "examples/concepts/workflows/06_workflows_advanced_concepts/access_multiple_previous_steps_output",
+                      "examples/concepts/workflows/06_workflows_advanced_concepts/store_events_and_events_to_skip_in_a_workflow",
+                      "examples/concepts/workflows/06_workflows_advanced_concepts/structured_io_at_each_step_level",
+                      "examples/concepts/workflows/06_workflows_advanced_concepts/workflow_with_input_schema",
+                      "examples/concepts/workflows/06_workflows_advanced_concepts/workflow_cancellation"
+                    ]
+                  }
+                ]
+              },
               {
                 "group": "Reasoning",
                 "pages": [
