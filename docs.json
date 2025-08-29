@@ -303,11 +303,8 @@
               },
               {
                 "group": "Memory",
-                "hidden": true,
                 "pages": [
-                  "docs/documentation/memory/introduction",
-                  "docs/documentation/memory/memory",
-                  "docs/documentation/memory/storage"
+                  "docs/documentation/memory/overview"
                 ]
               },
               {
