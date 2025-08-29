@@ -4,7 +4,9 @@ description: Learn how to evaluate your Agno Agents and Teams for accuracy using
 sidebarTitle: Accuracy
 ---
 
-Accuracy evals use input/output pairs to measure your Agents and Teams performance against a gold-standard answer. Use a larger model to score the Agent's responses (LLM-as-a-judge).
+Accuracy evals aim at measuring how well your Agents and Teams perform against a gold-standard answer.
+
+You will provide an input and the ideal, expected output. Then the Agent's real answer will be compared against the given ideal output.
 
 ## Basic Example
 
@@ -29,6 +31,40 @@ evaluation = AccuracyEval(
     expected_output="2500",
     additional_guidelines="Agent output should include the steps and the final answer.",
     num_iterations=3,
+)
+
+result: Optional[AccuracyResult] = evaluation.run(print_results=True)
+assert result is not None and result.avg_score >= 8
+```
+
+### Evaluator Agent
+
+To evaluate the accuracy of the Agent's response, we use another Agent. This strategy is usually referred to as "LLM-as-a-judge".
+
+You can adjust the evaluator Agent to make it fit the criteria you want to evaluate:
+
+```python
+from typing import Optional
+from agno.agent import Agent
+from agno.eval.accuracy import AccuracyEval, AccuracyResult
+from agno.models.openai import OpenAIChat
+from agno.tools.calculator import CalculatorTools
+
+# Setup your evaluator Agent
+evaluator_agent = Agent(
+    model=OpenAIChat(id="gpt-5"),
+    system_message="",
+)
+
+evaluation = AccuracyEval(
+    model=OpenAIChat(id="o4-mini"),
+    agent=Agent(model=OpenAIChat(id="gpt-4o"), tools=[CalculatorTools(enable_all=True)]),
+    input="What is 10*5 then to the power of 2? do it step by step",
+    expected_output="2500",
+    # Use your evaluator Agent
+    evaluator_agent=evaluator_agent,
+    # Further adjusting the guidelines
+    additional_guidelines="Agent output should include the steps and the final answer.",
 )
 
 result: Optional[AccuracyResult] = evaluation.run(print_results=True)
