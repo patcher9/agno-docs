@@ -62,24 +62,9 @@ run_output: RunOutput = agent.run(...)
     - `TeamRunOutputContentEvent` → `TeamRunContentEvent`
 
 
-1.5. **Renamed args and methods**
-- `agent_id` -> `id`
-- `add_session_summary_references` -> `add_session_summary_to_context`
-- `add_memory_references` -> `add_memories_to_context`
-- `add_context` -> `add_dependencies`
-- `add_history_to_messages` -> `add_history_to_context`
-- `add_messages` -> `additional_messages`
-- `add_datetime_to_instructions` -> `add_datetime_to_context`
-- `add_location_to_instructions` -> `add_location_to_context`
-- `add_name_to_instructions` -> `add_name_to_context`
-- `context` -> `dependencies`
-- `extra_data` -> `metadata`
-- `goal` -> `success_criteria`
-- Some methods have been made private e.g. `set_id` -> `_set_id`. You can assume methods which name start with underscore are private, and only to be used inside the Agent class itself.
-
-1.6. **Deprecated args and methods**
-- `resolve_context`
-- `show_tool_calls`
+<Tip>
+See the [Agent Updates](/docs/how-to/v2-changelog#agent-updates) section of the v2.0 changelog for more details on these changes.
+</Tip>
 
 
 ### 2. Storage
@@ -234,5 +219,7 @@ Make sure to check our [comprehensive migration guide for Workflows](/docs/how-t
 
 ### 7. Playground
 
-Our `Playground` has been deprecated. Our new platform offering will substitute all usage cases. More information coming soon!
+Our `Playground` has been deprecated. Our new platform offering will substitute all usage cases. 
+
+See [AgentOS](/docs/agentos/introduction) for more details!
 
