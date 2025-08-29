@@ -674,11 +674,7 @@
                           "examples/use-cases/teams/coordinate/content_team",
                           "examples/use-cases/teams/coordinate/hackernews_team",
                           "examples/use-cases/teams/coordinate/news_agency_team",
-                          "examples/use-cases/teams/coordinate/reasoning_team",
-                          "examples/use-cases/teams/coordinate/skyplanner_mcp_team",
-                          "examples/use-cases/teams/coordinate/tic_tac_toe_team",
-                          "examples/use-cases/teams/coordinate/travel_planner_mcp_team",
-                          "examples/use-cases/teams/coordinate/werewolf_team"
+                          "examples/use-cases/teams/coordinate/reasoning_team"
                         ]
                       },
                       {
