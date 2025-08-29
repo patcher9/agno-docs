@@ -22,6 +22,13 @@
     }
   },
   "navbar": {
+    "links": [
+      {
+        "label": "Github",
+        "icon": "github",
+        "href": "https://github.com/agno-agi/agno"
+      }
+    ],
     "primary": {
       "type": "button",
       "label": "Try AgentOS",
@@ -56,24 +63,14 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Github",
-          "icon": "github",
-          "href": "https://github.com/agno-agi/agno"
-        },
-        {
-          "anchor": "Discord",
-          "icon": "discord",
-          "href": "https://agno.link/discord"
-        },
-        {
           "anchor": "Forum",
           "icon": "discourse",
           "href": "https://community.agno.com/"
         },
         {
-          "anchor": "Book a call",
-          "icon": "calendar-days",
-          "href": "https://cal.com/team/agno/intro"
+          "anchor": "Discord",
+          "icon": "discord",
+          "href": "https://agno.link/discord"
         }
       ]
     },
@@ -84,7 +81,7 @@
           {
             "group": "Getting Started",
             "pages": [
-              "docs/getting_started/introduction",
+              "introduction",
               "docs/getting_started/agents",
               "docs/getting_started/multi-agent-systems",
               "docs/getting_started/playground",
@@ -138,8 +135,7 @@
                   "docs/documentation/workflows/types_of_workflows",
                   "docs/documentation/workflows/run_workflow",
                   "docs/documentation/workflows/workflow_session_state",
-                  "docs/documentation/workflows/advanced",
-                  "docs/documentation/workflows/migration"
+                  "docs/documentation/workflows/advanced"
                 ]
               },
               {
@@ -253,7 +249,9 @@
                       "docs/documentation/knowledge/chunking/agentic-chunking",
                       "docs/documentation/knowledge/chunking/semantic-chunking",
                       "docs/documentation/knowledge/chunking/recursive-chunking",
-                      "docs/documentation/knowledge/chunking/document-chunking"
+                      "docs/documentation/knowledge/chunking/document-chunking",
+                      "docs/documentation/knowledge/chunking/csv-row-chunking",
+                      "docs/documentation/knowledge/chunking/markdown-chunking"
                     ]
                   },
                   {
@@ -571,14 +569,13 @@
             ]
           },
           {
-            "group": "How to",
-            "hidden": false,
+            "group": "Help",
             "pages": [
               "docs/how-to/install",
               "docs/how-to/contribute",
-              "docs/how-to/phidata-to-agno",
-              "docs/how-to/authentication",
-              "docs/how-to/v2-migration"
+              "docs/how-to/v2-changelog",
+              "docs/how-to/v2-migration",
+              "docs/how-to/workflows-migration"
             ]
           }
         ]
@@ -990,6 +987,7 @@
                   {
                     "group": "Embedders",
                     "pages": [
+                      "examples/concepts/knowledge/embedders/aws-bedrock-embedder",
                       "examples/concepts/knowledge/embedders/azure-embedder",
                       "examples/concepts/knowledge/embedders/cohere-embedder",
                       "examples/concepts/knowledge/embedders/fireworks-embedder",
@@ -998,7 +996,25 @@
                       "examples/concepts/knowledge/embedders/mistral-embedder",
                       "examples/concepts/knowledge/embedders/ollama-embedder",
                       "examples/concepts/knowledge/embedders/openai-embedder",
-                      "examples/concepts/knowledge/embedders/qdrant-fastembed"
+                      "examples/concepts/knowledge/embedders/qdrant-fastembed",
+                      "examples/concepts/knowledge/embedders/jina-embedder",
+                      "examples/concepts/knowledge/embedders/langdb-embedder",
+                      "examples/concepts/knowledge/embedders/nebius-embedder",
+                      "examples/concepts/knowledge/embedders/sentence-transformer-embedder",
+                      "examples/concepts/knowledge/embedders/together-embedder",
+                      "examples/concepts/knowledge/embedders/voyageai-embedder"
+                    ]
+                  },
+                  {
+                    "group": "Chunking",
+                    "pages": [
+                      "examples/concepts/knowledge/chunking/fixed-size-chunking",
+                      "examples/concepts/knowledge/chunking/agentic-chunking",
+                      "examples/concepts/knowledge/chunking/semantic-chunking",
+                      "examples/concepts/knowledge/chunking/recursive-chunking",
+                      "examples/concepts/knowledge/chunking/document-chunking",
+                      "examples/concepts/knowledge/chunking/csv-row-chunking",
+                      "examples/concepts/knowledge/chunking/markdown-chunking"
                     ]
                   },
                   {
@@ -1010,83 +1026,146 @@
                       "examples/concepts/knowledge/rag/agentic-rag-lancedb",
                       "examples/concepts/knowledge/rag/agentic-rag-with-reranking",
                       "examples/concepts/knowledge/rag/agentic-rag-agent-ui",
-                      "examples/concepts/knowledge/rag/rag-with-lance-db-and-sqlite"
+                      "examples/concepts/knowledge/rag/rag-with-lance-db-and-sqlite",
+                      "examples/concepts/knowledge/rag/rag_sentence_transformer"
                     ]
                   },
                   {
-                    "group": "Knowledge Filters",
+                    "group": "Filters",
                     "pages": [
+                      "examples/concepts/knowledge/filters/agentic-filtering",
+                      "examples/concepts/knowledge/filters/async-filtering",
+                      "examples/concepts/knowledge/filters/filtering",
+                      "examples/concepts/knowledge/filters/filtering_on_load",
+                      "examples/concepts/knowledge/filters/filtering_with_invalid_keys",
                       {
-                        "group": "Pdf",
+                        "group": "VectorDBs",
                         "pages": [
-                          "examples/concepts/knowledge/filters/pdf/filtering",
-                          "examples/concepts/knowledge/filters/pdf/agentic_filtering",
-                          "examples/concepts/knowledge/filters/pdf/filtering_on_load"
+                          "examples/concepts/knowledge/filters/vector-dbs/filtering_chroma_db",
+                          "examples/concepts/knowledge/filters/vector-dbs/filtering_lance_db",
+                          "examples/concepts/knowledge/filters/vector-dbs/filtering_milvus_db",
+                          "examples/concepts/knowledge/filters/vector-dbs/filtering_mongo_db",
+                          "examples/concepts/knowledge/filters/vector-dbs/filtering_pgvector",
+                          "examples/concepts/knowledge/filters/vector-dbs/filtering_pinecone",
+                          "examples/concepts/knowledge/filters/vector-dbs/filtering_weaviate",
+                          "examples/concepts/knowledge/filters/vector-dbs/filtering_surreal_db"
                         ]
-                      },
-                      {
-                        "group": "Pdf-Url",
-                        "pages": [
-                          "examples/concepts/knowledge/filters/pdf_url/filtering",
-                          "examples/concepts/knowledge/filters/pdf_url/agentic_filtering",
-                          "examples/concepts/knowledge/filters/pdf_url/filtering_on_load"
-                        ]
-                      },
-                      {
-                        "group": "Json",
-                        "pages": [
-                          "examples/concepts/knowledge/filters/json/filtering",
-                          "examples/concepts/knowledge/filters/json/agentic_filtering",
-                          "examples/concepts/knowledge/filters/json/filtering_on_load"
-                        ]
-                      },
-                      {
-                        "group": "Docx",
-                        "pages": [
-                          "examples/concepts/knowledge/filters/docx/filtering",
-                          "examples/concepts/knowledge/filters/docx/agentic_filtering",
-                          "examples/concepts/knowledge/filters/docx/filtering_on_load"
-                        ]
-                      },
-                      {
-                        "group": "Text",
-                        "pages": [
-                          "examples/concepts/knowledge/filters/text/filtering",
-                          "examples/concepts/knowledge/filters/text/agentic_filtering",
-                          "examples/concepts/knowledge/filters/text/filtering_on_load"
-                        ]
-                      },
-                      "examples/concepts/knowledge/filters/filtering_qdrant_db",
-                      "examples/concepts/knowledge/filters/filtering_milvus_db",
-                      "examples/concepts/knowledge/filters/filtering_mongo_db",
-                      "examples/concepts/knowledge/filters/filtering_pgvector",
-                      "examples/concepts/knowledge/filters/filtering_weaviate",
-                      "examples/concepts/knowledge/filters/filtering_lance_db",
-                      "examples/concepts/knowledge/filters/filtering_chroma_db",
-                      "examples/concepts/knowledge/filters/filtering_pinecone",
-                      "examples/concepts/knowledge/filters/filtering_surreal_db",
-                      "examples/concepts/knowledge/filters/filtering-traditional-RAG"
+                      }
                     ]
                   },
                   {
-                    "group": "Hybrid Search",
+                    "group": "Search Type",
                     "pages": [
-                      "examples/concepts/knowledge/hybrid-search/lancedb",
-                      "examples/concepts/knowledge/hybrid-search/pgvector",
-                      "examples/concepts/knowledge/hybrid-search/qdrantdb",
-                      "examples/concepts/knowledge/hybrid-search/weaviate",
-                      "examples/concepts/knowledge/hybrid-search/milvusdb",
-                      "examples/concepts/knowledge/hybrid-search/mongodb"
+                      "examples/concepts/knowledge/search_type/vector-search",
+                      "examples/concepts/knowledge/search_type/keyword-search",
+                      "examples/concepts/knowledge/search_type/hybrid-search"
                     ]
                   },
-                  "examples/concepts/knowledge/arxiv-kb",
-                  "examples/concepts/knowledge/combined-kb",
-                  "examples/concepts/knowledge/csv-kb",
-                  "examples/concepts/knowledge/csv-url-kb",
-                  "examples/concepts/knowledge/doc-kb",
-                  "examples/concepts/knowledge/docx-kb"
+                  {
+                    "group": "Remote Content",
+                    "pages": [
+                      "examples/concepts/knowledge/remote-content/gcs-content",
+                      "examples/concepts/knowledge/remote-content/s3-content"
+                    ]
+                  },
+                  {
+                    "group": "Basic Operations",
+                    "pages": [
+                      "examples/concepts/knowledge/basic-operations/include-exclude-files",
+                      "examples/concepts/knowledge/basic-operations/remove-content",
+                      "examples/concepts/knowledge/basic-operations/remove-vectors",
+                      "examples/concepts/knowledge/basic-operations/skip-if-exists",
+                      "examples/concepts/knowledge/basic-operations/sync-operations"
+                    ]
+                  },
+                  {
+                    "group": "Custom Retriever",
+                    "pages": [
+                      "examples/concepts/knowledge/custom_retriever/custom-retriever",
+                      "examples/concepts/knowledge/custom_retriever/async-custom-retriever"
+                    ]
+                  },
+                  {
+                    "group": "Readers",
+                    "pages": [
+                      {
+                        "group": "ArXiv Readers",
+                        "pages": [
+                          "examples/concepts/knowledge/readers/arxiv/arxiv-reader",
+                          "examples/concepts/knowledge/readers/arxiv/arxiv-reader-async"
+                        ]
+                      },
+                      {
+                        "group": "CSV Readers",
+                        "pages": [
+                          "examples/concepts/knowledge/readers/csv/csv-reader",
+                          "examples/concepts/knowledge/readers/csv/csv-reader-async",
+                          "examples/concepts/knowledge/readers/csv/csv-url-reader"
+                        ]
+                      },
+                      {
+                        "group": "Firecrawl Readers",
+                        "pages": [
+                          "examples/concepts/knowledge/readers/firecrawl/firecrawl-reader",
+                          "examples/concepts/knowledge/readers/firecrawl/firecrawl-reader-async"
+                        ]
+                      },
+                      {
+                        "group": "JSON Readers",
+                        "pages": [
+                          "examples/concepts/knowledge/readers/json/json-reader",
+                          "examples/concepts/knowledge/readers/json/json-reader-async"
+                        ]
+                      },
+                      {
+                        "group": "Markdown Readers",
+                        "pages": [
+                          "examples/concepts/knowledge/readers/markdown/markdown-reader",
+                          "examples/concepts/knowledge/readers/markdown/markdown-reader-async"
+                        ]
+                      },
+                      {
+                        "group": "PDF Readers",
+                        "pages": [
+                          "examples/concepts/knowledge/readers/pdf/pdf-reader",
+                          "examples/concepts/knowledge/readers/pdf/pdf-reader-async",
+                          "examples/concepts/knowledge/readers/pdf/pdf-password-reader",
+                          "examples/concepts/knowledge/readers/pdf/pdf-url-password-reader"
+                        ]
+                      },
+                      {
+                        "group": "URL Readers",
+                        "pages": [
+                          "examples/concepts/knowledge/readers/url/url-reader",
+                          "examples/concepts/knowledge/readers/url/url-reader-async"
+                        ]
+                      },
+                      {
+                        "group": "Website Readers",
+                        "pages": [
+                          "examples/concepts/knowledge/readers/website/website-reader",
+                          "examples/concepts/knowledge/readers/website/website-reader-async"
+                        ]
+                      },
+                      {
+                        "group": "Wikipedia Readers",
+                        "pages": [
+                          "examples/concepts/knowledge/readers/wikipedia/wikipedia-reader",
+                          "examples/concepts/knowledge/readers/wikipedia/wikipedia-reader-async"
+                        ]
+                      },
+                      {
+                        "group": "YouTube Readers",
+                        "pages": [
+                          "examples/concepts/knowledge/readers/youtube/youtube-reader",
+                          "examples/concepts/knowledge/readers/youtube/youtube-reader-async"
+                        ]
+                      }
+                    ]
+                  }
                 ]
               },
+
               {
                 "group": "Memory",
                 "pages": [
@@ -1351,19 +1430,133 @@
               {
                 "group": "Vector Databases",
                 "pages": [
-                  "examples/concepts/vectordb/cassandra",
-                  "examples/concepts/vectordb/chromadb",
-                  "examples/concepts/vectordb/couchbase",
-                  "examples/concepts/vectordb/clickhouse",
-                  "examples/concepts/vectordb/lancedb",
-                  "examples/concepts/vectordb/milvus",
-                  "examples/concepts/vectordb/mongodb",
-                  "examples/concepts/vectordb/azure_cosmos_mongodb",
-                  "examples/concepts/vectordb/pgvector",
-                  "examples/concepts/vectordb/pinecone",
-                  "examples/concepts/vectordb/qdrant",
-                  "examples/concepts/vectordb/singlestore",
-                  "examples/concepts/vectordb/weaviate"
+                  {
+                    "group": "Cassandra",
+                    "pages": [
+                      "examples/concepts/vectordb/cassandra-db/cassandra-db",
+                      "examples/concepts/vectordb/cassandra-db/async-cassandra-db"
+                    ]
+                  },
+                  {
+                    "group": "ChromaDB",
+                    "pages": [
+                      "examples/concepts/vectordb/chroma-db/chroma-db",
+                      "examples/concepts/vectordb/chroma-db/async-chroma-db"
+                    ]
+                  },
+                  {
+                    "group": "ClickHouse",
+                    "pages": [
+                      "examples/concepts/vectordb/clickhouse-db/clickhouse-db",
+                      "examples/concepts/vectordb/clickhouse-db/async-clickhouse-db"
+                    ]
+                  },
+                  {
+                    "group": "Couchbase",
+                    "pages": [
+                      "examples/concepts/vectordb/couchbase-db/couchbase-db",
+                      "examples/concepts/vectordb/couchbase-db/async-couchbase-db"
+                    ]
+                  },
+                  {
+                    "group": "LanceDB",
+                    "pages": [
+                      "examples/concepts/vectordb/lance-db/lance-db",
+                      "examples/concepts/vectordb/lance-db/async-lance-db",
+                      "examples/concepts/vectordb/lance-db/lance-db-hybrid-search"
+                    ]
+                  },
+                  {
+                    "group": "LangChain",
+                    "pages": [
+                      "examples/concepts/vectordb/langchain/langchain-db",
+                      "examples/concepts/vectordb/langchain/async-langchain-db"
+                    ]
+                  },
+                  {
+                    "group": "LightRAG",
+                    "pages": [
+                      "examples/concepts/vectordb/lightrag/lightrag-db",
+                      "examples/concepts/vectordb/lightrag/async-lightrag-db"
+                    ]
+                  },
+                  {
+                    "group": "LlamaIndex",
+                    "pages": [
+                      "examples/concepts/vectordb/llamaindex-db/llamaindex-db",
+                      "examples/concepts/vectordb/llamaindex-db/async-llamaindex-db"
+                    ]
+                  },
+                  {
+                    "group": "Milvus",
+                    "pages": [
+                      "examples/concepts/vectordb/milvus-db/milvus-db",
+                      "examples/concepts/vectordb/milvus-db/async-milvus-db",
+                      "examples/concepts/vectordb/milvus-db/milvus-db-hybrid-search",
+                      "examples/concepts/vectordb/milvus-db/async-milvus-db-hybrid-search"
+                    ]
+                  },
+                  {
+                    "group": "MongoDB",
+                    "pages": [
+                      "examples/concepts/vectordb/mongo-db/mongo-db",
+                      "examples/concepts/vectordb/mongo-db/async-mongo-db",
+                      "examples/concepts/vectordb/mongo-db/mongo-db-hybrid-search",
+                      "examples/concepts/vectordb/mongo-db/cosmos-mongodb-vcore"
+                    ]
+                  },
+                  {
+                    "group": "PgVector",
+                    "pages": [
+                      "examples/concepts/vectordb/pgvector/pgvector-db",
+                      "examples/concepts/vectordb/pgvector/async-pgvector-db",
+                      "examples/concepts/vectordb/pgvector/pgvector-hybrid-search"
+                    ]
+                  },
+                  {
+                    "group": "Pinecone",
+                    "pages": [
+                      "examples/concepts/vectordb/pinecone-db/pinecone-db",
+                      "examples/concepts/vectordb/pinecone-db/async-pinecone-db"
+                    ]
+                  },
+                  {
+                    "group": "Qdrant",
+                    "pages": [
+                      "examples/concepts/vectordb/qdrant-db/qdrant-db",
+                      "examples/concepts/vectordb/qdrant-db/async-qdrant-db",
+                      "examples/concepts/vectordb/qdrant-db/qdrant-db-hybrid-search"
+                    ]
+                  },
+                  {
+                    "group": "SingleStore",
+                    "pages": [
+                      "examples/concepts/vectordb/singlestore-db/singlestore-db",
+                      "examples/concepts/vectordb/singlestore-db/async-singlestore-db"
+                    ]
+                  },
+                  {
+                    "group": "SurrealDB",
+                    "pages": [
+                      "examples/concepts/vectordb/surrealdb/surreal-db",
+                      "examples/concepts/vectordb/surrealdb/async-surreal-db"
+                    ]
+                  },
+                  {
+                    "group": "Upstash",
+                    "pages": [
+                      "examples/concepts/vectordb/upstash-db/upstash-db",
+                      "examples/concepts/vectordb/upstash-db/async-upstash-db"
+                    ]
+                  },
+                  {
+                    "group": "Weaviate",
+                    "pages": [
+                      "examples/concepts/vectordb/weaviate-db/weaviate-db",
+                      "examples/concepts/vectordb/weaviate-db/async-weaviate-db",
+                      "examples/concepts/vectordb/weaviate-db/weaviate-db-hybrid-search"
+                    ]
+                  }
                 ]
               },
 
@@ -1952,26 +2145,6 @@
                 ]
               },
               {
-                "group": "Knowledge",
-                "pages": [
-                  "reference/knowledge/base",
-                  "reference/knowledge/arxiv",
-                  "reference/knowledge/combined",
-                  "reference/knowledge/csv",
-                  "reference/knowledge/csv_url",
-                  "reference/knowledge/docx",
-                  "reference/knowledge/json",
-                  "reference/knowledge/langchain",
-                  "reference/knowledge/llamaindex",
-                  "reference/knowledge/pdf",
-                  "reference/knowledge/pdf_url",
-                  "reference/knowledge/text",
-                  "reference/knowledge/website",
-                  "reference/knowledge/wikipedia",
-                  "reference/knowledge/youtube"
-                ]
-              },
-              {
                 "group": "Vector Databases",
                 "pages": [
                   "reference/vector_db/cassandra",
@@ -2036,26 +2209,33 @@
                   "reference/chunking/agentic",
                   "reference/chunking/semantic",
                   "reference/chunking/recursive",
-                  "reference/chunking/document"
+                  "reference/chunking/document",
+                  "reference/chunking/csv-row",
+                  "reference/chunking/markdown"
                 ]
               },
               {
-                "group": "Document Reader",
+                "group": "Readers",
                 "pages": [
-                  "reference/document_reader/base",
-                  "reference/document_reader/arxiv",
-                  "reference/document_reader/csv",
-                  "reference/document_reader/csv_url",
-                  "reference/document_reader/docx",
-                  "reference/document_reader/json",
-                  "reference/document_reader/pdf_image_url",
-                  "reference/document_reader/pdf_image",
-                  "reference/document_reader/pdf_url",
-                  "reference/document_reader/pdf",
-                  "reference/document_reader/text",
-                  "reference/document_reader/website",
-                  "reference/document_reader/youtube",
-                  "reference/document_reader/firecrawl"
+                  "reference/reader/base",
+                  "reference/reader/arxiv",
+                  "reference/reader/csv",
+                  "reference/reader/csv_url",
+                  "reference/reader/docx",
+                  "reference/reader/json",
+                  "reference/reader/pdf",
+                  "reference/reader/text",
+                  "reference/reader/website",
+                  "reference/reader/youtube",
+                  "reference/reader/firecrawl",
+                  "reference/reader/wikipedia"
+                ]
+              },
+              {
+                "group": "Remote Content",
+                "pages": [
+                  "reference/remote-content/gcs-content",
+                  "reference/remote-content/s3-content"
                 ]
               }
             ]
@@ -2173,25 +2353,13 @@
             "pages": [
               "faq/environment-variables",
               "faq/tpm-issues",
-              "faq/cli-auth",
-              "faq/connecting-to-tableplus",
-              "faq/could-not-connect-to-docker",
+              "faq/agentos-connection",
               "faq/openai-key-request-for-other-models",
               "faq/structured-outputs",
               "faq/When-to-use-a-Workflow-vs-a-Team-in-Agno",
-              "faq/memoryv2",
-              "faq/playground-connection"
+              "faq/connecting-to-tableplus",
+              "faq/could-not-connect-to-docker"
             ]
-          }
-        ]
-      },
-      {
-        "tab": "Changelog",
-        "hidden": true,
-        "groups": [
-          {
-            "group": "Changelog",
-            "pages": ["changelog/overview"]
           }
         ]
       }

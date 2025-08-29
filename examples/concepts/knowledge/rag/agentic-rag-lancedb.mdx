@@ -5,16 +5,13 @@ title: Agentic RAG with LanceDB
 ## Code
 
 ```python
-from agno.agent import Agent
-from agno.embedder.openai import OpenAIEmbedder
-from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
+rom agno.agent import Agent
+from agno.knowledge.embedder.openai import OpenAIEmbedder
+from agno.knowledge.knowledge import Knowledge
 from agno.models.openai import OpenAIChat
 from agno.vectordb.lancedb import LanceDb, SearchType
 
-# Create a knowledge base of PDFs from URLs
-knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-    # Use LanceDB as the vector database and store embeddings in the `recipes` table
+knowledge = Knowledge(
     vector_db=LanceDb(
         table_name="recipes",
         uri="tmp/lancedb",
@@ -22,20 +19,21 @@ knowledge_base = PDFUrlKnowledgeBase(
         embedder=OpenAIEmbedder(id="text-embedding-3-small"),
     ),
 )
-# Load the knowledge base: Comment after first run as the knowledge base is already loaded
-knowledge_base.load()
+
+knowledge.add_content_sync(
+    url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"
+)
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
-    knowledge=knowledge_base,
-    # Add a tool to search the knowledge base which enables agentic RAG.
-    # This is enabled by default when `knowledge` is provided to the Agent.
+    knowledge=knowledge,
     search_knowledge=True,
-        markdown=True,
+    markdown=True,
 )
 agent.print_response(
     "How do I make chicken and galangal in coconut milk soup", stream=True
 )
+
 ```
 
 ## Usage
@@ -62,7 +60,7 @@ agent.print_response(
     ```
 
     ```bash Windows
-    python cookbook/agent_concepts/rag/agentic_rag_lancedb.py
+    python cookbook/agents/rag/agentic_rag_lancedb.py
     ```
     </CodeGroup>
   </Step>

@@ -211,6 +211,20 @@ Let's build a **RAG Agent** that answers questions from a PDF.
     This docker container contains a general purpose Postgres database with the `pgvector` extension installed.
     </Note>
 
+    Install required packages:
+
+    <CodeGroup>
+
+    ```bash Mac
+    pip install -U pgvector pypdf psycopg sqlalchemy
+    ```
+
+    ```bash Windows
+    pip install -U pgvector pypdf psycopg sqlalchemy
+    ```
+
+    </CodeGroup>
+
   </Step>
   <Step title="Do agentic RAG">
     Create a file `agentic_rag.py` with the following contents
