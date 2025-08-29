@@ -90,6 +90,21 @@
             ]
           },
           {
+            "group": "AgentOS",
+            "pages": [
+              "docs/agent-os/introduction",
+              "docs/agent-os/control-plane",
+              "docs/agent-os/creating-your-first-os",
+              "docs/agent-os/connecting-your-os",
+              "docs/agent-os/chat-interface",
+              "docs/agent-os/knowledge-management",
+              "docs/agent-os/session-tracking",
+              "docs/agent-os/metrics-monitoring",
+              "docs/agent-os/memory-system",
+              "docs/agent-os/evaluation-testing"
+            ]
+          },
+          {
             "group": "Concepts",
             "pages": [
               {
@@ -1925,7 +1940,7 @@
                   "examples/models/nvidia/async_basic",
                   "examples/models/nvidia/async_basic_stream",
                   "examples/models/nvidia/tool_use",
-                  "examples/models/nvidia/async_tool_use"               
+                  "examples/models/nvidia/async_tool_use"
                 ]
               },
               {
@@ -2008,11 +2023,10 @@
                   "examples/models/perplexity/basic",
                   "examples/models/perplexity/basic_stream",
                   "examples/models/perplexity/async_basic",
-                  "examples/models/perplexity/async_basic_stream",                 
+                  "examples/models/perplexity/async_basic_stream",
                   "examples/models/perplexity/knowledge",
                   "examples/models/perplexity/memory",
                   "examples/models/perplexity/structured_output"
-
                 ]
               },
               {
