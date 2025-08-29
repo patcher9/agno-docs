@@ -19,9 +19,8 @@ from pydantic import BaseModel
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.team.team import Team
-from agno.tools.yfinance import YFinanceTools
 from agno.utils.pprint import pprint_run_response
-
+from agno.tools.exa import ExaTools
 
 class StockAnalysis(BaseModel):
     """Stock analysis data structure."""
@@ -45,9 +44,11 @@ stock_searcher = Agent(
     output_schema=StockAnalysis,
     role="Searches for stock price and analyst information",
     tools=[
-        YFinanceTools(
-            stock_price=True,
-            analyst_recommendations=True,
+        ExaTools(
+            include_domains=["cnbc.com", "reuters.com", "bloomberg.com", "wsj.com"],
+            show_results=True,
+            text=False,
+            highlights=False,
         )
     ],
     instructions=[
@@ -63,10 +64,11 @@ company_info_agent = Agent(
     role="Searches for company news and information",
     output_schema=CompanyAnalysis,
     tools=[
-        YFinanceTools(
-            stock_price=False,
-            company_info=True,
-            company_news=True,
+        ExaTools(
+            include_domains=["cnbc.com", "reuters.com", "bloomberg.com", "wsj.com"],
+            show_results=True,
+            text=False,
+            highlights=False,
         )
     ],
     instructions=[
@@ -138,13 +140,14 @@ print(f"Total responses processed: {len(responses)}")
 
     <Step title="Install required libraries">
         ```bash
-        pip install agno openai yfinance
+        pip install agno openai exa
         ```
     </Step>
 
     <Step title="Set environment variables">
         ```bash
         export OPENAI_API_KEY=****
+        export EXA_API_KEY=****
         ```
     </Step>
 

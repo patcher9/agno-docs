@@ -39,7 +39,7 @@ from agno.tools.knowledge import KnowledgeTools
 from agno.tools.pubmed import PubmedTools
 from agno.tools.python import PythonTools
 from agno.tools.reasoning import ReasoningTools
-from agno.tools.yfinance import YFinanceTools
+from agno.tools.exa import ExaTools
 from agno.vectordb.lancedb.lance_db import LanceDb
 from agno.vectordb.search import SearchType
 
@@ -73,11 +73,11 @@ finance_agent = Agent(
     role="Get financial data",
     model=Claude(id="claude-3-5-sonnet-latest"),
     tools=[
-        YFinanceTools(
-            stock_price=True,
-            analyst_recommendations=True,
-            company_info=True,
-            company_news=True,
+        ExaTools(
+            include_domains=["cnbc.com", "reuters.com", "bloomberg.com", "wsj.com"],
+            show_results=True,
+            text=False,
+            highlights=False,
         )
     ],
     instructions=["Use tables to display data"],
@@ -259,7 +259,7 @@ if __name__ == "__main__":
 
     <Step title="Install required libraries">
         ```bash
-        pip install agno lancedb yfinance duckduckgo-search pubmed-parser
+        pip install agno lancedb exa_py duckduckgo-search pubmed-parser
         ```
     </Step>
 
@@ -268,6 +268,7 @@ if __name__ == "__main__":
         export OPENAI_API_KEY=****
         export ANTHROPIC_API_KEY=****
         export GITHUB_API_KEY=****
+        export EXA_API_KEY=****
         ```
     </Step>
 

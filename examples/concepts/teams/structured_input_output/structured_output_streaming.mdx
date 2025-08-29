@@ -10,7 +10,7 @@ This example demonstrates streaming structured output from a team, using Pydanti
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.team.team import Team
-from agno.tools.yfinance import YFinanceTools
+from agno.tools.exa import ExaTools
 from pydantic import BaseModel
 
 
@@ -26,9 +26,11 @@ stock_searcher = Agent(
     output_schema=StockAnalysis,
     role="Searches the web for information on a stock.",
     tools=[
-        YFinanceTools(
-            stock_price=True,
-            analyst_recommendations=True,
+        ExaTools(
+            include_domains=["cnbc.com", "reuters.com", "bloomberg.com", "wsj.com"],
+            show_results=True,
+            text=False,
+            highlights=False,
         )
     ],
 )
@@ -45,10 +47,11 @@ company_info_agent = Agent(
     role="Searches the web for information on a stock.",
     output_schema=CompanyAnalysis,
     tools=[
-        YFinanceTools(
-            stock_price=False,
-            company_info=True,
-            company_news=True,
+        ExaTools(
+            include_domains=["cnbc.com", "reuters.com", "bloomberg.com", "wsj.com"],
+            show_results=True,
+            text=False,
+            highlights=False,
         )
     ],
 )
@@ -99,13 +102,14 @@ print(f"✅ Company Name: {run_response.content.company_name}")
 
     <Step title="Install required libraries">
         ```bash
-        pip install agno yfinance pydantic
+        pip install agno exa_py pydantic
         ```
     </Step>
 
     <Step title="Set environment variables">
         ```bash
         export OPENAI_API_KEY=****
+        export EXA_API_KEY=****
         ```
     </Step>
 

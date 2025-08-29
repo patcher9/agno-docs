@@ -18,7 +18,7 @@ from typing import Iterator  # noqa
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.team.team import Team
-from agno.tools.yfinance import YFinanceTools
+from agno.tools.exa import ExaTools
 
 # Stock price and analyst data agent
 stock_searcher = Agent(
@@ -26,9 +26,11 @@ stock_searcher = Agent(
     model=OpenAIChat("o3-mini"),
     role="Searches the web for information on a stock.",
     tools=[
-        YFinanceTools(
-            stock_price=True,
-            analyst_recommendations=True,
+        ExaTools(
+            include_domains=["cnbc.com", "reuters.com", "bloomberg.com", "wsj.com"],
+            show_results=True,
+            text=False,
+            highlights=False,
         )
     ],
 )
@@ -39,10 +41,11 @@ company_info_agent = Agent(
     model=OpenAIChat("o3-mini"),
     role="Searches the web for information on a stock.",
     tools=[
-        YFinanceTools(
-            stock_price=False,
-            company_info=True,
-            company_news=True,
+        ExaTools(
+            include_domains=["cnbc.com", "reuters.com", "bloomberg.com", "wsj.com"],
+            show_results=True,
+            text=False,
+            highlights=False,
         )
     ],
 )
@@ -73,13 +76,14 @@ team.print_response(
 
     <Step title="Install required libraries">
         ```bash
-        pip install agno yfinance
+        pip install agno exa_py
         ```
     </Step>
 
     <Step title="Set environment variables">
         ```bash
         export OPENAI_API_KEY=****
+        export EXA_API_KEY=****
         ```
     </Step>
 

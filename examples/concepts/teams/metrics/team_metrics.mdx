@@ -22,7 +22,7 @@ from agno.agent import Agent
 from agno.db.postgres import PostgresDb
 from agno.models.openai import OpenAIChat
 from agno.team.team import Team
-from agno.tools.yfinance import YFinanceTools
+from agno.tools.exa import ExaTools
 from agno.utils.pprint import pprint_run_response
 from rich.pretty import pprint
 
@@ -35,7 +35,14 @@ stock_searcher = Agent(
     name="Stock Searcher",
     model=OpenAIChat("o3-mini"),
     role="Searches the web for information on a stock.",
-    tools=[YFinanceTools()],
+    tools=[
+        ExaTools(
+            include_domains=["cnbc.com", "reuters.com", "bloomberg.com", "wsj.com"],
+            show_results=True,
+            text=False,
+            highlights=False,
+        )
+    ],
 )
 
 # Create team with metrics tracking enabled
@@ -112,13 +119,14 @@ if run_output.member_responses:
 
     <Step title="Install required libraries">
         ```bash
-        pip install agno yfinance rich
+        pip install agno exa_py rich
         ```
     </Step>
 
     <Step title="Set environment variables">
         ```bash
         export OPENAI_API_KEY=****
+        export EXA_API_KEY=****
         ```
     </Step>
 
