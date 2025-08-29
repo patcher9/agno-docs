@@ -497,7 +497,7 @@
               {
                 "group": "Storage",
                 "pages": [
-                  "docs/documentation/db/introduction",
+                  "docs/documentation/db/overview",
                   "docs/documentation/db/postgres",
                   "docs/documentation/db/mysql",
                   "docs/documentation/db/sqlite",
@@ -508,7 +508,9 @@
                   "docs/documentation/db/singlestore",
                   "docs/documentation/db/redis",
                   "docs/documentation/db/gcs",
-                  "docs/documentation/db/firestore"
+                  "docs/documentation/db/firestore",
+                  "docs/documentation/db/supabase",
+                  "docs/documentation/db/neon"
                 ]
               },
               {
