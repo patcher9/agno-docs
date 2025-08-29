@@ -53,8 +53,28 @@ agent = Agent(
 
 In this case, the Agent will be equipped with a tool to create, update or delete memories when it deems it relevant.
 
+### Memories in context
 
-### Where are memories stored?
+If you set `enable_user_memories=True` or `enable_agentic_memory=True`, the memories will be added to the context of the Agent automatically.
+
+You can optionally disable this by setting `add_memories_to_context=False`.
+
+For example:
+
+```python
+from agno.agent import Agent
+from agno.db.sqlite import SQLiteDb
+
+db = SQLiteDb(db_file="agno.db")
+
+agent = Agent(db=db, enable_user_memories=True, add_memories_to_context=False)
+
+```
+
+In the example above, memories are still created at the end of a run, but the agent won't have access to those memories in its context.
+
+
+## Where are memories stored?
 
 Memories are stored in the database you provide to the Agent. In the [Storage](/docs/documentation/db/introduction) section, you can read more about adding a database to your Agent and which databases are supported.
 
@@ -99,3 +119,8 @@ These are the fields stored in the database when using Memory:
 
 This data is best displayed on the [Memories page of the AgentOS UI](https://os.agno.com/memory).
 
+
+## Developer Resources
+
+- View [Examples](/examples/concepts/memory)
+- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/memory/)
