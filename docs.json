@@ -135,8 +135,7 @@
                   "docs/documentation/workflows/types_of_workflows",
                   "docs/documentation/workflows/run_workflow",
                   "docs/documentation/workflows/workflow_session_state",
-                  "docs/documentation/workflows/advanced",
-                  "docs/documentation/workflows/migration"
+                  "docs/documentation/workflows/advanced"
                 ]
               },
               {
@@ -574,7 +573,9 @@
             "pages": [
               "docs/how-to/install",
               "docs/how-to/contribute",
-              "docs/how-to/v2_0_changelog"
+              "docs/how-to/v2-changelog",
+              "docs/how-to/v2-migration",
+              "docs/how-to/workflows-migration"
             ]
           }
         ]
@@ -2216,8 +2217,8 @@
               {
                 "group": "Readers",
                 "pages": [
-                  "reference/reader/arxiv",
                   "reference/reader/base",
+                  "reference/reader/arxiv",
                   "reference/reader/csv",
                   "reference/reader/csv_url",
                   "reference/reader/docx",
