@@ -2200,6 +2200,12 @@
                 ]
               },
               {
+                "group": "Knowledge",
+                "pages": [
+                  "reference/knowledge/knowledge"
+                ]
+              },
+              {
                 "group": "Vector Databases",
                 "pages": [
                   "reference/vector_db/cassandra",
