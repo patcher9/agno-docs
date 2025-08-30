@@ -675,9 +675,7 @@
               {
                 "group": "Teams",
                 "pages": [
-                  {
-                    "group": "Modes",
-                    "pages": [
+               
                       {
                         "group": "Collaborate",
                         "pages": [
@@ -688,18 +686,20 @@
                         "group": "Coordinate",
                         "pages": [
                           "examples/use-cases/teams/coordinate/autonomous_startup_team",
+                          "examples/use-cases/teams/coordinate/content_team",
                           "examples/use-cases/teams/coordinate/hackernews_team",
-                          "examples/use-cases/teams/coordinate/news_agency_team"
+                          "examples/use-cases/teams/coordinate/news_agency_team",
+                          "examples/use-cases/teams/coordinate/reasoning_team"
                         ]
                       },
                       {
                         "group": "Route",
                         "pages": [
                           "examples/use-cases/teams/route/ai_support_team",
-                          "examples/use-cases/teams/route/multi_language_team"
+                          "examples/use-cases/teams/route/multi_language_team",
+                          "examples/use-cases/teams/route/reasoning_team"
                         ]
-                      }
-                    ]
+                    
                   }
                 ]
               },
