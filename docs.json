@@ -1878,10 +1878,14 @@
                 "pages": [
                   "examples/models/litellm/basic",
                   "examples/models/litellm/basic_stream",
+                  "examples/models/litellm/async_basic",
+                  "examples/models/litellm/async_basic_stream",
                   "examples/models/litellm/tool_use",
+                  "examples/models/litellm/async_tool_use",
+                  "examples/models/litellm/audio_input_agent",
+                  "examples/models/litellm/knowledge",
                   "examples/models/litellm/structured_output",
-                  "examples/models/litellm/storage",
-                  "examples/models/litellm/knowledge"
+                  "examples/models/litellm/storage"
                 ]
               },
               {

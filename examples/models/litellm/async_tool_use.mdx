@@ -1,22 +1,27 @@
 ---
-title: Basic Agent
+title: Async Tool Use
 ---
 
 ## Code
 
-```python cookbook/models/litellm/basic.py
+```python cookbook/models/litellm/async_tool_use.py
+import asyncio
+
 from agno.agent import Agent
 from agno.models.litellm import LiteLLM
+from agno.tools.duckduckgo import DuckDuckGoTools
 
-openai_agent = Agent(
+agent = Agent(
     model=LiteLLM(
-        id="huggingface/mistralai/Mistral-7B-Instruct-v0.2",
-        top_p=0.95,
+        id="gpt-4o",
+        name="LiteLLM",
     ),
     markdown=True,
+    tools=[DuckDuckGoTools()],
 )
 
-openai_agent.print_response("Whats happening in France?")
+# Ask a question that would likely trigger tool use
+asyncio.run(agent.aprint_response("What is happening in France?"))
 
 ```
 
@@ -33,18 +38,18 @@ openai_agent.print_response("Whats happening in France?")
 
   <Step title="Install libraries">
     ```bash
-    pip install -U litellm agno
+    pip install -U litellm agno ddgs
     ```
   </Step>
 
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/models/litellm/basic.py
+    python cookbook/models/litellm/async_tool_use.py
     ```
 
     ```bash Windows
-    python cookbook/models/litellm/basic.py
+    python cookbook/models/litellm/async_tool_use.py
     ```
     </CodeGroup>
   </Step>
