@@ -690,17 +690,6 @@
                   "examples/use-cases/workflows/investment-report-generator",
                   "examples/use-cases/workflows/startup-idea-validator"
                 ]
-              },
-              {
-                "group": "Streamlit Apps",
-                "pages": [
-                  "examples/use-cases/streamlit/agentic-rag",
-                  "examples/use-cases/streamlit/answer-engine",
-                  "examples/use-cases/streamlit/text-to-sql",
-                  "examples/use-cases/streamlit/game-generator",
-                  "examples/use-cases/streamlit/geobuddy",
-                  "examples/use-cases/streamlit/chess-team"
-                ]
               }
             ]
           },
