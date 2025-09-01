@@ -1,18 +1,24 @@
 ---
-title: Audio Agent
+title: Research Agent
 ---
 
-This example shows how to create an AI agent that can process audio input and generate audio responses. You can use this agent for various voice-based interactions, from analyzing speech content to generating natural-sounding responses.
+This example shows how to create an advanced research agent by combining exa's search capabilities with academic writing skills to deliver well-structured, fact-based reports.
 
-Example audio interactions to try:
-- Upload a recording of a conversation for analysis
-- Have the agent respond to questions with voice output
-- Process different languages and accents
-- Analyze tone and emotion in speech
+Key features demonstrated:
+- Using Exa.ai for academic and news searches
+- Structured report generation with references
+- Custom formatting and file saving capabilities
+
+Example prompts to try:
+- "What are the latest developments in quantum computing?"
+- "Research the current state of artificial consciousness"
+- "Analyze recent breakthroughs in fusion energy"
+- "Investigate the environmental impact of space tourism"
+- "Explore the latest findings in longevity research"
 
 ## Code
 
-```python audio_agent.py
+```python research_agent.py
 from textwrap import dedent
 
 import requests
@@ -26,7 +32,7 @@ agent = Agent(
     model=OpenAIChat(
         id="gpt-4o-audio-preview",
         modalities=["text", "audio"],
-        audio={"voice": "alloy", "format": "wav"},
+        audio={"voice": "sage", "format": "wav"},
     ),
     description=dedent("""\
         You are an expert in audio processing and voice interaction, capable of understanding
@@ -51,15 +57,15 @@ response = requests.get(url)
 response.raise_for_status()
 
 # Process the audio and get a response
-agent.run(
+run_response = agent.run(
     "What's in this recording? Please analyze the content and tone.",
     audio=[Audio(content=response.content, format="wav")],
 )
 
 # Save the audio response if available
-if agent.run_response.response_audio is not None:
+if run_response.response_audio is not None:
     write_audio_to_file(
-        audio=agent.run_response.response_audio.content, filename="tmp/response.wav"
+        audio=run_response.response_audio.content, filename="tmp/response.wav"
     )
 
 # More example interactions to try:
@@ -87,13 +93,13 @@ with open('your_audio.wav', 'rb') as audio_file:
 
   <Step title="Install libraries">
     ```bash
-    pip install openai requests agno
+    pip install openai exa-py agno
     ```
   </Step>
 
   <Step title="Run the agent">
     ```bash
-    python audio_agent.py
+    python research_agent.py
     ```
   </Step>
 
