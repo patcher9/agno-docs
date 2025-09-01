@@ -1853,9 +1853,11 @@
               },
               {
                 "group": "LangDB",
-                "pages": [
+                "pages": [ 
                   "examples/models/langdb/basic",
                   "examples/models/langdb/basic_stream",
+                  "examples/models/langdb/data_analyst",
+                  "examples/models/langdb/structured_output",
                   "examples/models/langdb/tool_use"
                 ]
               },
