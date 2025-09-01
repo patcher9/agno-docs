@@ -615,7 +615,7 @@
                   "examples/getting-started/16-audio-agent",
                   "examples/getting-started/17-agent-team",
                   "examples/getting-started/18-research-agent-exa",
-                  "examples/getting-started/19-research-workflow"
+                  "examples/getting-started/19-blog-generator-workflow"
                 ]
               }
             ]
@@ -886,8 +886,9 @@
                   {
                     "group": "Search Coordination",
                     "pages": [
-                      "examples/concepts/teams/reasoning/search_coordination/coordinated_agentic_rag",
-                      "examples/concepts/teams/reasoning/search_coordination/coordinated_reasoning_rag"
+                      "examples/concepts/teams/search_coordination/coordinated_agentic_rag",
+                        "examples/concepts/teams/search_coordination/coordinated_reasoning_rag",
+                        "examples/concepts/teams/search_coordination/distributed_infinity_search"
                     ]
                   },
                   {
@@ -1074,7 +1075,7 @@
                     "group": "Teams",
                     "pages": [
                       "examples/concepts/reasoning/teams/finance_team_chain_of_thought",
-                      "examples/concepts/reasoning/teams/reasoning-tool-team",
+                      "examples/concepts/reasoning/teams/knowledge-tool-team",
                       "examples/concepts/reasoning/teams/reasoning-finance-team"
                     ]
                   },
@@ -1176,7 +1177,6 @@
                       "examples/concepts/knowledge/rag/agentic-rag-pgvector",
                       "examples/concepts/knowledge/rag/agentic-rag-lancedb",
                       "examples/concepts/knowledge/rag/agentic-rag-with-reranking",
-                      "examples/concepts/knowledge/rag/agentic-rag-agent-ui",
                       "examples/concepts/knowledge/rag/rag-with-lance-db-and-sqlite",
                       "examples/concepts/knowledge/rag/rag_sentence_transformer"
                     ]
