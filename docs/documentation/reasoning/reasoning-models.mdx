@@ -2,7 +2,7 @@
 title: Reasoning Models
 ---
 
-Reasoning models are a new class of large language models trained with reinforcement learning to think before they answer. They produce a long internal chain of thought before responding. Examples of reasoning models include:
+Reasoning models are a new class of large language models pre-trained to think before they answer. They produce a long internal chain of thought before responding. Examples of reasoning models include:
 - OpenAI o1-pro and o3-mini
 - Claude 3.7 sonnet in extended-thinking mode
 - Gemini 2.0 flash thinking
@@ -18,11 +18,14 @@ Reasoning models deeply consider and think through a plan before taking action. 
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
+# Setup your Agent using a reasoning model
 agent = Agent(model=OpenAIChat(id="o3-mini"))
+
+# Run the Agent
 agent.print_response(
-    "Solve the trolley problem. Evaluate multiple ethical frameworks. "
-    "Include an ASCII diagram of your solution.",
+    "Solve the trolley problem. Evaluate multiple ethical frameworks. Include an ASCII diagram of your solution.",
     stream=True,
+    show_full_reasoning=True,
 )
 ```
 
@@ -31,15 +34,17 @@ agent.print_response(
 ```python o3_mini_with_tools.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
-from agno.tools.yfinance import YFinanceTools
+from agno.tools.duckduckgo import DuckDuckGoTools
 
+# Setup your Agent using a reasoning model
 agent = Agent(
     model=OpenAIChat(id="o3-mini"),
-    tools=[YFinanceTools(stock_price=True, analyst_recommendations=True, company_info=True, company_news=True)],
-    instructions="Use tables to display data.",
+    tools=[DuckDuckGoTools()],
     markdown=True,
 )
-agent.print_response("Write a report comparing NVDA to TSLA", stream=True)
+
+# Run the Agent
+agent.print_response("What is the best basketball team in the NBA this year?", stream=True)
 ```
 
 ### o3-mini with reasoning effort
@@ -47,15 +52,17 @@ agent.print_response("Write a report comparing NVDA to TSLA", stream=True)
 ```python o3_mini_with_reasoning_effort.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
-from agno.tools.yfinance import YFinanceTools
+from agno.tools.duckduckgo import DuckDuckGoTools
 
+# Setup your Agent using a reasoning model with high reasoning effort
 agent = Agent(
     model=OpenAIChat(id="o3-mini", reasoning_effort="high"),
-    tools=[YFinanceTools(stock_price=True, analyst_recommendations=True, company_info=True, company_news=True)],
-    instructions="Use tables to display data.",
+    tools=[DuckDuckGoTools()],
     markdown=True,
 )
-agent.print_response("Write a report comparing NVDA to TSLA", stream=True)
+
+# Run the Agent
+agent.print_response("What is the best basketball team in the NBA this year?", stream=True)
 ```
 
 ### DeepSeek-R1 using Groq
@@ -64,12 +71,15 @@ agent.print_response("Write a report comparing NVDA to TSLA", stream=True)
 from agno.agent import Agent
 from agno.models.groq import Groq
 
+# Setup your Agent using a reasoning model
 agent = Agent(
     model=Groq(
         id="deepseek-r1-distill-llama-70b", temperature=0.6, max_tokens=1024, top_p=0.95
     ),
     markdown=True,
 )
+
+# Run the Agent
 agent.print_response("9.11 and 9.9 -- which is bigger?", stream=True)
 ```
 
@@ -88,12 +98,15 @@ from agno.agent import Agent
 from agno.models.anthropic import Claude
 from agno.models.groq import Groq
 
+# Setup your Agent using an extra reasoning model
 deepseek_plus_claude = Agent(
     model=Claude(id="claude-3-7-sonnet-20250219"),
     reasoning_model=Groq(
         id="deepseek-r1-distill-llama-70b", temperature=0.6, max_tokens=1024, top_p=0.95
     ),
 )
+
+# Run the Agent
 deepseek_plus_claude.print_response("9.11 and 9.9 -- which is bigger?", stream=True)
 ```
 
