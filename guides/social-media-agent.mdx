@@ -38,7 +38,7 @@ python3 -m venv venv
 source venv/bin/activate     # Windows: venv\Scripts\activate
 
 # Install Agno with infrastructure support
-pip install "agno[infra,tools]" openai exa_py python-dotenv
+pip install "agno[infra]" openai exa_py python-dotenv
 
 # Create project with AgentOS API
 ag infra create              # Choose: [1] agent-infra-docker (default)
@@ -513,7 +513,7 @@ You should see your agent:
 3. **Generate a structured report** following your defined format
 4. **Provide strategic recommendations** based on the analysis
 
-## Step 5: Deploy via AgentOS API
+## Step 5: Test and experiment via AgentOS
 
 **Why API-first?** The AgentOS infrastructure automatically exposes your agent as a REST API, making it ready for production integration without additional deployment work.
 
