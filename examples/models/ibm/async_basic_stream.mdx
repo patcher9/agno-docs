@@ -7,7 +7,7 @@ title: Async Streaming Agent
 ```python cookbook/models/ibm/watsonx/async_basic_stream.py
 import asyncio
 
-from agno.agent import Agent, RunResponse
+from agno.agent import Agent, RunOutput
 from agno.models.ibm import WatsonX
 
 agent = Agent(
@@ -15,7 +15,7 @@ agent = Agent(
 )
 
 # Get the response in a variable
-# run_response: Iterator[RunResponse] = agent.run("Share a 2 sentence horror story", stream=True)
+# run_response: Iterator[RunOutput] = agent.run("Share a 2 sentence horror story", stream=True)
 # for chunk in run_response:
 #     print(chunk.content)
 
