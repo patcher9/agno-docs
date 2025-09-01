@@ -105,6 +105,7 @@ This is a major release that introduces a completely new approach to building mu
     - A new flow allows images, audio and video files generated during tool execution to be passed back in a `FunctionExecutionResult` object and this will ensure these artifacts are made available to the model and agent as needed. See [here](../tools/function) for more details.
 - All tools that handle media (e.g. image generation tools) now correctly add this generated media to the `RunOutput`, but also make it available for subsequent model calls.
 - The interface of almost all the toolkits have been updated for a more consisten experience around switching specific tools on and off.  The list of changes is too long to list here. We suggest you take a look at the toolkits you use specifically and how they have been updated.
+- `show_results` is now `True` by default for all tools. If you just set `stop_after_tool_call=True` then `show_results` will be automatically set to `True`.
 
 ## Cancelling Runs
 - You can now cancel a run by calling `cancel_run` on the `Agent`, `Team` or `Workflow`.
