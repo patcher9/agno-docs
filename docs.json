@@ -1910,22 +1910,22 @@
               {
                 "group": "Mistral",
                 "pages": [
-                  "examples/models/mistral/async_basic",
-                  "examples/models/mistral/async_basic_stream",
-                  "examples/models/mistral/async_structured_output",
-                  "examples/models/mistral/async_tool_use",
                   "examples/models/mistral/basic",
                   "examples/models/mistral/basic_stream",
+                  "examples/models/mistral/async_basic",
+                  "examples/models/mistral/async_basic_stream",
+                  "examples/models/mistral/tool_use",
+                  "examples/models/mistral/async_tool_use",
+                  "examples/models/mistral/structured_output",
+                  "examples/models/mistral/structured_output_with_tool_use",
+                  "examples/models/mistral/async_structured_output",
+                  "examples/models/mistral/memory",
                   "examples/models/mistral/image_bytes_input_agent",
                   "examples/models/mistral/image_compare_agent",
                   "examples/models/mistral/image_file_input_agent",
                   "examples/models/mistral/image_ocr_with_structured_output",
                   "examples/models/mistral/image_transcribe_document_agent",
-                  "examples/models/mistral/memory",
-                  "examples/models/mistral/mistral_small",
-                  "examples/models/mistral/structured_output",
-                  "examples/models/mistral/structured_output_with_tool_use",
-                  "examples/models/mistral/tool_use"
+                  "examples/models/mistral/mistral_small"
                 ]
               },
               {
