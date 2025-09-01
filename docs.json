@@ -919,14 +919,14 @@
                     "pages": [
                       "examples/concepts/teams/reasoning/reasoning_multi_purpose_team",
                       "examples/concepts/teams/reasoning/async_multi_purpose_reasoning_team"
+
                     ]
                   },
                   {
                     "group": "Search Coordination",
                     "pages": [
-                      "examples/concepts/teams/search_coordination/coordinated_agentic_rag",
-                      "examples/concepts/teams/search_coordination/coordinated_reasoning_rag",
-                      "examples/concepts/teams/search_coordination/distributed_infinity_search"
+                      "examples/concepts/teams/reasoning/search_coordination/coordinated_agentic_rag",
+                      "examples/concepts/teams/reasoning/search_coordination/coordinated_reasoning_rag"
                     ]
                   },
                   {
@@ -1094,6 +1094,10 @@
                         "pages": [
                           "examples/concepts/reasoning/models/openai/o1-pro",
                           "examples/concepts/reasoning/models/openai/o3-mini-tools",
+                          "examples/concepts/reasoning/models/openai/o3-mini",
+                          "examples/concepts/reasoning/models/openai/o4-mini",
+                          "examples/concepts/reasoning/models/openai/reasoning-model-gpt-4-1",
+                          "examples/concepts/reasoning/models/openai/reasoning-summary",
                           "examples/concepts/reasoning/models/openai/reasoning-effort"
                         ]
                       },
@@ -1108,16 +1112,26 @@
                   {
                     "group": "Teams",
                     "pages": [
+                      "examples/concepts/reasoning/teams/finance_team_chain_of_thought",
                       "examples/concepts/reasoning/teams/reasoning-tool-team",
-                      "examples/concepts/reasoning/teams/knowledge-tool-team"
+                      "examples/concepts/reasoning/teams/reasoning-finance-team"
                     ]
                   },
                   {
                     "group": "Tools",
                     "pages": [
+                      "examples/concepts/reasoning/tools/azure-openai-reasoning-tools",
+                      "examples/concepts/reasoning/tools/capture-reasoning-content-knowledge-tools",
+                      "examples/concepts/reasoning/tools/capture-reasoning-content-reasoning-tools",
+                      "examples/concepts/reasoning/tools/cerebras-llama-reasoning-tools",
+                      "examples/concepts/reasoning/tools/claude-reasoning-tools",
+                      "examples/concepts/reasoning/tools/gemini-reasoning-tools",
+                      "examples/concepts/reasoning/tools/groq-llama-finance-agent",
+                      "examples/concepts/reasoning/tools/ollama-reasoning-tools",
+                      "examples/concepts/reasoning/tools/openai-reasoning-tools",
+                      "examples/concepts/reasoning/tools/vercel-reasoning-tools",
                       "examples/concepts/reasoning/tools/reasoning-tools",
-                      "examples/concepts/reasoning/tools/knowledge-tools",
-                      "examples/concepts/reasoning/tools/gemini-reasoning-tools"
+                      "examples/concepts/reasoning/tools/knowledge-tools"
                     ]
                   }
                 ]

@@ -1,7 +1,9 @@
 ---
 title: Basic Reasoning Agent
 ---
-This is a basic reasoning agent with chain of thought reasoning.
+
+This example demonstrates how to configure a basic Reasoning Agent, using the `reasoning=True` flag.
+
 ## Code
 
 ```python cookbook/reasoning/agents/analyse_treaty_of_versailles.py
@@ -17,7 +19,7 @@ task = (
 
 reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
-    reasoning=True,
+    reasoning=True, # The Agent will be able to reason.
     markdown=True,
 )
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)

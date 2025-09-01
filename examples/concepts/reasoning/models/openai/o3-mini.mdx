@@ -1,21 +1,14 @@
 ---
-title: OpenAI o3-mini with Tools
+title: OpenAI o3-mini
 ---
 
 ## Code
 
-```python cookbook/reasoning/models/openai/o3_mini_with_tools.py
+```python cookbook/reasoning/models/openai/o3_mini.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
-from agno.tools.duckduckgo import DuckDuckGoTools
 
-agent = Agent(
-    model=OpenAIChat(id="o3-mini"),
-    tools=[DuckDuckGoTools(search=True)],
-    instructions="Use tables to display data.",
-    markdown=True,
-)
-
+agent = Agent(model=OpenAIChat(id="o3-mini"))
 agent.print_response("Write a report comparing NVDA to TSLA", stream=True)
 ```
 
@@ -39,11 +32,11 @@ agent.print_response("Write a report comparing NVDA to TSLA", stream=True)
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-      python cookbook/reasoning/models/openai/o3_mini_with_tools.py
+      python cookbook/reasoning/models/openai/o3_mini.py
     ```
 
     ```bash Windows
-      python cookbook/reasoning/models/openai/o3_mini_with_tools.py
+      python cookbook/reasoning/models/openai/o3_mini.py
     ```
     </CodeGroup>
   </Step>
