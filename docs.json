@@ -527,8 +527,10 @@
               {
                 "group": "Evals",
                 "pages": [
-                  "docs/documentation/evals/introduction",
-                  "docs/documentation/evals/platform"
+                  "evals/introduction",
+                  "evals/accuracy",
+                  "evals/performance", 
+                  "evals/reliability"
                 ]
               },
               {
