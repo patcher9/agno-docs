@@ -11,7 +11,7 @@ litellm --model gpt-4o --host 127.0.0.1 --port 4000
 ## Code
 
 ```python cookbook/models/litellm_openai/basic_stream.py
-from agno.agent import Agent, RunResponse  # noqa
+from agno.agent import Agent, RunOutput  # noqa
 from agno.models.litellm import LiteLLMOpenAI
 
 agent = Agent(model=LiteLLMOpenAI(id="gpt-4o"), markdown=True)
@@ -33,6 +33,12 @@ agent.print_response("Share a 2 sentence horror story", stream=True)
   <Step title="Install libraries">
     ```bash
     pip install -U litellm[proxy] openai agno
+    ```
+  </Step>
+
+  <Step title="Start the proxy server">
+    ```bash
+    litellm --model gpt-4o --host 127.0.0.1 --port 4000
     ```
   </Step>
 
