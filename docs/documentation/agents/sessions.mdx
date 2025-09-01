@@ -1,10 +1,12 @@
 ---
 title: Agent Sessions
+sidebarTitle: Agent Sessions
+description: Learn about Agent sessions.
 ---
 
 When we call `Agent.run()`, it creates a stateless, singular Agent run.
 
-But what if we want to continue this run i.e. have a multi-turn conversation? That's where "Sessions" come in. A session is collection of consecutive runs.
+But what if we want to continue this conversation i.e. have a multi-turn conversation? That's where "Sessions" come in. A session is collection of consecutive runs.
 
 In practice, a session is a multi-turn conversation between a user and an Agent. Using a `session_id`, we can connect the conversation history and state across multiple runs.
 
@@ -13,6 +15,8 @@ Here are the core concepts:
 - **Session:** A session is collection of consecutive runs like a multi-turn conversation between a user and an Agent. Sessions are identified by a `session_id` and house all runs, metrics, state and other data that belong to the session.
 - **Run:** Every interaction (i.e. chat or turn) with an Agent is called a **run**. Runs are identified by a `run_id` and `Agent.run()` creates a new `run_id` when called.
 - **Messages:** are the individual messages sent between the model and the Agent. Messages are the communication protocol between the Agent and model.
+
+See [Session Storage](/docs/documentation/agents/storage) for more details on how sessions are stored.
 
 ## Single session
 Here we have an example where a single run is created with an Agent. A `run_id` is automatically generated, as well as a `session_id` (because we didn't provide one tot yet associated with a user.
@@ -87,18 +91,18 @@ In the example below, we set a `session_id` to demo how to have multi-turn conve
     Install libraries
 
     ```shell
-    pip install agno
+    pip install agno openai
     ```
 
     Export your key
     ```shell
-    export GOOGLE_API_KEY=xxx
+    export OPENAI_API_KEY=xxx
     ```
 
     Run the example
 
     ```shell
-    python session_summary.py
+    python multi_user_multi_session.py
     ```
   </Step>
 </Steps>
@@ -165,6 +169,38 @@ To enable session summaries, set `enable_session_summaries=True` on the `Agent`.
     ```
   </Step>
 </Steps>
+
+### Customize Session Summaries
+
+You can adjust the session summaries by providing a custom `session_summary_prompt` to the `Agent`.
+
+The `SessionSummaryManager` class is responsible for handling the model used to create and update session summaries.
+You can adjust it to personalize how summaries are created and updated:
+
+```python
+from agno.agent import Agent
+from agno.session import SessionSummaryManager
+from agno.models.openai import OpenAIChat
+from agno.db.sqlite import SQLiteDb
+
+# Setup your database
+db = SQLiteDb(db_file="agno.db")
+
+# Setup your Session Summary Manager, to adjust how summaries are created
+session_summary_manager = SessionSummaryManager(
+    # Select the model used for session summary creation and updates. If not specified, the agent's model is used by default.
+    model=OpenAIChat(id="gpt-4o"),
+    # You can also overwrite the prompt used for session summary creation
+    session_summary_prompt="Create a very succinct summary of the following conversation:",
+)
+
+# Now provide the adjusted Memory Manager to your Agent
+agent = Agent(
+    db=db,
+    session_summary_manager=session_summary_manager,
+    enable_session_summaries=True,
+)
+```
 
 ## Session history
 
@@ -271,33 +307,6 @@ agent.print_response(
     "What did I discuss in my previous conversations?", session_id=session_5_id
 )  # It should only include the last 2 sessions
 ```
-
-## Session Storage
-
-If you have a `db` configured for your agent, the sessions will be stored in the a sessions table in your database.
-
-The schema for the sessions table is as follows:
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `session_id` | `str` | The unique identifier for the session. |
-| `session_type` | `str` | The type of the session. |
-| `agent_id` | `str` | The agent ID of the session. |
-| `team_id` | `str` | The team ID of the session. |
-| `workflow_id` | `str` | The workflow ID of the session. |
-| `user_id` | `str` | The user ID of the session. |
-| `session_data` | `dict` | The data of the session. |
-| `agent_data` | `dict` | The data of the agent. |
-| `team_data` | `dict` | The data of the team. |
-| `workflow_data` | `dict` | The data of the workflow. |
-| `metadata` | `dict` | The metadata of the session. |
-| `runs` | `list` | The runs of the session. |
-| `summary` | `dict` | The summary of the session. |
-| `created_at` | `int` | The timestamp when the session was created. |
-| `updated_at` | `int` | The timestamp when the session was last updated. |
-
-This data is best displayed on the [sessions page of the AgentOS UI](https://os.agno.com/sessions).
-
 
 ## Developer Resources
 

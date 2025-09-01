@@ -3,14 +3,14 @@ title: Context Engineering
 description: Learn how to write prompts and other context engineering techniques for your agents.
 ---
 
-You can change the way your Agent behaves by changing the **system** message that is sent to the language model.
+You can change the way your Agent behaves by changing the **system** message context that is sent to the language model.
 
 In Agno, the system message is dynamically created using `description` and `instructions` and a number of other settings.
 
 Understanding how these prompts are created will help you build better Agents.
 
 <Tip>
-  You can always set the `system_message` to override any dynamically generated system prompt.
+You can always set the `system_message` to override any dynamically generated system prompt.
 </Tip>
 
 The following are the key parameters that are used to create the system message:
@@ -19,7 +19,7 @@ The following are the key parameters that are used to create the system message:
 2. **Instructions**: A list of precise, task-specific instructions on how to achieve its goal.
 3. **Expected Output**: A description of the expected output from the Agent.
 
-## System message
+## System message context
 
 The system message is created using `description`, `instructions` and a number of other settings. The `description` is added to the start of the system message and `instructions` are added as a list. For example:
 
@@ -30,12 +30,12 @@ agent = Agent(
     description="You are a famous short story writer asked to write for a magazine",
     instructions=["You are a pilot on a plane flying from Hawaii to Japan."],
     markdown=True,
-    debug_mode=True,  # Set to True to view the detailed logs
+    debug_mode=True,  # Set to True to view the detailed logs and see the compiled system message
 )
 agent.print_response("Tell me a 2 sentence horror story.", stream=True)
 ```
 
-Will produce a system message like this:
+Will produce the following system message:
 
 ```
 You are a famous short story writer asked to write for a magazine                                                                                                                                                                                                                            
@@ -104,21 +104,21 @@ The Agent creates a default system message that can be customized using the foll
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `description` | `str` | `None` | A description of the Agent that is added to the start of the system message. |
-| `instructions` | `List[str]` | `None` | List of instructions added to the system prompt in `<instructions>` tags. Default instructions are also created depending on values for `markdown`, `output_model` etc. |
+| `instructions` | `List[str]` | `None` | List of instructions added to the system prompt in `<instructions>` tags. Default instructions are also created depending on values for `markdown`, `expected_output` etc. |
 | `additional_context` | `str` | `None` | Additional context added to the end of the system message. |
 | `expected_output` | `str` | `None` | Provide the expected output from the Agent. This is added to the end of the system message. |
 | `markdown` | `bool` | `False` | Add an instruction to format the output using markdown. |
-| `add_datetime_to_instructions` | `bool` | `False` | If True, add the current datetime to the prompt to give the agent a sense of time. This allows for relative times like "tomorrow" to be used in the prompt |
+| `add_datetime_to_context` | `bool` | `False` | If True, add the current datetime to the prompt to give the agent a sense of time. This allows for relative times like "tomorrow" to be used in the prompt |
 | `add_name_to_context` | `bool` | `False` | If True, add the name of the agent to the context. |
 | `add_location_to_context` | `bool` | `False` | If True, add the location of the agent to the context.  This allows for location-aware responses and local context. |
 | `add_session_summary_to_context` | `bool` | `False` | If True, add the session summary to the context. See [sessions](/docs/documentation/agents/sessions) for more information. |
 | `add_memories_to_context` | `bool` | `False` | If True, add the user memories to the context. See [memory](/docs/documentation/agents/memory) for more information. |
 | `add_dependencies_to_context` | `bool` | `False` | If True, add the dependencies to the context. See [dependencies](/docs/documentation/agents/dependencies) for more information. |
 | `add_knowledge_to_context` | `bool` | `False` | If True, add retrieved knowledge to the context, to enable RAG. See [knowledge](/docs/documentation/agents/knowledge) for more information. |
-| `system_message` | `str` | `None` | System prompt: provide the system prompt as a string |
-| `system_message_role` | `str` | `system` | Role for the system message. |
+| `system_message` | `str` | `None` | Override the default system message. |
 | `build_context` | `bool` | `True` | Optionally disable the building of the context. |
 
+See the full [Agent reference](/reference/agents/agent) for more information.
 
 ## User message
 

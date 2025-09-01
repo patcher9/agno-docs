@@ -1,10 +1,6 @@
 ---
 title: Image File Input Agent
-description: Example of analyzing local image files and retrieving related news using DuckDuckGo
 ---
-
-## Overview
-This example shows how to process local image files using Mistral's vision model and combine it with DuckDuckGo search to provide additional context about the image content.
 
 ## Code
 
@@ -18,14 +14,14 @@ from agno.tools.duckduckgo import DuckDuckGoTools
 
 agent = Agent(
     model=MistralChat(id="pixtral-12b-2409"),
-    tools=[DuckDuckGoTools()],
-        markdown=True,
+    tools=[
+        DuckDuckGoTools()
+    ],  # pixtral-12b-2409 is not so great at tool calls, but it might work.
+    markdown=True,
 )
 
-# Load image from local file system
 image_path = Path(__file__).parent.joinpath("sample.jpeg")
 
-# Analyze the image and search for related news
 agent.print_response(
     "Tell me about this image and give me the latest news about it from duckduckgo.",
     images=[
@@ -33,6 +29,7 @@ agent.print_response(
     ],
     stream=True,
 )
+
 ```
 
 ## Usage
@@ -48,7 +45,7 @@ agent.print_response(
 
   <Step title="Install libraries">
     ```bash
-    pip install -U mistralai duckduckgo-search agno
+    pip install -U mistralai agno ddgs
     ```
   </Step>
 
@@ -63,4 +60,4 @@ agent.print_response(
     ```
     </CodeGroup>
   </Step>
-</Steps> 
+</Steps>

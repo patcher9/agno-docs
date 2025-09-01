@@ -1,15 +1,28 @@
 ---
-title: MongoDB Storage
+title: MongoDB Database
+description: Learn to use MongoDB as a database for your Agents
 sidebarTitle: MongoDB
 ---
 
-Agno supports using MongoDB as a storage backend for Agents using the `MongoDb` class.
+Agno supports using [MongoDB](https://www.mongodb.com/) as a database with the `MongoDb` class.
 
 ## Usage
 
-You need to provide either `db_url` or `client`. The following example uses `db_url`.
+```python mongodb_for_agent.py
+from agno.agent import Agent
+from agno.db.mongo import MongoDb
+
+# MongoDB connection settings
+db_url = "mongodb://localhost:27017"
+
+db = MongoDb(db_url=db_url)
+
+# Setup your Agent with the Database
+agent = Agent(db=db)
+```
 
 ### Run MongoDB
+
 Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **MongoDB** on port **27017** using:
 ```bash
 docker run -d \
@@ -20,24 +33,6 @@ docker run -d \
   mongo
 ```
 
-```python mongodb_for_agent.py
-from agno.agent import Agent
-from agno.db.mongo import MongoDb
-from agno.tools.duckduckgo import DuckDuckGoTools
-
-# MongoDB connection settings
-db_url = "mongodb://localhost:27017"
-
-db = MongoDb(db_url=db_url)
-
-agent = Agent(
-    db=db,  
-    tools=[DuckDuckGoTools()],
-    add_history_to_context=True,
-)
-agent.print_response("How many people live in Canada?")
-agent.print_response("What is their national anthem called?")
-```
 
 ## Params
 

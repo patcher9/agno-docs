@@ -5,7 +5,7 @@ title: Basic Agent
 ## Code
 
 ```python cookbook/models/nebius/basic.py
-from agno.agent import Agent
+from agno.agent import Agent, RunOutput  # noqa
 from agno.models.nebius import Nebius
 
 agent = Agent(
@@ -13,6 +13,10 @@ agent = Agent(
         markdown=True,
     debug_mode=True,
 )
+
+# Get the response in a variable
+# run: RunOutput = agent.run("write a two sentence horror story")
+# print(run.content)
 
 # Print the response in the terminal
 agent.print_response("write a two sentence horror story")

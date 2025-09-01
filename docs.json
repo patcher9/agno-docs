@@ -90,6 +90,16 @@
             ]
           },
           {
+            "group": "AgentOS",
+            "pages": [
+              "docs/agent-os/introduction",
+              "docs/agent-os/control-plane",
+              "docs/agent-os/creating-your-first-os",
+              "docs/agent-os/connecting-your-os",
+              "docs/agent-os/chat-interface"
+            ]
+          },
+          {
             "group": "Concepts",
             "pages": [
               {
@@ -111,12 +121,10 @@
               },
               {
                 "group": "Teams",
-                "hidden": true,
                 "pages": [
                   "docs/documentation/teams/introduction",
                   "docs/documentation/teams/run",
-                  "docs/documentation/teams/metrics",
-                  "docs/documentation/teams/shared-state",
+                  "docs/documentation/teams/sessions",
                   {
                     "group": "Team Modes",
                     "pages": [
@@ -125,7 +133,14 @@
                       "docs/documentation/teams/collaborate"
                     ]
                   },
-                  "docs/documentation/teams/structured-output"
+                  "docs/documentation/teams/storage",
+                  "docs/documentation/teams/context",
+                  "docs/documentation/teams/state",
+                  "docs/documentation/teams/memory",
+                  "docs/documentation/teams/knowledge",
+                  "docs/documentation/teams/metrics",
+                  "docs/documentation/teams/dependencies",
+                  "docs/documentation/teams/structured-input-output"
                 ]
               },
               {
@@ -303,16 +318,13 @@
               },
               {
                 "group": "Memory",
-                "hidden": true,
                 "pages": [
-                  "docs/documentation/memory/introduction",
-                  "docs/documentation/memory/memory",
-                  "docs/documentation/memory/storage"
+                  "docs/documentation/memory/overview",
+                  "docs/documentation/memory/advanced"
                 ]
               },
               {
                 "group": "Reasoning",
-                "hidden": true,
                 "pages": [
                   "docs/documentation/reasoning/introduction",
                   "docs/documentation/reasoning/reasoning-models",
@@ -323,7 +335,6 @@
 
               {
                 "group": "Tools",
-                "hidden": true,
                 "pages": [
                   "docs/documentation/tools/introduction",
                   "docs/documentation/tools/tool-decorator",
@@ -489,18 +500,16 @@
               },
               {
                 "group": "Multimodal",
-                "hidden": true,
                 "pages": ["docs/documentation/multimodal/overview"]
               },
               {
                 "group": "User Control Flow",
-                "hidden": true,
                 "pages": ["docs/documentation/user_control_flow/overview"]
               },
               {
                 "group": "Storage",
                 "pages": [
-                  "docs/documentation/db/introduction",
+                  "docs/documentation/db/overview",
                   "docs/documentation/db/postgres",
                   "docs/documentation/db/mysql",
                   "docs/documentation/db/sqlite",
@@ -511,12 +520,13 @@
                   "docs/documentation/db/singlestore",
                   "docs/documentation/db/redis",
                   "docs/documentation/db/gcs",
-                  "docs/documentation/db/firestore"
+                  "docs/documentation/db/firestore",
+                  "docs/documentation/db/supabase",
+                  "docs/documentation/db/neon"
                 ]
               },
               {
                 "group": "Evals",
-                "hidden": false,
                 "pages": [
                   "evals/introduction",
                   "evals/accuracy",
@@ -526,7 +536,6 @@
               },
               {
                 "group": "Applications",
-                "hidden": true,
                 "pages": [
                   "applications/playground/introduction",
                   "applications/fastapi/introduction",
@@ -584,6 +593,7 @@
       },
       {
         "tab": "Tutorials",
+        "hidden": true,
         "groups": [
           {
             "group": "Guides",
@@ -631,46 +641,59 @@
               {
                 "group": "Agents",
                 "pages": [
-                  "examples/use-cases/agents/finance-agent",
-                  "examples/use-cases/agents/tweet-analysis-agent",
-                  "examples/use-cases/agents/youtube-agent",
+                  "examples/use-cases/agents/agno_assist",
+                  "examples/use-cases/agents/airbnb_mcp",
+                  "examples/use-cases/agents/books-recommender",
+                  "examples/use-cases/agents/competitor_analysis_agent",
+                  "examples/use-cases/agents/deep_knowledge",
+                  "examples/use-cases/agents/deep_research_agent_exa",
+                  "examples/use-cases/agents/legal_consultant",
+                  "examples/use-cases/agents/media_trend_analysis_agent",
+                  "examples/use-cases/agents/meeting_summarizer_agent",
+                  "examples/use-cases/agents/movie-recommender",
+                  "examples/use-cases/agents/readme_generator",
+                  "examples/use-cases/agents/recipe-creator",
+                  "examples/use-cases/agents/recipe_rag_image",
+                  "examples/use-cases/agents/reddit-post-generator",
                   "examples/use-cases/agents/research-agent",
                   "examples/use-cases/agents/research-agent-exa",
-                  "examples/use-cases/agents/teaching-assistant",
-                  "examples/use-cases/agents/recipe-creator",
-                  "examples/use-cases/agents/movie-recommender",
-                  "examples/use-cases/agents/books-recommender",
+                  "examples/use-cases/agents/run_as_cli",
+                  "examples/use-cases/agents/shopping_partner",
+                  "examples/use-cases/agents/social_media_agent",
+                  "examples/use-cases/agents/startup-analyst-agent",
+                  "examples/use-cases/agents/study-partner",
                   "examples/use-cases/agents/travel-planner",
-                  "examples/use-cases/agents/startup-analyst-agent"
+                  "examples/use-cases/agents/tweet-analysis-agent",
+                  "examples/use-cases/agents/translation_agent",
+                  "examples/use-cases/agents/web_extraction_agent",
+                  "examples/use-cases/agents/youtube-agent"
                 ]
               },
               {
                 "group": "Teams",
                 "pages": [
                   {
-                    "group": "Modes",
+                    "group": "Collaborate",
                     "pages": [
-                      {
-                        "group": "Collaborate",
-                        "pages": [
-                          "examples/use-cases/teams/collaborate/discussion_team"
-                        ]
-                      },
-                      {
-                        "group": "Coordinate",
-                        "pages": [
-                          "examples/use-cases/teams/coordinate/autonomous_startup_team",
-                          "examples/use-cases/teams/coordinate/hackernews_team",
-                          "examples/use-cases/teams/coordinate/news_agency_team"
-                        ]
-                      },
-                      {
-                        "group": "Route",
-                        "pages": [
-                          "examples/use-cases/teams/route/ai_support_team",
-                          "examples/use-cases/teams/route/multi_language_team"
-                        ]
-                      }
+                      "examples/use-cases/teams/collaborate/discussion_team"
+                    ]
+                  },
+                  {
+                    "group": "Coordinate",
+                    "pages": [
+                      "examples/use-cases/teams/coordinate/autonomous_startup_team",
+                      "examples/use-cases/teams/coordinate/content_team",
+                      "examples/use-cases/teams/coordinate/hackernews_team",
+                      "examples/use-cases/teams/coordinate/news_agency_team",
+                      "examples/use-cases/teams/coordinate/reasoning_team"
+                    ]
+                  },
+                  {
+                    "group": "Route",
+                    "pages": [
+                      "examples/use-cases/teams/route/ai_support_team",
+                      "examples/use-cases/teams/route/multi_language_team",
+                      "examples/use-cases/teams/route/reasoning_team"
                     ]
                   }
                 ]
@@ -678,60 +701,10 @@
               {
                 "group": "Workflows",
                 "pages": [
-                  {
-                    "group": "Basic Workflows",
-                    "pages": [
-                      "examples/use-cases/workflows/01-basic-workflows/function_instead_of_steps",
-                      "examples/use-cases/workflows/01-basic-workflows/sequence_of_functions_and_agents",
-                      "examples/use-cases/workflows/01-basic-workflows/sequence_of_steps",
-                      "examples/use-cases/workflows/01-basic-workflows/step_with_function",
-                      "examples/use-cases/workflows/01-basic-workflows/workflow_using_steps",
-                      "examples/use-cases/workflows/01-basic-workflows/workflow_using_steps_nested"
-                    ]
-                  },
-                  {
-                    "group": "Conditional Execution",
-                    "pages": [
-                      "examples/use-cases/workflows/02-workflows-conditional-execution/condition_steps_workflow_stream",
-                      "examples/use-cases/workflows/02-workflows-conditional-execution/condition_with_list_of_steps",
-                      "examples/use-cases/workflows/02-workflows-conditional-execution/condition_and_parallel_steps_stream"
-                    ]
-                  },
-                  {
-                    "group": "Parallel Execution",
-                    "pages": [
-                      "examples/use-cases/workflows/04-workflows-parallel-execution/parallel_steps_workflow"
-                    ]
-                  },
-                  {
-                    "group": "Loop Execution",
-                    "pages": [
-                      "examples/use-cases/workflows/03_workflows_loop_execution/loop_steps_workflow",
-                      "examples/use-cases/workflows/03_workflows_loop_execution/loop_with_parallel_steps_stream"
-                    ]
-                  },
-                  {
-                    "group": "Conditional Branching (Router)",
-                    "pages": [
-                      "examples/use-cases/workflows/05_workflows_conditional_branching/router_steps_workflow",
-                      "examples/use-cases/workflows/05_workflows_conditional_branching/router_with_loop_steps",
-                      "examples/use-cases/workflows/05_workflows_conditional_branching/selector_for_image_video_generation_pipelines"
-                    ]
-                  },
-                  {
-                    "group": "Advanced Concepts",
-                    "pages": [
-                      "examples/use-cases/workflows/06_workflows_advanced_concepts/early_stop_workflow",
-                      "examples/use-cases/workflows/06_workflows_advanced_concepts/step_with_function_additional_data",
-                      "examples/use-cases/workflows/06_workflows_advanced_concepts/access_multiple_previous_steps_output",
-                      "examples/use-cases/workflows/06_workflows_advanced_concepts/store_events_and_events_to_skip_in_a_workflow",
-                      "examples/use-cases/workflows/06_workflows_advanced_concepts/structured_io_at_each_step_level",
-                      "examples/use-cases/workflows/06_workflows_advanced_concepts/workflow_with_input_schema",
-                      "examples/use-cases/workflows/06_workflows_advanced_concepts/workflow_cancellation"
-                    ]
-                  },
+                  "examples/use-cases/workflows/company-description",
                   "examples/use-cases/workflows/blog-post-generator",
                   "examples/use-cases/workflows/employee-recruiter",
+                  "examples/use-cases/workflows/investment-report-generator",
                   "examples/use-cases/workflows/startup-idea-validator"
                 ]
               },
@@ -835,21 +808,6 @@
                     ]
                   },
                   {
-                    "group": "User Control Flows",
-                    "pages": [
-                      "examples/concepts/agent/user-control-flows/01-confirmation-required",
-                      "examples/concepts/agent/user-control-flows/02-confirmation-required-async",
-                      "examples/concepts/agent/user-control-flows/03-confirmation-required-stream",
-                      "examples/concepts/agent/user-control-flows/04-user-input-required",
-                      "examples/concepts/agent/user-control-flows/05-user-input-required-async",
-                      "examples/concepts/agent/user-control-flows/06-user-input-required-stream",
-                      "examples/concepts/agent/user-control-flows/07-agentic-user-input",
-                      "examples/concepts/agent/user-control-flows/08-external-tool-execution",
-                      "examples/concepts/agent/user-control-flows/09-external-tool-execution-async",
-                      "examples/concepts/agent/user-control-flows/10-external-tool-execution-stream"
-                    ]
-                  },
-                  {
                     "group": "Miscellaneous",
                     "pages": [
                       "examples/concepts/agent/others/agent_extra_metrics",
@@ -874,14 +832,203 @@
                 "group": "Teams",
                 "pages": [
                   {
+                    "group": "Async",
+                    "pages": [
+                      "examples/concepts/teams/async/async_collaborate",
+                      "examples/concepts/teams/async/async_coordinate",
+                      "examples/concepts/teams/async/async_route"
+                    ]
+                  },
+                  {
+                    "group": "Basic",
+                    "pages": [
+                      "examples/concepts/teams/basic/input_as_dict",
+                      "examples/concepts/teams/basic/input_as_list",
+                      "examples/concepts/teams/basic/input_as_messages_list",
+                      "examples/concepts/teams/basic/response_as_variable",
+                      "examples/concepts/teams/basic/few_shot_learning",
+                      "examples/concepts/teams/basic/run_as_cli",
+                      "examples/concepts/teams/basic/team_cancel_a_run",
+                      "examples/concepts/teams/basic/team_exponential_backoff"
+                    ]
+                  },
+                  {
+                    "group": "Dependencies",
+                    "pages": [
+                      "examples/concepts/teams/dependencies/add_dependencies_run",
+                      "examples/concepts/teams/dependencies/add_dependencies_to_context",
+                      "examples/concepts/teams/dependencies/reference_dependencies"
+                    ]
+                  },
+                  {
+                    "group": "Distributed RAG",
+                    "pages": [
+                      "examples/concepts/teams/distributed_rag/distributed_rag_pgvector",
+                      "examples/concepts/teams/distributed_rag/distributed_rag_lancedb",
+                      "examples/concepts/teams/distributed_rag/distributed_rag_with_reranking"
+                    ]
+                  },
+                  {
+                    "group": "Knowledge",
+                    "pages": [
+                      "examples/concepts/teams/knowledge/team_with_knowledge",
+                      "examples/concepts/teams/knowledge/team_with_knowledge_filters",
+                      "examples/concepts/teams/knowledge/team_with_agentic_knowledge_filters"
+                    ]
+                  },
+                  {
+                    "group": "Memory",
+                    "pages": [
+                      "examples/concepts/teams/memory/team_with_memory_manager",
+                      "examples/concepts/teams/memory/team_with_agentic_memory"
+                    ]
+                  },
+                  {
+                    "group": "Metrics",
+                    "pages": [
+                      "examples/concepts/teams/metrics/team_metrics"
+                    ]
+                  },
+                  {
+                    "group": "Multimodal",
+                    "pages": [
+                      "examples/concepts/teams/multimodal/audio_sentiment_analysis",
+                      "examples/concepts/teams/multimodal/audio_to_text",
+                      "examples/concepts/teams/multimodal/generate_image_with_team",
+                      "examples/concepts/teams/multimodal/image_to_image_transformation",
+                      "examples/concepts/teams/multimodal/image_to_structured_output",
+                      "examples/concepts/teams/multimodal/image_to_text",
+                      "examples/concepts/teams/multimodal/video_caption_generation"
+                    ]
+                  },
+                  {
+                    "group": "Reasoning",
+                    "pages": [
+                      "examples/concepts/teams/reasoning/reasoning_multi_purpose_team",
+                      "examples/concepts/teams/reasoning/async_multi_purpose_reasoning_team"
+                    ]
+                  },
+                  {
+                    "group": "Search Coordination",
+                    "pages": [
+                      "examples/concepts/teams/search_coordination/coordinated_agentic_rag",
+                      "examples/concepts/teams/search_coordination/coordinated_reasoning_rag",
+                      "examples/concepts/teams/search_coordination/distributed_infinity_search"
+                    ]
+                  },
+                  {
+                    "group": "Session",
+                    "pages": [
+                      "examples/concepts/teams/session/in_memory_session",
+                      "examples/concepts/teams/session/persistent_session",
+                      "examples/concepts/teams/session/persistent_session_history",
+                      "examples/concepts/teams/session/session_summary",
+                      "examples/concepts/teams/session/session_summary_references",
+                      "examples/concepts/teams/session/chat_history",
+                      "examples/concepts/teams/session/rename_session",
+                      "examples/concepts/teams/session/in_memory_db",
+                      "examples/concepts/teams/session/cache_session"
+                    ]
+                  },
+                  {
                     "group": "Shared State",
                     "pages": [
-                      "examples/concepts/teams/state/team_session_state"
+                      "examples/concepts/teams/state/agentic_session_state",
+                      "examples/concepts/teams/state/change_state_on_run",
+                      "examples/concepts/teams/state/session_state_in_instructions",
+                      "examples/concepts/teams/state/share_member_interactions",
+                      "examples/concepts/teams/state/team_with_nested_shared_state"
+                    ]
+                  },
+                  {
+                    "group": "Streaming",
+                    "pages": [
+                      "examples/concepts/teams/streaming/team_streaming",
+                      "examples/concepts/teams/streaming/events",
+                      "examples/concepts/teams/streaming/route_mode_events",
+                      "examples/concepts/teams/streaming/async_team_streaming",
+                      "examples/concepts/teams/streaming/async_team_events"
+                    ]
+                  },
+                  {
+                    "group": "Structured Input/Output",
+                    "pages": [
+                      "examples/concepts/teams/structured_input_output/pydantic_model_output",
+                      "examples/concepts/teams/structured_input_output/pydantic_model_as_input",
+                      "examples/concepts/teams/structured_input_output/team_with_parser_model",
+                      "examples/concepts/teams/structured_input_output/team_with_output_model",
+                      "examples/concepts/teams/structured_input_output/structured_output_streaming",
+                      "examples/concepts/teams/structured_input_output/async_structured_output_streaming",
+                      "examples/concepts/teams/structured_input_output/input_schema_on_team"
+                    ]
+                  },
+                  {
+                    "group": "Tools",
+                    "pages": [
+                      "examples/concepts/teams/tools/team_with_custom_tools",
+                      "examples/concepts/teams/tools/team_with_tool_hooks",
+                      "examples/concepts/teams/tools/async_team_with_tools"
                     ]
                   }
                 ]
               },
-
+              {
+                "group": "Workflows",
+                "pages": [
+                  {
+                    "group": "Basic Workflows",
+                    "pages": [
+                      "examples/concepts/workflows/01-basic-workflows/function_instead_of_steps",
+                      "examples/concepts/workflows/01-basic-workflows/sequence_of_functions_and_agents",
+                      "examples/concepts/workflows/01-basic-workflows/sequence_of_steps",
+                      "examples/concepts/workflows/01-basic-workflows/step_with_function",
+                      "examples/concepts/workflows/01-basic-workflows/workflow_using_steps",
+                      "examples/concepts/workflows/01-basic-workflows/workflow_using_steps_nested"
+                    ]
+                  },
+                  {
+                    "group": "Conditional Execution",
+                    "pages": [
+                      "examples/concepts/workflows/02-workflows-conditional-execution/condition_steps_workflow_stream",
+                      "examples/concepts/workflows/02-workflows-conditional-execution/condition_with_list_of_steps",
+                      "examples/concepts/workflows/02-workflows-conditional-execution/condition_and_parallel_steps_stream"
+                    ]
+                  },
+                  {
+                    "group": "Parallel Execution",
+                    "pages": [
+                      "examples/concepts/workflows/04-workflows-parallel-execution/parallel_steps_workflow"
+                    ]
+                  },
+                  {
+                    "group": "Loop Execution",
+                    "pages": [
+                      "examples/concepts/workflows/03_workflows_loop_execution/loop_steps_workflow",
+                      "examples/concepts/workflows/03_workflows_loop_execution/loop_with_parallel_steps_stream"
+                    ]
+                  },
+                  {
+                    "group": "Conditional Branching (Router)",
+                    "pages": [
+                      "examples/concepts/workflows/05_workflows_conditional_branching/router_steps_workflow",
+                      "examples/concepts/workflows/05_workflows_conditional_branching/router_with_loop_steps",
+                      "examples/concepts/workflows/05_workflows_conditional_branching/selector_for_image_video_generation_pipelines"
+                    ]
+                  },
+                  {
+                    "group": "Advanced Concepts",
+                    "pages": [
+                      "examples/concepts/workflows/06_workflows_advanced_concepts/early_stop_workflow",
+                      "examples/concepts/workflows/06_workflows_advanced_concepts/step_with_function_additional_data",
+                      "examples/concepts/workflows/06_workflows_advanced_concepts/access_multiple_previous_steps_output",
+                      "examples/concepts/workflows/06_workflows_advanced_concepts/store_events_and_events_to_skip_in_a_workflow",
+                      "examples/concepts/workflows/06_workflows_advanced_concepts/structured_io_at_each_step_level",
+                      "examples/concepts/workflows/06_workflows_advanced_concepts/workflow_with_input_schema",
+                      "examples/concepts/workflows/06_workflows_advanced_concepts/workflow_cancellation"
+                    ]
+                  }
+                ]
+              },
               {
                 "group": "Reasoning",
                 "pages": [
@@ -982,7 +1129,21 @@
                   "examples/concepts/multimodal/video-to-shorts"
                 ]
               },
-
+              {
+                "group": "User Control Flows",
+                "pages": [
+                  "examples/concepts/user-control-flows/01-confirmation-required",
+                  "examples/concepts/user-control-flows/02-confirmation-required-async",
+                  "examples/concepts/user-control-flows/03-confirmation-required-stream",
+                  "examples/concepts/user-control-flows/04-user-input-required",
+                  "examples/concepts/user-control-flows/05-user-input-required-async",
+                  "examples/concepts/user-control-flows/06-user-input-required-stream",
+                  "examples/concepts/user-control-flows/07-agentic-user-input",
+                  "examples/concepts/user-control-flows/08-external-tool-execution",
+                  "examples/concepts/user-control-flows/09-external-tool-execution-async",
+                  "examples/concepts/user-control-flows/10-external-tool-execution-stream"
+                ]
+              },
               {
                 "group": "Knowledge",
                 "pages": [
@@ -1171,20 +1332,13 @@
               {
                 "group": "Memory",
                 "pages": [
-                  "examples/concepts/memory/00-built-in-memory",
-                  "examples/concepts/memory/01-standalone-memory",
-                  "examples/concepts/memory/02-persistent-memory",
-                  "examples/concepts/memory/03-custom-memory-creation",
-                  "examples/concepts/memory/04-memory-search",
-                  "examples/concepts/memory/05-agent-with-memory",
-                  "examples/concepts/memory/06-agentic-memory",
-                  "examples/concepts/memory/07-agent-with-summaries",
-                  "examples/concepts/memory/08-agents-share-memory",
-                  "examples/concepts/memory/09-custom-memory",
-                  "examples/concepts/memory/10-multi-user-multi-session-chat",
-                  "examples/concepts/memory/11-multi-user-multi-session-chat-concurrent",
-                  "examples/concepts/memory/12-memory-references",
-                  "examples/concepts/memory/13-session-summary-references",
+                  "examples/concepts/memory/01-agent-with-memory",
+                  "examples/concepts/memory/02-agentic-memory",
+                  "examples/concepts/memory/03-agents-share-memory",
+                  "examples/concepts/memory/04-custom-memory-manager",
+                  "examples/concepts/memory/05-multi-user-multi-session-chat",
+                  "examples/concepts/memory/06-multi-user-multi-session-chat-concurrent",
+                  "examples/concepts/memory/07-share-memory-and-history-between-agents",
                   "examples/concepts/memory/mem0-memory",
                   {
                     "group": "DB",
@@ -1193,6 +1347,15 @@
                       "examples/concepts/memory/db/mem-postgres-memory",
                       "examples/concepts/memory/db/mem-sqlite-memory",
                       "examples/concepts/memory/db/mem-redis-memory"
+                    ]
+                  },
+                  {
+                    "group": "Memory Manager",
+                    "pages": [
+                      "examples/concepts/memory/memory_manager/01-standalone-memory",
+                      "examples/concepts/memory/memory_manager/02-memory-creation",
+                      "examples/concepts/memory/memory_manager/03-custom-memory-instructions",
+                      "examples/concepts/memory/memory_manager/04-memory-search"
                     ]
                   }
                 ]
@@ -1829,6 +1992,8 @@
                 "pages": [
                   "examples/models/langdb/basic",
                   "examples/models/langdb/basic_stream",
+                  "examples/models/langdb/data_analyst",
+                  "examples/models/langdb/structured_output",
                   "examples/models/langdb/tool_use"
                 ]
               },
@@ -1849,10 +2014,14 @@
                 "pages": [
                   "examples/models/litellm/basic",
                   "examples/models/litellm/basic_stream",
+                  "examples/models/litellm/async_basic",
+                  "examples/models/litellm/async_basic_stream",
                   "examples/models/litellm/tool_use",
+                  "examples/models/litellm/async_tool_use",
+                  "examples/models/litellm/audio_input_agent",
+                  "examples/models/litellm/knowledge",
                   "examples/models/litellm/structured_output",
-                  "examples/models/litellm/storage",
-                  "examples/models/litellm/knowledge"
+                  "examples/models/litellm/storage"
                 ]
               },
               {
@@ -1883,8 +2052,20 @@
                 "pages": [
                   "examples/models/mistral/basic",
                   "examples/models/mistral/basic_stream",
+                  "examples/models/mistral/async_basic",
+                  "examples/models/mistral/async_basic_stream",
                   "examples/models/mistral/tool_use",
-                  "examples/models/mistral/structured_output"
+                  "examples/models/mistral/async_tool_use",
+                  "examples/models/mistral/memory",
+                  "examples/models/mistral/structured_output",
+                  "examples/models/mistral/structured_output_with_tool_use",
+                  "examples/models/mistral/async_structured_output",
+                  "examples/models/mistral/image_bytes_input_agent",
+                  "examples/models/mistral/image_compare_agent",
+                  "examples/models/mistral/image_file_input_agent",
+                  "examples/models/mistral/image_ocr_with_structured_output",
+                  "examples/models/mistral/image_transcribe_document_agent",
+                  "examples/models/mistral/mistral_small"
                 ]
               },
               {
@@ -1903,7 +2084,10 @@
                 "pages": [
                   "examples/models/nvidia/basic",
                   "examples/models/nvidia/basic_stream",
-                  "examples/models/nvidia/tool_use"
+                  "examples/models/nvidia/async_basic",
+                  "examples/models/nvidia/async_basic_stream",
+                  "examples/models/nvidia/tool_use",
+                  "examples/models/nvidia/async_tool_use"
                 ]
               },
               {
@@ -1911,12 +2095,23 @@
                 "pages": [
                   "examples/models/ollama/basic",
                   "examples/models/ollama/basic_stream",
+                  "examples/models/ollama/async_basic",
+                  "examples/models/ollama/async_basic_stream",
                   "examples/models/ollama/tool_use",
-                  "examples/models/ollama/structured_output",
-                  "examples/models/ollama/storage",
+                  "examples/models/ollama/tool_use_stream",
+                  "examples/models/ollama/db",
                   "examples/models/ollama/knowledge",
+                  "examples/models/ollama/memory",
+                  "examples/models/ollama/demo_deepseek_r1",
+                  "examples/models/ollama/demo_gemma",
+                  "examples/models/ollama/demo_phi4",
+                  "examples/models/ollama/demo_qwen",
                   "examples/models/ollama/image_agent",
-                  "examples/models/ollama/set_client"
+                  "examples/models/ollama/multimodal",
+                  "examples/models/ollama/set_client",
+                  "examples/models/ollama/set_temperature",
+                  "examples/models/ollama/storage",
+                  "examples/models/ollama/structured_output"
                 ]
               },
               {
@@ -1973,7 +2168,12 @@
                 "group": "Perplexity",
                 "pages": [
                   "examples/models/perplexity/basic",
-                  "examples/models/perplexity/basic_stream"
+                  "examples/models/perplexity/basic_stream",
+                  "examples/models/perplexity/async_basic",
+                  "examples/models/perplexity/async_basic_stream",
+                  "examples/models/perplexity/knowledge",
+                  "examples/models/perplexity/memory",
+                  "examples/models/perplexity/structured_output"
                 ]
               },
               {
@@ -1981,8 +2181,11 @@
                 "pages": [
                   "examples/models/together/basic",
                   "examples/models/together/basic_stream",
-                  "examples/models/together/tool_use",
-                  "examples/models/together/structured_output"
+                  "examples/models/together/image_agent",
+                  "examples/models/together/image_agent_bytes",
+                  "examples/models/together/image_agent_memory",
+                  "examples/models/together/structured_output",
+                  "examples/models/together/tool_use"
                 ]
               },
               {
@@ -2009,21 +2212,24 @@
                 "pages": [
                   "examples/models/vercel/basic",
                   "examples/models/vercel/basic_stream",
+                  "examples/models/vercel/image_agent",
+                  "examples/models/vercel/knowledge",
                   "examples/models/vercel/tool_use"
                 ]
               },
               {
                 "group": "vLLM",
                 "pages": [
+                  "examples/models/vllm/basic",
                   "examples/models/vllm/basic_stream",
                   "examples/models/vllm/async_basic",
                   "examples/models/vllm/async_basic_stream",
-                  "examples/models/vllm/tool_use",
-                  "examples/models/vllm/async_tool_use",
-                  "examples/models/vllm/structured_output",
                   "examples/models/vllm/code_generation",
                   "examples/models/vllm/storage",
-                  "examples/models/vllm/memory"
+                  "examples/models/vllm/memory",
+                  "examples/models/vllm/structured_output",
+                  "examples/models/vllm/tool_use",
+                  "examples/models/vllm/async_tool_use"
                 ]
               }
             ]
@@ -2032,6 +2238,7 @@
       },
       {
         "tab": "Deploy",
+        "hidden": true,
         "groups": [
           {
             "group": "Workspaces",
@@ -2147,6 +2354,68 @@
                 ]
               },
               {
+                "group": "Knowledge",
+                "pages": [
+                  "reference/knowledge/knowledge",
+                  {
+                    "group": "Embedders",
+                    "pages": [
+                      "reference/knowledge/embedder/azure_openai",
+                      "reference/knowledge/embedder/cohere",
+                      "reference/knowledge/embedder/fastembed",
+                      "reference/knowledge/embedder/fireworks",
+                      "reference/knowledge/embedder/gemini",
+                      "reference/knowledge/embedder/huggingface",
+                      "reference/knowledge/embedder/mistral",
+                      "reference/knowledge/embedder/ollama",
+                      "reference/knowledge/embedder/openai",
+                      "reference/knowledge/embedder/sentence-transformer",
+                      "reference/knowledge/embedder/together",
+                      "reference/knowledge/embedder/voyageai"
+                    ]
+                  },
+                  {
+                    "group": "Readers",
+                    "pages": [
+                      "reference/knowledge/reader/base",
+                      "reference/knowledge/reader/arxiv",
+                      "reference/knowledge/reader/csv",
+                      "reference/knowledge/reader/csv_url",
+                      "reference/knowledge/reader/docx",
+                      "reference/knowledge/reader/json",
+                      "reference/knowledge/reader/pdf",
+                      "reference/knowledge/reader/text",
+                      "reference/knowledge/reader/website",
+                      "reference/knowledge/reader/youtube",
+                      "reference/knowledge/reader/firecrawl",
+                      "reference/knowledge/reader/wikipedia"
+                    ]
+                  },
+                  {
+                    "group": "Rerankers",
+                    "pages": ["reference/knowledge/reranker/cohere"]
+                  },
+                  {
+                    "group": "Chunking",
+                    "pages": [
+                      "reference/knowledge/chunking/fixed-size",
+                      "reference/knowledge/chunking/agentic",
+                      "reference/knowledge/chunking/semantic",
+                      "reference/knowledge/chunking/recursive",
+                      "reference/knowledge/chunking/document",
+                      "reference/knowledge/chunking/csv-row",
+                      "reference/knowledge/chunking/markdown"
+                    ]
+                  },
+                  {
+                    "group": "Remote Content",
+                    "pages": [
+                      "reference/knowledge/remote-content/gcs-content",
+                      "reference/knowledge/remote-content/s3-content"
+                    ]
+                  }]
+              },
+              {
                 "group": "Vector Databases",
                 "pages": [
                   "reference/vector_db/cassandra",
@@ -2162,23 +2431,6 @@
                   "reference/vector_db/singlestore",
                   "reference/vector_db/weaviate",
                   "reference/vector_db/surrealdb"
-                ]
-              },
-              {
-                "group": "Embedders",
-                "pages": [
-                  "reference/embedder/azure_openai",
-                  "reference/embedder/cohere",
-                  "reference/embedder/fastembed",
-                  "reference/embedder/fireworks",
-                  "reference/embedder/gemini",
-                  "reference/embedder/huggingface",
-                  "reference/embedder/mistral",
-                  "reference/embedder/ollama",
-                  "reference/embedder/openai",
-                  "reference/embedder/sentence-transformer",
-                  "reference/embedder/together",
-                  "reference/embedder/voyageai"
                 ]
               },
               {
@@ -2199,150 +2451,98 @@
                   "reference/storage/redis",
                   "reference/storage/gcs"
                 ]
-              },
-              {
-                "group": "Rerankers",
-                "pages": ["reference/reranker/cohere"]
-              },
-              {
-                "group": "Chunking",
-                "pages": [
-                  "reference/chunking/fixed-size",
-                  "reference/chunking/agentic",
-                  "reference/chunking/semantic",
-                  "reference/chunking/recursive",
-                  "reference/chunking/document",
-                  "reference/chunking/csv-row",
-                  "reference/chunking/markdown"
-                ]
-              },
-              {
-                "group": "Readers",
-                "pages": [
-                  "reference/reader/base",
-                  "reference/reader/arxiv",
-                  "reference/reader/csv",
-                  "reference/reader/csv_url",
-                  "reference/reader/docx",
-                  "reference/reader/json",
-                  "reference/reader/pdf",
-                  "reference/reader/text",
-                  "reference/reader/website",
-                  "reference/reader/youtube",
-                  "reference/reader/firecrawl",
-                  "reference/reader/wikipedia"
-                ]
-              },
-              {
-                "group": "Remote Content",
-                "pages": [
-                  "reference/remote-content/gcs-content",
-                  "reference/remote-content/s3-content"
-                ]
               }
             ]
           },
           {
             "group": "AgentOS API",
-            "pages": ["reference-api/overview"]
-          },
-          {
-            "group": "Core",
-            "pages": ["reference-api/schema/core/config"]
-          },
-          {
-            "group": "Agents",
             "pages": [
-              "reference-api/schema/agents/create-agent-run",
-              "reference-api/schema/agents/create-agent-run",
-              "reference-api/schema/agents/cancel-agent-run",
-              "reference-api/schema/agents/continue-agent-run",
-              "reference-api/schema/agents/get-agents",
-              "reference-api/schema/agents/get-agent",
-              "reference-api/schema/agents/get-agent-sessions",
-              "reference-api/schema/agents/get-agent-session-by-id",
-              "reference-api/schema/agents/get-agent-session-runs",
-              "reference-api/schema/agents/delete-agent-session",
-              "reference-api/schema/agents/rename-agent-session"
-            ]
-          },
-          {
-            "group": "Teams",
-            "pages": [
-              "reference-api/schema/teams/create-team-run",
-              "reference-api/schema/teams/cancel-team-run",
-              "reference-api/schema/teams/get-teams",
-              "reference-api/schema/teams/get-team",
-              "reference-api/schema/teams/get-team-sessions",
-              "reference-api/schema/teams/get-team-session-by-id",
-              "reference-api/schema/teams/get-team-session-runs",
-              "reference-api/schema/teams/delete-team-session",
-              "reference-api/schema/teams/rename-team-session"
-            ]
-          },
-          {
-            "group": "Workflows",
-            "pages": [
-              "reference-api/schema/workflows/create-workflow-run",
-              "reference-api/schema/workflows/cancel-workflow-run",
-              "reference-api/schema/workflows/get-workflows",
-              "reference-api/schema/workflows/get-workflow",
-              "reference-api/schema/workflows/get-workflow-sessions",
-              "reference-api/schema/workflows/get-workflow-session-by-id",
-              "reference-api/schema/workflows/get-workflow-session-runs"
-            ]
-          },
-          {
-            "group": "Sessions",
-            "pages": [
-              "reference-api/schema/sessions/get-sessions",
-              "reference-api/schema/sessions/get-session-by-id",
-              "reference-api/schema/sessions/get-session-runs",
-              "reference-api/schema/sessions/rename-session",
-              "reference-api/schema/sessions/delete-session",
-              "reference-api/schema/sessions/delete-sessions"
-            ]
-          },
-          {
-            "group": "Memory",
-            "pages": [
-              "reference-api/schema/memory/get-memory",
-              "reference-api/schema/memory/get-memories",
-              "reference-api/schema/memory/create-memory",
-              "reference-api/schema/memory/update-memory",
-              "reference-api/schema/memory/delete-memory",
-              "reference-api/schema/memory/delete-memories",
-              "reference-api/schema/memory/get-topics",
-              "reference-api/schema/memory/get-user-memory-stats"
-            ]
-          },
-          {
-            "group": "Evals",
-            "pages": [
-              "reference-api/schema/evals/get-eval-runs",
-              "reference-api/schema/evals/get-eval-run",
-              "reference-api/schema/evals/delete-eval-runs",
-              "reference-api/schema/evals/run-eval",
-              "reference-api/schema/evals/update-eval-run"
-            ]
-          },
-          {
-            "group": "Knowledge",
-            "pages": [
-              "reference-api/schema/knowledge/upload-content",
-              "reference-api/schema/knowledge/get-content",
-              "reference-api/schema/knowledge/get-content-by-id",
-              "reference-api/schema/knowledge/get-content-status",
-              "reference-api/schema/knowledge/update-content",
-              "reference-api/schema/knowledge/delete-all-content",
-              "reference-api/schema/knowledge/delete-content-by-id"
-            ]
-          },
-          {
-            "group": "Metrics",
-            "pages": [
-              "reference-api/schema/metrics/get-metrics",
-              "reference-api/schema/metrics/calculate-metrics"
+              "reference-api/overview",
+              {
+                "group": "Core",
+                "pages": ["reference-api/schema/core/config"]
+              },
+              {
+                "group": "Agents",
+                "pages": [
+                  "reference-api/schema/agents/create-agent-run",
+                  "reference-api/schema/agents/cancel-agent-run",
+                  "reference-api/schema/agents/continue-agent-run",
+                  "reference-api/schema/agents/get-agents",
+                  "reference-api/schema/agents/get-agent"
+                ]
+              },
+              {
+                "group": "Teams",
+                "pages": [
+                  "reference-api/schema/teams/create-team-run",
+                  "reference-api/schema/teams/cancel-team-run",
+                  "reference-api/schema/teams/get-teams",
+                  "reference-api/schema/teams/get-team"
+                ]
+              },
+              {
+                "group": "Workflows",
+                "pages": [
+                  "reference-api/schema/workflows/create-workflow-run",
+                  "reference-api/schema/workflows/cancel-workflow-run",
+                  "reference-api/schema/workflows/get-workflows",
+                  "reference-api/schema/workflows/get-workflow"
+                ]
+              },
+              {
+                "group": "Sessions",
+                "pages": [
+                  "reference-api/schema/sessions/get-sessions",
+                  "reference-api/schema/sessions/get-session-by-id",
+                  "reference-api/schema/sessions/get-session-runs",
+                  "reference-api/schema/sessions/rename-session",
+                  "reference-api/schema/sessions/delete-session",
+                  "reference-api/schema/sessions/delete-sessions"
+                ]
+              },
+              {
+                "group": "Memory",
+                "pages": [
+                  "reference-api/schema/memory/get-memory",
+                  "reference-api/schema/memory/get-memories",
+                  "reference-api/schema/memory/create-memory",
+                  "reference-api/schema/memory/update-memory",
+                  "reference-api/schema/memory/delete-memory",
+                  "reference-api/schema/memory/delete-memories",
+                  "reference-api/schema/memory/get-topics",
+                  "reference-api/schema/memory/get-user-memory-stats"
+                ]
+              },
+              {
+                "group": "Evals",
+                "pages": [
+                  "reference-api/schema/evals/get-eval-runs",
+                  "reference-api/schema/evals/get-eval-run",
+                  "reference-api/schema/evals/delete-eval-runs",
+                  "reference-api/schema/evals/run-eval",
+                  "reference-api/schema/evals/update-eval-run"
+                ]
+              },
+              {
+                "group": "Knowledge",
+                "pages": [
+                  "reference-api/schema/knowledge/upload-content",
+                  "reference-api/schema/knowledge/get-content",
+                  "reference-api/schema/knowledge/get-content-by-id",
+                  "reference-api/schema/knowledge/get-content-status",
+                  "reference-api/schema/knowledge/update-content",
+                  "reference-api/schema/knowledge/delete-all-content",
+                  "reference-api/schema/knowledge/delete-content-by-id"
+                ]
+              },
+              {
+                "group": "Metrics",
+                "pages": [
+                  "reference-api/schema/metrics/get-metrics",
+                  "reference-api/schema/metrics/calculate-metrics"
+                ]
+              }
             ]
           }
         ]

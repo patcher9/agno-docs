@@ -1,12 +1,14 @@
 ---
 title: Collaborate
+description: In **Collaborate Mode**, all team members respond to the user query at once.
+hideToc: true
 ---
 
-In **Collaborate Mode**, all team members respond to the user query at once. This gives the team coordinator to review whether the team has reached a consensus on a particular topic and then synthesize the responses from all team members into a single response.
+This gives the team coordinator to review whether the team has reached a consensus on a particular topic and then synthesize the responses from all team members into a single response.
 
+<Tip>
 This is especially useful when used with `async await`, because it allows the individual members to respond concurrently and the coordinator to synthesize the responses asynchronously.
-
-## How Collaborate Mode Works
+</Tip>
 
 In "collaborate" mode:
 
@@ -36,7 +38,7 @@ In "collaborate" mode:
         role="Research a topic on Reddit",
         model=OpenAIChat(id="gpt-4o"),
         tools=[DuckDuckGoTools()],
-        add_name_to_instructions=True,
+        add_name_to_context=True,
         instructions=dedent("""
         You are a Reddit researcher.
         You will be given a topic to research on Reddit.
@@ -49,7 +51,7 @@ In "collaborate" mode:
         model=OpenAIChat("gpt-4o"),
         role="Research a topic on HackerNews.",
         tools=[HackerNewsTools()],
-        add_name_to_instructions=True,
+        add_name_to_context=True,
         instructions=dedent("""
         You are a HackerNews researcher.
         You will be given a topic to research on HackerNews.
@@ -62,7 +64,7 @@ In "collaborate" mode:
         model=OpenAIChat("gpt-4o"),
         role="Research academic papers and scholarly content",
         tools=[GoogleSearchTools(), ArxivTools()],
-        add_name_to_instructions=True,
+        add_name_to_context=True,
         instructions=dedent("""
         You are a academic paper researcher.
         You will be given a topic to research in academic literature.
@@ -77,7 +79,7 @@ In "collaborate" mode:
         model=OpenAIChat("gpt-4o"),
         role="Research trending discussions and real-time updates",
         tools=[DuckDuckGoTools()],
-        add_name_to_instructions=True,
+        add_name_to_context=True,
         instructions=dedent("""
         You are a Twitter/X researcher.
         You will be given a topic to research on Twitter/X.
@@ -103,14 +105,13 @@ In "collaborate" mode:
             "You have to stop the discussion when you think the team has reached a consensus.",
         ],
         success_criteria="The team has reached a consensus.",
-        enable_agentic_context=True,
         markdown=True,
         show_members_responses=True,
     )
 
     if __name__ == "__main__":
         asyncio.run(
-            agent_team.print_response(
+            agent_team.aprint_response(
                 message="Start the discussion on the topic: 'What is the best way to learn to code?'",
                 stream=True,
                 stream_intermediate_steps=True,
@@ -124,7 +125,7 @@ In "collaborate" mode:
     Install libraries
 
     ```shell
-    pip install openai duckduckgo-search arxiv pypdf googlesearch-python pycountry
+    pip install openai ddgs arxiv pypdf googlesearch-python pycountry
     ```
 
     Run the team
@@ -134,23 +135,4 @@ In "collaborate" mode:
     ```
   </Step>
 </Steps>
-
-
-## Defining Success Criteria
-
-You can guide the collaborative team by specifying success criteria for the team coordinator to evaluate:
-
-```python
-strategy_team = Team(
-    members=[hackernews_researcher, academic_paper_researcher, twitter_researcher],
-    mode="collaborate",
-    name="Research Team",
-    description="A team that researches a topic",
-    success_criteria="The team has reached a consensus on the topic",
-)
-
-response = strategy_team.run(
-    "What is the best way to learn to code?"
-)
-```
 

@@ -1,21 +1,20 @@
 ---
-title: Google Cloud Storage
+title: JSON Storage on Google Cloud Storage
 sidebarTitle: GCS
 ---
 
-Agno supports using Google Cloud Storage (GCS) as a storage backend for Agents using the `GcsJsonDb` class. This storage backend stores session data as JSON blobs in a GCS bucket.
+Agno supports using [Google Cloud Storage (GCS)](https://cloud.google.com/storage) as a database with the `GcsJsonDb` class.
+Session data will be stored as JSON blobs in a GCS bucket.
+
+You can get started with GCS following their [Get Started guide](https://cloud.google.com/docs/get-started).
 
 ## Usage
-
-Configure your agent with GCS storage to enable cloud-based session persistence.
 
 ```python gcs_for_agent.py
 import uuid
 import google.auth
 from agno.agent import Agent
-from agno.db.base import SessionType
 from agno.db.gcs_json import GcsJsonDb
-from agno.tools.duckduckgo import DuckDuckGoTools
 
 # Obtain the default credentials and project id from your gcloud CLI session.
 credentials, project_id = google.auth.default()
@@ -33,31 +32,10 @@ db = GcsJsonDb(
     credentials=credentials,
 )
 
-# Initialize the Agno agent with the new storage backend and a DuckDuckGo search tool.
-agent1 = Agent(
-    db=db,
-    tools=[DuckDuckGoTools()],
-    add_history_to_context=True,
-    debug_mode=False,
-)
-
-# Execute sample queries.
-agent1.print_response("How many people live in Canada?")
-agent1.print_response("What is their national anthem called?")
-
-# Create a new agent and make sure it pursues the conversation
-agent2 = Agent(
-    db=db,
-    session_id=agent1.session_id,
-    tools=[DuckDuckGoTools()],
-    add_history_to_context=True,
-    debug_mode=False,
-)
-
-agent2.print_response("What's the name of the country we discussed?")
-agent2.print_response("What is that country's national sport?")
+# Setup your Agent with the Database
+agent = Agent(db=db)
 ```
- 
+
 ## Params
 
 <Snippet file="db-gcs-params.mdx" />
