@@ -1728,6 +1728,9 @@
                     "group": "Accuracy",
                     "pages": [
                       "examples/concepts/evals/accuracy/basic",
+                      "examples/concepts/evals/accuracy/accuracy_async",
+                      "examples/concepts/evals/accuracy/accuracy_comparison",
+                      "examples/concepts/evals/accuracy/accuracy_db_logging",
                       "examples/concepts/evals/accuracy/accuracy_with_given_answer",
                       "examples/concepts/evals/accuracy/accuracy_with_tools",
                       "examples/concepts/evals/accuracy/accuracy_with_teams"
@@ -1736,19 +1739,27 @@
                   {
                     "group": "Performance",
                     "pages": [
+                      "examples/concepts/evals/performance/performance_simple_response",
                       "examples/concepts/evals/performance/performance_agent_instantiation",
                       "examples/concepts/evals/performance/performance_instantiation_with_tool",
-                      "examples/concepts/evals/performance/performance_simple_response",
+                      "examples/concepts/evals/performance/performance_team_instantiation",
                       "examples/concepts/evals/performance/performance_with_storage",
-                      "examples/concepts/evals/performance/performance_team_instantiation"
+                      "examples/concepts/evals/performance/performance_async",
+                      "examples/concepts/evals/performance/performance_with_memory",
+                      "examples/concepts/evals/performance/performance_team_with_memory",
+                      "examples/concepts/evals/performance/performance_db_logging"
                     ]
                   },
                   {
                     "group": "Reliability",
                     "pages": [
                       "examples/concepts/evals/reliability/basic",
+                      "examples/concepts/evals/reliability/reliability_async",
+                      "examples/concepts/evals/reliability/reliability_db_logging",
+                      "examples/concepts/evals/reliability/reliability_single_tool",
                       "examples/concepts/evals/reliability/reliability_with_multiple_tools",
-                      "examples/concepts/evals/reliability/reliability_with_teams"
+                      "examples/concepts/evals/reliability/reliability_with_teams",
+                      "examples/concepts/evals/reliability/reliability_team_advanced"
                     ]
                   }
                 ]
