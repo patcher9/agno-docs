@@ -1,32 +1,21 @@
 ---
-title: Finance Agent with Tools
+title: Web Search Agent
 ---
-
-This example demonstrates tool usage with [LangDB AI Gateway](https://langdb.ai/).
-
-For detailed integration instructions, see the [LangDB Agno documentation](https://docs.langdb.ai/getting-started/working-with-agent-frameworks/working-with-agno).
 
 ## Code
 
-```python cookbook/models/langdb/finance_agent.py
+```python cookbook/models/langdb/web_search.py
 from agno.agent import Agent
 from agno.models.langdb import LangDB
-from agno.tools.yfinance import YFinanceTools
+from agno.tools.duckduckgo import DuckDuckGoTools
 
 agent = Agent(
-    model=LangDB(id="gpt-4o-mini"),
-    tools=[
-        YFinanceTools(
-            stock_price=True, analyst_recommendations=True, stock_fundamentals=True
-        )
-    ],
-        description="You are an investment analyst that researches stocks and helps users make informed decisions.",
-    instructions=["Use tables to display data where possible."],
+    model=LangDB(id="llama3-1-70b-instruct-v1.0"),
+    tools=[DuckDuckGoTools()],
     markdown=True,
 )
+agent.print_response("Whats happening in France?", stream=True)
 
-# agent.print_response("Share the NVDA stock price and analyst recommendations", stream=True)
-agent.print_response("Summarize fundamentals for TSLA", stream=True)
 ```
 
 ## Usage
@@ -43,18 +32,18 @@ agent.print_response("Summarize fundamentals for TSLA", stream=True)
 
   <Step title="Install libraries">
     ```bash
-    pip install -U yfinance agno
+    pip install -U openai agno ddgs
     ```
   </Step>
 
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/models/langdb/finance_agent.py
+    python cookbook/models/langdb/web_search.py
     ```
 
     ```bash Windows
-    python cookbook/models/langdb/finance_agent.py
+    python cookbook/models/langdb/web_search.py
     ```
     </CodeGroup>
   </Step>

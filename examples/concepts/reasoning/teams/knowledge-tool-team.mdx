@@ -9,19 +9,16 @@ Enabling the reasoning option on the team leader helps optimize delegation and e
 ## Code
 
 ```python cookbook/reasoning/teams/knowledge_tool_team.py
-from textwrap import dedent
-
 from agno.agent import Agent
-from agno.knowledge.url import UrlKnowledge
+from agno.knowledge.knowledge import Knowledge
 from agno.models.openai import OpenAIChat
 from agno.team.team import Team
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.knowledge import KnowledgeTools
-from agno.tools.yfinance import YFinanceTools
+from agno.tools.exa import ExaTools
 from agno.vectordb.lancedb import LanceDb, SearchType
 
-agno_docs = UrlKnowledge(
-    urls=["https://www.paulgraham.com/read.html"],
+agno_docs = Knowledge(
     # Use LanceDB as the vector database and store embeddings in the `agno_docs` table
     vector_db=LanceDb(
         uri="tmp/lancedb",
@@ -29,6 +26,8 @@ agno_docs = UrlKnowledge(
         search_type=SearchType.hybrid,
     ),
 )
+# Add content to the knowledge
+agno_docs.add_content(url="https://www.paulgraham.com/read.html")
 
 knowledge_tools = KnowledgeTools(
     knowledge=agno_docs,
@@ -44,17 +43,20 @@ web_agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[DuckDuckGoTools()],
     instructions="Always include sources",
-    add_datetime_to_instructions=True,
+    add_datetime_to_context=True,
 )
 
 finance_agent = Agent(
     name="Finance Agent",
     role="Handle financial data requests",
     model=OpenAIChat(id="gpt-4o-mini"),
-    tools=[
-        YFinanceTools(stock_price=True, analyst_recommendations=True, company_info=True)
-    ],
-    add_datetime_to_instructions=True,
+    tools=[ExaTools(
+            include_domains=["cnbc.com", "reuters.com", "bloomberg.com", "wsj.com"],
+            show_results=True,
+            text=False,
+            highlights=False,
+        )],
+    add_datetime_to_context=True,
 )
 
 team_leader = Team(
@@ -73,15 +75,11 @@ team_leader = Team(
     markdown=True,
     show_members_responses=True,
     enable_agentic_context=True,
-    add_datetime_to_instructions=True,
-    success_criteria="The team has successfully completed the task.",
-    debug_mode=True,
+    add_datetime_to_context=True,
 )
 
 
 def run_team(task: str):
-    # Comment out after first run
-    agno_docs.load(recreate=True)
     team_leader.print_response(
         task,
         stream=True,
@@ -102,6 +100,7 @@ if __name__ == "__main__":
   <Step title="Set your API key">
     ```bash
     export OPENAI_API_KEY=xxx
+    export EXA_API_KEY=xxx
     ```
   </Step>
 

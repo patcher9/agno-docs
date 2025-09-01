@@ -16,7 +16,7 @@ from agno.models.openai import OpenAIChat
 from agno.team.team import Team
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.reasoning import ReasoningTools
-from agno.tools.yfinance import YFinanceTools
+from agno.tools.exa import ExaTools
 
 web_agent = Agent(
     name="Web Search Agent",
@@ -31,9 +31,13 @@ finance_agent = Agent(
     name="Finance Agent",
     role="Handle financial data requests",
     model=OpenAIChat(id="gpt-4o-mini"),
-    tools=[
-        YFinanceTools(stock_price=True, analyst_recommendations=True, company_info=True)
-    ],
+    tools=[     
+    ExaTools(
+    include_domains=["cnbc.com", "reuters.com", "bloomberg.com", "wsj.com"],
+    show_results=True,
+    text=False,
+    highlights=False,
+        )    ],
     instructions=[
         "You are a financial data specialist. Provide concise and accurate data.",
         "Use tables to display stock prices, fundamentals (P/E, Market Cap), and recommendations.",
@@ -103,6 +107,7 @@ if __name__ == "__main__":
     ```bash
     export OPENAI_API_KEY=xxx
     export ANTHROPIC_API_KEY=xxx
+    export EXA_API_KEY=xxx
     ```
   </Step>
 

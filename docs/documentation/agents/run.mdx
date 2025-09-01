@@ -32,7 +32,7 @@ pprint_run_response(response, markdown=True)
 
 You can cancel a run by using the `cancel_run` function on the Agent.
 
-Below is a basic example that starts an agent run in a thread and cancels it from another thread, simulating how it can be done via an API. This is supported via [AgentOS](/docs/agent_os) as well.
+Below is a basic example that starts an agent run in a thread and cancels it from another thread, simulating how it can be done via an API. This is supported via [AgentOS](/docs/agent-os/introduction) as well.
 
 ```python
 import threading
@@ -211,7 +211,7 @@ The `Agent.run()` function returns a `RunOutput` object when not streaming. Here
 - `metrics`: The metrics of the run.  For more details see [Metrics](/docs/documentation/agents/metrics).
 - `model`: The model used for the run.
 
-See detailed documentation in the [RunOutput](/reference/agents/run-output) documentation.
+See detailed documentation in the [RunOutput](/reference/agents/run-response) documentation.
 
 
 ### Using an Output Model
@@ -373,5 +373,5 @@ The following events are yielded by the `Agent.run()` and `Agent.arun()` functio
 ## Developer Resources
 
 - View the [Agent schema](/reference/agents/agent)
-- View the [RunOutput schema](/reference/agents/run-output)
+- View the [RunOutput schema](/reference/agents/run-response)
 - View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agents/README.md)
