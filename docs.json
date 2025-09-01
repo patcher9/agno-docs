@@ -527,8 +527,10 @@
               {
                 "group": "Evals",
                 "pages": [
-                  "docs/documentation/evals/introduction",
-                  "docs/documentation/evals/platform"
+                  "evals/introduction",
+                  "evals/accuracy",
+                  "evals/performance", 
+                  "evals/reliability"
                 ]
               },
               {
@@ -559,6 +561,7 @@
           },
           {
             "group": "Agent UI",
+            "hidden": true,
             "pages": ["docs/agent-ui/introduction"]
           },
           {
@@ -594,25 +597,25 @@
                 "group": "Basic Flows",
                 "pages": [
                   "examples/getting-started/introduction",
-                  "examples/getting-started/basic-agent",
-                  "examples/getting-started/agent-with-tools",
-                  "examples/getting-started/agent-with-knowledge",
-                  "examples/getting-started/agent-with-storage",
-                  "examples/getting-started/agent-team",
-                  "examples/getting-started/structured-output",
-                  "examples/getting-started/custom-tools",
-                  "examples/getting-started/research-agent",
-                  "examples/getting-started/research-workflow",
-                  "examples/getting-started/image-agent",
-                  "examples/getting-started/image-generation",
-                  "examples/getting-started/video-generation",
-                  "examples/getting-started/audio-agent",
-                  "examples/getting-started/agent-state",
-                  "examples/getting-started/agent-context",
-                  "examples/getting-started/agent-session",
-                  "examples/getting-started/user-memories",
-                  "examples/getting-started/retry-functions",
-                  "examples/getting-started/human-in-the-loop"
+                  "examples/getting-started/01-basic-agent",
+                  "examples/getting-started/02-agent-with-tools",
+                  "examples/getting-started/03-agent-with-knowledge",
+                  "examples/getting-started/04-write-your-own-tool",
+                  "examples/getting-started/05-structured-output",
+                  "examples/getting-started/06-agent-with-storage",
+                  "examples/getting-started/07-agent-state",
+                  "examples/getting-started/08-agent-context",
+                  "examples/getting-started/09-agent-session",
+                  "examples/getting-started/10-user-memories-and-summaries",
+                  "examples/getting-started/11-retry-function-call",
+                  "examples/getting-started/12-human-in-the-loop",
+                  "examples/getting-started/13-image-agent",
+                  "examples/getting-started/14-image-generation",
+                  "examples/getting-started/15-video-generation",
+                  "examples/getting-started/16-audio-agent",
+                  "examples/getting-started/17-agent-team",
+                  "examples/getting-started/18-research-agent-exa",
+                  "examples/getting-started/19-research-workflow"
                 ]
               }
             ]
@@ -688,17 +691,6 @@
                   "examples/use-cases/workflows/employee-recruiter",
                   "examples/use-cases/workflows/investment-report-generator",
                   "examples/use-cases/workflows/startup-idea-validator"
-                ]
-              },
-              {
-                "group": "Streamlit Apps",
-                "pages": [
-                  "examples/use-cases/streamlit/agentic-rag",
-                  "examples/use-cases/streamlit/answer-engine",
-                  "examples/use-cases/streamlit/text-to-sql",
-                  "examples/use-cases/streamlit/game-generator",
-                  "examples/use-cases/streamlit/geobuddy",
-                  "examples/use-cases/streamlit/chess-team"
                 ]
               }
             ]
@@ -1728,6 +1720,9 @@
                     "group": "Accuracy",
                     "pages": [
                       "examples/concepts/evals/accuracy/basic",
+                      "examples/concepts/evals/accuracy/accuracy_async",
+                      "examples/concepts/evals/accuracy/accuracy_comparison",
+                      "examples/concepts/evals/accuracy/accuracy_db_logging",
                       "examples/concepts/evals/accuracy/accuracy_with_given_answer",
                       "examples/concepts/evals/accuracy/accuracy_with_tools",
                       "examples/concepts/evals/accuracy/accuracy_with_teams"
@@ -1736,19 +1731,27 @@
                   {
                     "group": "Performance",
                     "pages": [
+                      "examples/concepts/evals/performance/performance_simple_response",
                       "examples/concepts/evals/performance/performance_agent_instantiation",
                       "examples/concepts/evals/performance/performance_instantiation_with_tool",
-                      "examples/concepts/evals/performance/performance_simple_response",
+                      "examples/concepts/evals/performance/performance_team_instantiation",
                       "examples/concepts/evals/performance/performance_with_storage",
-                      "examples/concepts/evals/performance/performance_team_instantiation"
+                      "examples/concepts/evals/performance/performance_async",
+                      "examples/concepts/evals/performance/performance_with_memory",
+                      "examples/concepts/evals/performance/performance_team_with_memory",
+                      "examples/concepts/evals/performance/performance_db_logging"
                     ]
                   },
                   {
                     "group": "Reliability",
                     "pages": [
                       "examples/concepts/evals/reliability/basic",
+                      "examples/concepts/evals/reliability/reliability_async",
+                      "examples/concepts/evals/reliability/reliability_db_logging",
+                      "examples/concepts/evals/reliability/reliability_single_tool",
                       "examples/concepts/evals/reliability/reliability_with_multiple_tools",
-                      "examples/concepts/evals/reliability/reliability_with_teams"
+                      "examples/concepts/evals/reliability/reliability_with_teams",
+                      "examples/concepts/evals/reliability/reliability_team_advanced"
                     ]
                   }
                 ]
