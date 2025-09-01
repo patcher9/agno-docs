@@ -16,7 +16,7 @@ from agno.models.openai import OpenAIChat
 from agno.tools import tool
 
 
-@tool(show_result=True, stop_after_tool_call=True)
+@tool(stop_after_tool_call=True)
 def get_weather(city: str) -> str:
     """Get the weather for a city."""
     # In a real implementation, this would call a weather API
@@ -36,7 +36,7 @@ agent.print_response("What is the weather in San Francisco?", stream=True)
 
 <Tip>
 
-In the example above, the `get_weather` function is a tool. When it is called, the tool result will be shown in the output because we set `show_result=True`.
+In the example above, the `get_weather` function is a tool. When it is called, the tool result will be shown in the output.
 
 Then, the Agent will stop after the tool call because we set `stop_after_tool_call=True`.
 
@@ -66,6 +66,21 @@ agent.print_response("What's the latest about gpt 4.5?", markdown=True)
 
 In this example, the `GoogleSearchTools` toolkit is configured to stop the agent after executing the `google_search` function and to show the result of this function.
 
-Read more about:
-- [Available Toolkits](/tools/toolkits)
-- [Using functions as tools](/tools/tool-decorator)
+## Useful Links
+
+<CardGroup cols={2}>
+  <Card
+    title="Available Toolkits"
+    icon="box-open"
+    href="/docs/documentation/tools/toolkits"
+  >
+    See the full list of available toolkits
+  </Card>
+  <Card
+    title="Using functions as tools"
+    icon="code"
+    href="/docs/documentation/tools/tool-decorator"
+  >
+    Learn how to use functions as tools
+  </Card>
+</CardGroup>

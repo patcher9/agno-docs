@@ -5,7 +5,9 @@ description: Learn how to run an agent and get the response.
 
 The `Agent.run()` function runs the agent and generates a response, either as a `RunOutput` object or a stream of `RunOutputEvent` objects.
 
+<Note>
 Many of our examples use `agent.print_response()` which is a helper utility to print the response in the terminal. It uses `agent.run()` under the hood.
+</Note>
 
 ## Running your Agent
 
@@ -33,15 +35,6 @@ You can cancel a run by using the `cancel_run` function on the Agent.
 Below is a basic example that starts an agent run in a thread and cancels it from another thread, simulating how it can be done via an API. This is supported via [AgentOS](/docs/agent-os/introduction) as well.
 
 ```python
-"""
-Example demonstrating how to cancel a running agent execution.
-
-This example shows how to:
-1. Start an agent run in a separate thread
-2. Cancel the run from another thread
-3. Handle the cancelled response
-"""
-
 import threading
 import time
 
@@ -200,7 +193,7 @@ if __name__ == "__main__":
     main()
 ```
 
-For a more complete example, see [Cancel a run](https://github.com/agno-agi/agno/blob/main/cookbook/agents/other/cancel_a_run.py).
+For a more complete example, see [Cancel a run](https://github.com/agno-agi/agno/tree/v2.0/cookbook/agents/other/cancel_a_run.py).
 
 
 ## RunOutput
@@ -219,6 +212,27 @@ The `Agent.run()` function returns a `RunOutput` object when not streaming. Here
 - `model`: The model used for the run.
 
 See detailed documentation in the [RunOutput](/reference/agents/run-response) documentation.
+
+
+### Using an Output Model
+
+You can use a different model to produce the run output of the agent.
+This is useful when the primary model is optimized for image analysis, for example, but you want a different model to produce a structured output response.
+
+```python
+agent = Agent(
+    model=Claude(id="claude-sonnet-4-20250514"),  # The main processing model
+    description="You write movie scripts.",
+    output_schema=MovieScript,
+    output_model=OpenAIChat(id="o3-mini"),  # Only used to parse the output
+)
+```
+
+You can also provide a custom `output_model_prompt` to your Output Model to customize the model's instructions.
+
+<Tip>
+Gemini models often reject requests to use tools and produce structured output at the same time. Using an Output Model is an effective workaround for this.
+</Tip>
 
 ## Streaming Responses
 
@@ -288,7 +302,7 @@ agent = Agent(model=OpenAIChat(id="o3-mini"), store_events=True)
 response = agent.run("Tell me a 5 second short story about a lion", stream=True, stream_intermediate_steps=True)
 pprint_run_response(response)
 
-for event in agent.run_response.events:
+for event in response.events:
     print(event.event)
 ```
 
@@ -360,4 +374,4 @@ The following events are yielded by the `Agent.run()` and `Agent.arun()` functio
 
 - View the [Agent schema](/reference/agents/agent)
 - View the [RunOutput schema](/reference/agents/run-response)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agents/README.md)
+- View [Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/agents/README.md)

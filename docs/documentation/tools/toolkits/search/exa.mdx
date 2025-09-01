@@ -28,6 +28,7 @@ agent = Agent(
     tools=[ExaTools(
         include_domains=["cnbc.com", "reuters.com", "bloomberg.com"],
         category="news",
+        show_results=True,
         text_length_limit=1000,
     )],
     )
@@ -85,4 +86,4 @@ Available categories for filtering:
 ## Developer Resources
 
 - View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/exa.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/exa_tools.py)
+- View [Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/tools/exa_tools.py)

@@ -8,7 +8,7 @@ title: Gemini with Reasoning Tools
 from agno.agent import Agent
 from agno.models.google import Gemini
 from agno.tools.reasoning import ReasoningTools
-from agno.tools.yfinance import YFinanceTools
+from agno.tools.duckduckgo import DuckDuckGoTools
 
 reasoning_agent = Agent(
     model=Gemini(id="gemini-2.5-pro-preview-03-25"),
@@ -18,12 +18,7 @@ reasoning_agent = Agent(
             analyze=True,
             add_instructions=True,
         ),
-        YFinanceTools(
-            stock_price=True,
-            analyst_recommendations=True,
-            company_info=True,
-            company_news=True,
-        ),
+        DuckDuckGoTools(),
     ],
     instructions="Use tables where possible",
     stream_intermediate_steps=True,
@@ -49,7 +44,7 @@ reasoning_agent.print_response(
 
   <Step title="Install libraries">
     ```bash
-    pip install -U google-genai agno
+    pip install -U google-genai agno ddgs
     ```
   </Step>
 

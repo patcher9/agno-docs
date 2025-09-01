@@ -48,7 +48,7 @@ todoist_agent = Agent(
         "When given a task to delete, delete the todoist task.",
         "When given a task to get, get the todoist task.",
     ],
-    agent_id="todoist-agent",
+    id="todoist-agent",
     model=OpenAIChat(id="gpt-4o"),
     tools=[TodoistTools()],
     markdown=True,
@@ -94,4 +94,4 @@ todoist_agent.print_response("Get all the todoist tasks")
 ## Developer Resources
 
 - View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/todoist.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/todoist_tool.py)
+- View [Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/tools/todoist_tool.py)

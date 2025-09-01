@@ -1,20 +1,17 @@
 ---
-title: Session Storage
+title: Storage
+description: Use Storage to persist Agent sessions and state to a database or file.
 ---
 
-Use **Session Storage** to persist Agent sessions and state to a database or file.
-
-<Tip>
 **Why do we need Session Storage?**
 
-Agents are ephemeral and the built-in memory only lasts for the current execution run.
+Agents are ephemeral and stateless. When you run an Agent, the no state is persisted automatically.
 
 In production environments, we serve (or trigger) Agents via an API and need to continue the same session across multiple requests.
 
 Storage persists the session history and state in a database and allows us to pick up where we left off.
 
 Storage also lets us inspect and evaluate Agent sessions, extract few-shot examples and build internal monitoring tools. It lets us **look at the data** which helps us build better Agents.
-</Tip>
 
 Adding storage to an Agent, Team or Workflow is as simple as providing a `DB` driver and Agno handles the rest. You can use Sqlite, Postgres, Mongo or any other database you want.
 
@@ -152,7 +149,33 @@ Storage is such a critical part of your Agentic infrastructure that it should ne
   </Step>
 </Steps>
 
+## Session table schema
+
+If you have a `db` configured for your agent, the sessions will be stored in the a sessions table in your database.
+
+The schema for the sessions table is as follows:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `session_id` | `str` | The unique identifier for the session. |
+| `session_type` | `str` | The type of the session. |
+| `agent_id` | `str` | The agent ID of the session. |
+| `team_id` | `str` | The team ID of the session. |
+| `workflow_id` | `str` | The workflow ID of the session. |
+| `user_id` | `str` | The user ID of the session. |
+| `session_data` | `dict` | The data of the session. |
+| `agent_data` | `dict` | The data of the agent. |
+| `team_data` | `dict` | The data of the team. |
+| `workflow_data` | `dict` | The data of the workflow. |
+| `metadata` | `dict` | The metadata of the session. |
+| `runs` | `list` | The runs of the session. |
+| `summary` | `dict` | The summary of the session. |
+| `created_at` | `int` | The timestamp when the session was created. |
+| `updated_at` | `int` | The timestamp when the session was last updated. |
+
+This data is best displayed on the [sessions page of the AgentOS UI](https://os.agno.com/sessions).
+
 ## Developer Resources
 
 - View the [Agent schema](/reference/agents/agent)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/agents/db/)
+- View [Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/db/)

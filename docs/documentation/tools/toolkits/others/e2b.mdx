@@ -32,7 +32,7 @@ e2b_tools = E2BTools(
 
 agent = Agent(
     name="Code Execution Sandbox",
-    agent_id="e2b-sandbox",
+    id="e2b-sandbox",
     model=OpenAIChat(id="gpt-4o"),
     tools=[e2b_tools],
     markdown=True,
@@ -133,4 +133,4 @@ agent.print_response(
 ## Developer Resources
 
 - View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/e2b.py)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/tools/e2b_tools.py)
+- View [Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/tools/e2b_tools.py)

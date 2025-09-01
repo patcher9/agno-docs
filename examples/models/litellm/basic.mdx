@@ -4,19 +4,20 @@ title: Basic Agent
 
 ## Code
 
-```python cookbook/models/litellm/basic_gpt.py
+```python cookbook/models/litellm/basic.py
 from agno.agent import Agent
 from agno.models.litellm import LiteLLM
 
 openai_agent = Agent(
     model=LiteLLM(
-        id="gpt-4o",
-        name="LiteLLM",
+        id="huggingface/mistralai/Mistral-7B-Instruct-v0.2",
+        top_p=0.95,
     ),
     markdown=True,
 )
 
-openai_agent.print_response("Share a 2 sentence horror story")
+openai_agent.print_response("Whats happening in France?")
+
 ```
 
 ## Usage
@@ -32,18 +33,18 @@ openai_agent.print_response("Share a 2 sentence horror story")
 
   <Step title="Install libraries">
     ```bash
-    pip install -U litellm openai agno
+    pip install -U litellm agno
     ```
   </Step>
 
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/models/litellm/basic_gpt.py
+    python cookbook/models/litellm/basic.py
     ```
 
     ```bash Windows
-    python cookbook/models/litellm/basic_gpt.py
+    python cookbook/models/litellm/basic.py
     ```
     </CodeGroup>
   </Step>

@@ -15,7 +15,6 @@ from agno.models.openai import OpenAIChat
 from agno.team.team import Team
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.knowledge import KnowledgeTools
-from agno.tools.exa import ExaTools
 from agno.vectordb.lancedb import LanceDb, SearchType
 
 agno_docs = Knowledge(
@@ -50,12 +49,7 @@ finance_agent = Agent(
     name="Finance Agent",
     role="Handle financial data requests",
     model=OpenAIChat(id="gpt-4o-mini"),
-    tools=[ExaTools(
-            include_domains=["cnbc.com", "reuters.com", "bloomberg.com", "wsj.com"],
-            show_results=True,
-            text=False,
-            highlights=False,
-        )],
+    tools=[DuckDuckGoTools(search=True)],
     add_datetime_to_context=True,
 )
 
@@ -100,13 +94,12 @@ if __name__ == "__main__":
   <Step title="Set your API key">
     ```bash
     export OPENAI_API_KEY=xxx
-    export EXA_API_KEY=xxx
     ```
   </Step>
 
   <Step title="Install libraries">
     ```bash
-    pip install -U openai agno
+    pip install -U openai agno ddgs
     ```
   </Step>
 

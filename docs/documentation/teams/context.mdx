@@ -1,0 +1,343 @@
+---
+title: Context Engineering
+description: Learn how to write prompts and other context engineering techniques for your teams.
+---
+
+You can change the way your Team behaves by changing the **system** message context that is sent to the language model.
+
+In Agno, the system message is dynamically created using `description` and `instructions` and a number of other settings.
+
+Understanding how these prompts are created will help you build better Multi-Agent Systems.
+
+<Tip>
+You can always set the `system_message` to override any dynamically generated system prompt.
+</Tip>
+
+See [Agent Context Engineering](/docs/documentation/agents/context) for more information.
+
+## System message context
+
+The system message is created using `description`, `instructions` and a number of other settings. The `description` is added to the start of the system message and `instructions` are added as a list. For example:
+
+```python instructions.py
+from agno.agent import Agent
+from agno.team import Team
+from agno.tools.duckduckgo import DuckDuckGoTools
+from agno.tools.hackernews import HackerNewsTools
+
+web_agent = Agent(
+    name="Web Researcher",
+    role="You are a web researcher that can find information on the web.",
+    instructions=[
+        "Use your web search tool to find information on the web.",
+        "Provide a summary of the information found.",
+    ],
+    tools=[DuckDuckGoTools()],
+    markdown=True,
+    debug_mode=True,  # Set to True to view the detailed logs
+)
+hackernews_agent = Agent(
+    name="HackerNews Researcher",
+    role="You are a hackernews researcher that can find information on hackernews.",
+    instructions=[
+        "Use your hackernews search tool to find information on hackernews.",
+        "Provide a summary of the information found.",
+    ],
+    tools=[HackerNewsTools()],
+    markdown=True,
+    debug_mode=True,  # Set to True to view the detailed logs
+)
+
+team = Team(
+    members=[web_agent, hackernews_agent],
+    instructions=[
+        "You are a team of researchers that can find information on the web and hackernews.",
+        "After finding information about the topic, compile a joint report."
+    ],
+    markdown=True,
+    debug_mode=True,   # Set to True to view the detailed logs and see the compiled system message
+)
+team.print_response("What is the latest news on the crypto market?", stream=True)
+```
+
+Will produce the following system message:
+
+```
+You are the leader of a team and sub-teams of AI Agents.                                                                                             
+Your task is to coordinate the team to complete the user's request.                                                                                  
+                                                                                                                                                    
+Here are the members in your team:                                                                                                                   
+<team_members>                                                                                                                                       
+- Agent 1:                                                                                                                                          
+    - ID: web-researcher                                                                                                                              
+    - Name: Web Researcher                                                                                                                            
+    - Role: You are a web researcher that can find information on the web.                                                                            
+    - Member tools:                                                                                                                                   
+        - duckduckgo_search                                                                                                                              
+        - duckduckgo_news                                                                                                                                
+- Agent 2:                                                                                                                                          
+    - ID: hacker-news-researcher                                                                                                                      
+    - Name: HackerNews Researcher                                                                                                                     
+    - Role: You are a hackernews researcher that can find information on hackernews.                                                                  
+    - Member tools:                                                                                                                                   
+        - get_top_hackernews_stories                                                                                                                     
+        - get_user_details                                                                                                                               
+</team_members>                                                                                                                                      
+                                                                                                                                                    
+<how_to_respond>                                                                                                                                     
+- Your role is to forward tasks to members in your team with the highest likelihood of completing the user's request.                                
+- Carefully analyze the tools available to the members and their roles before delegating tasks.                                                      
+- You cannot use a member tool directly. You can only delegate tasks to members.                                                                     
+- When you delegate a task to another member, make sure to include:                                                                                  
+    - member_id (str): The ID of the member to delegate the task to. Use only the ID of the member, not the ID of the team followed by the ID of the   
+member.                                                                                                                                              
+    - task_description (str): A clear description of the task.                                                                                         
+    - expected_output (str): The expected output.                                                                                                      
+- You can delegate tasks to multiple members at once.                                                                                                
+- You must always analyze the responses from members before responding to the user.                                                                  
+- After analyzing the responses from the members, if you feel the task has been completed, you can stop and respond to the user.                     
+- If you are not satisfied with the responses from the members, you should re-assign the task.                                                       
+- For simple greetings, thanks, or questions about the team itself, you should respond directly.                                                     
+- For all work requests, tasks, or questions requiring expertise, route to appropriate team members.                                                 
+</how_to_respond>                                                                                                                                    
+                                                                                                                                                    
+<instructions>                                                                                                                                       
+- You are a team of researchers that can find information on the web and hackernews.                                                                 
+- After finding information about the topic, compile a joint report.                                                                                 
+</instructions>                                                                                                                                      
+                                                                                                                                                    
+<additional_information>                                                                                                                             
+- Use markdown to format your answers.                                                                                                               
+</additional_information> 
+```
+
+### Additional Context
+
+You can add additional context to the end of the system message using the `additional_context` parameter.
+
+In this example, we add additional context to the system message that the agent has access to specific tables in a database.
+
+```python
+from textwrap import dedent
+
+from agno.agent import Agent
+from agno.team import Team
+from agno.models.langdb import LangDB
+from agno.tools.duckdb import DuckDbTools
+from agno.tools.duckduckgo import DuckDuckGoTools
+
+duckdb_tools = DuckDbTools(
+    create_tables=False, export_tables=False, summarize_tables=False
+)
+duckdb_tools.create_table_from_path(
+    path="https://phidata-public.s3.amazonaws.com/demo_data/IMDB-Movie-Data.csv",
+    table="movies",
+)
+
+web_researcher = Agent(
+    name="Web Researcher",
+    role="You are a web researcher that can find information on the web.",
+    tools=[DuckDuckGoTools()],
+    instructions=[
+        "Use your web search tool to find information on the web.",
+        "Provide a summary of the information found.",
+    ],
+)
+
+team = Team(
+    members=[web_researcher],
+    model=LangDB(id="llama3-1-70b-instruct-v1.0"),
+    tools=[duckdb_tools],
+    markdown=True,
+    additional_context=dedent("""\
+    You have access to the following tables:
+    - movies: contains information about movies from IMDB.
+    """),
+)
+agent.print_response("What is the average rating of movies?", stream=True)
+```
+
+### System message Parameters
+
+The Team leader creates a default system message that can be customized using the following parameters:
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `description` | `str` | `None` | A description of the Team that is added to the start of the system message. |
+| `instructions` | `List[str]` | `None` | List of instructions added to the system prompt in `<instructions>` tags. Default instructions are also created depending on values for `markdown`, `expected_output` etc. |
+| `additional_context` | `str` | `None` | Additional context added to the end of the system message. |
+| `expected_output` | `str` | `None` | Provide the expected output from the Team. This is added to the end of the system message. |
+| `markdown` | `bool` | `False` | Add an instruction to format the output using markdown. |
+| `add_datetime_to_context` | `bool` | `False` | If True, add the current datetime to the prompt to give the team a sense of time. This allows for relative times like "tomorrow" to be used in the prompt |
+| `add_name_to_context` | `bool` | `False` | If True, add the name of the team to the context. |
+| `add_location_to_context` | `bool` | `False` | If True, add the location of the team to the context.  This allows for location-aware responses and local context. |
+| `add_session_summary_to_context` | `bool` | `False` | If True, add the session summary to the context. See [sessions](/docs/documentation/agents/sessions) for more information. |
+| `add_memories_to_context` | `bool` | `False` | If True, add the user memories to the context. See [memory](/docs/documentation/agents/memory) for more information. |
+| `add_dependencies_to_context` | `bool` | `False` | If True, add the dependencies to the context. See [dependencies](/docs/documentation/agents/dependencies) for more information. |
+| `add_knowledge_to_context` | `bool` | `False` | If True, add retrieved knowledge to the context, to enable RAG. See [knowledge](/docs/documentation/agents/knowledge) for more information. |
+| `system_message` | `str` | `None` | Override the default system message. |
+| `build_context` | `bool` | `True` | Optionally disable the building of the context. |
+
+See the full [Team reference](/reference/teams/team) for more information.
+
+
+## User message
+
+The `input` sent to the `Team.run()` or `Team.print_response()` is used as the user message.
+
+See [dependencies](/docs/documentation/teams/dependencies) for how to do dependency injection for your user message.
+
+## Chat history
+
+If you have database storage enabled on your team, session history is automatically stored (see [sessions](/docs/documentation/teams/sessions)).
+
+You can now add the history of the conversation to the context using `add_history_to_context`.
+
+```python
+from agno.agent.agent import Agent
+from agno.team import Team
+from agno.tools.duckduckgo import DuckDuckGoTools
+from agno.db.postgres import PostgresDb
+from agno.models.openai import OpenAIChat
+
+db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
+
+db = PostgresDb(db_url=db_url)
+
+web_researcher = Agent(
+    name="Web Researcher",
+    role="You are a web researcher that can find information on the web.",
+    tools=[DuckDuckGoTools()],
+    instructions=[
+        "Use your web search tool to find information on the web.",
+        "Provide a summary of the information found.",
+    ],
+)
+
+team = Team(
+    members=[web_researcher],
+    model=OpenAIChat(id="o3-mini"),
+    db=db,
+    session_id="chat_history",
+    instructions="You are a helpful assistant that can answer questions about space and oceans.",
+    add_history_to_context=True,
+    num_history_runs=2,  # Optionally limit the number of history responses to add to the context
+)
+
+team.print_response("Where is the sea of tranquility?")
+
+team.print_response("What was my first question?")
+```
+
+This will add the history of the conversation to the context, which can be used to provide context for the next message.
+
+See more details on [sessions](/docs/documentation/teams/sessions#session-history).
+
+<Note>
+All team member runs are added to the team session history.
+</Note>
+
+## Additional input
+
+You can add entire additional messages to your team's context using the `additional_input` parameter.  
+These messages are added to the context as if they were part of the conversation history.
+
+You can give your team examples of how it should respond (also called "few-shot prompting"):
+
+```python
+from agno.team import Team
+from agno.models.message import Message
+from agno.models.openai.chat import OpenAIChat
+
+# Few-shot examples showing good support patterns
+support_examples = [
+    # Example 1: Simple issue resolution
+    Message(role="user", content="I forgot my password and can't log in"),
+    Message(
+        role="assistant",
+        content="""
+    I'll help you reset your password right away.
+
+    **Steps to Reset Your Password:**
+    . Go to the login page and click "Forgot Password"
+    . Enter your email address
+    . Check your email for the reset link
+    . Follow the link to create a new password
+    . Use a strong password with uppercase, lowercase, numbers, and symbols
+
+    f you don't receive the email within 5 minutes, please check your spam folder. Let me know if you need any assistance with these steps!
+    """.strip(),
+    ),
+    # Example 2: Billing issue pattern
+    Message(
+        role="user",
+        content="I've been charged twice for the same order and I'm frustrated!",
+    ),
+    Message(
+        role="assistant",
+        content="""
+    I sincerely apologize for the billing error and the frustration this has caused you.
+
+    **Immediate Action Plan:**
+    1. I'll investigate your account to confirm the duplicate charge
+    2. Process a full refund for the duplicate transaction
+    3. Ensure this doesn't happen again by checking your payment method settings
+    4. Provide you with a confirmation number once the refund is processed
+
+    The refund typically takes 3-5 business days to appear on your statement. As an apology for this inconvenience, I'd also like to offer you a 10% discount on your next order.
+
+    Is there anything else I can help you with regarding this issue?
+    """.strip(),
+    ),
+    # Example 3: Technical support pattern
+    Message(role="user", content="Your app keeps crashing when I try to upload photos"),
+    Message(
+        role="assistant",
+        content="""
+    I'm sorry you're experiencing crashes with photo uploads. Let me help you troubleshoot this issue.
+
+    **Troubleshooting Steps:**
+    1. **Check App Version:** Ensure you have the latest version from the app store
+    2. **Restart the App:** Close completely and reopen the application
+    3. **Check Storage:** Make sure you have sufficient device storage (at least 1GB free)
+    4. **Photo Size:** Try uploading smaller photos (under 10MB each)
+    5. **Network Connection:** Ensure you have a stable internet connection
+
+    **If the issue persists:**
+    - Try uploading one photo at a time instead of multiple
+    - Clear the app cache in your device settings
+    - Restart your device
+
+    If none of these steps resolve the issue, please let me know your device type and OS version, and I'll escalate this to our technical team for further investigation.
+    """.strip(),
+    ),
+]
+
+if __name__ == "__main__":
+    # Create agent with few-shot learning
+    team = Team(
+        members=[...],
+        name="Customer Support Team",
+        model=OpenAIChat(id="o3-mini"),
+        add_name_to_context=True,
+        additional_input=support_examples,  # few-shot learning examples
+        instructions=[
+            "You are an expert customer support specialist.",
+            "Always be empathetic, professional, and solution-oriented.",
+            "Provide clear, actionable steps to resolve customer issues.",
+            "Follow the established patterns for consistent, high-quality support.",
+        ],
+        markdown=True,
+    )
+
+    for i, example in enumerate(support_examples, 1):
+        print(f"📞 Example {i}: {example}")
+        print("-" * 50)
+        team.print_response(example)
+```
+
+
+## Developer Resources
+
+- View the [Team schema](/reference/teams/team)
+- View [Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/teams/basic/)
