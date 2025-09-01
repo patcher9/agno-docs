@@ -18,11 +18,24 @@ Example prompts to try:
 from textwrap import dedent
 
 from agno.agent import Agent
-from agno.embedder.openai import OpenAIEmbedder
-from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
+from agno.knowledge.embedder.openai import OpenAIEmbedder
+from agno.knowledge.knowledge import Knowledge
 from agno.models.openai import OpenAIChat
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.vectordb.lancedb import LanceDb, SearchType
+
+knowledge = Knowledge(
+    vector_db=LanceDb(
+        uri="tmp/lancedb",
+        table_name="recipe_knowledge",
+        search_type=SearchType.hybrid,
+        embedder=OpenAIEmbedder(id="text-embedding-3-small"),
+    ),
+)
+
+knowledge.add_content(
+    url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf",
+)
 
 # Create a Recipe Expert Agent with knowledge of Thai recipes
 agent = Agent(
@@ -33,7 +46,7 @@ agent = Agent(
         a Thai food historian, and a cultural ambassador.
 
         Follow these steps when answering questions:
-        1. First, search the knowledge base for authentic Thai recipes and cooking information
+        1. If the user asks a about Thai cuisine, ALWAYS search your knowledge base for authentic Thai recipes and cooking information
         2. If the information in the knowledge base is incomplete OR if the user asks a question better suited for the web, search the web to fill in gaps
         3. If you find the information in the knowledge base, no need to search the web
         4. Always prioritize knowledge base information over web results for authenticity
@@ -71,29 +84,26 @@ agent = Agent(
         - Clearly indicate when information comes from web sources
         - Be encouraging and supportive of home cooks at all skill levels\
     """),
-    knowledge=PDFUrlKnowledgeBase(
-        urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-        vector_db=LanceDb(
-            uri="tmp/lancedb",
-            table_name="recipe_knowledge",
-            search_type=SearchType.hybrid,
-            embedder=OpenAIEmbedder(id="text-embedding-3-small"),
-        ),
-    ),
+    knowledge=knowledge,
     tools=[DuckDuckGoTools()],
-        markdown=True,
-    add_references=True,
+    markdown=True,
 )
-
-# Comment out after the knowledge base is loaded
-if agent.knowledge is not None:
-    agent.knowledge.load()
 
 agent.print_response(
     "How do I make chicken and galangal in coconut milk soup", stream=True
 )
 agent.print_response("What is the history of Thai curry?", stream=True)
 agent.print_response("What ingredients do I need for Pad Thai?", stream=True)
+
+# More example prompts to try:
+"""
+Explore Thai cuisine with these queries:
+1. "What are the essential spices and herbs in Thai cooking?"
+2. "Can you explain the different types of Thai curry pastes?"
+3. "How do I make mango sticky rice dessert?"
+4. "What's the proper way to cook Thai jasmine rice?"
+5. "Tell me about regional differences in Thai cuisine"
+"""
 ```
 
 ## Usage
