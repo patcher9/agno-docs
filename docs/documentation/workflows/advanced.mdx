@@ -1,16 +1,20 @@
 ---
-title: Advanced Concepts in Workflows
+title: Advanced Workflow Concepts
 sidebarTitle: Advanced
-description: Explore advanced features and concepts in the Agno workflow system, including custom functions, error handling, and streaming capabilities.
+description: Master advanced workflow features including custom functions, background execution, cancellation, early stopping, event management, and structured data handling for production-ready automation.
 ---
 
-## How Custom Functions Work
+## Custom Functions in Workflows
 
-Custom functions provide flexibility by allowing developers to define specific logic for step execution. They can be used to `preprocess inputs`, `call agents`, and `postprocess outputs`.
-- **executor**: Step can be defined with a custom execution function that handles the step logic.
-- **Integration with Agents and Teams**: Custom functions can interact with agents and teams, leveraging their capabilities.
+Custom functions provide maximum flexibility by allowing you to define specific logic for step execution. Use them to preprocess inputs, orchestrate agents and teams, and postprocess outputs with complete programmatic control.
 
-While defining a `Step`, you can specify a custom function as an `executor`. This function should accept a `StepInput` object and return a `StepOutput` object.
+**Key Capabilities**
+- **Custom Logic**: Implement complex business rules and data transformations
+- **Agent Integration**: Call agents and teams within your custom processing logic
+- **Data Flow Control**: Transform outputs between steps for optimal data handling
+
+**Implementation Pattern**
+Define a `Step` with a custom function as the `executor`. The function must accept a `StepInput` object and return a `StepOutput` object, ensuring seamless integration with the workflow system.
 
 ```python
 content_planning_step = Step(
@@ -71,28 +75,28 @@ def custom_content_planning_function(step_input: StepInput) -> StepOutput:
         )
 ```
 
-Just make sure to follow this structure and return the output as a `StepOutput` object.
+**Standard Pattern**
+All custom functions follow this consistent structure:
 
 ```python
 def custom_content_planning_function(step_input: StepInput) -> StepOutput:
-    # Custom preprocessing
-    # Call the agent
-    # Custom postprocessing
+    # 1. Custom preprocessing
+    # 2. Call agents/teams as needed
+    # 3. Custom postprocessing
     return StepOutput(content=enhanced_content)
 ```
 
 **More Examples**:
 - [Step with a Custom Function](/examples/concepts/workflows/01-basic-workflows/step_with_function)
 
-## Run a Workflow non-blocking (in the background)
+## Background Workflow Execution
 
-You can run a workflow as a non-blocking task by passing `background=True` to `Workflow.arun()`. This will return a `WorkflowRunOutput` object with a `run_id` that you can use to poll for the result of the workflow until it is completed.
+Execute workflows as non-blocking background tasks by passing `background=True` to `Workflow.arun()`. This returns a `WorkflowRunOutput` object with a `run_id` for polling the workflow status until completion.
 
 <Note>
-This feature is only available for async workflows using `.arun()`. 
-For long-running workflows, you can poll for the result using `result = workflow.get_run(run_id)` which returns the updated `WorkflowRunOutput`. 
+Background execution requires async workflows using `.arun()`. Poll for results using `workflow.get_run(run_id)` and check completion status with `.has_completed()`. 
 
-Use `.has_completed()` to check if the workflow has finished executing. This is particularly useful for workflows that involve time-consuming operations like large-scale data processing, multi-step research tasks, or batch operations that you don't want to block your main application thread.
+Ideal for long-running operations like large-scale data processing, multi-step research, or batch operations that shouldn't block your main application thread.
 </Note>
 
 ```python
@@ -162,26 +166,26 @@ content_creation_workflow = Workflow(
 
 
 async def main():
-    print(" Starting Async Background Workflow Test")
+    print("🚀 Starting Async Background Workflow Test")
 
     # Start background execution (async)
     bg_response = await content_creation_workflow.arun(
         input="AI trends in 2024", background=True
     )
-    print(f" Initial Response: {bg_response.status} - {bg_response.content}")
-    print(f" Run ID: {bg_response.run_id}")
+    print(f"✅ Initial Response: {bg_response.status} - {bg_response.content}")
+    print(f"📋 Run ID: {bg_response.run_id}")
 
     # Poll every 5 seconds until completion
     poll_count = 0
 
     while True:
         poll_count += 1
-        print(f"\n Poll #{poll_count} (every 5s)")
+        print(f"\n🔍 Poll #{poll_count} (every 5s)")
 
         result = content_creation_workflow.get_run(bg_response.run_id)
 
         if result is None:
-            print(" Workflow not found yet, still waiting...")
+            print("⏳ Workflow not found yet, still waiting...")
             if poll_count > 50:
                 print(f"⏰ Timeout after {poll_count} attempts")
                 break
@@ -199,7 +203,7 @@ async def main():
 
     final_result = content_creation_workflow.get_run(bg_response.run_id)
 
-    print("\n Final Result:")
+    print("\n📊 Final Result:")
     print("=" * 50)
     pprint_run_response(final_result, markdown=True)
 
@@ -273,7 +277,7 @@ When a workflow in streaming mode is cancelled, a specific event is triggered: `
 
 ## Early Stopping
 
-Workflows can be terminated early when certain conditions are met, preventing unnecessary processing and ensuring safety gates work properly. Any step can trigger early termination by returning `StepOutput(stop=True)`.
+Workflows support early termination when specific conditions are met, preventing unnecessary processing and implementing safety gates. Any step can trigger early termination by returning `StepOutput(stop=True)`, immediately halting the entire workflow execution.
 
 ![Early Stop Workflows](/images/early_stop.png)
 
@@ -313,9 +317,9 @@ workflow.print_response("Scan this code: exec(input('Enter command: '))")
 **More Examples**: 
 - [Early Stop Workflow](/examples/concepts/workflows/06_workflows_advanced_concepts/early_stop_workflow)
 
-## Access Multiple Previous Steps Output
+## Accessing Multiple Previous Steps
 
-Advanced workflows often need to access data from multiple previous steps, not just the immediate previous step. The `StepInput` object provides powerful methods to access any previous step's output by name or get all previous content.
+Advanced workflows often require data from multiple previous steps beyond just the immediate predecessor. The `StepInput` object provides powerful methods to access any previous step's output by name or retrieve all accumulated content.
 
 ```python
 def create_comprehensive_report(step_input: StepInput) -> StepOutput:
@@ -366,7 +370,7 @@ workflow = Workflow(
 )
 ```
 
-**Key Methods:**
+**Available Methods**
 - `step_input.get_step_content("step_name")` - Get content from specific step by name
 - `step_input.get_all_previous_content()` - Get all previous step content combined
 - `step_input.workflow_message` - Access the original workflow input message
@@ -389,13 +393,13 @@ parallel_step_output = step_input.get_step_content("parallel_step_name")
 </Note>
 
 **More Examples**:
-- [Access Multiple Previous Steps Output](/examples/concept/workflows/06_workflows_advanced_concepts/access_multiple_previous_steps_output)
+- [Access Multiple Previous Steps Output](/examples/concepts/workflows/06_workflows_advanced_concepts/access_multiple_previous_steps_output)
 
-## Store Events
+## Event Storage and Management
 
-Workflows can automatically store all events for later analysis, debugging, or audit purposes. 
-You can also filter out specific event types to reduce noise and storage overhead. 
-You can access these events on the `WorkflowRunResponse` and in the `runs` column in your `Workflow's Session DB` in your configured storage backend (SQLite, PostgreSQL, etc.).
+Workflows can automatically store all execution events for analysis, debugging, and audit purposes. Filter specific event types to reduce noise and storage overhead while maintaining essential execution records.
+
+Access stored events via `workflow.run_response.events` and in the `runs` column of your workflow's session database (SQLite, PostgreSQL, etc.).
 
 - `store_events=True`: Automatically stores all workflow events in the database
 - `events_to_skip=[]`: Filter out specific event types to reduce storage and noise
@@ -424,14 +428,14 @@ events_to_skip = [
 ]
 ```
 
-**When to use:**
+**Use Cases**
 - **Debugging**: Store all events to analyze workflow execution flow
 - **Audit Trails**: Keep records of all workflow activities for compliance
 - **Performance Analysis**: Analyze timing and execution patterns
 - **Error Investigation**: Review event sequences leading to failures
 - **Noise Reduction**: Skip verbose events like `step_started` to focus on results
 
-**Example Use Cases:**
+**Configuration Examples**
 ```python
 # store everything
 debug_workflow = Workflow(
@@ -463,15 +467,19 @@ fast_workflow = Workflow(
 **More Examples**:
 - [Store Events and Events to Skip in a Workflow](/examples/concepts/workflows/06_workflows_advanced_concepts/store_events_and_events_to_skip_in_a_workflow)
 
-## Additional Data
+## Additional Data and Metadata
 
-**When to use**: When you need to pass metadata, configuration, or contextual information to specific steps without it being part of the main workflow message flow.
-- Separation of Concerns: Keep workflow logic separate from metadata
-- Step-Specific Context: Access additional information in custom functions
-- Clean Message Flow: Main message stays focused on content
-- Flexible Configuration: Pass user info, priorities, settings, etc.
+**When to Use**
+Pass metadata, configuration, or contextual information to specific steps without cluttering the main workflow message flow.
 
-Access Pattern: `step_input.additional_data` provides dictionary access to all additional data
+**Key Benefits**
+- **Separation of Concerns**: Keep workflow logic separate from metadata
+- **Step-Specific Context**: Access additional information in custom functions  
+- **Clean Message Flow**: Main message stays focused on content
+- **Flexible Configuration**: Pass user info, priorities, settings, and more
+
+**Access Pattern**
+Use `step_input.additional_data` for dictionary access to all additional data passed to the workflow.
 
 ```python
 from agno.workflow import Step, Workflow, StepInput, StepOutput
@@ -547,9 +555,9 @@ workflow.print_response(
 **More Examples**:
 - [Step with Function and Additional Data](/examples/concepts/workflows/06_workflows_advanced_concepts/step_with_function_additional_data)
 
-## Structured Inputs
+## Structured Inputs with Pydantic
 
-Use Pydantic models for type-safe inputs:
+Leverage Pydantic models for type-safe, validated workflow inputs:
 
 ```python
 from pydantic import BaseModel, Field
@@ -569,24 +577,24 @@ workflow.print_response(
 ```
 
 **More Examples**:
-- [Pydantic Model as Input](/examples/concepts/workflows/06_workflows_advanced_concepts/pydantic_model_as_input)
+- [Pydantic Model as Input](/examples/concepts/teams/structured_input_output/pydantic_model_as_input)
 
-## Structured IO at Each Step Level
+## Structured Input/Output at Step Level
 
-Workflows features a powerful type-safe data flow system where each step in your workflow can:
+Workflows feature a powerful type-safe data flow system enabling each step to:
 1. **Receive** structured input (Pydantic models, lists, dicts, or raw strings)
-2. **Produce** structured output (validated Pydantic models)
-3. **Maintain** type safety throughout the entire workflow execution
+2. **Produce** structured output (validated Pydantic models)  
+3. **Maintain** type safety throughout entire workflow execution
 
-### How Data Flows Between Steps
+### Data Flow Between Steps
 
-1. **Input Handling**:
-   - The first step receives the workflow's input message
-   - Subsequent steps receive the previous step's structured output
+**Input Processing**
+- First step receives the workflow's input message
+- Subsequent steps receive the previous step's structured output
 
-2. **Output Processing**:
-   - Each Agent processes the input using its `output_schema`
-   - The output is automatically validated against the model
+**Output Generation**
+- Each Agent processes input using its configured `output_schema`
+- Output is automatically validated against the defined model
 
 ```python
 # Define agents with response models
@@ -611,10 +619,14 @@ workflow = Workflow(steps=[
 
 ### Structured Data Transformation in Custom Functions
 
-Custom functions in workflows can access the structured output of previous steps via `step_input.previous_step_content`, which preserves the original Pydantic model type (e.g., ResearchFindings). To transform data:
-- Type-Check Inputs: Use `isinstance(step_input.previous_step_content, ModelName)` to verify the input structure.
-- Modify Data: Extract fields (e.g., `step_input.previous_step_content.topic`), process them, and construct a new Pydantic model (e.g., AnalysisReport).
-- Return Typed Output: Wrap the new model in `StepOutput(content=new_model)`. This ensures type safety for downstream steps. Example:
+Custom functions can access structured output from previous steps via `step_input.previous_step_content`, preserving original Pydantic model types.
+
+**Transformation Pattern**
+- **Type-Check Inputs**: Use `isinstance(step_input.previous_step_content, ModelName)` to verify input structure
+- **Modify Data**: Extract fields, process them, and construct new Pydantic models
+- **Return Typed Output**: Wrap the new model in `StepOutput(content=new_model)` for type safety
+
+**Example Implementation**
 
 ```python
    def transform_data(step_input: StepInput) -> StepOutput:
@@ -630,15 +642,16 @@ Custom functions in workflows can access the structured output of previous steps
 **More Examples**:
 - [Structured IO at each Step Level](/examples/concepts/workflows/06_workflows_advanced_concepts/structured_io_at_each_step_level)
 
-## Media Input
-Workflows seamlessly handle media artifacts (images, videos, audio) throughout the execution pipeline. 
-Media can be provided as input for `Workflow.run()` and `Workflow.print_response()` and is passed through to individual steps (whether Agent, Team or Custom Function). 
+## Media Input and Processing
 
-During execution, media artifacts accumulate across steps - each step receives shared media from previous steps and can 
-produce additional media outputs. The `Step` class handles automatic conversion between artifact formats, ensuring compatibility between 
-workflow components and `agent/team` executors. All media artifacts are preserved in `StepOutput` and propagated to 
-subsequent steps, creating a comprehensive flow where the final `WorkflowRunResponse` contains all accumulated 
-`images`, `videos`, and `audio` from the entire execution chain.
+Workflows seamlessly handle media artifacts (images, videos, audio) throughout the execution pipeline, enabling rich multimedia processing workflows.
+
+**Media Flow System**
+- **Input Support**: Media can be provided to `Workflow.run()` and `Workflow.print_response()`
+- **Step Propagation**: Media is passed through to individual steps (Agents, Teams, or Custom Functions)
+- **Artifact Accumulation**: Each step receives shared media from previous steps and can produce additional outputs
+- **Format Compatibility**: Automatic conversion between artifact formats ensures seamless integration
+- **Complete Preservation**: Final `WorkflowRunResponse` contains all accumulated media from the entire execution chain
 
 Here's an example of how to pass image as input:
 
