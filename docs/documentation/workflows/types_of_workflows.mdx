@@ -73,11 +73,12 @@ Take a look at the schemas for [`StepInput`](/reference/workflows/step_input) an
 
 </Note>
 
-### 2. Function-Based Workflows
+### 2. Fully Python Workflow
 
-**Maximum Control**: Use a single Python function to orchestrate your entire workflow when you need complete programmatic control over execution logic.
+**Keep it Simple with Pure Python**: If you prefer the Workflows 1.0 approach or need maximum flexibility, you can still use a single Python function to handle everything.
+This approach gives you complete control over the execution flow while still benefiting from workflow features like storage, streaming, and session management.
 
-This approach provides deterministic execution with full flexibility while maintaining workflow features like storage, streaming, and session management. Perfect for complex business logic that's easier to express in code than declarative steps.
+Replace all the steps in the workflow with a single executable function where you can control everything.
 
 ```python
 def custom_workflow_function(workflow: Workflow, execution_input: WorkflowExecutionInput):
@@ -410,7 +411,7 @@ media_workflow.print_response("Create a cinematic video of city timelapse", mark
 - [`workflow_using_steps_nested.py`](/examples/concepts/workflows/01-basic-workflows/workflow_using_steps_nested)
 - [`selector_for_image_video_generation_pipelines.py`](/examples/concepts/workflows/05_workflows_conditional_branching/selector_for_image_video_generation_pipelines)
 
-### 9. Composite Workflow Patterns
+### 9. Advanced Workflow Patterns
 
 Combine multiple workflow patterns to build sophisticated, production-ready automation systems.
 
