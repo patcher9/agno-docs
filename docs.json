@@ -332,7 +332,6 @@
                   "docs/documentation/reasoning/reasoning-agents"
                 ]
               },
-
               {
                 "group": "Tools",
                 "pages": [
@@ -533,49 +532,34 @@
                 ]
               },
               {
-                "group": "Applications",
+                "group": "Integrations",
                 "pages": [
-                  "applications/playground/introduction",
-                  "applications/fastapi/introduction",
-                  "applications/whatsapp/introduction",
-                  "applications/ag-ui/introduction",
-                  "applications/slack/introduction",
-                  "applications/discord/introduction"
+                  "docs/integrations/discord/introduction",
+                  {
+                    "group": "Observability",
+                    "pages": [
+                      "docs/integrations/observability/introduction",
+                      "docs/integrations/observability/agentops",
+                      "docs/integrations/observability/arize",
+                      "docs/integrations/observability/atla",
+                      "docs/integrations/observability/langdb",
+                      "docs/integrations/observability/langfuse",
+                      "docs/integrations/observability/langsmith",
+                      "docs/integrations/observability/langtrace",
+                      "docs/integrations/observability/weave"
+                    ]
+                  },
+                  {
+                    "group": "Testing",
+                    "pages": ["docs/integrations/testing/scenario-testing"]
+                  }
                 ]
               }
             ]
           },
           {
-            "group": "Other",
-            "hidden": true,
-            "pages": [
-              {
-                "group": "Agent UI",
-                "pages": ["docs/other/agent-ui/introduction"]
-              },
-              {
-                "group": "Agent API",
-                "pages": ["docs/other/agent-api/introduction"]
-              },
-              {
-                "group": "Observability",
-                "pages": [
-                  "docs/other/observability/introduction",
-                  "docs/other/observability/agentops",
-                  "docs/other/observability/arize",
-                  "docs/other/observability/atla",
-                  "docs/other/observability/langdb",
-                  "docs/other/observability/langfuse",
-                  "docs/other/observability/langsmith",
-                  "docs/other/observability/langtrace",
-                  "docs/other/observability/weave"
-                ]
-              },
-              {
-                "group": "Testing",
-                "pages": ["docs/other/testing/scenario-testing"]
-              }
-            ]
+            "group": "Agent UI",
+            "pages": ["docs/agent-ui/introduction"]
           },
           {
             "group": "Help",
@@ -603,11 +587,11 @@
         "tab": "Examples",
         "groups": [
           {
-            "group": "Examples",
+            "group": "Getting Started",
             "pages": [
               "examples/introduction",
               {
-                "group": "Getting Started",
+                "group": "Basic Flows",
                 "pages": [
                   "examples/getting-started/introduction",
                   "examples/getting-started/basic-agent",
@@ -1756,30 +1740,33 @@
                 ]
               },
               {
-                "group": "Observability",
+                "group": "Integrations",
                 "pages": [
                   {
-                    "group": "Arize Phoenix",
+                    "group": "Discord",
                     "pages": [
-                      "examples/concepts/observability/arize-phoenix-via-openinference",
-                      "examples/concepts/observability/arize-phoenix-via-openinference-local"
+                      "examples/concepts/integrations/discord/basic",
+                      "examples/concepts/integrations/discord/agent_with_media",
+                      "examples/concepts/integrations/discord/agent_with_user_memory"
                     ]
                   },
                   {
-                    "group": "Langfuse",
+                    "group": "Observability",
                     "pages": [
-                      "examples/concepts/observability/langfuse_via_openinference",
-                      "examples/concepts/observability/langfuse_via_openlit"
+                      "examples/concepts/integrations/observability/arize-phoenix-via-openinference",
+                      "examples/concepts/integrations/observability/arize-phoenix-via-openinference-local",
+                      "examples/concepts/integrations/observability/langfuse_via_openinference",
+                      "examples/concepts/integrations/observability/langfuse_via_openlit",
+                      "examples/concepts/integrations/observability/langsmith-via-openinference",
+                      "examples/concepts/integrations/observability/langtrace-op",
+                      "examples/concepts/integrations/observability/weave-op"
                     ]
                   },
-                  "examples/concepts/observability/langsmith-via-openinference",
-                  "examples/concepts/observability/langtrace-op",
-                  "examples/concepts/observability/weave-op"
+                  {
+                    "group": "Testing",
+                    "pages": ["examples/concepts/integrations/testing/scenario/basic"]
+                  }
                 ]
-              },
-              {
-                "group": "Testing",
-                "pages": ["examples/concepts/testing/scenario/basic"]
               }
             ]
           },
