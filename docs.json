@@ -128,9 +128,9 @@
                   {
                     "group": "Team Modes",
                     "pages": [
-                      "docs/documentation/teams/route",
-                      "docs/documentation/teams/coordinate",
-                      "docs/documentation/teams/collaborate"
+                      "docs/documentation/teams/modes/route",
+                      "docs/documentation/teams/modes/coordinate",
+                      "docs/documentation/teams/modes/collaborate"
                     ]
                   },
                   "docs/documentation/teams/storage",
