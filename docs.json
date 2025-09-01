@@ -60,26 +60,12 @@
     }
   },
   "navigation": {
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Forum",
-          "icon": "discourse",
-          "href": "https://community.agno.com/"
-        },
-        {
-          "anchor": "Discord",
-          "icon": "discord",
-          "href": "https://agno.link/discord"
-        }
-      ]
-    },
     "tabs": [
       {
         "tab": "Documentation",
         "groups": [
           {
-            "group": "Getting Started",
+            "group": "Introduction",
             "pages": [
               "introduction",
               "docs/getting_started/agents",
@@ -529,7 +515,7 @@
                 "pages": [
                   "evals/introduction",
                   "evals/accuracy",
-                  "evals/performance", 
+                  "evals/performance",
                   "evals/reliability"
                 ]
               },
@@ -859,9 +845,7 @@
                   },
                   {
                     "group": "Metrics",
-                    "pages": [
-                      "examples/concepts/teams/metrics/team_metrics"
-                    ]
+                    "pages": ["examples/concepts/teams/metrics/team_metrics"]
                   },
                   {
                     "group": "Multimodal",
@@ -880,7 +864,6 @@
                     "pages": [
                       "examples/concepts/teams/reasoning/reasoning_multi_purpose_team",
                       "examples/concepts/teams/reasoning/async_multi_purpose_reasoning_team"
-
                     ]
                   },
                   {
@@ -1781,7 +1764,9 @@
                   },
                   {
                     "group": "Testing",
-                    "pages": ["examples/concepts/integrations/testing/scenario/basic"]
+                    "pages": [
+                      "examples/concepts/integrations/testing/scenario/basic"
+                    ]
                   }
                 ]
               }
@@ -2415,7 +2400,8 @@
                       "reference/knowledge/remote-content/gcs-content",
                       "reference/knowledge/remote-content/s3-content"
                     ]
-                  }]
+                  }
+                ]
               },
               {
                 "group": "Vector Databases",
