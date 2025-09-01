@@ -6,17 +6,16 @@ title: Code Generation
 
 ```python cookbook/models/vllm/code_generation.py
 from agno.agent import Agent
-from agno.models.vllm import vLLM
+from agno.models.vllm import VLLM
 
 agent = Agent(
-    model=vLLM(id="deepseek-ai/deepseek-coder-6.7b-instruct"),
+    model=VLLM(id="deepseek-ai/deepseek-coder-6.7b-instruct"),
     description="You are an expert Python developer.",
     markdown=True,
 )
 
 agent.print_response(
-    """Write a Python function that returns the nth Fibonacci number 
-    using dynamic programming."""
+    "Write a Python function that returns the nth Fibonacci number using dynamic programming."
 )
 ```
 

@@ -5,18 +5,18 @@ title: Async Agent with Tools
 ## Code
 
 ```python cookbook/models/vllm/async_tool_use.py
-"""Run `pip install duckduckgo-search` to install dependencies."""
+"""Run `pip install ddgs` to install dependencies."""
 
 import asyncio
 
 from agno.agent import Agent
-from agno.models.vllm import vLLM
+from agno.models.vllm import VLLM
 from agno.tools.duckduckgo import DuckDuckGoTools
 
 agent = Agent(
-    model=vLLM(id="Qwen/Qwen2.5-7B-Instruct", top_k=20, enable_thinking=False),
+    model=VLLM(id="Qwen/Qwen2.5-7B-Instruct", top_k=20, enable_thinking=False),
     tools=[DuckDuckGoTools()],
-        markdown=True,
+    markdown=True,
 )
 asyncio.run(agent.aprint_response("Whats happening in France?", stream=True))
 ```
@@ -28,7 +28,7 @@ asyncio.run(agent.aprint_response("Whats happening in France?", stream=True))
 
   <Step title="Install Libraries">
     ```bash
-    pip install -U agno openai vllm duckduckgo-search
+    pip install -U agno openai vllm ddgs
     ```
   </Step>
 
