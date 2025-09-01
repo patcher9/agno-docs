@@ -7,18 +7,18 @@ This example shows how to add the current location to the instructions of an age
 
 ## Code
 
-```python cookbook/agent_concepts/other/location_instructions.py
+```python examples/concepts/agent/agents/context_management/location_instructions.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
+from agno.tools.duckduckgo import DuckDuckGoTools
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
-    tools=[DuckDuckGoTools()],
-    add_location_to_instructions=True,
+    add_location_to_context=True,
+    tools=[DuckDuckGoTools(cache_results=True)],
 )
-agent.print_response(
-    "What is current news about my city?"
-)
+agent.print_response("What city am I in?")
+agent.print_response("What is current news about my city?")
 ```
 
 ## Usage
@@ -34,18 +34,18 @@ agent.print_response(
 
   <Step title="Install libraries">
     ```bash
-    pip install -U openai agno
+    pip install -U openai agno ddgs
     ```
   </Step>
 
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agent_concepts/other/location_instructions.py
+    python examples/concepts/agent/agents/context_management/location_instructions.py
     ```
 
     ```bash Windows
-    python cookbook/agent_concepts/other/location_instructions.py
+    python examples/concepts/agent/agents/context_management/location_instructions.py
     ```
     </CodeGroup>
   </Step>

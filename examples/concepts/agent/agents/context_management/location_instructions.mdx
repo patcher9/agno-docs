@@ -1,0 +1,51 @@
+---
+title: Location Instructions
+---
+
+This example shows how to add location context to agent instructions for location-aware responses.
+
+## Code
+
+```python cookbook/agents/context_management/location_instructions.py
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.tools.duckduckgo import DuckDuckGoTools
+
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    add_location_to_context=True,
+    tools=[DuckDuckGoTools(cache_results=True)],
+)
+agent.print_response("What city am I in?")
+agent.print_response("What is current news about my city?")
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Set your API key">
+    ```bash
+    export OPENAI_API_KEY=xxx
+    ```
+  </Step>
+
+  <Step title="Install libraries">
+    ```bash
+    pip install -U openai agno duckduckgo-search
+    ```
+  </Step>
+
+  <Step title="Run Agent">
+    <CodeGroup>
+    ```bash Mac
+    python cookbook/agents/context_management/location_instructions.py
+    ```
+
+    ```bash Windows
+    python cookbook/agents/context_management/location_instructions.py
+    ```
+    </CodeGroup>
+  </Step>
+</Steps>

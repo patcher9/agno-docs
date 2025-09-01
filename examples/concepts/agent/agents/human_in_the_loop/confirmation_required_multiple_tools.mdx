@@ -1,0 +1,27 @@
+---
+title: Confirmation Required Multiple Tools
+---
+
+import json import httpx from agno.agent import Agent from agno.models.openai import OpenAIChat from agno.tools import tool from agno.tools.wikipedia import WikipediaTools from agno.utils import pprint from rich.console import Console from rich.prompt import Prompt console = Console() @tool(requires_confirmation=True) def get_top_hackernews_stories(num_stories: int) -> str: """Fetch top stories from Hacker News. Args: num_stories (int): Number of stories to retrieve Returns: str: JSON string containing story details
+
+## Code
+
+
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+    
+  </Step>
+
+  <Step title="Run Agent">
+    <CodeGroup>
+    
+
+    
+    </CodeGroup>
+  </Step>
+</Steps>

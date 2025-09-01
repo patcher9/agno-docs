@@ -1,0 +1,27 @@
+---
+title: User Input Required All Fields
+---
+
+from typing import List from agno.agent import Agent from agno.models.openai import OpenAIChat from agno.tools import tool from agno.tools.function import UserInputField from agno.utils import pprint @tool(requires_user_input=True) def send_email(subject: str, body: str, to_address: str) -> str:
+
+## Code
+
+
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+    
+  </Step>
+
+  <Step title="Run Agent">
+    <CodeGroup>
+    
+
+    
+    </CodeGroup>
+  </Step>
+</Steps>

@@ -1,0 +1,70 @@
+---
+title: Streaming
+---
+
+This example demonstrates different async streaming methods for agent responses.
+
+## Code
+
+```python cookbook/agents/async/streaming.py
+import asyncio
+
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.utils.pprint import apprint_run_response
+
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o-mini"),
+)
+
+
+async def streaming():
+    async for response in agent.arun(input="Tell me a joke.", stream=True):
+        print(response.content, end="", flush=True)
+
+
+async def streaming_print():
+    await agent.aprint_response(input="Tell me a joke.", stream=True)
+
+
+async def streaming_pprint():
+    await apprint_run_response(agent.arun(input="Tell me a joke.", stream=True))
+
+
+if __name__ == "__main__":
+    asyncio.run(streaming())
+    # OR
+    asyncio.run(streaming_print())
+    # OR
+    asyncio.run(streaming_pprint())
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Set your API key">
+    ```bash
+    export OPENAI_API_KEY=xxx
+    ```
+  </Step>
+
+  <Step title="Install libraries">
+    ```bash
+    pip install -U openai agno
+    ```
+  </Step>
+
+  <Step title="Run Agent">
+    <CodeGroup>
+    ```bash Mac
+    python cookbook/agents/async/streaming.py
+    ```
+
+    ```bash Windows
+    python cookbook/agents/async/streaming.py
+    ```
+    </CodeGroup>
+  </Step>
+</Steps>

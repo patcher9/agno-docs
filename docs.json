@@ -779,6 +779,15 @@
                     ]
                   },
                   {
+                    "group": "Agents",
+                    "pages": [
+                      "examples/concepts/agent/agents/01-agentic-search",
+                      "examples/concepts/agent/agents/02-human-in-the-loop",
+                      "examples/concepts/agent/agents/03-multimodal",
+                      "examples/concepts/agent/agents/04-events-and-debugging"
+                    ]
+                  },
+                  {
                     "group": "Context",
                     "pages": [
                       "examples/concepts/agent/context/01-add_context",
