@@ -845,9 +845,142 @@
                 "group": "Teams",
                 "pages": [
                   {
+                    "group": "Async",
+                    "pages": [
+                      "examples/concepts/teams/async/async_collaborate",
+                      "examples/concepts/teams/async/async_coordinate",
+                      "examples/concepts/teams/async/async_route"
+                    ]
+                  },
+                  {
+                    "group": "Basic",
+                    "pages": [
+                      "examples/concepts/teams/basic/input_as_dict",
+                      "examples/concepts/teams/basic/input_as_list",
+                      "examples/concepts/teams/basic/input_as_messages_list",
+                      "examples/concepts/teams/basic/response_as_variable",
+                      "examples/concepts/teams/basic/few_shot_learning",
+                      "examples/concepts/teams/basic/run_as_cli",
+                      "examples/concepts/teams/basic/team_cancel_a_run",
+                      "examples/concepts/teams/basic/team_exponential_backoff"
+                    ]
+                  },
+                  {
+                    "group": "Dependencies",
+                    "pages": [
+                      "examples/concepts/teams/dependencies/add_dependencies_run",
+                      "examples/concepts/teams/dependencies/add_dependencies_to_context",
+                      "examples/concepts/teams/dependencies/reference_dependencies"
+                    ]
+                  },
+                  {
+                    "group": "Distributed RAG",
+                    "pages": [
+                      "examples/concepts/teams/distributed_rag/distributed_rag_pgvector",
+                      "examples/concepts/teams/distributed_rag/distributed_rag_lancedb",
+                      "examples/concepts/teams/distributed_rag/distributed_rag_with_reranking"
+                    ]
+                  },
+                  {
+                    "group": "Knowledge",
+                    "pages": [
+                      "examples/concepts/teams/knowledge/team_with_knowledge",
+                      "examples/concepts/teams/knowledge/team_with_knowledge_filters",
+                      "examples/concepts/teams/knowledge/team_with_agentic_knowledge_filters"
+                    ]
+                  },
+                  {
+                    "group": "Memory",
+                    "pages": [
+                      "examples/concepts/teams/memory/team_with_memory_manager",
+                      "examples/concepts/teams/memory/team_with_agentic_memory"
+                    ]
+                  },
+                  {
+                    "group": "Metrics",
+                    "pages": [
+                      "examples/concepts/teams/metrics/team_metrics"
+                    ]
+                  },
+                  {
+                    "group": "Multimodal",
+                    "pages": [
+                      "examples/concepts/teams/multimodal/audio_sentiment_analysis",
+                      "examples/concepts/teams/multimodal/audio_to_text",
+                      "examples/concepts/teams/multimodal/generate_image_with_team",
+                      "examples/concepts/teams/multimodal/image_to_image_transformation",
+                      "examples/concepts/teams/multimodal/image_to_structured_output",
+                      "examples/concepts/teams/multimodal/image_to_text",
+                      "examples/concepts/teams/multimodal/video_caption_generation"
+                    ]
+                  },
+                  {
+                    "group": "Reasoning",
+                    "pages": [
+                      "examples/concepts/teams/reasoning/reasoning_multi_purpose_team",
+                      "examples/concepts/teams/reasoning/async_multi_purpose_reasoning_team"
+                    ]
+                  },
+                  {
+                    "group": "Search Coordination",
+                    "pages": [
+                      "examples/concepts/teams/search_coordination/coordinated_agentic_rag",
+                      "examples/concepts/teams/search_coordination/coordinated_reasoning_rag",
+                      "examples/concepts/teams/search_coordination/distributed_infinity_search"
+                    ]
+                  },
+                  {
+                    "group": "Session",
+                    "pages": [
+                      "examples/concepts/teams/session/in_memory_session",
+                      "examples/concepts/teams/session/persistent_session",
+                      "examples/concepts/teams/session/persistent_session_history",
+                      "examples/concepts/teams/session/session_summary",
+                      "examples/concepts/teams/session/session_summary_references",
+                      "examples/concepts/teams/session/chat_history",
+                      "examples/concepts/teams/session/rename_session",
+                      "examples/concepts/teams/session/in_memory_db",
+                      "examples/concepts/teams/session/cache_session"
+                    ]
+                  },
+                  {
                     "group": "Shared State",
                     "pages": [
-                      "examples/concepts/teams/state/team_session_state"
+                      "examples/concepts/teams/state/agentic_session_state",
+                      "examples/concepts/teams/state/change_state_on_run",
+                      "examples/concepts/teams/state/session_state_in_instructions",
+                      "examples/concepts/teams/state/share_member_interactions",
+                      "examples/concepts/teams/state/team_with_nested_shared_state"
+                    ]
+                  },
+                  {
+                    "group": "Streaming",
+                    "pages": [
+                      "examples/concepts/teams/streaming/team_streaming",
+                      "examples/concepts/teams/streaming/events",
+                      "examples/concepts/teams/streaming/route_mode_events",
+                      "examples/concepts/teams/streaming/async_team_streaming",
+                      "examples/concepts/teams/streaming/async_team_events"
+                    ]
+                  },
+                  {
+                    "group": "Structured Input/Output",
+                    "pages": [
+                      "examples/concepts/teams/structured_input_output/pydantic_model_output",
+                      "examples/concepts/teams/structured_input_output/pydantic_model_as_input",
+                      "examples/concepts/teams/structured_input_output/team_with_parser_model",
+                      "examples/concepts/teams/structured_input_output/team_with_output_model",
+                      "examples/concepts/teams/structured_input_output/structured_output_streaming",
+                      "examples/concepts/teams/structured_input_output/async_structured_output_streaming",
+                      "examples/concepts/teams/structured_input_output/input_schema_on_team"
+                    ]
+                  },
+                  {
+                    "group": "Tools",
+                    "pages": [
+                      "examples/concepts/teams/tools/team_with_custom_tools",
+                      "examples/concepts/teams/tools/team_with_tool_hooks",
+                      "examples/concepts/teams/tools/async_team_with_tools"
                     ]
                   }
                 ]
