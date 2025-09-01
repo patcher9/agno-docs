@@ -56,7 +56,7 @@ To modify the behavior of a tool, use the `@tool` decorator. Some notable featur
 - `requires_confirmation=True`: Requires user confirmation before execution.
 - `requires_user_input=True`: Requires user input before execution. Use `user_input_fields` to specify which fields require user input.
 - `external_execution=True`: The tool will be executed outside of the agent's control.
-- `show_result=True`: Show the output of the tool call in the Agent's response. Without this flag, the result of the tool call is sent to the model for further processing.
+- `show_result=True`: Show the output of the tool call in the Agent's response, `True` by default. Without this flag, the result of the tool call is sent to the model for further processing.
 - `stop_after_tool_call=True`: Stop the agent run after the tool call.
 - `tool_hooks`: Run custom logic before and after this tool call.
 - `cache_results=True`: Cache the tool result to avoid repeating the same call. Use `cache_dir` and `cache_ttl` to configure the cache.
@@ -79,7 +79,6 @@ def logger_hook(function_name: str, function_call: Callable, arguments: Dict[str
 @tool(
     name="fetch_hackernews_stories",                # Custom name for the tool (otherwise the function name is used)
     description="Get top stories from Hacker News",  # Custom description (otherwise the function docstring is used)
-    show_result=True,                               # Show result after function call
     stop_after_tool_call=True,                      # Return the result immediately after the tool call and stop the agent
     tool_hooks=[logger_hook],                       # Hook to run before and after execution
     requires_confirmation=True,                     # Requires user confirmation before execution
@@ -120,7 +119,7 @@ agent.print_response("Show me the top news from Hacker News")
 |-----------|------|-------------|
 | `name` | `str` | Override for the function name |
 | `description` | `str` | Override for the function description |
-| `show_result` | `bool` | If True, shows the result after function call |
+| `show_result` | `bool` | If True, shows the result after function call, `True` by default |
 | `stop_after_tool_call` | `bool` | If True, the agent will stop after the function call |
 | `tool_hooks` | `list[Callable]` | List of hooks that wrap the function execution |
 | `pre_hook` | `Callable` | Hook to run before the function is executed |

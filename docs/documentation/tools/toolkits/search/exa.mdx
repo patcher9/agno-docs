@@ -28,6 +28,7 @@ agent = Agent(
     tools=[ExaTools(
         include_domains=["cnbc.com", "reuters.com", "bloomberg.com"],
         category="news",
+        show_results=True,
         text_length_limit=1000,
     )],
     )
