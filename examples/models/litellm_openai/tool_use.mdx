@@ -11,8 +11,6 @@ litellm --model gpt-4o --host 127.0.0.1 --port 4000
 ## Code
 
 ```python cookbook/models/litellm_openai/tool_use.py
-"""Run `pip install duckduckgo-search` to install dependencies."""
-
 from agno.agent import Agent
 from agno.models.litellm import LiteLLMOpenAI
 from agno.tools.duckduckgo import DuckDuckGoTools
@@ -38,7 +36,13 @@ agent.print_response("Whats happening in France?")
 
   <Step title="Install libraries">
     ```bash
-    pip install -U litellm[proxy] openai agno
+    pip install -U litellm[proxy] openai agno ddgs
+    ```
+  </Step>
+
+  <Step title="Start the proxy server">
+    ```bash
+    litellm --model gpt-4o --host 127.0.0.1 --port 4000
     ```
   </Step>
 

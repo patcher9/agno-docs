@@ -1,14 +1,16 @@
 ---
-title: Agent with Structured Outputs
+title: Async Structured Output Agent
 ---
 
 ## Code
 
-```python cookbook/models/nebius/structured_output.py
+```python cookbook/models/mistral/async_structured_output.py
+import asyncio
 from typing import List
 
 from agno.agent import Agent, RunOutput  # noqa
-from agno.models.nebius import Nebius
+from agno.models.mistral import MistralChat
+from agno.tools.duckduckgo import DuckDuckGoTools
 from pydantic import BaseModel, Field
 from rich.pretty import pprint  # noqa
 
@@ -32,14 +34,17 @@ class MovieScript(BaseModel):
     )
 
 
-# Agent that uses a structured output
-structured_output_agent = Agent(
-    model=Nebius(id="Qwen/Qwen3-30B-A3B"),
-    description="You are a helpful assistant. Summarize the movie script based on the location in a JSON object.",
+agent = Agent(
+    model=MistralChat(
+        id="mistral-small-latest",
+    ),
+    tools=[DuckDuckGoTools()],
+    description="You help people write movie scripts.",
     output_schema=MovieScript,
 )
 
-structured_output_agent.print_response("New York")
+asyncio.run(agent.aprint_response("Find a cool movie idea about London and write it."))
+
 ```
 
 ## Usage
@@ -49,24 +54,24 @@ structured_output_agent.print_response("New York")
 
   <Step title="Set your API key">
     ```bash
-    export NEBIUS_API_KEY=xxx
+    export MISTRAL_API_KEY=xxx
     ```
   </Step>
 
   <Step title="Install libraries">
     ```bash
-    pip install -U openai agno
+    pip install -U mistralai agno ddgs
     ```
   </Step>
 
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/models/nebius/structured_output.py
+    python cookbook/models/mistral/async_structured_output.py
     ```
 
     ```bash Windows
-    python cookbook/models/nebius/structured_output.py
+    python cookbook/models/mistral/async_structured_output.py
     ```
     </CodeGroup>
   </Step>

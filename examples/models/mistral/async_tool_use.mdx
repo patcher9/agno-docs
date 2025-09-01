@@ -1,25 +1,23 @@
 ---
-title: Agent with Tools
+title: Async Agent with Tools
 ---
 
 ## Code
 
-```python cookbook/models/mistral/tool_use.py
-"""Run `pip install ddgs` to install dependencies."""
+```python cookbook/models/mistral/async_tool_use.py
+import asyncio
 
 from agno.agent import Agent
-from agno.models.mistral import MistralChat
+from agno.models.mistral.mistral import MistralChat
 from agno.tools.duckduckgo import DuckDuckGoTools
 
 agent = Agent(
-    model=MistralChat(
-        id="mistral-large-latest",
-    ),
+    model=MistralChat(id="mistral-large-latest"),
     tools=[DuckDuckGoTools()],
     markdown=True,
 )
 
-agent.print_response("Whats happening in France?", stream=True)
+asyncio.run(agent.aprint_response("Whats happening in France?", stream=True))
 
 ```
 
@@ -43,11 +41,11 @@ agent.print_response("Whats happening in France?", stream=True)
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/models/mistral/tool_use.py
+    python cookbook/models/mistral/async_tool_use.py
     ```
 
     ```bash Windows
-    python cookbook/models/mistral/tool_use.py
+    python cookbook/models/mistral/async_tool_use.py
     ```
     </CodeGroup>
   </Step>

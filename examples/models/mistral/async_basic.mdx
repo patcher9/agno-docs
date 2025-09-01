@@ -1,25 +1,21 @@
 ---
-title: Image Transcribe Document Agent
+title: Async Basic Agent
 ---
 
 ## Code
 
-```python cookbook/models/mistral/image_transcribe_document_agent.py
+```python cookbook/models/mistral/async_basic.py
+import asyncio
+
 from agno.agent import Agent
-from agno.media import Image
 from agno.models.mistral.mistral import MistralChat
 
 agent = Agent(
-    model=MistralChat(id="pixtral-12b-2409"),
+    model=MistralChat(id="mistral-large-latest"),
     markdown=True,
 )
 
-agent.print_response(
-    "Transcribe this document.",
-    images=[
-        Image(url="https://ciir.cs.umass.edu/irdemo/hw-demo/page_example.jpg"),
-    ],
-)
+asyncio.run(agent.aprint_response("Share a 2 sentence horror story"))
 
 ```
 
@@ -43,11 +39,11 @@ agent.print_response(
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/models/mistral/image_transcribe_document_agent.py
+    python cookbook/models/mistral/async_basic.py
     ```
 
     ```bash Windows
-    python cookbook/models/mistral/image_transcribe_document_agent.py
+    python cookbook/models/mistral/async_basic.py
     ```
     </CodeGroup>
   </Step>
