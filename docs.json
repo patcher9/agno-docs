@@ -90,6 +90,16 @@
             ]
           },
           {
+            "group": "AgentOS",
+            "pages": [
+              "docs/agent-os/introduction",
+              "docs/agent-os/control-plane",
+              "docs/agent-os/creating-your-first-os",
+              "docs/agent-os/connecting-your-os",
+              "docs/agent-os/chat-interface"
+            ]
+          },
+          {
             "group": "Concepts",
             "pages": [
               {
@@ -111,12 +121,10 @@
               },
               {
                 "group": "Teams",
-                "hidden": true,
                 "pages": [
                   "docs/documentation/teams/introduction",
                   "docs/documentation/teams/run",
-                  "docs/documentation/teams/metrics",
-                  "docs/documentation/teams/shared-state",
+                  "docs/documentation/teams/sessions",
                   {
                     "group": "Team Modes",
                     "pages": [
@@ -125,7 +133,14 @@
                       "docs/documentation/teams/collaborate"
                     ]
                   },
-                  "docs/documentation/teams/structured-output"
+                  "docs/documentation/teams/storage",
+                  "docs/documentation/teams/context",
+                  "docs/documentation/teams/state",
+                  "docs/documentation/teams/memory",
+                  "docs/documentation/teams/knowledge",
+                  "docs/documentation/teams/metrics",
+                  "docs/documentation/teams/dependencies",
+                  "docs/documentation/teams/structured-input-output"
                 ]
               },
               {
@@ -310,7 +325,6 @@
               },
               {
                 "group": "Reasoning",
-                "hidden": true,
                 "pages": [
                   "docs/documentation/reasoning/introduction",
                   "docs/documentation/reasoning/reasoning-models",
@@ -321,7 +335,6 @@
 
               {
                 "group": "Tools",
-                "hidden": true,
                 "pages": [
                   "docs/documentation/tools/introduction",
                   "docs/documentation/tools/tool-decorator",
@@ -487,12 +500,10 @@
               },
               {
                 "group": "Multimodal",
-                "hidden": true,
                 "pages": ["docs/documentation/multimodal/overview"]
               },
               {
                 "group": "User Control Flow",
-                "hidden": true,
                 "pages": ["docs/documentation/user_control_flow/overview"]
               },
               {
@@ -516,7 +527,6 @@
               },
               {
                 "group": "Evals",
-                "hidden": true,
                 "pages": [
                   "docs/documentation/evals/introduction",
                   "docs/documentation/evals/platform"
@@ -524,7 +534,6 @@
               },
               {
                 "group": "Applications",
-                "hidden": true,
                 "pages": [
                   "applications/playground/introduction",
                   "applications/fastapi/introduction",
@@ -582,6 +591,7 @@
       },
       {
         "tab": "Tutorials",
+        "hidden": true,
         "groups": [
           {
             "group": "Guides",
@@ -661,29 +671,27 @@
                 "group": "Teams",
                 "pages": [
                   {
-                    "group": "Modes",
+                    "group": "Collaborate",
                     "pages": [
-                      {
-                        "group": "Collaborate",
-                        "pages": [
-                          "examples/use-cases/teams/collaborate/discussion_team"
-                        ]
-                      },
-                      {
-                        "group": "Coordinate",
-                        "pages": [
-                          "examples/use-cases/teams/coordinate/autonomous_startup_team",
-                          "examples/use-cases/teams/coordinate/hackernews_team",
-                          "examples/use-cases/teams/coordinate/news_agency_team"
-                        ]
-                      },
-                      {
-                        "group": "Route",
-                        "pages": [
-                          "examples/use-cases/teams/route/ai_support_team",
-                          "examples/use-cases/teams/route/multi_language_team"
-                        ]
-                      }
+                      "examples/use-cases/teams/collaborate/discussion_team"
+                    ]
+                  },
+                  {
+                    "group": "Coordinate",
+                    "pages": [
+                      "examples/use-cases/teams/coordinate/autonomous_startup_team",
+                      "examples/use-cases/teams/coordinate/content_team",
+                      "examples/use-cases/teams/coordinate/hackernews_team",
+                      "examples/use-cases/teams/coordinate/news_agency_team",
+                      "examples/use-cases/teams/coordinate/reasoning_team"
+                    ]
+                  },
+                  {
+                    "group": "Route",
+                    "pages": [
+                      "examples/use-cases/teams/route/ai_support_team",
+                      "examples/use-cases/teams/route/multi_language_team",
+                      "examples/use-cases/teams/route/reasoning_team"
                     ]
                   }
                 ]
@@ -1323,20 +1331,13 @@
               {
                 "group": "Memory",
                 "pages": [
-                  "examples/concepts/memory/00-built-in-memory",
-                  "examples/concepts/memory/01-standalone-memory",
-                  "examples/concepts/memory/02-persistent-memory",
-                  "examples/concepts/memory/03-custom-memory-creation",
-                  "examples/concepts/memory/04-memory-search",
-                  "examples/concepts/memory/05-agent-with-memory",
-                  "examples/concepts/memory/06-agentic-memory",
-                  "examples/concepts/memory/07-agent-with-summaries",
-                  "examples/concepts/memory/08-agents-share-memory",
-                  "examples/concepts/memory/09-custom-memory",
-                  "examples/concepts/memory/10-multi-user-multi-session-chat",
-                  "examples/concepts/memory/11-multi-user-multi-session-chat-concurrent",
-                  "examples/concepts/memory/12-memory-references",
-                  "examples/concepts/memory/13-session-summary-references",
+                  "examples/concepts/memory/01-agent-with-memory",
+                  "examples/concepts/memory/02-agentic-memory",
+                  "examples/concepts/memory/03-agents-share-memory",
+                  "examples/concepts/memory/04-custom-memory-manager",
+                  "examples/concepts/memory/05-multi-user-multi-session-chat",
+                  "examples/concepts/memory/06-multi-user-multi-session-chat-concurrent",
+                  "examples/concepts/memory/07-share-memory-and-history-between-agents",
                   "examples/concepts/memory/mem0-memory",
                   {
                     "group": "DB",
@@ -1345,6 +1346,15 @@
                       "examples/concepts/memory/db/mem-postgres-memory",
                       "examples/concepts/memory/db/mem-sqlite-memory",
                       "examples/concepts/memory/db/mem-redis-memory"
+                    ]
+                  },
+                  {
+                    "group": "Memory Manager",
+                    "pages": [
+                      "examples/concepts/memory/memory_manager/01-standalone-memory",
+                      "examples/concepts/memory/memory_manager/02-memory-creation",
+                      "examples/concepts/memory/memory_manager/03-custom-memory-instructions",
+                      "examples/concepts/memory/memory_manager/04-memory-search"
                     ]
                   }
                 ]
@@ -1981,6 +1991,8 @@
                 "pages": [
                   "examples/models/langdb/basic",
                   "examples/models/langdb/basic_stream",
+                  "examples/models/langdb/data_analyst",
+                  "examples/models/langdb/structured_output",
                   "examples/models/langdb/tool_use"
                 ]
               },
@@ -2001,10 +2013,14 @@
                 "pages": [
                   "examples/models/litellm/basic",
                   "examples/models/litellm/basic_stream",
+                  "examples/models/litellm/async_basic",
+                  "examples/models/litellm/async_basic_stream",
                   "examples/models/litellm/tool_use",
+                  "examples/models/litellm/async_tool_use",
+                  "examples/models/litellm/audio_input_agent",
+                  "examples/models/litellm/knowledge",
                   "examples/models/litellm/structured_output",
-                  "examples/models/litellm/storage",
-                  "examples/models/litellm/knowledge"
+                  "examples/models/litellm/storage"
                 ]
               },
               {
@@ -2035,8 +2051,20 @@
                 "pages": [
                   "examples/models/mistral/basic",
                   "examples/models/mistral/basic_stream",
+                  "examples/models/mistral/async_basic",
+                  "examples/models/mistral/async_basic_stream",
                   "examples/models/mistral/tool_use",
-                  "examples/models/mistral/structured_output"
+                  "examples/models/mistral/async_tool_use",
+                  "examples/models/mistral/memory",
+                  "examples/models/mistral/structured_output",
+                  "examples/models/mistral/structured_output_with_tool_use",
+                  "examples/models/mistral/async_structured_output",
+                  "examples/models/mistral/image_bytes_input_agent",
+                  "examples/models/mistral/image_compare_agent",
+                  "examples/models/mistral/image_file_input_agent",
+                  "examples/models/mistral/image_ocr_with_structured_output",
+                  "examples/models/mistral/image_transcribe_document_agent",
+                  "examples/models/mistral/mistral_small"
                 ]
               },
               {
@@ -2058,7 +2086,7 @@
                   "examples/models/nvidia/async_basic",
                   "examples/models/nvidia/async_basic_stream",
                   "examples/models/nvidia/tool_use",
-                  "examples/models/nvidia/async_tool_use"               
+                  "examples/models/nvidia/async_tool_use"
                 ]
               },
               {
@@ -2141,11 +2169,10 @@
                   "examples/models/perplexity/basic",
                   "examples/models/perplexity/basic_stream",
                   "examples/models/perplexity/async_basic",
-                  "examples/models/perplexity/async_basic_stream",                 
+                  "examples/models/perplexity/async_basic_stream",
                   "examples/models/perplexity/knowledge",
                   "examples/models/perplexity/memory",
                   "examples/models/perplexity/structured_output"
-
                 ]
               },
               {
@@ -2153,8 +2180,11 @@
                 "pages": [
                   "examples/models/together/basic",
                   "examples/models/together/basic_stream",
-                  "examples/models/together/tool_use",
-                  "examples/models/together/structured_output"
+                  "examples/models/together/image_agent",
+                  "examples/models/together/image_agent_bytes",
+                  "examples/models/together/image_agent_memory",
+                  "examples/models/together/structured_output",
+                  "examples/models/together/tool_use"
                 ]
               },
               {
@@ -2181,21 +2211,24 @@
                 "pages": [
                   "examples/models/vercel/basic",
                   "examples/models/vercel/basic_stream",
+                  "examples/models/vercel/image_agent",
+                  "examples/models/vercel/knowledge",
                   "examples/models/vercel/tool_use"
                 ]
               },
               {
                 "group": "vLLM",
                 "pages": [
+                  "examples/models/vllm/basic",
                   "examples/models/vllm/basic_stream",
                   "examples/models/vllm/async_basic",
                   "examples/models/vllm/async_basic_stream",
-                  "examples/models/vllm/tool_use",
-                  "examples/models/vllm/async_tool_use",
-                  "examples/models/vllm/structured_output",
                   "examples/models/vllm/code_generation",
                   "examples/models/vllm/storage",
-                  "examples/models/vllm/memory"
+                  "examples/models/vllm/memory",
+                  "examples/models/vllm/structured_output",
+                  "examples/models/vllm/tool_use",
+                  "examples/models/vllm/async_tool_use"
                 ]
               }
             ]
@@ -2317,6 +2350,10 @@
                   "reference/models/openai_like",
                   "reference/models/ibm-watsonx"
                 ]
+              },
+              {
+                "group": "Knowledge",
+                "pages": ["reference/knowledge/knowledge"]
               },
               {
                 "group": "Vector Databases",

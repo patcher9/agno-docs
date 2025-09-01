@@ -1,10 +1,8 @@
 ---
 title: Coordinate
+description: In **Coordinate Mode**, the Team Leader delegates tasks to team members and synthesizes their outputs into a cohesive response.
+hideToc: true
 ---
-
-In **Coordinate Mode**, the Team Leader delegates tasks to team members and synthesizes their outputs into a cohesive response.
-
-## How Coordinate Mode Works
 
 In "coordinate" mode:
 
@@ -31,7 +29,7 @@ This mode is ideal for complex tasks that require multiple specialized skills, c
             "You are writing for the New York Times, so the quality of the sources is important.",
         ],
         tools=[DuckDuckGoTools()],
-        add_datetime_to_instructions=True,
+        add_datetime_to_context=True,
     )
     writer = Agent(
         name="Writer",
@@ -51,7 +49,7 @@ This mode is ideal for complex tasks that require multiple specialized skills, c
             "Remember: you are writing for the New York Times, so the quality of the article is important.",
         ],
         tools=[Newspaper4kTools()],
-        add_datetime_to_instructions=True,
+        add_datetime_to_context=True,
     )
 
     editor = Team(
@@ -68,9 +66,8 @@ This mode is ideal for complex tasks that require multiple specialized skills, c
             "Focus on clarity, coherence, and overall quality.",
             "Remember: you are the final gatekeeper before the article is published, so make sure the article is perfect.",
         ],
-        add_datetime_to_instructions=True,
-        add_member_tools_to_system_message=False,  # This can be tried to make the agent more consistently get the transfer tool call correct
-        enable_agentic_context=True,  # Allow the agent to maintain a shared context and send that to members.
+        add_datetime_to_context=True,
+        add_member_tools_to_context=False,  # This can be tried to make the agent more consistently get the transfer tool call correct
         share_member_interactions=True,  # Share all member responses with subsequent member requests.
         show_members_responses=True,
         markdown=True,
@@ -93,21 +90,3 @@ This mode is ideal for complex tasks that require multiple specialized skills, c
     ```
   </Step>
 </Steps>
-
-## Defining Success Criteria
-
-You can guide the coordinator by specifying success criteria for the team:
-
-```python
-strategy_team = Team(
-    members=[market_analyst, competitive_analyst, strategic_planner],
-    mode="coordinate",
-    name="Strategy Team",
-    description="A team that develops strategic recommendations",
-    success_criteria="Produce actionable strategic recommendations supported by market and competitive analysis",
-)
-
-response = strategy_team.run(
-    "Develop a market entry strategy for our new AI-powered healthcare product"
-)
-```

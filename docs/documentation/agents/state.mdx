@@ -49,8 +49,12 @@ print(f"Final session state: {agent.get_session_state()}")
 ```
 
 <Note>
-Session state is also shared between members of a team when using `Team`. See [Teams](/docs/documentation/teams/state) for more information.
+The `session_state` variable is automatically passed to the tool as an argument.  Any updates to it is automatically reflected in the shared state.
 </Note>
+
+<Check>
+Session state is also shared between members of a team when using `Team`. See [Teams](/docs/documentation/teams/state) for more information.
+</Check>
 
 ## Maintaining state across multiple runs
 
@@ -142,6 +146,33 @@ You have to configure your storage via the `db` parameter for state to be persis
 </Tip>
 
 
+## Agentic Session State
+
+Agno provides a way to allow the agent to automatically update the session state.
+
+Simply set the `enable_agentic_state` parameter to `True`.
+
+```python agentic_session_state.py
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.db.in_memory import InMemoryDb
+
+agent = Agent(
+    db=InMemoryDb(),
+    model=OpenAIChat(id="o3-mini"),
+    session_state={"shopping_list": []},
+    add_session_state_to_context=True,  # Required so the agent is aware of the session state
+    enable_agentic_state=True,  # Adds a tool to manage the session state
+)
+
+agent.print_response("Add milk, eggs, and bread to the shopping list", stream=True)
+print(f"Session state: {agent.get_session_state()}")
+```
+
+<Tip>
+Don't forget to set `add_session_state_to_context=True` to make the session state available to the agent's context.
+</Tip>
+
 ## Using state in instructions
 
 You can reference variables from the session state in your instructions.
@@ -155,9 +186,11 @@ from textwrap import dedent
 
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
+from agno.db.in_memory import InMemoryDb
 
 
 agent = Agent(
+    db=InMemoryDb(),
     model=OpenAIChat(id="o3-mini"),
     # Initialize the session state with a variable
     session_state={"user_name": "John"},
@@ -178,8 +211,10 @@ This is useful when you want to continue a session for a specific user.
 ```python changing_state_on_run.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
+from agno.db.in_memory import InMemoryDb
 
 agent = Agent(
+    db=InMemoryDb(),
     model=OpenAIChat(id="gpt-4o-mini"),
     instructions="Users name is {user_name} and age is {age}",
 )

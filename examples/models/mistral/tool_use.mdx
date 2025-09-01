@@ -5,6 +5,8 @@ title: Agent with Tools
 ## Code
 
 ```python cookbook/models/mistral/tool_use.py
+"""Run `pip install ddgs` to install dependencies."""
+
 from agno.agent import Agent
 from agno.models.mistral import MistralChat
 from agno.tools.duckduckgo import DuckDuckGoTools
@@ -14,10 +16,11 @@ agent = Agent(
         id="mistral-large-latest",
     ),
     tools=[DuckDuckGoTools()],
-        markdown=True,
+    markdown=True,
 )
 
 agent.print_response("Whats happening in France?", stream=True)
+
 ```
 
 ## Usage
@@ -33,7 +36,7 @@ agent.print_response("Whats happening in France?", stream=True)
 
   <Step title="Install libraries">
     ```bash
-    pip install -U mistralai duckduckgo-search agno
+    pip install -U mistralai agno ddgs
     ```
   </Step>
 

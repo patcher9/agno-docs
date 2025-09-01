@@ -14,14 +14,16 @@ When an Agent with `reasoning=True` is given a task, a separate "Reasoning Agent
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
+# Setup our Agent with reasoning enabled
 reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     reasoning=True,
     markdown=True,
 )
+
+# Run the Agent
 reasoning_agent.print_response(
-    "Solve the trolley problem. Evaluate multiple ethical frameworks. "
-    "Include an ASCII diagram of your solution.",
+    "Solve the trolley problem. Evaluate multiple ethical frameworks. Include an ASCII diagram of your solution.",
     stream=True,
     show_full_reasoning=True,
 )
@@ -29,7 +31,9 @@ reasoning_agent.print_response(
 
 ## Enabling Agentic Reasoning
 
-To enable Agentic Reasoning, set `reasoning=True` or set the `reasoning_model` to a model that supports structured outputs. If you do not set `reasoning_model`, the primary `Agent` model will be used for reasoning.
+To enable Agentic Reasoning, set `reasoning=True` or set the `reasoning_model` to a model that supports structured outputs.
+
+If `reasoning_model` is not set, the primary `Agent` model will be used for reasoning.
 
 ### Reasoning Model Requirements
 
@@ -37,7 +41,7 @@ The `reasoning_model` must be able to handle structured outputs, this includes m
 
 ### Using a Reasoning Model that supports native Reasoning
 
-If you set `reasoning_model` to a model that supports native Reasoning like o3-mini or deepseek-r1, the reasoning model will be used to reason and the primary `Agent` model will be used to respond. See [Reasoning Models + Response Models](/reasoning/reasoning-models#reasoning-model-response-model) for more information.
+If you set `reasoning_model` to a model that supports native Reasoning like o3-mini or deepseek-r1, the reasoning model will be used to reason and the primary `Agent` model will be used to respond. See [Reasoning Models + Response Models](/docs/documentation/reasoning/reasoning-models#reasoning-model-response-model) for more information.
 
 ## Reasoning with tools
 
@@ -46,16 +50,19 @@ You can also use tools with a reasoning agent. Lets create a finance agent that 
 ```python finance_reasoning.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
-from agno.tools.yfinance import YFinanceTools
+from agno.tools.duckduckgo import DuckDuckGoTools
 
+# Setup our Agent with reasoning enabled
 reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
-    tools=[YFinanceTools(stock_price=True, analyst_recommendations=True, company_info=True, company_news=True)],
+    tools=[DuckDuckGoTools()],
     instructions=["Use tables to show data"],
     markdown=True,
     reasoning=True,
 )
-reasoning_agent.print_response("Write a report comparing NVDA to TSLA", stream=True, show_full_reasoning=True)
+
+# Run the Agent
+reasoning_agent.print_response("What is going in Paris?", stream=True, show_full_reasoning=True)
 ```
 
 ## More Examples

@@ -22,7 +22,7 @@ from textwrap import dedent
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.duckduckgo import DuckDuckGoTools
-from agno.tools.yfinance import YFinanceTools
+from agno.tools.exa import ExaTools
 
 web_agent = Agent(
     name="Web Agent",
@@ -56,7 +56,12 @@ finance_agent = Agent(
     role="Get financial data",
     model=OpenAIChat(id="gpt-4o"),
     tools=[
-        YFinanceTools(stock_price=True, analyst_recommendations=True, company_info=True)
+        ExaTools(
+            include_domains=["cnbc.com", "reuters.com", "bloomberg.com", "wsj.com"],
+            show_results=True,
+            text=False,
+            highlights=False,
+        )
     ],
     instructions=dedent("""\
         You are a skilled financial analyst with expertise in market data! 📊
@@ -138,7 +143,13 @@ Advanced queries to explore:
 
   <Step title="Install libraries">
     ```bash
-    pip install openai duckduckgo-search yfinance agno
+    pip install openai duckduckgo-search exa agno
+    ```
+  </Step>
+
+  <Step title="Set API keys">
+    ```bash
+    export EXA_API_KEY=xxx
     ```
   </Step>
 
