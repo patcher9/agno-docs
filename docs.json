@@ -1890,7 +1890,7 @@
                   "examples/models/litellm/audio_input_agent",
                   "examples/models/litellm/knowledge",
                   "examples/models/litellm/structured_output",
-                  "examples/models/litellm/storage",
+                  "examples/models/litellm/storage"
                 ]
               },
               {
