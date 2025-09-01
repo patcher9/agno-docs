@@ -28,6 +28,7 @@ agent = Agent(
     tools=[ExaTools(
         include_domains=["cnbc.com", "reuters.com", "bloomberg.com"],
         category="news",
+        show_results=True,
         text_length_limit=1000,
     )],
     )
@@ -66,7 +67,7 @@ agent.print_response("Search for AAPL news", markdown=True)
 | `category` | `Optional[str]` | `None` | Category filter (e.g., news, research paper) |
 | `include_domains` | `Optional[List[str]]` | `None` | Restrict results to these domains |
 | `exclude_domains` | `Optional[List[str]]` | `None` | Exclude results from these domains |
-| `show_results` | `bool` | `True` | Log search results for debugging |
+| `show_results` | `bool` | `False` | Log search results for debugging |
 | `model` | `Optional[str]` | `None` | Search model to use ('exa' or 'exa-pro') |
 
 ### Categories
