@@ -1,0 +1,45 @@
+---
+title: Context Management with DateTime Instructions
+---
+
+This example demonstrates how to add current date and time context to agent instructions, enabling the agent to provide time-aware responses.
+
+## Code
+
+```python cookbook/agents/context_management/datetime_instructions.py
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    add_datetime_to_context=True,
+    timezone_identifier="Etc/UTC",
+)
+agent.print_response(
+    "What is the current date and time? What is the current time in NYC?"
+)
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+    ```bash
+    pip install -U agno openai
+    ```
+  </Step>
+
+  <Step title="Run Agent">
+    <CodeGroup>
+    ```bash Mac
+    python cookbook/agents/context_management/datetime_instructions.py
+    ```
+    
+    ```bash Windows
+    python cookbook/agents/context_management/datetime_instructions.py
+    ```
+    </CodeGroup>
+  </Step>
+</Steps>

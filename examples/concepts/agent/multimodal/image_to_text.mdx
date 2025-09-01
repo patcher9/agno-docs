@@ -1,0 +1,50 @@
+---
+title: Image to Text Analysis
+---
+
+This example demonstrates how to create an agent that can analyze images and generate creative text content based on the visual content.
+
+## Code
+
+```python cookbook/agents/multimodal/image_to_text.py
+from pathlib import Path
+
+from agno.agent import Agent
+from agno.media import Image
+from agno.models.openai import OpenAIChat
+
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    markdown=True,
+)
+
+image_path = Path(__file__).parent.joinpath("sample.jpg")
+agent.print_response(
+    "Write a 3 sentence fiction story about the image",
+    images=[Image(filepath=image_path)],
+)
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+    ```bash
+    pip install -U agno openai
+    ```
+  </Step>
+
+  <Step title="Run Agent">
+    <CodeGroup>
+    ```bash Mac
+    python cookbook/agents/multimodal/image_to_text.py
+    ```
+    
+    ```bash Windows
+    python cookbook/agents/multimodal/image_to_text.py
+    ```
+    </CodeGroup>
+  </Step>
+</Steps>

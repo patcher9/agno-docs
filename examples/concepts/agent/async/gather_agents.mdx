@@ -1,10 +1,12 @@
 ---
-title: Gather Multiple Agents
+title: Gathering Multiple Async Agents
 ---
+
+This example demonstrates how to run multiple async agents concurrently using asyncio.gather() to generate research reports on different AI providers simultaneously.
 
 ## Code
 
-```python examples/concepts/agent/agents/async/gather_agents.py
+```python cookbook/agents/async/gather_agents.py
 import asyncio
 
 from agno.agent import Agent
@@ -54,27 +56,20 @@ if __name__ == "__main__":
   <Snippet file="create-venv-step.mdx" />
 
   <Step title="Install libraries">
-
     ```bash
-    pip install -U openai agno rich ddgs
+    pip install -U agno openai ddgs rich
     ```
-
   </Step>
 
   <Step title="Run Agent">
-
     <CodeGroup>
-
     ```bash Mac
-    python examples/concepts/agent/agents/async/gather_agents.py
+    python cookbook/agents/async/gather_agents.py
     ```
-
+    
     ```bash Windows
-    python examples/concepts/agent/agents/async/gather_agents.py
+    python cookbook/agents/async/gather_agents.py
     ```
-
     </CodeGroup>
-
   </Step>
-
 </Steps>

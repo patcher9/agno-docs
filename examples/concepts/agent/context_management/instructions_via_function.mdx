@@ -1,0 +1,53 @@
+---
+title: Dynamic Instructions via Function
+---
+
+This example demonstrates how to provide instructions to an agent via a function that can access the agent's properties, enabling dynamic and personalized instruction generation.
+
+## Code
+
+```python cookbook/agents/context_management/instructions_via_function.py
+from typing import List
+
+from agno.agent import Agent
+
+
+def get_instructions(agent: Agent) -> List[str]:
+    return [
+        f"Your name is {agent.name}!",
+        "Talk in haiku's!",
+        "Use poetry to answer questions.",
+    ]
+
+
+agent = Agent(
+    name="AgentX",
+    instructions=get_instructions,
+    markdown=True,
+)
+agent.print_response("Who are you?", stream=True)
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+    ```bash
+    pip install -U agno
+    ```
+  </Step>
+
+  <Step title="Run Agent">
+    <CodeGroup>
+    ```bash Mac
+    python cookbook/agents/context_management/instructions_via_function.py
+    ```
+    
+    ```bash Windows
+    python cookbook/agents/context_management/instructions_via_function.py
+    ```
+    </CodeGroup>
+  </Step>
+</Steps>

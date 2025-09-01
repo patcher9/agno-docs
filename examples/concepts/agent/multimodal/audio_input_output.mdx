@@ -1,8 +1,8 @@
 ---
-title: Audio Input and Output Processing
+title: Audio Input Output
 ---
 
-This example demonstrates how to create an agent that can process audio input and generate audio responses using OpenAI's multimodal capabilities.
+This example demonstrates how to create an agent that can process audio input and generate audio output using OpenAI's GPT-4o audio preview model. The agent analyzes an audio recording and responds with both text and audio.
 
 ## Code
 
@@ -46,26 +46,18 @@ if run_response.response_audio is not None:
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
-    ```bash
-    export OPENAI_API_KEY=xxx
-    ```
-  </Step>
-
   <Step title="Install libraries">
-    ```bash
-    pip install -U openai agno requests rich
-    ```
-  </Step>
 
-  <Step title="Create tmp directory">
     ```bash
-    mkdir -p tmp
+    pip install -U openai agno requests
     ```
+
   </Step>
 
   <Step title="Run Agent">
+
     <CodeGroup>
+
     ```bash Mac
     python examples/concepts/agent/agents/multimodal/audio_input_output.py
     ```
@@ -73,14 +65,9 @@ if run_response.response_audio is not None:
     ```bash Windows
     python examples/concepts/agent/agents/multimodal/audio_input_output.py
     ```
+
     </CodeGroup>
+
   </Step>
+
 </Steps>
-
-## Key Features
-
-- **Audio Input Processing**: Processes external audio files from URLs
-- **Multimodal Model**: Uses GPT-4o with audio preview capabilities
-- **Audio Response Generation**: Generates spoken responses in WAV format
-- **File Output**: Saves generated audio responses to local files
-- **Voice Customization**: Configures voice type (sage) and audio format

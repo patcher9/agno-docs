@@ -781,10 +781,97 @@
                   {
                     "group": "Agents",
                     "pages": [
-                      "examples/concepts/agent/agents/01-agentic-search",
-                      "examples/concepts/agent/agents/02-human-in-the-loop",
-                      "examples/concepts/agent/agents/03-multimodal",
-                      "examples/concepts/agent/agents/04-events-and-debugging"
+                      {
+                        "group": "Agentic Search",
+                        "pages": [
+                          "examples/concepts/agent/agents/agentic_search/agentic_rag",
+                          "examples/concepts/agent/agents/agentic_search/agentic_rag_with_reasoning",
+                          "examples/concepts/agent/agents/agentic_search/agentic_rag_infinity_reranker",
+                          "examples/concepts/agent/agents/agentic_search/lightrag/agentic_rag_with_lightrag"
+                        ]
+                      },
+                      {
+                        "group": "Human in the Loop",
+                        "pages": [
+                          "examples/concepts/agent/agents/human_in_the_loop/agentic_user_input",
+                          "examples/concepts/agent/agents/human_in_the_loop/confirmation_required",
+                          "examples/concepts/agent/agents/human_in_the_loop/confirmation_required_async",
+                          "examples/concepts/agent/agents/human_in_the_loop/confirmation_required_mixed_tools",
+                          "examples/concepts/agent/agents/human_in_the_loop/confirmation_required_multiple_tools",
+                          "examples/concepts/agent/agents/human_in_the_loop/confirmation_required_stream",
+                          "examples/concepts/agent/agents/human_in_the_loop/confirmation_required_stream_async",
+                          "examples/concepts/agent/agents/human_in_the_loop/confirmation_required_toolkit",
+                          "examples/concepts/agent/agents/human_in_the_loop/confirmation_required_with_history",
+                          "examples/concepts/agent/agents/human_in_the_loop/confirmation_required_with_run_id",
+                          "examples/concepts/agent/agents/human_in_the_loop/external_tool_execution",
+                          "examples/concepts/agent/agents/human_in_the_loop/external_tool_execution_async",
+                          "examples/concepts/agent/agents/human_in_the_loop/external_tool_execution_async_responses",
+                          "examples/concepts/agent/agents/human_in_the_loop/external_tool_execution_stream",
+                          "examples/concepts/agent/agents/human_in_the_loop/external_tool_execution_stream_async",
+                          "examples/concepts/agent/agents/human_in_the_loop/external_tool_execution_toolkit",
+                          "examples/concepts/agent/agents/human_in_the_loop/user_input_required",
+                          "examples/concepts/agent/agents/human_in_the_loop/user_input_required_all_fields",
+                          "examples/concepts/agent/agents/human_in_the_loop/user_input_required_async",
+                          "examples/concepts/agent/agents/human_in_the_loop/user_input_required_stream",
+                          "examples/concepts/agent/agents/human_in_the_loop/user_input_required_stream_async"
+                        ]
+                      },
+                      {
+                        "group": "Input and Output",
+                        "pages": [
+                          "examples/concepts/agent/agents/input_and_output/input_as_dict",
+                          "examples/concepts/agent/agents/input_and_output/input_as_list",
+                          "examples/concepts/agent/agents/input_and_output/input_as_message",
+                          "examples/concepts/agent/agents/input_and_output/input_as_messages_list",
+                          "examples/concepts/agent/agents/input_and_output/input_schema_on_agent",
+                          "examples/concepts/agent/agents/input_and_output/output_model",
+                          "examples/concepts/agent/agents/input_and_output/parser_model",
+                          "examples/concepts/agent/agents/input_and_output/parser_model_ollama",
+                          "examples/concepts/agent/agents/input_and_output/parser_model_stream",
+                          "examples/concepts/agent/agents/input_and_output/response_as_variable",
+                          "examples/concepts/agent/agents/input_and_output/structured_input"
+                        ]
+                      },
+                      {
+                        "group": "Context Management",
+                        "pages": [
+                          "examples/concepts/agent/agents/context_management/datetime_instructions",
+                          "examples/concepts/agent/agents/context_management/dynamic_instructions",
+                          "examples/concepts/agent/agents/context_management/few_shot_learning",
+                          "examples/concepts/agent/agents/context_management/instructions",
+                          "examples/concepts/agent/agents/context_management/instructions_via_function",
+                          "examples/concepts/agent/agents/context_management/location_instructions"
+                        ]
+                      },
+                      {
+                        "group": "Dependencies",
+                        "pages": [
+                          "examples/concepts/agent/agents/dependencies/add_dependencies_run",
+                          "examples/concepts/agent/agents/dependencies/add_dependencies_to_context"
+                        ]
+                      },
+                      {
+                        "group": "Events",
+                        "pages": [
+                          "examples/concepts/agent/agents/events/basic_agent_events",
+                          "examples/concepts/agent/agents/events/reasoning_agent_events"
+                        ]
+                      },
+                      {
+                        "group": "Other",
+                        "pages": [
+                          "examples/concepts/agent/agents/other/agent_extra_metrics",
+                          "examples/concepts/agent/agents/other/agent_metrics",
+                          "examples/concepts/agent/agents/other/agent_run_metadata",
+                          "examples/concepts/agent/agents/other/cancel_a_run",
+                          "examples/concepts/agent/agents/other/debug",
+                          "examples/concepts/agent/agents/other/debug_level",
+                          "examples/concepts/agent/agents/other/intermediate_steps",
+                          "examples/concepts/agent/agents/other/run_response_events",
+                          "examples/concepts/agent/agents/other/scenario_testing",
+                          "examples/concepts/agent/agents/other/tool_call_limit"
+                        ]
+                      }
                     ]
                   },
                   {

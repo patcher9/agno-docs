@@ -1,0 +1,49 @@
+---
+title: Agent with Output Model
+---
+
+This example demonstrates how to use the output_model parameter to specify a different model for generating the final response, enabling model switching during agent execution.
+
+## Code
+
+```python cookbook/agents/input_and_output/output_model.py
+"""
+This example shows how to use the output_model parameter to specify the model that will be used to generate the final response.
+"""
+
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.tools.duckduckgo import DuckDuckGoTools
+
+agent = Agent(
+    model=OpenAIChat(id="gpt-4.1"),
+    output_model=OpenAIChat(id="o3-mini"),
+    tools=[DuckDuckGoTools()],
+)
+
+agent.print_response("Latest news from France?", stream=True)
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+    ```bash
+    pip install -U agno openai ddgs
+    ```
+  </Step>
+
+  <Step title="Run Agent">
+    <CodeGroup>
+    ```bash Mac
+    python cookbook/agents/input_and_output/output_model.py
+    ```
+    
+    ```bash Windows
+    python cookbook/agents/input_and_output/output_model.py
+    ```
+    </CodeGroup>
+  </Step>
+</Steps>

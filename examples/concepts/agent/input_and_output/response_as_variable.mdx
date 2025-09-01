@@ -1,0 +1,61 @@
+---
+title: Capturing Agent Response as Variable
+---
+
+This example demonstrates how to capture and work with agent responses as variables, enabling programmatic access to response data and metadata.
+
+## Code
+
+```python cookbook/agents/input_and_output/response_as_variable.py
+from typing import Iterator  # noqa
+from rich.pretty import pprint
+from agno.agent import Agent, RunOutput
+from agno.models.openai import OpenAIChat
+from agno.tools.duckduckgo import DuckDuckGoTools
+
+
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    tools=[
+        DuckDuckGoTools(
+            stock_price=True,
+            analyst_recommendations=True,
+            company_info=True,
+            company_news=True,
+        )
+    ],
+    instructions=["Use tables where possible"],
+    markdown=True,
+)
+
+run_response: RunOutput = agent.run("What is the stock price of NVDA")
+pprint(run_response)
+
+# run_response_strem: Iterator[RunOutputEvent] = agent.run("What is the stock price of NVDA", stream=True)
+# for response in run_response_strem:
+#     pprint(response)
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+    ```bash
+    pip install -U agno openai ddgs rich
+    ```
+  </Step>
+
+  <Step title="Run Agent">
+    <CodeGroup>
+    ```bash Mac
+    python cookbook/agents/input_and_output/response_as_variable.py
+    ```
+    
+    ```bash Windows
+    python cookbook/agents/input_and_output/response_as_variable.py
+    ```
+    </CodeGroup>
+  </Step>
+</Steps>

@@ -1,12 +1,12 @@
 ---
-title: Agent Image Generation and Analysis
+title: Agent Same Run Image Analysis
 ---
 
-This example shows how to create an agent that can generate images using DALL-E and analyze the generated images in the same run.
+This example demonstrates how to create an agent that generates an image using DALL-E and then analyzes the generated image in the same run, providing insights about the image's contents.
 
 ## Code
 
-```python examples/concepts/agent/agents/multimodal/agent_same_run_image_analysis.py
+```python cookbook/agents/multimodal/agent_same_run_image_analysis.py
 from agno.agent import Agent
 from agno.tools.dalle import DalleTools
 
@@ -29,34 +29,28 @@ if response.images:
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
-    ```bash
-    export OPENAI_API_KEY=xxx
-    ```
-  </Step>
-
   <Step title="Install libraries">
+
     ```bash
     pip install -U openai agno
     ```
+
   </Step>
 
   <Step title="Run Agent">
+
     <CodeGroup>
+
     ```bash Mac
-    python examples/concepts/agent/agents/multimodal/agent_same_run_image_analysis.py
+    python cookbook/agents/multimodal/agent_same_run_image_analysis.py
     ```
 
     ```bash Windows
-    python examples/concepts/agent/agents/multimodal/agent_same_run_image_analysis.py
+    python cookbook/agents/multimodal/agent_same_run_image_analysis.py
     ```
+
     </CodeGroup>
+
   </Step>
+
 </Steps>
-
-## Key Features
-
-- **Image Generation**: Uses DALL-E to generate images based on text prompts
-- **Same-Run Analysis**: Agent analyzes the generated image in the same execution
-- **Debug Mode**: Shows detailed execution steps for transparency
-- **Image Access**: Provides access to generated image URLs for further processing
