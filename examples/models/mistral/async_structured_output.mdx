@@ -1,10 +1,11 @@
 ---
-title: Structured Output
+title: Async Structured Output Agent
 ---
 
 ## Code
 
-```python cookbook/models/mistral/structured_output.py
+```python cookbook/models/mistral/async_structured_output.py
+import asyncio
 from typing import List
 
 from agno.agent import Agent, RunOutput  # noqa
@@ -33,18 +34,16 @@ class MovieScript(BaseModel):
     )
 
 
-structured_output_agent = Agent(
+agent = Agent(
     model=MistralChat(
-        id="mistral-large-latest",
+        id="mistral-small-latest",
     ),
     tools=[DuckDuckGoTools()],
     description="You help people write movie scripts.",
     output_schema=MovieScript,
 )
 
-# Get the response in a variable
-structured_output_response: RunOutput = structured_output_agent.run("New York")
-pprint(structured_output_response.content)
+asyncio.run(agent.aprint_response("Find a cool movie idea about London and write it."))
 
 ```
 
@@ -68,11 +67,11 @@ pprint(structured_output_response.content)
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/models/mistral/structured_output.py
+    python cookbook/models/mistral/async_structured_output.py
     ```
 
     ```bash Windows
-    python cookbook/models/mistral/structured_output.py
+    python cookbook/models/mistral/async_structured_output.py
     ```
     </CodeGroup>
   </Step>
