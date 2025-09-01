@@ -1,11 +1,16 @@
 ---
-title: Reliability with Single Tool
-description: Evaluation to assert an Agent is making the expected tool calls.
+title: Async Reliability Evaluation
+description: Learn how to run reliability evaluations asynchronously.
 ---
+
+This example shows how to run a Reliability evaluation asynchronously.
 
 ## Code
 
 ```python
+"""This example shows how to run a Reliability evaluation asynchronously."""
+
+import asyncio
 from typing import Optional
 
 from agno.agent import Agent
@@ -22,16 +27,18 @@ def factorial():
     )
     response: RunOutput = agent.run("What is 10!?")
     evaluation = ReliabilityEval(
-        name="Tool Call Reliability",
         agent_response=response,
         expected_tool_calls=["factorial"],
     )
-    result: Optional[ReliabilityResult] = evaluation.run(print_results=True)
-    result.assert_passed()
+
+    # Run the evaluation calling the arun method.
+    result: Optional[ReliabilityResult] = asyncio.run(
+        evaluation.arun(print_results=True)
+    )
+    if result:
+        result.assert_passed()
 
 
 if __name__ == "__main__":
     factorial()
 ```
-
-
