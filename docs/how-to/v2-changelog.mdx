@@ -103,8 +103,8 @@ This is a major release that introduces a completely new approach to building mu
 - General:
     - Since Agents and Teams are now stateless, using attributes from the agent/team object inside a function will give you access to the attributes set on initialisation of that agent/team. E.g. `agent.session_state` should not be used, instead `session_state` can now be directly accessed and would have the "current" state of the session.
     - A new flow allows images, audio and video files generated during tool execution to be passed back in a `FunctionExecutionResult` object and this will ensure these artifacts are made available to the model and agent as needed. See [here](../tools/function) for more details.
-- Changed `clickup_tools` to just `clickup`
 - All tools that handle media (e.g. image generation tools) now correctly add this generated media to the `RunOutput`, but also make it available for subsequent model calls.
+- The interface of almost all the toolkits have been updated for a more consisten experience around switching specific tools on and off.  The list of changes is too long to list here. We suggest you take a look at the toolkits you use specifically and how they have been updated.
 
 ## Cancelling Runs
 - You can now cancel a run by calling `cancel_run` on the `Agent`, `Team` or `Workflow`.

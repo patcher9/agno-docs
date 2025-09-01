@@ -1,8 +1,9 @@
 ---
 title: Route
+description: In **Route Mode**, the Team Leader directs user queries to the most appropriate team member based on the content of the request.
+hideToc: true
 ---
 
-In **Route Mode**, the Team Leader directs user queries to the most appropriate team member based on the content of the request.
 
 The Team Leader acts as a smart router, analyzing the query and selecting the best-suited agent to handle it. The member's response is then returned directly to the user.
 
@@ -139,67 +140,3 @@ This mode is particularly useful when you have specialized agents with distinct 
 
   </Step>
 </Steps>
-
-## Structured Output with Route Mode
-
-One powerful feature of route mode is its ability to maintain structured output from member agents.
-When using a Pydantic model for the response, the response from the selected team member will be automatically parsed into the specified structure.
-
-### Defining Structured Output Models
-
-```python
-from pydantic import BaseModel
-from typing import List, Optional
-from agno.agent import Agent
-from agno.models.openai import OpenAIChat
-from agno.team import Team
-
-
-class StockAnalysis(BaseModel):
-    symbol: str
-    company_name: str
-    analysis: str
-
-class CompanyAnalysis(BaseModel):
-    company_name: str
-    analysis: str
-
-stock_searcher = Agent(
-    name="Stock Searcher",
-    model=OpenAIChat("gpt-4o"),
-    output_schema=StockAnalysis,
-    role="Searches for information on stocks and provides price analysis.",
-    tools=[
-        YFinanceTools(
-            stock_price=True,
-            analyst_recommendations=True,
-        )
-    ],
-)
-
-company_info_agent = Agent(
-    name="Company Info Searcher",
-    model=OpenAIChat("gpt-4o"),
-    role="Searches for information about companies and recent news.",
-    output_schema=CompanyAnalysis,
-    tools=[
-        YFinanceTools(
-            stock_price=False,
-            company_info=True,
-            company_news=True,
-        )
-    ],
-)
-
-team = Team(
-    name="Stock Research Team",
-    mode="route",
-    model=OpenAIChat("gpt-4o"),
-    members=[stock_searcher, company_info_agent],
-    markdown=True,
-)
-
-# This should route to the stock_searcher
-response = team.run("What is the current stock price of NVDA?")
-assert isinstance(response.content, StockAnalysis)
-```

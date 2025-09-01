@@ -111,12 +111,10 @@
               },
               {
                 "group": "Teams",
-                "hidden": true,
                 "pages": [
                   "docs/documentation/teams/introduction",
                   "docs/documentation/teams/run",
-                  "docs/documentation/teams/metrics",
-                  "docs/documentation/teams/shared-state",
+                  "docs/documentation/teams/sessions",
                   {
                     "group": "Team Modes",
                     "pages": [
@@ -125,7 +123,14 @@
                       "docs/documentation/teams/collaborate"
                     ]
                   },
-                  "docs/documentation/teams/structured-output"
+                  "docs/documentation/teams/storage",
+                  "docs/documentation/teams/context",
+                  "docs/documentation/teams/state",
+                  "docs/documentation/teams/memory",
+                  "docs/documentation/teams/knowledge",
+                  "docs/documentation/teams/metrics",
+                  // "docs/documentation/teams/dependencies",
+                  "docs/documentation/teams/structured-input-output"
                 ]
               },
               {
@@ -310,7 +315,6 @@
               },
               {
                 "group": "Reasoning",
-                "hidden": true,
                 "pages": [
                   "docs/documentation/reasoning/introduction",
                   "docs/documentation/reasoning/reasoning-models",
@@ -321,7 +325,6 @@
 
               {
                 "group": "Tools",
-                "hidden": true,
                 "pages": [
                   "docs/documentation/tools/introduction",
                   "docs/documentation/tools/tool-decorator",
@@ -487,12 +490,10 @@
               },
               {
                 "group": "Multimodal",
-                "hidden": true,
                 "pages": ["docs/documentation/multimodal/overview"]
               },
               {
                 "group": "User Control Flow",
-                "hidden": true,
                 "pages": ["docs/documentation/user_control_flow/overview"]
               },
               {
@@ -516,7 +517,6 @@
               },
               {
                 "group": "Evals",
-                "hidden": true,
                 "pages": [
                   "docs/documentation/evals/introduction",
                   "docs/documentation/evals/platform"
@@ -524,7 +524,6 @@
               },
               {
                 "group": "Applications",
-                "hidden": true,
                 "pages": [
                   "applications/playground/introduction",
                   "applications/fastapi/introduction",
@@ -582,6 +581,7 @@
       },
       {
         "tab": "Tutorials",
+        "hidden": true,
         "groups": [
           {
             "group": "Guides",

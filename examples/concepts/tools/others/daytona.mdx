@@ -15,7 +15,7 @@ daytona_tools = DaytonaTools()
 # Setup an Agent focused on coding tasks, with access to the Daytona tools
 agent = Agent(
     name="Coding Agent with Daytona tools",
-    agent_id="coding-agent",
+    id="coding-agent",
     model=Claude(id="claude-sonnet-4-20250514"),
     tools=[daytona_tools],
     markdown=True,

@@ -1,5 +1,7 @@
 ---
 title: Structured Input and Output
+sidebarTitle: Structured Input and Output
+description: Learn how to use structured input and output with Agents.
 ---
 
 One of our favorite features is using Agents to generate structured data (i.e. a pydantic model). This is generally called "Structured Output".
@@ -141,7 +143,45 @@ structured_output_agent.print_response(
 
 ## Structured Input
 
-An agent can be provided with structured input (i.e a pydantic model) by passing it in the `Agent.run()` or `Agent.print_response()` as the `message` parameter.
+An agent can be provided with structured input (i.e a pydantic model) by passing it in the `Agent.run()` or `Agent.print_response()` as the `input` parameter.
+
+```python
+from typing import List
+
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.tools.hackernews import HackerNewsTools
+from pydantic import BaseModel, Field
+
+
+class ResearchTopic(BaseModel):
+    """Structured research topic with specific requirements"""
+
+    topic: str
+    focus_areas: List[str] = Field(description="Specific areas to focus on")
+    target_audience: str = Field(description="Who this research is for")
+    sources_required: int = Field(description="Number of sources needed", default=5)
+
+hackernews_agent = Agent(
+    name="Hackernews Agent",
+    model=OpenAIChat(id="gpt-4o-mini"),
+    tools=[HackerNewsTools()],
+    role="Extract key insights and content from Hackernews posts",
+)
+
+hackernews_agent.print_response(
+    input=ResearchTopic(
+        topic="AI",
+        focus_areas=["AI", "Machine Learning"],
+        target_audience="Developers",
+        sources_required=5,
+    )
+)
+```
+
+### Validating the input
+
+You can set `input_schema` on the Agent to validate the input.  If you then pass the input as a dictionary, it will be automatically validated against the schema.
 
 ```python
 from typing import List
@@ -167,15 +207,17 @@ hackernews_agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[HackerNewsTools()],
     role="Extract key insights and content from Hackernews posts",
+    input_schema=ResearchTopic,
 )
 
+# Pass a dict that matches the input schema
 hackernews_agent.print_response(
-    message=ResearchTopic(
-        topic="AI",
-        focus_areas=["AI", "Machine Learning"],
-        target_audience="Developers",
-        sources_required=5,
-    )
+    input={
+        "topic": "AI",
+        "focus_areas": ["AI", "Machine Learning"],
+        "target_audience": "Developers",
+        "sources_required": "5",
+    }
 )
 ```
 

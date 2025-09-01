@@ -17,13 +17,12 @@ The core components of an Agent are:
 - **Storage:** is used by Agents to save session history and state in a database. Model APIs are stateless and storage enables us to continue conversations from where they left off. This makes Agents stateful, enabling multi-turn, long-term conversations.
 - **Memory:** gives Agents the ability to store and recall information from previous interactions, allowing them to learn user preferences and personalize their responses.
 
-<img height="200" src="/images/agent.png" style={{ borderRadius: "8px" }} />
-
 <Tip>
 If this is your first time building agents, [follow these examples](/docs/getting_started/agents) before diving into advanced concepts.
 </Tip>
 
 
+## Guides
 <CardGroup cols={2}>
   <Card
     title="Running your Agent"
@@ -42,7 +41,7 @@ If this is your first time building agents, [follow these examples](/docs/gettin
     Learn about agent sessions.
   </Card>
   <Card
-    title="Session Storage"
+    title="Agent Storage"
     icon="database"
     iconType="duotone"
     href="/docs/documentation/agents/storage"
@@ -90,10 +89,10 @@ If this is your first time building agents, [follow these examples](/docs/gettin
     Learn about adding tools to your agents.
   </Card>
   <Card
-    title="Structured Output"
+    title="Structured Input & Output"
     icon="fire"
     iconType="duotone"
-    href="/docs/documentation/agents/structured-output"
+    href="/docs/documentation/agents/structured-input-output"
   >
     Learn about structured output responses.
   </Card>
@@ -104,14 +103,6 @@ If this is your first time building agents, [follow these examples](/docs/gettin
     href="/docs/documentation/agents/knowledge"
   >
     Learn about knowledge in agents.
-  </Card>
-  <Card
-    title="Dependencies"
-    icon="codepen"
-    iconType="duotone"
-    href="/docs/documentation/agents/dependencies"
-  >
-    Learn about dependency injection in your agent's context.
   </Card>
   <Card
     title="Agent Metrics"
