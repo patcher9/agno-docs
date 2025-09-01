@@ -1,9 +1,12 @@
 ---
-title: Firestore Storage
+title: Firestore Database
+description: Learn to use Firestore as a database for your Agents
 sidebarTitle: Firestore
 ---
 
-Agno supports using Firestore as a storage backend for Agents using the `FirestoreDb` class.
+Agno supports using [Firestore](https://cloud.google.com/firestore) as a database with the `FirestoreDb` class.
+
+You can get started with Firestore following their [Get Started guide](https://firebase.google.com/docs/firestore/quickstart).
 
 ## Usage
 
@@ -12,21 +15,14 @@ You need to provide a `project_id` parameter to the `FirestoreDb` class. Firesto
 ```python firestore_for_agent.py
 from agno.agent import Agent
 from agno.db.firestore import FirestoreDb
-from agno.tools.duckduckgo import DuckDuckGoTools
 
 PROJECT_ID = "agno-os-test"  # Use your project ID here
 
 # Setup the Firestore database
 db = FirestoreDb(project_id=PROJECT_ID)
 
-agent = Agent(
-    db=db,
-    tools=[DuckDuckGoTools()],
-    add_history_to_context=True,
-)
-
-agent.print_response("How many people live in Canada?")
-agent.print_response("What is their national anthem called?")
+# Setup your Agent with the Database
+agent = Agent(db=db)
 ```
 
 ## Prerequisites

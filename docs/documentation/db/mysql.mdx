@@ -1,11 +1,23 @@
 ---
-title: MySQL Storage
+title: MySQL Database
+description: Learn to use MySQL as a database for your Agents
 sidebarTitle: MySQL
 ---
 
-Agno supports using MySQL as a storage backend for Agents using the `MySQLDb` class.
+Agno supports using [MySQL](https://www.mysql.com/) as a database with the `MySQLDb` class.
 
 ## Usage
+
+```python mysql_for_agent.py
+from agno.agent import Agent
+from agno.db.mysql import MySQLDb
+
+# Setup your Database
+db = MySQLDb(db_url="mysql+pymysql://ai:ai@localhost:3306/ai")
+
+# Setup your Agent with the Database
+agent = Agent(db=db)
+```
 
 ### Run MySQL
 
@@ -22,27 +34,10 @@ docker run -d \
   -d mysql:8
 ```
 
-```python mysql_for_agent.py
-from agno.agent import Agent
-from agno.db.mysql import MySQLDb
-
-db_url = "mysql+pymysql://ai:ai@localhost:3306/ai"
-
-db = MySQLDb(db_url=db_url)
-
-agent = Agent(
-    db=db,
-    add_history_to_context=True,
-)
-agent.print_response("How many people live in Canada?")
-agent.print_response("What is their national anthem called?")
-
-```
-
 ## Params
 
 <Snippet file="db-mysql-params.mdx" />
 
 ## Developer Resources
 
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/db/mysql/mysql_for_agent.py)   
+- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/db/mysql/mysql_for_agent.py)

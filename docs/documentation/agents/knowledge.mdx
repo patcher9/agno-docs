@@ -8,7 +8,7 @@ description: Understanding knowledge and how to use it with Agno agents
 <Note>
 Agno has a generic knowledge solution that supports many forms of content.
 
-See more details on [the knowledge page](/knowledge/introduction).
+See more details on [the knowledge page](/docs/documentation/knowledge/introduction).
 </Note>
 
 The Agent can **search** this knowledge at runtime to make better decisions and provide more accurate responses.  This **searching on demand** pattern is called Agentic RAG.
@@ -176,12 +176,12 @@ asyncio.run(
 )
 ```
 
-<Tip>See more details on [Loading the Knowledge Base](/knowledge/introduction#loading-the-knowledge-base).</Tip>
+<Tip>See more details on [Loading the Knowledge Base](/docs/documentation/knowledge/introduction#loading-the-knowledge).</Tip>
 
 
 <Note>
 Knowledge filters are currently supported on the following knowledge base types: <b>PDF</b>, <b>PDF_URL</b>, <b>Text</b>, <b>JSON</b>, and <b>DOCX</b>.
-For more details, see the [Knowledge Filters documentation](/filters/introduction).
+For more details, see the [Knowledge Filters documentation](/docs/documentation/knowledge/filters/introduction).
 </Note>
 
 ## Example: Agentic RAG Agent
@@ -210,6 +210,20 @@ Let's build a **RAG Agent** that answers questions from a PDF.
     <Note>
     This docker container contains a general purpose Postgres database with the `pgvector` extension installed.
     </Note>
+
+    Install required packages:
+
+    <CodeGroup>
+
+    ```bash Mac
+    pip install -U pgvector pypdf psycopg sqlalchemy
+    ```
+
+    ```bash Windows
+    pip install -U pgvector pypdf psycopg sqlalchemy
+    ```
+
+    </CodeGroup>
 
   </Step>
   <Step title="Do agentic RAG">

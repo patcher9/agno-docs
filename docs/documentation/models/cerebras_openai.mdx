@@ -17,7 +17,6 @@ First, install openai:
 pip install openai
 ```
 
-
 ```python
 from agno.agent import Agent
 from agno.models.cerebras import CerebrasOpenAI
@@ -38,13 +37,16 @@ agent.print_response("write a two sentence horror story")
 
 The `CerebrasOpenAI` class accepts the following parameters:
 
-| Parameter   | Type         | Description                                                    | Default                        |
-| ----------- | ------------ | -------------------------------------------------------------- | ------------------------------ |
-| `id`        | str          | Model identifier (e.g., "llama-4-scout-17b-16e-instruct")      | **Required**                   |
-| `name`      | str          | Display name for the model                                     | "Cerebras"                     |
-| `provider`  | str          | Provider name                                                  | "Cerebras"                     |
-| `api_key`   | str          | API key (falls back to CEREBRAS_API_KEY environment variable)  | None                           |
-| `base_url`  | str          | URL of the Cerebras OpenAI-compatible endpoint                 | "https://api.cerebras.ai"      |
+| Parameter  | Type | Description                                                   | Default                   |
+| ---------- | ---- | ------------------------------------------------------------- | ------------------------- |
+| `id`       | str  | Model identifier (e.g., "llama-4-scout-17b-16e-instruct")     | **Required**              |
+| `name`     | str  | Display name for the model                                    | "Cerebras"                |
+| `provider` | str  | Provider name                                                 | "Cerebras"                |
+| `api_key`  | str  | API key (falls back to CEREBRAS_API_KEY environment variable) | None                      |
+| `base_url` | str  | URL of the Cerebras OpenAI-compatible endpoint                | "https://api.cerebras.ai" |
+
+`CerebrasOpenAI` also supports the parameters of [OpenAI](/reference/models/openai).
 
 ### Examples
-- View more examples [here](../examples/models/cerebras_openai). 
+
+- View more examples [here](/examples/models/cerebras_openai).

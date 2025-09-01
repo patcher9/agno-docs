@@ -1,5 +1,5 @@
 ---
-title: Agent with Tools
+title: Tool Use
 ---
 
 ## Code
@@ -10,11 +10,12 @@ from agno.models.ollama import Ollama
 from agno.tools.duckduckgo import DuckDuckGoTools
 
 agent = Agent(
-    model=Ollama(id="llama3.1:8b"),
+    model=Ollama(id="llama3.2:latest"),
     tools=[DuckDuckGoTools()],
-        markdown=True,
+    markdown=True,
 )
-agent.print_response("Whats happening in France?", stream=True)
+agent.print_response("Whats happening in France?")
+
 ```
 
 ## Usage
@@ -23,15 +24,15 @@ agent.print_response("Whats happening in France?", stream=True)
   <Snippet file="create-venv-step.mdx" />
 
   <Step title="Install Ollama">
-    Follow the [installation guide](https://github.com/ollama/ollama?tab=readme-ov-file#macos) and run:
+    Follow the [Ollama installation guide](https://github.com/ollama/ollama?tab=readme-ov-file#macos) and run:
     ```bash
-    ollama pull llama3.1:8b
+    ollama pull llama3.2:latest
     ```
   </Step>
 
   <Step title="Install libraries">
     ```bash
-    pip install -U ollama duckduckgo-search agno
+    pip install -U ollama agno ddgs
     ```
   </Step>
 
