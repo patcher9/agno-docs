@@ -139,7 +139,7 @@
                   "docs/documentation/teams/memory",
                   "docs/documentation/teams/knowledge",
                   "docs/documentation/teams/metrics",
-                  // "docs/documentation/teams/dependencies",
+                  "docs/documentation/teams/dependencies",
                   "docs/documentation/teams/structured-input-output"
                 ]
               },
