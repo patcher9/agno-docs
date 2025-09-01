@@ -861,7 +861,8 @@
                     "group": "Dependencies",
                     "pages": [
                       "examples/concepts/teams/dependencies/add_dependencies_run",
-                      "examples/concepts/teams/dependencies/add_dependencies_to_context"
+                      "examples/concepts/teams/dependencies/add_dependencies_to_context",
+                      "examples/concepts/teams/dependencies/reference_dependencies"
                     ]
                   },
                   {
@@ -937,6 +938,10 @@
                   {
                     "group": "Shared State",
                     "pages": [
+                      "examples/concepts/teams/state/agentic_session_state",
+                      "examples/concepts/teams/state/change_state_on_run",
+                      "examples/concepts/teams/state/session_state_in_instructions",
+                      "examples/concepts/teams/state/share_member_interactions",
                       "examples/concepts/teams/state/team_with_nested_shared_state"
                     ]
                   },
@@ -953,6 +958,7 @@
                   {
                     "group": "Structured Input/Output",
                     "pages": [
+                      "examples/concepts/teams/structured_input_output/pydantic_model_output",
                       "examples/concepts/teams/structured_input_output/pydantic_model_as_input",
                       "examples/concepts/teams/structured_input_output/team_with_parser_model",
                       "examples/concepts/teams/structured_input_output/team_with_output_model",
