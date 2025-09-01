@@ -1,12 +1,13 @@
 ---
-title: Langfuse Via Openinference
+title: Langfuse Via Openinference Response Model
 ---
 
 ## Code
 
-```python cookbook/integrations/observability/langfuse_via_openinference.py
+```python cookbook/integrations/observability/langfuse_via_openinference_response_model.py
 import base64
 import os
+from enum import Enum
 
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
@@ -16,6 +17,7 @@ from opentelemetry import trace as trace_api
 from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import SimpleSpanProcessor
+from pydantic import BaseModel, Field
 
 LANGFUSE_AUTH = base64.b64encode(
     f"{os.getenv('LANGFUSE_PUBLIC_KEY')}:{os.getenv('LANGFUSE_SECRET_KEY')}".encode()
@@ -37,12 +39,29 @@ trace_api.set_tracer_provider(tracer_provider=tracer_provider)
 AgnoInstrumentor().instrument()
 
 
+class ContentType(Enum):
+    NEWS = "news"
+    ARTICLE = "article"
+    BLOG = "blog"
+    RESEARCH = "research"
+    OTHER = "other"
+
+
+class WebSearchResult(BaseModel):
+    title: str = Field(description="The title of the search result")
+    url: str = Field(description="The URL of the search result")
+    snippet: str = Field(description="A brief description or snippet from the result")
+    content_type: ContentType = Field(description="The type of content found")
+    relevance_score: int = Field(description="Relevance score from 1-10", ge=1, le=10)
+
+
 agent = Agent(
-    name="Stock Price Agent",
+    name="Web Research Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
     tools=[DuckDuckGoTools()],
-    instructions="You are an internet search agent. Find and provide accurate information on any topic.",
+    instructions="You are a web research agent. Use DuckDuckGo to search the web and find relevant information. Analyze the search results and provide structured information about what you find.",
     debug_mode=True,
+    output_schema=WebSearchResult,
 )
 
 agent.print_response("What are the latest developments in artificial intelligence?")
@@ -64,18 +83,18 @@ agent.print_response("What are the latest developments in artificial intelligenc
 
   <Step title="Install libraries">
     ```bash
-    pip install -U agno openai ddgs langfuse opentelemetry-sdk opentelemetry-exporter-otlp openinference-instrumentation-agno
+    pip install -U agno ddgs langfuse opentelemetry-sdk opentelemetry-exporter-otlp openinference-instrumentation-agno
     ```
   </Step>
 
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/integrations/observability/langfuse_via_openinference.py
+    python cookbook/integrations/observability/langfuse_via_openinference_response_model.py
     ```
 
     ```bash Windows
-    python cookbook/integrations/observability/langfuse_via_openinference.py
+    python cookbook/integrations/observability/langfuse_via_openinference_response_model.py
     ```
     </CodeGroup>
   </Step>

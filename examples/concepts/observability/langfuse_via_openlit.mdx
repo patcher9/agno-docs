@@ -1,14 +1,10 @@
 ---
-title: Langfuse via OpenLIT
+title: Langfuse Via Openlit
 ---
-
-## Overview
-
-This example demonstrates how to use Langfuse via OpenLIT to trace model calls.
 
 ## Code
 
-```python
+```python cookbook/integrations/observability/langfuse_via_openlit.py
 import base64
 import os
 
@@ -28,22 +24,24 @@ os.environ["OTEL_EXPORTER_OTLP_ENDPOINT"] = (
 
 os.environ["OTEL_EXPORTER_OTLP_HEADERS"] = f"Authorization=Basic {LANGFUSE_AUTH}"
 
-from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
-from opentelemetry.sdk.trace import TracerProvider
-from opentelemetry.sdk.trace.export import SimpleSpanProcessor
+from opentelemetry.exporter.otlp.proto.http.trace_exporter import (  # noqa: E402
+    OTLPSpanExporter,
+)
+from opentelemetry.sdk.trace import TracerProvider  # noqa: E402
+from opentelemetry.sdk.trace.export import SimpleSpanProcessor  # noqa: E402
 
 trace_provider = TracerProvider()
 trace_provider.add_span_processor(SimpleSpanProcessor(OTLPSpanExporter()))
 
 # Sets the global default tracer provider
-from opentelemetry import trace
+from opentelemetry import trace  # noqa: E402
 
 trace.set_tracer_provider(trace_provider)
 
 # Creates a tracer from the global tracer provider
 tracer = trace.get_tracer(__name__)
 
-import openlit
+import openlit  # noqa: E402
 
 # Initialize OpenLIT instrumentation. The disable_batch flag is set to true to process traces immediately.
 openlit.init(tracer=tracer, disable_batch=True)
@@ -56,40 +54,37 @@ agent = Agent(
 )
 
 agent.print_response("What is currently trending on Twitter?")
+
 ```
 
 ## Usage
 
 <Steps>
-  <Step title="Install Dependencies">
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Set your API key">
+  Set your Langfuse API key as an environment variables:
     ```bash
-    pip install agno openai langfuse openlit opentelemetry-sdk opentelemetry-exporter-otlp
+    export LANGFUSE_PUBLIC_KEY=<your-key>
+    export LANGFUSE_SECRET_KEY=<your-key>
     ```
   </Step>
 
-  <Step title="Set Environment Variables">
+  <Step title="Install libraries">
     ```bash
-    export LANGFUSE_PUBLIC_KEY=<your-public-key>
-    export LANGFUSE_SECRET_KEY=<your-secret-key>
+    pip install -U agno openai langfuse openlit opentelemetry-sdk opentelemetry-exporter-otlp ddgs
     ```
   </Step>
 
-  <Step title="Run the Agent">
+  <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/observability/langfuse_via_openlit.py
+    python cookbook/integrations/observability/langfuse_via_openlit.py
     ```
 
     ```bash Windows
-    python cookbook/observability/langfuse_via_openlit.py
+    python cookbook/integrations/observability/langfuse_via_openlit.py
     ```
     </CodeGroup>
   </Step>
 </Steps>
-
-## Notes
-
-- **Data Regions**: Adjust the `OTEL_EXPORTER_OTLP_ENDPOINT` for your data region or local deployment as needed:
-  - `https://us.cloud.langfuse.com/api/public/otel` for the US region
-  - `https://cloud.langfuse.com/api/public/otel` for the EU region
-  - `http://localhost:3000/api/public/otel` for local deployment

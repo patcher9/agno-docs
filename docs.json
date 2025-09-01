@@ -1624,6 +1624,7 @@
               {
                 "group": "Observability",
                 "pages": [
+                  "examples/concepts/observability/agent_ops",
                   {
                     "group": "Arize Phoenix",
                     "pages": [
@@ -1631,15 +1632,19 @@
                       "examples/concepts/observability/arize-phoenix-via-openinference-local"
                     ]
                   },
+                  "examples/concepts/observability/atla_op",
                   {
                     "group": "Langfuse",
                     "pages": [
                       "examples/concepts/observability/langfuse_via_openinference",
-                      "examples/concepts/observability/langfuse_via_openlit"
+                      "examples/concepts/observability/langfuse_via_openinference_response_model",
+                      "examples/concepts/observability/langfuse_via_openlit",
+                      "examples/concepts/observability/langfuse_via_openinference_team"
                     ]
                   },
                   "examples/concepts/observability/langsmith-via-openinference",
                   "examples/concepts/observability/langtrace-op",
+                  "examples/concepts/observability/langwatch_op",
                   "examples/concepts/observability/weave-op"
                 ]
               },
