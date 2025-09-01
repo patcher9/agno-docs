@@ -85,7 +85,6 @@ reasoning_agent.print_response(
     ```bash
     export OPENAI_API_KEY=xxx
     export ANTHROPIC_API_KEY=xxx
-    export EXA_API_KEY=xxx
     ```
   </Step>
 

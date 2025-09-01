@@ -5,6 +5,8 @@ title: OpenAI o4-mini with reasoning summary
 ## Code
 
 ```python cookbook/reasoning/models/openai/reasoning_summary.py
+"""Run `pip install openai ddgs` to install dependencies."""
+
 from agno.agent import Agent
 from agno.models.openai import OpenAIResponses
 from agno.tools.duckduckgo import DuckDuckGoTools
@@ -40,7 +42,7 @@ agent.print_response(
 
   <Step title="Install libraries">
     ```bash
-    pip install -U openai agno
+    pip install -U openai agno ddgs
     ```
   </Step>
 
