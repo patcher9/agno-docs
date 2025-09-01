@@ -1,24 +1,32 @@
 ---
-title: OpenAI o3-mini with reasoning effort
+title: OpenAI o4-mini with reasoning summary
 ---
 
 ## Code
 
-```python cookbook/reasoning/models/openai/reasoning_effort.py
+```python cookbook/reasoning/models/openai/reasoning_summary.py
 """Run `pip install openai ddgs` to install dependencies."""
 
 from agno.agent import Agent
-from agno.models.openai import OpenAIChat
+from agno.models.openai import OpenAIResponses
 from agno.tools.duckduckgo import DuckDuckGoTools
 
+# Setup the reasoning Agent
 agent = Agent(
-    model=OpenAIChat(id="o3-mini", reasoning_effort="high"),
+    model=OpenAIResponses(
+        id="o4-mini",
+        reasoning_summary="auto",  # Requesting a reasoning summary
+    ),
     tools=[DuckDuckGoTools(search=True)],
-    instructions="Use tables to display data.",
+    instructions="Use tables to display the analysis",
     markdown=True,
 )
 
-agent.print_response("Write a report comparing NVDA to TSLA", stream=True)
+agent.print_response(
+    "Write a brief report comparing NVDA to TSLA",
+    stream=True,
+    stream_intermediate_steps=True,
+)
 ```
 
 ## Usage
@@ -41,11 +49,11 @@ agent.print_response("Write a report comparing NVDA to TSLA", stream=True)
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-      python cookbook/reasoning/models/openai/reasoning_effort.py
+      python cookbook/reasoning/models/openai/reasoning_summary.py
     ```
 
     ```bash Windows
-      python cookbook/reasoning/models/openai/reasoning_effort.py
+      python cookbook/reasoning/models/openai/reasoning_summary.py
     ```
     </CodeGroup>
   </Step>
