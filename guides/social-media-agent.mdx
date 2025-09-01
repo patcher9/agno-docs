@@ -154,26 +154,6 @@ print("ExaTools configured for web search")
 - **HackerNews**: Tech industry insights, developer opinions  
 - **Medium**: Thought leadership, analysis articles
 
-### 2c. Combine Your Tools
-
-```python
-# Create your complete tools list
-tools = [x_tools, exa_tools]
-print(f"Total tools configured: {len(tools)}")
-```
-
-**Test your tools (optional):**
-
-```python
-# Test X tool (uncomment to test)
-# x_result = x_tools.search_tweets("AI sentiment", max_results=5)
-# print(f"X tool test: Found {len(x_result)} tweets")
-
-# Test Exa tool (uncomment to test) 
-# exa_result = exa_tools.search("AI market analysis")
-# print(f"Exa tool test: Found {len(exa_result)} web results")
-```
-
 ## Step 3: Define Intelligence Strategy
 
 **Why do we need instructions?** We need to describe the strategy that the agent should take to collect and analyze content. Without clear instructions, the agent won't know how to use the tools effectively or what kind of analysis to provide.
@@ -295,17 +275,11 @@ print(f"Complete instructions created: {len(complete_instructions)} characters")
 
 Now let's put all the pieces together - model, tools, and instructions - to create your complete social media intelligence agent.
 
-### 4a. Import the Agent Class
+### 4a. Create the Agent
 
 ```python
 from agno.agent import Agent
 
-print("Agent class imported")
-```
-
-### 4b. Create the Agent
-
-```python
 # Combine model, tools, and instructions into a complete agent
 social_media_agent = Agent(
     name="Social Media Intelligence Analyst",
@@ -319,15 +293,9 @@ social_media_agent = Agent(
 print(f"Agent created: {social_media_agent.name}")
 ```
 
-**What each parameter does:**
-- `name`: Identifies your agent in logs and API calls
-- `model`: The AI that powers your agent's reasoning
-- `tools`: The capabilities your agent can use to gather data
-- `instructions`: The methodology and strategy for analysis
-- `markdown=True`: Enables rich formatting in reports
-- `show_tool_calls=True`: Shows which tools are being used for transparency
+For detailed information about each Agent parameter, see the [Agent Reference Documentation](/reference/agents/agent).
 
-### 4c. Create the Analysis Function
+### 4b. Create the Analysis Function
 
 ```python
 def analyze_brand_sentiment(query: str, tweet_count: int = 20):
@@ -365,7 +333,7 @@ def analyze_brand_sentiment(query: str, tweet_count: int = 20):
 print("Analysis function created")
 ```
 
-### 4d. Create a Test Function
+### 4c. Create a Test Function
 
 ```python
 def test_agent():
@@ -376,7 +344,7 @@ def test_agent():
 print("Test function ready")
 ```
 
-### 4e. Complete Working Example
+### 4d. Complete Working Example
 
 Here's your complete `app/social_media_agent.py` file:
 
@@ -501,7 +469,7 @@ if __name__ == "__main__":
     analyze_brand_sentiment("Agno OR AgnoAGI", tweet_count=25)
 ```
 
-### 4f. Test Your Complete Agent
+### 4e. Test Your Complete Agent
 
 ```bash
 python app/social_media_agent.py
