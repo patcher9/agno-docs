@@ -554,10 +554,10 @@
             "group": "Help",
             "pages": [
               "docs/how-to/install",
-              "docs/how-to/contribute",
               "docs/how-to/v2-changelog",
               "docs/how-to/v2-migration",
-              "docs/how-to/workflows-migration"
+              "docs/how-to/workflows-migration",
+              "docs/how-to/contribute"
             ]
           }
         ]
