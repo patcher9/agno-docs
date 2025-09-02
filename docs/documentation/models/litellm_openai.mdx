@@ -18,7 +18,7 @@ pip install 'litellm[proxy]'
 Start the proxy server:
 
 ```shell
-litellm --model gpt-4o --host 127.0.0.1 --port 4000
+litellm --model gpt-5-mini --host 127.0.0.1 --port 4000
 ```
 
 ### Using the Proxy
@@ -31,7 +31,7 @@ from agno.models.litellm import LiteLLMOpenAI
 
 agent = Agent(
     model=LiteLLMOpenAI(
-        id="gpt-4o",  # Model ID to use
+        id="gpt-5-mini",  # Model ID to use
     ),
     markdown=True,
 )
@@ -45,7 +45,7 @@ The `LiteLLMOpenAI` class accepts the following parameters:
 
 | Parameter  | Type | Description                                                  | Default               |
 | ---------- | ---- | ------------------------------------------------------------ | --------------------- |
-| `id`       | str  | Model identifier                                             | "gpt-4o"              |
+| `id`       | str  | Model identifier                                             | "gpt-5-mini"              |
 | `name`     | str  | Display name for the model                                   | "LiteLLM"             |
 | `provider` | str  | Provider name                                                | "LiteLLM"             |
 | `api_key`  | str  | API key (falls back to LITELLM_API_KEY environment variable) | None                  |

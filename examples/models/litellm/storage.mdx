@@ -20,7 +20,7 @@ storage = SqliteStorage(
 
 # Add storage to the Agent
 agent = Agent(
-    model=LiteLLM(id="gpt-4o"),
+    model=LiteLLM(id="gpt-5-mini"),
     storage=storage,
     tools=[DuckDuckGoTools()],
     add_history_to_messages=True,

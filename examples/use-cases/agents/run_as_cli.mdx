@@ -14,7 +14,7 @@ from agno.tools.duckduckgo import DuckDuckGoTools
 
 writing_assistant = Agent(
     name="Writing Assistant",
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-nano"),
     tools=[DuckDuckGoTools()],
     instructions=dedent("""\
         You are a friendly and professional writing assistant! 

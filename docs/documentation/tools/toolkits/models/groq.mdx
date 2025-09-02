@@ -59,7 +59,7 @@ audio_url = "https://agno-public.s3.amazonaws.com/demo_data/sample_conversation.
 
 agent = Agent(
     name="Groq Transcription Agent",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[GroqTools()],
     )
 
@@ -83,7 +83,7 @@ output_path.parent.mkdir(parents=True, exist_ok=True)
 
 agent = Agent(
     name="Groq Translation Agent",
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-nano"),
     tools=[GroqTools()],
     )
 

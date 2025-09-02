@@ -36,7 +36,7 @@ def send_email(subject: str, body: str, to_address: str) -> str:
 
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-nano"),
     tools=[send_email],
     markdown=True,
 )

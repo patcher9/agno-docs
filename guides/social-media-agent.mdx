@@ -91,7 +91,7 @@ from agno.models.openai import OpenAIChat
 load_dotenv(dotenv_path=Path(__file__).resolve().parents[1] / "infra" / "secrets" / ".env")
 
 # Choose the AI model for your agent
-model = OpenAIChat(id="gpt-4o")
+model = OpenAIChat(id="gpt-5-mini")
 print(f"Model selected: {model.id}")
 ```
 
@@ -366,7 +366,7 @@ from agno.tools.exa import ExaTools
 load_dotenv(dotenv_path=Path(__file__).resolve().parents[1] / "infra" / "secrets" / ".env")
 
 # Step 1: Choose the AI model
-model = OpenAIChat(id="gpt-4o")
+model = OpenAIChat(id="gpt-5-mini")
 
 # Step 2: Configure tools
 tools = [

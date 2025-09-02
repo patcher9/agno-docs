@@ -34,7 +34,7 @@ knowledge.add_content_sync(
 )
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     knowledge=knowledge,
     # Enable RAG by adding references from Knowledge to the user prompt.
     add_knowledge_to_context=True,

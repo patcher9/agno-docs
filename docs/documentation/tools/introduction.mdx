@@ -27,7 +27,7 @@ def get_weather(city: str) -> str:
 
 
 agent = Agent(
-    model=OpenAIChat(model="gpt-4o-mini"),
+    model=OpenAIChat(model="gpt-5-nano"),
     tools=[get_weather],
     markdown=True,
 )
@@ -65,6 +65,115 @@ agent.print_response("What's the latest about gpt 4.5?", markdown=True)
 ```
 
 In this example, the `GoogleSearchTools` toolkit is configured to stop the agent after executing the `google_search` function and to show the result of this function.
+
+
+## Tool Built-in Parameters
+
+Agno automatically provides special parameters to your tools that give access to the agent's state. These parameters are injected automatically - you don't pass them when calling the tool.
+
+### Session State Parameter
+
+The built-in parameter `session_state` allows tools to access and modify persistent data across conversations.
+
+Add `session_state` as a parameter in your tool function to access the agent's persistent state:
+
+```python
+from agno.agent import Agent
+from agno.db.sqlite import SqliteDb
+from agno.models.openai import OpenAIChat
+
+
+def add_item(session_state, item: str) -> str:
+    """Add an item to the shopping list."""
+    session_state["shopping_list"].append(item)  # type: ignore
+    return f"The shopping list is now {session_state['shopping_list']}"  # type: ignore
+
+
+# Create an Agent that maintains state
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o-mini"),
+    # Initialize the session state with a counter starting at 0 (this is the default session state for all users)
+    session_state={"shopping_list": []},
+    db=SqliteDb(db_file="tmp/agents.db"),
+    tools=[add_item],
+    # You can use variables from the session state in the instructions
+    instructions="Current state (shopping list) is: {shopping_list}",
+    markdown=True,
+)
+
+# Example usage
+agent.print_response("Add milk, eggs, and bread to the shopping list", stream=True)
+print(f"Final session state: {agent.get_session_state()}")
+```
+
+See more in [Agent State](/docs/documentation/agents/state).
+
+## Tool Results
+
+Tools can return different types of results depending on their complexity and what they need to communicate back to the agent.
+
+### Simple Return Types
+
+Most tools can return simple Python types directly like `str`, `int`, `float`, `dict`, and `list`:
+
+```python
+@tool
+def get_weather(city: str) -> str:
+    """Get the weather for a city."""
+    return f"The weather in {city} is sunny and 75°F"
+
+@tool
+def calculate_sum(a: int, b: int) -> int:
+    """Calculate the sum of two numbers."""
+    return a + b
+
+@tool
+def get_user_info(user_id: str) -> dict:
+    """Get user information."""
+    return {
+        "user_id": user_id,
+        "name": "John Doe",
+        "email": "john@example.com",
+        "status": "active"
+    }
+
+@tool
+def search_products(query: str) -> list:
+    """Search for products."""
+    return [
+        {"id": 1, "name": "Product A", "price": 29.99},
+        {"id": 2, "name": "Product B", "price": 39.99}
+    ]
+```
+
+### `ToolResult` for Media Content
+
+When your tool needs to return media artifacts (images, videos, audio), you **must** use `ToolResult`:
+
+<Snippet file="tool-result-reference.mdx" />
+
+```python
+from agno.tools.function import ToolResult
+from agno.media import ImageArtifact
+
+@tool
+def generate_image(prompt: str) -> ToolResult:
+    """Generate an image from a prompt."""
+    
+    # Create your image (example)
+    image_artifact = ImageArtifact(
+        id="img_123",
+        url="https://example.com/generated-image.jpg",
+        original_prompt=prompt
+    )
+    
+    return ToolResult(
+        content=f"Generated image for: {prompt}",
+        images=[image_artifact]
+    )
+```
+
+This would **make generated media available** to the LLM model.
 
 ## Useful Links
 

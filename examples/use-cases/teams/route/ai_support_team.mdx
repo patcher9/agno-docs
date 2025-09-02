@@ -37,7 +37,7 @@ feedback_channel = "testing"
 doc_researcher_agent = Agent(
     name="Doc researcher Agent",
     role="Search the knowledge base for information",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[DuckDuckGoTools(), ExaTools()],
     knowledge=knowledge,
     search_knowledge=True,
@@ -57,7 +57,7 @@ doc_researcher_agent = Agent(
 escalation_manager_agent = Agent(
     name="Escalation Manager Agent",
     role="Escalate the issue to the slack channel",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[SlackTools()],
     instructions=[
         "You are an escalation manager responsible for routing critical issues to the support team.",
@@ -73,7 +73,7 @@ escalation_manager_agent = Agent(
 feedback_collector_agent = Agent(
     name="Feedback Collector Agent",
     role="Collect feedback from the user",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[SlackTools()],
     description="You are an AI agent that can collect feedback from the user.",
     instructions=[
@@ -91,7 +91,7 @@ feedback_collector_agent = Agent(
 customer_support_team = Team(
     name="Customer Support Team",
     mode="route",
-    model=OpenAIChat("gpt-4o"),
+    model=OpenAIChat("gpt-5-mini"),
     members=[doc_researcher_agent, escalation_manager_agent, feedback_collector_agent],
     markdown=True,
     debug_mode=True,

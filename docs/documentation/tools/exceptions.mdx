@@ -33,7 +33,7 @@ def add_item(agent: Agent, item: str) -> str:
 
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-nano"),
     # Initialize the session state with empty shopping list
     session_state={"shopping_list": []},
     tools=[add_item],

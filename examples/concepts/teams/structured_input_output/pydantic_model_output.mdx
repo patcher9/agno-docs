@@ -28,7 +28,7 @@ class CompanyAnalysis(BaseModel):
 
 stock_searcher = Agent(
     name="Stock Searcher",
-    model=OpenAIChat("gpt-4o"),
+    model=OpenAIChat("gpt-5-mini"),
     output_schema=StockAnalysis,
     role="Searches for information on stocks and provides price analysis.",
     tools=[DuckDuckGoTools()],
@@ -36,7 +36,7 @@ stock_searcher = Agent(
 
 company_info_agent = Agent(
     name="Company Info Searcher",
-    model=OpenAIChat("gpt-4o"),
+    model=OpenAIChat("gpt-5-mini"),
     role="Searches for information about companies and recent news.",
     output_schema=CompanyAnalysis,
     tools=[DuckDuckGoTools()],
@@ -52,7 +52,7 @@ class StockReport(BaseModel):
 team = Team(
     name="Stock Research Team",
     mode="route",
-    model=OpenAIChat("gpt-4o"),
+    model=OpenAIChat("gpt-5-mini"),
     members=[stock_searcher, company_info_agent],
     output_schema=StockReport,
     markdown=True,

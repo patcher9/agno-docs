@@ -17,11 +17,11 @@ db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 db = PostgresDb(db_url=db_url)
 
 agent = Agent(
-    model=OpenAIChat(id="o3-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
 )
 
 team = Team(
-    model=OpenAIChat(id="o3-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     members=[agent],
     db=db,
 )

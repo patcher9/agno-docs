@@ -39,7 +39,7 @@ knowledge_tools = KnowledgeTools(
 web_agent = Agent(
     name="Web Search Agent",
     role="Handle web search requests",
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-nano"),
     tools=[DuckDuckGoTools()],
     instructions="Always include sources",
     add_datetime_to_context=True,
@@ -48,7 +48,7 @@ web_agent = Agent(
 finance_agent = Agent(
     name="Finance Agent",
     role="Handle financial data requests",
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-nano"),
     tools=[DuckDuckGoTools(search=True)],
     add_datetime_to_context=True,
 )
@@ -56,7 +56,7 @@ finance_agent = Agent(
 team_leader = Team(
     name="Reasoning Finance Team",
     mode="coordinate",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     members=[
         web_agent,
         finance_agent,

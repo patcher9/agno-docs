@@ -14,12 +14,11 @@ Many of our examples use `agent.print_response()` which is a helper utility to p
 Here's how to run your agent. The response is captured in the `response`.
 
 ```python
-from typing import Iterator
 from agno.agent import Agent, RunOutput
 from agno.models.openai import OpenAIChat
 from agno.utils.pprint import pprint_run_response
 
-agent = Agent(model=OpenAIChat(id="o3-mini"))
+agent = Agent(model=OpenAIChat(id="gpt-5-mini"))
 
 # Run agent and return the response as a variable
 response: RunOutput = agent.run("Tell me a 5 second short story about a robot")
@@ -56,7 +55,7 @@ agent = Agent(
     model=Claude(id="claude-sonnet-4-20250514"),  # The main processing model
     description="You write movie scripts.",
     output_schema=MovieScript,
-    output_model=OpenAIChat(id="o3-mini"),  # Only used to parse the output
+    output_model=OpenAIChat(id="gpt-5-mini"),  # Only used to parse the output
 )
 ```
 
@@ -129,7 +128,7 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.utils.pprint import pprint_run_response
 
-agent = Agent(model=OpenAIChat(id="o3-mini"), store_events=True)
+agent = Agent(model=OpenAIChat(id="gpt-5-mini"), store_events=True)
 
 response = agent.run("Tell me a 5 second short story about a lion", stream=True, stream_intermediate_steps=True)
 pprint_run_response(response)
@@ -147,7 +146,7 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.run.agent import RunEvent
 
-agent = Agent(model=OpenAIChat(id="o3-mini"), store_events=True, events_to_skip=[RunEvent.run_started])
+agent = Agent(model=OpenAIChat(id="gpt-5-mini"), store_events=True, events_to_skip=[RunEvent.run_started])
 ```
 
 ### Event Types

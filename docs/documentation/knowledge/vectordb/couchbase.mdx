@@ -53,7 +53,7 @@ import os
 import time
 from agno.agent import Agent
 from agno.embedder.openai import OpenAIEmbedder
-from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
+from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.couchbase import CouchbaseSearch
 from couchbase.options import ClusterOptions, KnownConfigProfiles
 from couchbase.auth import PasswordAuthenticator
@@ -70,8 +70,7 @@ cluster_options = ClusterOptions(auth)
 cluster_options.apply_profile(KnownConfigProfiles.WanDevelopment)
 
 
-knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+knowledge_base = Knowledge(
     vector_db=CouchbaseSearch(
         bucket_name="recipe_bucket",
         scope_name="recipe_scope",
@@ -90,7 +89,9 @@ knowledge_base = PDFUrlKnowledgeBase(
 )
 
 # Load the knowledge base
-knowledge_base.load(recreate=True)
+knowledge_base.add_content(
+    url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"
+)
 
 # Wait for the vector index to sync with KV
 time.sleep(20)
@@ -112,7 +113,7 @@ agent.print_response("How to make Thai curry?", markdown=True)
     import time
     from agno.agent import Agent
     from agno.embedder.openai import OpenAIEmbedder
-    from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
+    from agno.knowledge.knowledge import Knowledge
     from agno.vectordb.couchbase import CouchbaseSearch
     from couchbase.options import ClusterOptions, KnownConfigProfiles
     from couchbase.auth import PasswordAuthenticator
@@ -128,8 +129,7 @@ agent.print_response("How to make Thai curry?", markdown=True)
     cluster_options = ClusterOptions(auth)
     cluster_options.apply_profile(KnownConfigProfiles.WanDevelopment)
 
-    knowledge_base = PDFUrlKnowledgeBase(
-        urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+    knowledge_base = Knowledge(
         vector_db=CouchbaseSearch(
             bucket_name="recipe_bucket",
             scope_name="recipe_scope",
@@ -151,12 +151,13 @@ agent.print_response("How to make Thai curry?", markdown=True)
     agent = Agent(knowledge=knowledge_base)
 
     async def run_agent():
-        await knowledge_base.aload(recreate=True)
+        await knowledge_base.add_content_async(
+          url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf",
+        )
         time.sleep(5)  # Wait for the vector index to sync with KV
         await agent.aprint_response("How to make Thai curry?", markdown=True)
 
     if __name__ == "__main__":
-        # Comment out after the first run
         asyncio.run(run_agent())
     ```
     

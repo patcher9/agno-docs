@@ -24,22 +24,27 @@ docker run -d \
 
 ```python agent_with_knowledge.py
 from agno.agent import Agent
-from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
+from agno.knowledge.knowledge import Knowledge
 from agno.storage.sqlite import SqliteStorage
 from agno.vectordb.clickhouse import Clickhouse
 
+knowledge=Knowledge(
+    vector_db=Clickhouse(
+        table_name="recipe_documents",
+        host="localhost",
+        port=8123,
+        username="ai",
+        password="ai",
+    ),
+)
+
+knowledge.add_content(
+  url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"
+)
+
 agent = Agent(
     storage=SqliteStorage(table_name="recipe_agent"),
-    knowledge=PDFUrlKnowledgeBase(
-        urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
-        vector_db=Clickhouse(
-            table_name="recipe_documents",
-            host="localhost",
-            port=8123,
-            username="ai",
-            password="ai",
-        ),
-    ),
+    knowledge=knowledge,
     # Enable the agent to search the knowledge base
     search_knowledge=True,
     # Enable the agent to read the chat history
@@ -62,14 +67,13 @@ agent.print_response("What was my last question?", stream=True)
     import asyncio
 
     from agno.agent import Agent
-    from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
+    from agno.knowledge.knowledge import Knowledge
     from agno.storage.agent.sqlite import SqliteAgentStorage
     from agno.vectordb.clickhouse import Clickhouse
 
     agent = Agent(
         storage=SqliteAgentStorage(table_name="recipe_agent"),
-        knowledge=PDFUrlKnowledgeBase(
-            urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+        knowledge=Knowledge(
             vector_db=Clickhouse(
                 table_name="recipe_documents",
                 host="localhost",
@@ -86,7 +90,10 @@ agent.print_response("What was my last question?", stream=True)
 
     if __name__ == "__main__":
         # Comment out after first run
-        asyncio.run(agent.knowledge.aload(recreate=False))
+        asyncio.run(agent.knowledge.add_content_async(
+            url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"
+          )
+        )
 
         # Create and use the agent
         asyncio.run(agent.aprint_response("How to make Tom Kha Gai", markdown=True))

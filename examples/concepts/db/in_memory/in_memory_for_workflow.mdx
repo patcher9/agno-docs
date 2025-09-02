@@ -23,13 +23,13 @@ db = InMemoryDb()
 # Create agents and team
 research_agent = Agent(
     name="Research Agent",
-    model=OpenAIChat("gpt-4o"),
+    model=OpenAIChat("gpt-5-mini"),
     tools=[HackerNewsTools(), DuckDuckGoTools()],
 )
 
 content_agent = Agent(
     name="Content Agent",
-    model=OpenAIChat("gpt-4o"),
+    model=OpenAIChat("gpt-5-mini"),
 )
 
 # Define workflow steps

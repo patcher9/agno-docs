@@ -16,7 +16,7 @@ from typing import Optional
 from rich.prompt import Prompt
 
 from agno.agent import Agent
-from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
+from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.qdrant import Qdrant
 
 api_key = os.getenv("QDRANT_API_KEY")
@@ -29,8 +29,7 @@ vector_db = Qdrant(
     api_key=api_key,
 )
 
-knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+knowledge_base = Knowledge(
     vector_db=vector_db,
 )
 
@@ -57,8 +56,9 @@ def qdrant_agent(user: str = "user"):
         agent.print_response(message)
 
 if __name__ == "__main__":
-    # Comment out after first run
-    knowledge_base.load(recreate=True, upsert=True)
+    knowledge_base.add_content(
+        url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"
+    )
 
     typer.run(qdrant_agent)
 ```
@@ -73,7 +73,7 @@ if __name__ == "__main__":
     import asyncio
 
     from agno.agent import Agent
-    from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
+    from agno.knowledge.knowledge import Knowledge
     from agno.vectordb.qdrant import Qdrant
 
     COLLECTION_NAME = "thai-recipes"
@@ -85,8 +85,7 @@ if __name__ == "__main__":
     )
 
     # Create knowledge base
-    knowledge_base = PDFUrlKnowledgeBase(
-        urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+    knowledge_base = Knowledge(
         vector_db=vector_db,
     )
 
@@ -94,7 +93,10 @@ if __name__ == "__main__":
 
     if __name__ == "__main__":
         # Load knowledge base asynchronously
-        asyncio.run(knowledge_base.aload(recreate=False))  # Comment out after first run
+        asyncio.run(knowledge_base.add_content_async(
+                url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"
+            )
+        )
 
         # Create and use the agent asynchronously
         asyncio.run(agent.aprint_response("How to make Tom Kha Gai", markdown=True))

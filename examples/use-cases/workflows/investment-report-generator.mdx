@@ -110,7 +110,7 @@ investment_report = str(reports_dir.joinpath("investment_report.md"))
 # --- Agents ---
 stock_analyst = Agent(
     name="Stock Analyst",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[
         DuckDuckGoTools(
             company_info=True, analyst_recommendations=True, company_news=True
@@ -149,7 +149,7 @@ stock_analyst = Agent(
 
 research_analyst = Agent(
     name="Research Analyst",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     description=dedent("""\
     You are ValuePro-X, an elite Senior Research Analyst at Goldman Sachs specializing in:
 
@@ -181,7 +181,7 @@ research_analyst = Agent(
 
 investment_lead = Agent(
     name="Investment Lead",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     description=dedent("""\
     You are PortfolioSage-X, a distinguished Senior Investment Lead at Goldman Sachs expert in:
 

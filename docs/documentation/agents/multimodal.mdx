@@ -17,7 +17,7 @@ from agno.models.openai import OpenAIChat
 from agno.tools.duckduckgo import DuckDuckGoTools
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[DuckDuckGoTools()],
     markdown=True,
 )
@@ -58,7 +58,7 @@ response.raise_for_status()
 wav_data = response.content
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o-audio-preview", modalities=["text"]),
+    model=OpenAIChat(id="gpt-5-mini-audio-preview", modalities=["text"]),
     markdown=True,
 )
 agent.print_response(
@@ -103,7 +103,7 @@ from agno.models.openai import OpenAIChat
 from agno.tools.dalle import DalleTools
 
 image_agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[DalleTools()],
     description="You are an AI agent that can generate images using DALL-E.",
     instructions="When the user asks you to create an image, use the `create_image` tool to create the image.",
@@ -130,7 +130,7 @@ from agno.utils.audio import write_audio_to_file
 
 agent = Agent(
     model=OpenAIChat(
-        id="gpt-4o-audio-preview",
+        id="gpt-5-mini-audio-preview",
         modalities=["text", "audio"],
         audio={"voice": "alloy", "format": "wav"},
     ),
@@ -168,7 +168,7 @@ wav_data = response.content
 
 agent = Agent(
     model=OpenAIChat(
-        id="gpt-4o-audio-preview",
+        id="gpt-5-mini-audio-preview",
         modalities=["text", "audio"],
         audio={"voice": "alloy", "format": "wav"},
     ),

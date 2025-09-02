@@ -216,7 +216,7 @@ web_researcher = Agent(
 
 team = Team(
     members=[web_researcher],
-    model=OpenAIChat(id="o3-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     db=db,
     session_id="chat_history",
     instructions="You are a helpful assistant that can answer questions about space and oceans.",
@@ -318,7 +318,7 @@ if __name__ == "__main__":
     team = Team(
         members=[...],
         name="Customer Support Team",
-        model=OpenAIChat(id="o3-mini"),
+        model=OpenAIChat(id="gpt-5-mini"),
         add_name_to_context=True,
         additional_input=support_examples,  # few-shot learning examples
         instructions=[

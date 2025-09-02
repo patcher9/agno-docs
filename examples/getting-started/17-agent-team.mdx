@@ -28,7 +28,7 @@ from agno.tools.exa import ExaTools
 web_agent = Agent(
     name="Web Agent",
     role="Search the web for information",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[DuckDuckGoTools()],
     instructions=dedent("""\
         You are an experienced web researcher and news analyst! 🔍
@@ -55,7 +55,7 @@ web_agent = Agent(
 finance_agent = Agent(
     name="Finance Agent",
     role="Get financial data",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[
         ExaTools(
             include_domains=["trendlyne.com"],
@@ -88,7 +88,7 @@ finance_agent = Agent(
 
 agent_team = Team(
     members=[web_agent, finance_agent],
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     mode="coordinate",
     instructions=dedent("""\
         You are the lead editor of a prestigious financial news desk! 📰

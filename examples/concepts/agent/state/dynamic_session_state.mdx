@@ -64,7 +64,7 @@ def customer_management_hook(
 
 def run_test():
     agent = Agent(
-        model=OpenAIChat(id="gpt-4o"),
+        model=OpenAIChat(id="gpt-5-mini"),
         tools=[CustomerDBTools()],
         tool_hooks=[customer_management_hook],
         session_state={"customer_profiles": {"123": {"name": "Jane Doe"}}},
