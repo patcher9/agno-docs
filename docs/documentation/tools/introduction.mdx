@@ -66,23 +66,6 @@ agent.print_response("What's the latest about gpt 4.5?", markdown=True)
 
 In this example, the `GoogleSearchTools` toolkit is configured to stop the agent after executing the `google_search` function and to show the result of this function.
 
-## Function Execution Results
-
-Tools return results through the `FunctionExecutionResult` class internally.
-
-<Snippet file="function-execution-result-reference.mdx" />
-
-### Simple String Returns
-
-Most tools can simply return a string:
-
-```python
-@tool
-def get_weather(city: str) -> str:
-    """Get the weather for a city."""
-    return f"The weather in {city} is sunny."
-```
-
 ### `ToolResult` for Media Content
 
 When your tool needs to return media artifacts (images, videos, audio), use `ToolResult`:
@@ -110,30 +93,7 @@ def generate_image(prompt: str) -> ToolResult:
     )
 ```
 
-<Note>
-### How `ToolResult` Works Internally
-
-When you return a `ToolResult`, Agno automatically:
-
-1. **Extracts the content** as the main tool output
-2. **Transfers media artifacts** to the `FunctionExecutionResult`
-3. **Makes media available** to the LLM model
-
-Here's what happens behind the scenes:
-
-```python
-# Your tool returns ToolResult
-tool_result = ToolResult(
-    content="Image generated successfully",
-    images=[image_artifact]
-)
-
-# Agno internally processes this:
-# 1. function_call_output = tool_result.content
-# 2. function_execution_result.images = tool_result.images
-# 3. Media gets attached to the conversation
-```
-</Note>
+This would **Make generated media available** to the LLM model.
 
 ### Session State Management
 The `FunctionExecutionResult` class plays a crucial role in maintaining session state across tool calls. When your tool modifies the `session_state` parameter, those changes need to be persisted back to the agent's session. Here's how it works:
