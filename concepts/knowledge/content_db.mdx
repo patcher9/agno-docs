@@ -1,0 +1,286 @@
+---
+title: Knowledge Contents DB
+description: "Learn how to add a Content DB to your Knowledge."
+sidebarTitle: Content DB
+---
+The Contents Database (ContentsDB) is an optional component that enhances Knowledge with content trackin and management features. It acts as a control layer that maintains detailed records of all content added to your `Knowledge`.
+
+## What is ContentsDB?
+
+ContentsDB is a database component that tracks and manages metadata for content added to your Knowledge base. While your vector database stores the actual embeddings and chunks for search, ContentsDB maintains the administrative layer - tracking what content was added, when, its processing status, and providing management capabilities.
+
+- **Vector Database**: Stores embeddings and chunks for semantic search
+- **Contents Database**: Tracks content metadata, status, and when coupled with [AgentOS Knowledge](/docs/agent-os/knowledge-management), provides management of your knowledge via API.
+
+## Why Use ContentsDB?
+
+### Content Visibility and Control
+Without ContentsDB, managing your knowledge and vectors is difficult - you can search it, but you can't manage individual pieces of content or alter all the vectors created from a single piece of content.
+
+With ContentsDB, you gain full visibility:
+- See all content that has been added
+- Track processing status of each item
+- View metadata and file information
+- Monitor access patterns and usage
+
+### Powerful Management Capabilities
+- **Edit names, descriptions and metadata** for existing content
+- **Delete specific content** and automatically clean up associated vectors
+- **Update content** without rebuilding the entire knowledge base
+- **Batch operations** for managing multiple content items
+- **Status tracking** to monitor processing success/failure
+
+### Required for AgentOS
+If you're using AgentOS, ContentsDB is **mandatory** for the Knowledge page functionality. The AgentOS web interface relies on ContentsDB to display and manage your knowledge content.
+
+## Setting Up ContentsDB
+
+### Choose Your Database
+
+Agno supports multiple database backends for ContentsDB:
+
+- **PostgreSQL** - Recommended for production
+- **SQLite** - Great for development and single-user applications  
+- **MySQL** - Enterprise-ready relational database
+- **MongoDB** - Document-based NoSQL option
+- **Redis** - In-memory option for high performance
+- **In-Memory** - Temporary storage for testing
+- **Cloud Options** - DynamoDB, Firestore, GCS JSON
+
+### Basic Setup Example
+
+```python
+from agno.knowledge import Knowledge
+from agno.db.postgres import PostgresDb
+from agno.vectordb.pgvector import PgVector
+
+# Set up ContentsDB - tracks content metadata
+contents_db = PostgresDb(
+    db_url="postgresql+psycopg://user:pass@localhost:5432/db",
+    knowledge_table="knowledge_contents"  # Optional: custom table name
+)
+
+# Set up vector database - stores embeddings
+vector_db = PgVector(
+    table_name="vectors",
+    db_url="postgresql+psycopg://user:pass@localhost:5432/db"
+)
+
+# Create Knowledge with both databases
+knowledge = Knowledge(
+    name="My Knowledge Base",
+    vector_db=vector_db,
+    contents_db=contents_db  # This enables content tracking!
+)
+```
+
+### Alternative Database Examples
+
+```python
+# SQLite for development
+from agno.db.sqlite import SqliteDb
+contents_db = SqliteDb(db_file="my_knowledge.db")
+
+# MongoDB for document-based storage
+from agno.db.mongo import MongoDb
+contents_db = MongoDb(
+    uri="mongodb://localhost:27017",
+    database="agno_db"
+)
+
+# In-memory for testing
+from agno.db.in_memory import InMemoryDb
+contents_db = InMemoryDb()
+```
+
+## Core Functionality
+
+### Content Metadata Tracking
+
+ContentsDB automatically tracks comprehensive metadata for each content item:
+
+```python
+# When you add content
+knowledge.add_content(
+    name="Product Manual",
+    path="docs/manual.pdf",
+    metadata={"department": "engineering", "version": "2.1"}
+)
+
+# ContentsDB automatically stores:
+# - Content ID (auto-generated)
+# - Name and description
+# - File type and size
+# - Custom metadata
+# - Processing status
+# - Creation and update timestamps
+# - External IDs for cloud integrations
+```
+
+### Content Status Tracking
+
+Every piece of content has a status that you can monitor:
+
+```python
+# Check processing status
+status, message = knowledge.get_content_status(content_id)
+
+# Status can be:
+# - PROCESSING: Content is being ingested
+# - COMPLETED: Successfully processed and available
+# - FAILED: Processing failed (with error message)
+```
+
+### Content Retrieval and Management
+
+```python
+# Get all content with pagination
+contents, total_count = knowledge.get_content(
+    limit=20,
+    page=1,
+    sort_by="created_at",
+    sort_order="desc"
+)
+
+# Get specific content by ID
+content = knowledge.get_content_by_id(content_id)
+
+# Each content object includes:
+print(content.name)         # Content name
+print(content.description)  # Description
+print(content.metadata)     # Custom metadata
+print(content.file_type)    # File type (.pdf, .txt, etc.)
+print(content.size)         # File size in bytes
+print(content.status)       # Processing status
+print(content.created_at)   # When it was added
+print(content.updated_at)   # Last modification
+```
+
+## Advanced Management Features
+
+### Metadata Updates
+
+Update metadata for existing content without reprocessing:
+
+```python
+from agno.knowledge.content import Content
+
+# Create content update
+updated_content = Content(
+    id=content_id,
+    metadata={
+        "department": "engineering", 
+        "version": "2.2",  # Updated version
+        "reviewed": True   # New field
+    }
+)
+
+# Apply the update
+result = knowledge.patch_content(updated_content)
+```
+
+### Content Deletion with Vector Cleanup
+
+Delete content and automatically clean up associated vectors:
+
+```python
+# Delete specific content
+knowledge.remove_content_by_id(content_id)
+
+# This automatically:
+# 1. Removes the content metadata from ContentsDB
+# 2. Deletes associated vectors from the vector database
+# 3. Maintains consistency between both databases
+
+# Delete all content
+knowledge.remove_all_content()
+```
+
+### Filtering and Search
+
+ContentsDB enables powerful filtering capabilities:
+
+```python
+# The knowledge base tracks valid filter keys
+valid_filters = knowledge.get_filters()
+
+# Filter content during search
+results = knowledge.search(
+    query="technical documentation",
+    filters={"department": "engineering", "version": "2.1"}
+)
+```
+
+## AgentOS Integration
+
+### Required Setup for AgentOS
+
+When using AgentOS, ContentsDB is mandatory for the Knowledge management interface:
+
+```python
+from agno.os import AgentApp
+from agno.db.postgres import PostgresDb
+
+# ContentsDB is required for AgentOS Knowledge page
+contents_db = PostgresDb(
+    db_url="postgresql+psycopg://user:pass@localhost:5432/db"
+)
+
+knowledge = Knowledge(
+    vector_db=your_vector_db,
+    contents_db=contents_db  # Must be provided for AgentOS
+)
+
+# Create AgentOS app
+app = AgentApp(
+    knowledge_instances=[knowledge]  # Knowledge page will work!
+)
+```
+
+### AgentOS Features Enabled by ContentsDB
+
+With ContentsDB, the AgentOS Knowledge page provides:
+
+- **Content Browser**: View all uploaded content with metadata
+- **Upload Interface**: Add new content through the web UI
+- **Status Monitoring**: Real-time processing status updates
+- **Metadata Editor**: Update content metadata through forms
+- **Content Management**: Delete or modify content entries
+- **Search and Filtering**: Find content by metadata attributes
+- **Bulk Operations**: Manage multiple content items at once
+
+## Troubleshooting
+
+### Common Issues
+
+**ContentsDB not connected**: 
+```python
+# Ensure ContentsDB is provided to Knowledge
+knowledge = Knowledge(
+    vector_db=vector_db,
+    contents_db=contents_db  # Don't forget this!
+)
+```
+
+**AgentOS Knowledge page not working**:
+```python
+# ContentsDB is mandatory for AgentOS
+if not knowledge.contents_db:
+    raise ValueError("ContentsDB required for AgentOS")
+```
+
+**Content not appearing after upload**:
+```python
+# Check processing status
+status, message = knowledge.get_content_status(content_id)
+if status == ContentStatus.FAILED:
+    print(f"Processing failed: {message}")
+```
+
+## Next Steps
+
+- **[Vector Databases](vectordb/introduction)** - Understand the embedding storage layer
+- **[AgentOS](/docs/agent-os/introduction)** - Use your Knowledge in Agno AgentOS
+- **[Database Setup](../db/overview)** - Detailed database configuration guides
+
+

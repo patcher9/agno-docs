@@ -197,10 +197,11 @@
               {
                 "group": "Knowledge",
                 "pages": [
-                  "concepts/knowledge/introduction",
-                  "concepts/knowledge/content_types",
-                  "concepts/knowledge/search",
-                  "concepts/knowledge/hybrid_search",
+                  "docs/documentation/knowledge/introduction",
+                  "docs/documentation/knowledge/content_types",
+                  "docs/documentation/knowledge/content_db",
+                  "docs/documentation/knowledge/search",
+                  "docs/documentation/knowledge/hybrid_search",
                   {
                     "group": "Knowledge Filters",
                     "pages": [
