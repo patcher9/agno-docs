@@ -1,0 +1,9 @@
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `status` | `Literal["success", "failure"]` | Required | Execution status of the function |
+| `result` | `Optional[Any]` | `None` | The actual result/output from the function |
+| `error` | `Optional[str]` | `None` | Error message if status is "failure" |
+| `updated_session_state` | `Optional[Dict[str, Any]]` | `None` | Updated session state to persist |
+| `images` | `Optional[List[ImageArtifact]]` | `None` | Generated image artifacts |
+| `videos` | `Optional[List[VideoArtifact]]` | `None` | Generated video artifacts |
+| `audios` | `Optional[List[AudioArtifact]]` | `None` | Generated audio artifacts |
