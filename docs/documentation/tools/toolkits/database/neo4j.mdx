@@ -4,6 +4,41 @@ title: Neo4j
 
 **Neo4jTools** enables agents to interact with Neo4j graph databases for querying and managing graph data.
 
+## Prerequisites
+
+The following example requires the `neo4j` library.
+
+```shell
+pip install -U neo4j
+```
+
+You will also need a Neo4j database. The following example uses a Neo4j database running in a Docker container.
+
+```shell
+docker run -d -p 7474:7474 -p 7687:7687 --name neo4j -e NEO4J_AUTH=neo4j/password neo4j
+```
+
+Make sure to set the `NEO4J_URI` environment variable to the URI of the Neo4j database.
+
+```shell
+    export NEO4J_URI=bolt://localhost:7687
+    export NEO4J_USERNAME=neo4j
+    export NEO4J_PASSWORD=your-password
+    export OPENAI_API_KEY=xxx
+```
+
+Install libraries
+
+```shell
+pip install -U neo4j openai agno
+```
+
+Run the agent
+
+```shell
+python cookbook/tools/neo4j_tools.py
+```
+
 ## Example
 
 The following agent can interact with Neo4j graph databases:
