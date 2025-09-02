@@ -780,7 +780,7 @@
                         ]
                       },
                       {
-                        "group": "User Control Flows",
+                        "group": "Human-in-the-Loop",
                         "pages": [
                           "examples/concepts/agent/human_in_the_loop/agentic_user_input",
                           "examples/concepts/agent/human_in_the_loop/confirmation_required",
@@ -916,7 +916,7 @@
                     ]
                   },
                   {
-                    "group": "Basic",
+                    "group": "Basic Input and Output",
                     "pages": [
                       "examples/concepts/teams/basic/input_as_dict",
                       "examples/concepts/teams/basic/input_as_list",
@@ -1842,7 +1842,7 @@
                 ]
               },
               {
-                "group": "Integrations",
+                "group": "Other Integrations",
                 "pages": [
               
                   {
