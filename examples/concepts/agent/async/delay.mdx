@@ -1,15 +1,15 @@
 ---
-title: Gathering Multiple Async Agents
+title: Async Agents with Delayed Execution
 ---
 
-This example demonstrates how to run multiple async agents concurrently using asyncio.gather() to generate research reports on different AI providers simultaneously.
+This example demonstrates how to run multiple async agents with delayed execution, gathering results from different AI providers to write comprehensive reports.
 
 ## Code
 
-```python cookbook/agents/async/gather_agents.py
+```python cookbook/agents/async/delay.py
 import asyncio
 
-from agno.agent import Agent
+from agno.agent import Agent, RunOutput
 from agno.models.openai import OpenAIChat
 from agno.tools.duckduckgo import DuckDuckGoTools
 from rich.pretty import pprint
@@ -21,17 +21,24 @@ instructions = [
 ]
 
 
+async def get_agent(delay, provider):
+    agent = Agent(
+        model=OpenAIChat(id="gpt-4"),
+        instructions=instructions,
+        tools=[DuckDuckGoTools()],
+    )
+    await asyncio.sleep(delay)
+    response: RunOutput = await agent.arun(
+        f"Write a report on the following AI provider: {provider}"
+    )
+    return response
+
+
 async def get_reports():
     tasks = []
-    for provider in providers:
-        agent = Agent(
-            model=OpenAIChat(id="gpt-4"),
-            instructions=instructions,
-            tools=[DuckDuckGoTools()],
-        )
-        tasks.append(
-            agent.arun(f"Write a report on the following AI provider: {provider}")
-        )
+    for delay, provider in enumerate(providers):
+        delay = delay * 2
+        tasks.append(get_agent(delay, provider))
 
     results = await asyncio.gather(*tasks)
     return results
@@ -64,11 +71,11 @@ if __name__ == "__main__":
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/async/gather_agents.py
+    python cookbook/agents/async/delay.py
     ```
     
     ```bash Windows
-    python cookbook/agents/async/gather_agents.py
+    python cookbook/agents/async/delay.py
     ```
     </CodeGroup>
   </Step>

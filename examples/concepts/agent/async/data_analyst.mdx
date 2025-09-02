@@ -1,10 +1,14 @@
 ---
-title: Data Analyst
+title: Async Data Analyst Agent with DuckDB
 ---
+
+This example demonstrates how to create an asynchronous data analyst agent that can analyze movie data using DuckDB tools and provide insights about movie ratings.
 
 ## Code
 
-```python cookbook/agent_concepts/async/data_analyst.py
+```python cookbook/agents/async/data_analyst.py
+"""Run `pip install duckdb` to install dependencies."""
+
 import asyncio
 from textwrap import dedent
 
@@ -24,14 +28,12 @@ agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     tools=[duckdb_tools],
     markdown=True,
-        additional_context=dedent("""\
+    additional_context=dedent("""\
     You have access to the following tables:
     - movies: contains information about movies from IMDB.
     """),
 )
-asyncio.run(
-    agent.aprint_response("What is the average rating of movies?", stream=False)
-)
+asyncio.run(agent.aprint_response("What is the average rating of movies?"))
 ```
 
 ## Usage
@@ -40,27 +42,20 @@ asyncio.run(
   <Snippet file="create-venv-step.mdx" />
 
   <Step title="Install libraries">
-
     ```bash
-    pip install -U openai agno duckdb
+    pip install -U agno openai duckdb
     ```
-
   </Step>
 
   <Step title="Run Agent">
-
     <CodeGroup>
-
     ```bash Mac
-    python cookbook/agent_concepts/async/data_analyst.py
+    python cookbook/agents/async/data_analyst.py
     ```
-
+    
     ```bash Windows
-    python cookbook/agent_concepts/async/data_analyst.py
+    python cookbook/agents/async/data_analyst.py
     ```
-
     </CodeGroup>
-
   </Step>
-
 </Steps>

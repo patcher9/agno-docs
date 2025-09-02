@@ -1,14 +1,16 @@
 ---
-title: Structured Outputs
+title: Async Agent with Structured Output
 ---
+
+This example demonstrates how to use async agents with structured output schemas, comparing structured output mode versus JSON mode for generating movie scripts with defined data models.
 
 ## Code
 
-```python cookbook/agent_concepts/async/structured_output.py
+```python cookbook/agents/async/structured_output.py
 import asyncio
 from typing import List
 
-from agno.agent import Agent, RunResponse  # noqa
+from agno.agent import Agent, RunOutput  # noqa
 from agno.models.openai import OpenAIChat
 from pydantic import BaseModel, Field
 from rich.pretty import pprint  # noqa
@@ -33,13 +35,6 @@ class MovieScript(BaseModel):
     )
 
 
-# Agent that uses JSON mode
-json_mode_agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
-    description="You write movie scripts.",
-    output_schema=MovieScript,
-)
-
 # Agent that uses structured outputs
 structured_output_agent = Agent(
     model=OpenAIChat(id="gpt-4o-2024-08-06"),
@@ -47,9 +42,23 @@ structured_output_agent = Agent(
     output_schema=MovieScript,
 )
 
+# Agent that uses JSON mode
+json_mode_agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    description="You write movie scripts.",
+    output_schema=MovieScript,
+    use_json_mode=True,
+)
 
-asyncio.run(json_mode_agent.aprint_response("New York"))
+
+# Get the response in a variable
+# json_mode_response: RunOutput = json_mode_agent.arun("New York")
+# pprint(json_mode_response.content)
+# structured_output_response: RunOutput = structured_output_agent.arun("New York")
+# pprint(structured_output_response.content)
+
 asyncio.run(structured_output_agent.aprint_response("New York"))
+asyncio.run(json_mode_agent.aprint_response("New York"))
 ```
 
 ## Usage
@@ -58,27 +67,20 @@ asyncio.run(structured_output_agent.aprint_response("New York"))
   <Snippet file="create-venv-step.mdx" />
 
   <Step title="Install libraries">
-
     ```bash
-    pip install -U openai agno
+    pip install -U agno openai pydantic rich
     ```
-
   </Step>
 
   <Step title="Run Agent">
-
     <CodeGroup>
-
     ```bash Mac
-    python cookbook/agent_concepts/async/structured_output.py
+    python cookbook/agents/async/structured_output.py
     ```
-
+    
     ```bash Windows
-    python cookbook/agent_concepts/async/structured_output.py
+    python cookbook/agents/async/structured_output.py
     ```
-
     </CodeGroup>
-
   </Step>
-
 </Steps>

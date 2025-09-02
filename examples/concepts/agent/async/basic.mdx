@@ -1,23 +1,43 @@
 ---
-title: Basic Async
+title: Basic Async Agent Usage
 ---
+
+This example demonstrates basic asynchronous agent usage with different response handling methods including direct response, print response, and pretty print response.
 
 ## Code
 
-```python cookbook/agent_concepts/async/basic.py
+```python cookbook/agents/async/basic.py
 import asyncio
 
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
+from agno.utils.pprint import apprint_run_response
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
-    description="You help people with their health and fitness goals.",
-    instructions=["Recipes should be under 5 ingredients"],
-    markdown=True,
+    model=OpenAIChat(id="gpt-4o-mini"),
 )
-# -*- Print a response to the cli
-asyncio.run(agent.aprint_response("Share a breakfast recipe.", stream=True))
+
+
+async def basic():
+    response = await agent.arun(input="Tell me a joke.")
+    print(response.content)
+
+
+async def basic_print():
+    await agent.aprint_response(input="Tell me a joke.")
+
+
+async def basic_pprint():
+    response = await agent.arun(input="Tell me a joke.")
+    await apprint_run_response(response)
+
+
+if __name__ == "__main__":
+    asyncio.run(basic())
+    # OR
+    asyncio.run(basic_print())
+    # OR
+    asyncio.run(basic_pprint())
 ```
 
 ## Usage
@@ -26,27 +46,20 @@ asyncio.run(agent.aprint_response("Share a breakfast recipe.", stream=True))
   <Snippet file="create-venv-step.mdx" />
 
   <Step title="Install libraries">
-
     ```bash
-    pip install -U openai agno
+    pip install -U agno openai
     ```
-
   </Step>
 
   <Step title="Run Agent">
-
     <CodeGroup>
-
     ```bash Mac
-    python cookbook/agent_concepts/async/basic.py
+    python cookbook/agents/async/basic.py
     ```
-
+    
     ```bash Windows
-    python cookbook/agent_concepts/async/basic.py
+    python cookbook/agents/async/basic.py
     ```
-
     </CodeGroup>
-
   </Step>
-
 </Steps>

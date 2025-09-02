@@ -1,0 +1,45 @@
+---
+title: Dynamic Instructions Based on Session State
+---
+
+This example demonstrates how to create dynamic instructions that change based on session state, allowing personalized agent behavior for different users.
+
+## Code
+
+```python cookbook/agents/context_management/dynamic_instructions.py
+from agno.agent import Agent
+
+
+def get_instructions(session_state):
+    if session_state and session_state.get("current_user_id"):
+        return f"Make the story about {session_state.get('current_user_id')}."
+    return "Make the story about the user."
+
+
+agent = Agent(instructions=get_instructions)
+agent.print_response("Write a 2 sentence story", user_id="john.doe")
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+    ```bash
+    pip install -U agno
+    ```
+  </Step>
+
+  <Step title="Run Agent">
+    <CodeGroup>
+    ```bash Mac
+    python cookbook/agents/context_management/dynamic_instructions.py
+    ```
+    
+    ```bash Windows
+    python cookbook/agents/context_management/dynamic_instructions.py
+    ```
+    </CodeGroup>
+  </Step>
+</Steps>

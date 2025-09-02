@@ -1,0 +1,46 @@
+---
+title: Async Agent with Tool Usage
+---
+
+This example demonstrates how to use an async agent with DuckDuckGo search tools to gather current information about events happening in different countries.
+
+## Code
+
+```python cookbook/agents/async/tool_use.py
+import asyncio
+
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.tools.duckduckgo import DuckDuckGoTools
+
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    tools=[DuckDuckGoTools()],
+    markdown=True,
+)
+asyncio.run(agent.aprint_response("Whats happening in UK and in USA?"))
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+    ```bash
+    pip install -U agno openai ddgs
+    ```
+  </Step>
+
+  <Step title="Run Agent">
+    <CodeGroup>
+    ```bash Mac
+    python cookbook/agents/async/tool_use.py
+    ```
+    
+    ```bash Windows
+    python cookbook/agents/async/tool_use.py
+    ```
+    </CodeGroup>
+  </Step>
+</Steps>

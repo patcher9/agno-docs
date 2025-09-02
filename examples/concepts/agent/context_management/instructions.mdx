@@ -1,0 +1,38 @@
+---
+title: Basic Agent Instructions
+---
+
+This example demonstrates how to provide basic instructions to an agent to guide its response behavior and storytelling style.
+
+## Code
+
+```python cookbook/agents/context_management/instructions.py
+from agno.agent import Agent
+
+agent = Agent(instructions="Share a 2 sentence story about")
+agent.print_response("Love in the year 12000.")
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+    ```bash
+    pip install -U agno
+    ```
+  </Step>
+
+  <Step title="Run Agent">
+    <CodeGroup>
+    ```bash Mac
+    python cookbook/agents/context_management/instructions.py
+    ```
+    
+    ```bash Windows
+    python cookbook/agents/context_management/instructions.py
+    ```
+    </CodeGroup>
+  </Step>
+</Steps>

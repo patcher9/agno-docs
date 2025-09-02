@@ -1,0 +1,66 @@
+---
+title: Session Caching
+---
+
+This example demonstrates how to enable session caching in memory for faster access to session data, improving performance when working with persistent databases.
+
+## Code
+
+```python cookbook/agents/session/08_cache_session.py
+"""Example of how to cache the session in memory for faster access."""
+
+from agno.agent.agent import Agent
+from agno.db.postgres import PostgresDb
+from agno.models.openai import OpenAIChat
+
+# Setup the database
+db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
+db = PostgresDb(db_url=db_url, session_table="xxx")
+
+# Setup the agent
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o-mini"),
+    db=db,
+    session_id="session_storage",
+    add_history_to_context=True,
+    # Activate session caching. The session will be cached in memory for faster access.
+    cache_session=True,
+)
+
+# Running the Agent
+agent.print_response("Tell me a new interesting fact about space")
+
+# You can get the cached session:
+session = agent.get_session()
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+    ```bash
+    pip install -U agno openai psycopg
+    ```
+  </Step>
+
+  <Step title="Setup PostgreSQL">
+    ```bash
+    # Make sure PostgreSQL is running
+    # Update connection string in the code as needed
+    ```
+  </Step>
+
+  <Step title="Run Agent">
+    <CodeGroup>
+    ```bash Mac
+    python cookbook/agents/session/08_cache_session.py
+    ```
+    
+    ```bash Windows
+    python cookbook/agents/session/08_cache_session.py
+    ```
+    </CodeGroup>
+  </Step>
+</Steps>

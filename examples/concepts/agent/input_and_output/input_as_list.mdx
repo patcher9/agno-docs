@@ -1,0 +1,49 @@
+---
+title: Agent Input as List
+---
+
+This example demonstrates how to provide input to an agent as a list format for multimodal content combining text and images.
+
+## Code
+
+```python cookbook/agents/input_and_output/input_as_list.py
+from agno.agent import Agent
+
+Agent().print_response(
+    [
+        {"type": "text", "text": "What's in this image?"},
+        {
+            "type": "image_url",
+            "image_url": {
+                "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dd/Gfp-wisconsin-madison-the-nature-boardwalk.jpg/2560px-Gfp-wisconsin-madison-the-nature-boardwalk.jpg",
+            },
+        },
+    ],
+    stream=True,
+    markdown=True,
+)
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+    ```bash
+    pip install -U agno
+    ```
+  </Step>
+
+  <Step title="Run Agent">
+    <CodeGroup>
+    ```bash Mac
+    python cookbook/agents/input_and_output/input_as_list.py
+    ```
+    
+    ```bash Windows
+    python cookbook/agents/input_and_output/input_as_list.py
+    ```
+    </CodeGroup>
+  </Step>
+</Steps>
