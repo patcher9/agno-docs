@@ -26,6 +26,11 @@ From the AgentOS control plane, generate a security key.
   </video>
 </Frame>
 
+<Tip>
+You can also create your own security key and set it on the AgentOS UI.
+</Tip>
+
+
 ## Enable Authentication
 
 Set the `OS_SECURITY_KEY` environment variable where your AgentOS server runs. When present, the server automatically enforces bearer authentication on all API routes.
@@ -47,17 +52,6 @@ services:
       - OS_SECURITY_KEY=${OS_SECURITY_KEY}
     ports:
       - "8000:8000"
-```
-
-### Kubernetes (env var)
-
-```yaml
-env:
-  - name: OS_SECURITY_KEY
-    valueFrom:
-      secretKeyRef:
-        name: agentos-secrets
-        key: os_security_key
 ```
 
 <Note>

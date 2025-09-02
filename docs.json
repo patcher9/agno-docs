@@ -89,11 +89,9 @@
               {
                 "group": "Interfaces",
                 "pages": [
+                  "docs/agent-os/interfaces/whatsapp/introduction",
                   "docs/agent-os/interfaces/ag-ui/introduction",
-                  "docs/agent-os/interfaces/fastapi/introduction",
-                  "docs/agent-os/interfaces/playground/introduction",
-                  "docs/agent-os/interfaces/slack/introduction",
-                  "docs/agent-os/interfaces/whatsapp/introduction"
+                  "docs/agent-os/interfaces/slack/introduction"
                 ]
               }
             ]
