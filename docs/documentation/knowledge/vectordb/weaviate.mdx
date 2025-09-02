@@ -33,7 +33,7 @@ or
 
 ```python agent_with_knowledge.py
 from agno.agent import Agent
-from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
+from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.search import SearchType
 from agno.vectordb.weaviate import Distance, VectorIndex, Weaviate
 
@@ -45,18 +45,22 @@ vector_db = Weaviate(
     local=True,  # Set to False if using Weaviate Cloud and True if using local instance
 )
 # Create knowledge base
-knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+knowledge_base = Knowledge(
     vector_db=vector_db,
 )
-knowledge_base.load(recreate=False)  # Comment out after first run
 
 # Create and use the agent
 agent = Agent(
     knowledge=knowledge_base,
     search_knowledge=True,
 )
-agent.print_response("How to make Thai curry?", markdown=True)
+
+if __name__ == "__main__":
+    knowledge_base.add_content(
+        url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"
+    )
+
+    agent.print_response("How to make Thai curry?", markdown=True)
 ```
 
 <Card title="Async Support ⚡">
@@ -69,7 +73,7 @@ agent.print_response("How to make Thai curry?", markdown=True)
     import asyncio
 
     from agno.agent import Agent
-    from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
+    from agno.knowledge.knowledge import Knowledge
     from agno.vectordb.search import SearchType
     from agno.vectordb.weaviate import Distance, VectorIndex, Weaviate
 
@@ -82,8 +86,7 @@ agent.print_response("How to make Thai curry?", markdown=True)
     )
     
     # Create knowledge base
-    knowledge_base = PDFUrlKnowledgeBase(
-        urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+    knowledge_base = Knowledge(
         vector_db=vector_db,
     )
 
@@ -93,10 +96,13 @@ agent.print_response("How to make Thai curry?", markdown=True)
     )
 
     if __name__ == "__main__":
-        # Comment out after first run
-        asyncio.run(knowledge_base.aload(recreate=False))
+        # Load knowledge base asynchronously
+        asyncio.run(knowledge_base.add_content_async(
+                url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"
+            )
+        )
 
-        # Create and use the agent
+        # Create and use the agent asynchronously
         asyncio.run(agent.aprint_response("How to make Tom Kha Gai", markdown=True))
     ```
     

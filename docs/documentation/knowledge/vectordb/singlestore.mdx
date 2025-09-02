@@ -40,7 +40,7 @@ from os import getenv
 from sqlalchemy.engine import create_engine
 
 from agno.agent import Agent
-from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
+from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.singlestore import SingleStore
 
 USERNAME = getenv("SINGLESTORE_USERNAME")
@@ -56,8 +56,7 @@ if SSL_CERT:
 
 db_engine = create_engine(db_url)
 
-knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+knowledge_base = Knowledge(
     vector_db=SingleStore(
         collection="recipes",
         db_engine=db_engine,
@@ -86,7 +85,9 @@ def pdf_assistant(user: str = "user"):
 
 if __name__ == "__main__":
     # Comment out after first run
-    knowledge_base.load(recreate=False)
+    knowledge_base.add_content(
+        url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"
+    )
 
     typer.run(pdf_assistant)
 ```

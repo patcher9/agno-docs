@@ -22,27 +22,29 @@ docker run -d \
 ```python agent_with_knowledge.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
-from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
+from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector, SearchType
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
-knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+knowledge_base = Knowledge(
     vector_db=PgVector(table_name="recipes", db_url=db_url, search_type=SearchType.hybrid),
 )
-# Load the knowledge base: Comment out after first run
-knowledge_base.load(recreate=True, upsert=True)
 
-agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
-    knowledge=knowledge_base,
-    # Add a tool to read chat history.
-    read_chat_history=True,
-    markdown=True,
-    # debug_mode=True,
-)
-agent.print_response("How do I make chicken and galangal in coconut milk soup", stream=True)
-agent.print_response("What was my last question?", stream=True)
+if __name__ == "__main__":
+    knowledge_base.add_content(
+        url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"
+    )
+
+    agent = Agent(
+        model=OpenAIChat(id="gpt-4o"),
+        knowledge=knowledge_base,
+        # Add a tool to read chat history.
+        read_chat_history=True,
+        markdown=True,
+        # debug_mode=True,
+    )
+    agent.print_response("How do I make chicken and galangal in coconut milk soup", stream=True)
+    agent.print_response("What was my last question?", stream=True)
 ```
 
 <Card title="Async Support ⚡">
@@ -55,25 +57,27 @@ agent.print_response("What was my last question?", stream=True)
     import asyncio
 
     from agno.agent import Agent
-    from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
+    from agno.knowledge.knowledge import Knowledge
     from agno.vectordb.pgvector import PgVector
 
     db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
     vector_db = PgVector(table_name="recipes", db_url=db_url)
 
-    knowledge_base = PDFUrlKnowledgeBase(
-        urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+    knowledge_base = Knowledge(
         vector_db=vector_db,
     )
 
     agent = Agent(knowledge=knowledge_base)
 
     if __name__ == "__main__":
-        # Comment out after first run
-        asyncio.run(knowledge_base.aload(recreate=False))
+        # Load knowledge base asynchronously
+        asyncio.run(knowledge_base.add_content_async(
+                url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"
+            )
+        )
 
-        # Create and use the agent
+        # Create and use the agent asynchronously
         asyncio.run(agent.aprint_response("How to make Tom Kha Gai", markdown=True))
     ```
     
