@@ -1,13 +1,14 @@
 ---
 title: Knowledge Contents DB
 description: "Learn how to add a Content DB to your Knowledge."
-sidebarTitle: Content DB
+sidebarTitle: Contents DB
 ---
-The Contents Database (ContentsDB) is an optional component that enhances Knowledge with content trackin and management features. It acts as a control layer that maintains detailed records of all content added to your `Knowledge`.
+The Contents Database (Contents DB) is an optional component that enhances Knowledge with content tracking and management features. It acts as a control layer that maintains detailed records of all content added to your `Knowledge`.
 
-## What is ContentsDB?
+## What is Contents DB?
 
-ContentsDB is a database component that tracks and manages metadata for content added to your Knowledge base. While your vector database stores the actual embeddings and chunks for search, ContentsDB maintains the administrative layer - tracking what content was added, when, its processing status, and providing management capabilities.
+Contents DB is a table in your database that keeps track of what content you've added to your Knowledge base. 
+While your vector database stores the actual content for search, this table tracks what you've added, when you added it, and its processing status.
 
 - **Vector Database**: Stores embeddings and chunks for semantic search
 - **Contents Database**: Tracks content metadata, status, and when coupled with [AgentOS Knowledge](/docs/agent-os/knowledge-management), provides management of your knowledge via API.
@@ -39,13 +40,13 @@ If you're using AgentOS, ContentsDB is **mandatory** for the Knowledge page func
 
 Agno supports multiple database backends for ContentsDB:
 
-- **PostgreSQL** - Recommended for production
-- **SQLite** - Great for development and single-user applications  
-- **MySQL** - Enterprise-ready relational database
-- **MongoDB** - Document-based NoSQL option
-- **Redis** - In-memory option for high performance
-- **In-Memory** - Temporary storage for testing
-- **Cloud Options** - DynamoDB, Firestore, GCS JSON
+- **[PostgreSQL](/docs/documentation/db/postgres)** - Recommended for production
+- **[SQLite](/docs/documentation/db/sqlite)** - Great for development and single-user applications  
+- **[MySQL](/docs/documentation/db/mysql)** - Enterprise-ready relational database
+- **[MongoDB](/docs/documentation/db/mongodb)** - Document-based NoSQL option
+- **[Redis](/docs/documentation/db/redis)** - In-memory option for high performance
+- **[In-Memory](/docs/documentation/db/in_memory)** - Temporary storage for testing
+- **Cloud Options** - [DynamoDB](/docs/documentation/db/dynamodb), [Firestore](/docs/documentation/db/firestore), [GCS](/docs/documentation/db/gcs)
 
 ### Basic Setup Example
 
@@ -95,9 +96,31 @@ contents_db = InMemoryDb()
 
 ## Core Functionality
 
-### Content Metadata Tracking
+### Contents DB Schema
 
-ContentsDB automatically tracks comprehensive metadata for each content item:
+If you have a Contents DB configured for your Knowledge, the content metadata will be stored in a contents table in your database.
+
+The schema for the contents table is as follows:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `id` | `str` | The unique identifier for the content. |
+| `name` | `str` | The name of the content. |
+| `description` | `str` | The description of the content. |
+| `metadata` | `dict` | The metadata for the content. |
+| `type` | `str` | The type of the content. |
+| `size` | `int` | The size of the content. Applicable only to files. |
+| `linked_to` | `str` | The ID of the content that this content is linked to. |
+| `access_count` | `int` | The number of times this content has been accessed. |
+| `status` | `str` | The status of the content. |
+| `status_message` | `str` | The message associated with the status of the content. |
+| `created_at` | `int` | The timestamp when the content was created. |
+| `updated_at` | `int` | The timestamp when the content was last updated. |
+| `external_id` | `str` | The external ID of the content. Used when external vector stores are used, like LightRAG. |
+
+This data is best displayed on the [knowledge page of the AgentOS UI](https://os.agno.com/knowledge).
+
+### Content Metadata Tracking
 
 ```python
 # When you add content
@@ -107,28 +130,8 @@ knowledge.add_content(
     metadata={"department": "engineering", "version": "2.1"}
 )
 
-# ContentsDB automatically stores:
-# - Content ID (auto-generated)
-# - Name and description
-# - File type and size
-# - Custom metadata
-# - Processing status
-# - Creation and update timestamps
+# ContentsDB automatically stores all the fields from the schema above
 # - External IDs for cloud integrations
-```
-
-### Content Status Tracking
-
-Every piece of content has a status that you can monitor:
-
-```python
-# Check processing status
-status, message = knowledge.get_content_status(content_id)
-
-# Status can be:
-# - PROCESSING: Content is being ingested
-# - COMPLETED: Successfully processed and available
-# - FAILED: Processing failed (with error message)
 ```
 
 ### Content Retrieval and Management
@@ -156,41 +159,20 @@ print(content.created_at)   # When it was added
 print(content.updated_at)   # Last modification
 ```
 
-## Advanced Management Features
-
-### Metadata Updates
-
-Update metadata for existing content without reprocessing:
-
-```python
-from agno.knowledge.content import Content
-
-# Create content update
-updated_content = Content(
-    id=content_id,
-    metadata={
-        "department": "engineering", 
-        "version": "2.2",  # Updated version
-        "reviewed": True   # New field
-    }
-)
-
-# Apply the update
-result = knowledge.patch_content(updated_content)
-```
+## Management Features
 
 ### Content Deletion with Vector Cleanup
 
 Delete content and automatically clean up associated vectors:
 
+This automatically:
+1. Removes the content metadata from ContentsDB
+2. Deletes associated vectors from the vector database
+3. Maintains consistency between both databases
+
 ```python
 # Delete specific content
 knowledge.remove_content_by_id(content_id)
-
-# This automatically:
-# 1. Removes the content metadata from ContentsDB
-# 2. Deletes associated vectors from the vector database
-# 3. Maintains consistency between both databases
 
 # Delete all content
 knowledge.remove_all_content()
@@ -218,7 +200,7 @@ results = knowledge.search(
 When using AgentOS, ContentsDB is mandatory for the Knowledge management interface:
 
 ```python
-from agno.os import AgentApp
+from agno.os import AgentOS
 from agno.db.postgres import PostgresDb
 
 # ContentsDB is required for AgentOS Knowledge page
@@ -232,8 +214,8 @@ knowledge = Knowledge(
 )
 
 # Create AgentOS app
-app = AgentApp(
-    knowledge_instances=[knowledge]  # Knowledge page will work!
+app = AgentOS(
+    knowledge_instances=[knowledge]
 )
 ```
 
@@ -249,38 +231,12 @@ With ContentsDB, the AgentOS Knowledge page provides:
 - **Search and Filtering**: Find content by metadata attributes
 - **Bulk Operations**: Manage multiple content items at once
 
-## Troubleshooting
-
-### Common Issues
-
-**ContentsDB not connected**: 
-```python
-# Ensure ContentsDB is provided to Knowledge
-knowledge = Knowledge(
-    vector_db=vector_db,
-    contents_db=contents_db  # Don't forget this!
-)
-```
-
-**AgentOS Knowledge page not working**:
-```python
-# ContentsDB is mandatory for AgentOS
-if not knowledge.contents_db:
-    raise ValueError("ContentsDB required for AgentOS")
-```
-
-**Content not appearing after upload**:
-```python
-# Check processing status
-status, message = knowledge.get_content_status(content_id)
-if status == ContentStatus.FAILED:
-    print(f"Processing failed: {message}")
-```
+Check out the [AgentOS Knowledge](/docs/agent-os/knowledge-management) page for more in-depth information.
 
 ## Next Steps
 
-- **[Vector Databases](vectordb/introduction)** - Understand the embedding storage layer
+- **[Vector Databases](/docs/documentation/knowledge/vectordb/introduction)** - Understand the embedding storage layer
 - **[AgentOS](/docs/agent-os/introduction)** - Use your Knowledge in Agno AgentOS
-- **[Database Setup](../db/overview)** - Detailed database configuration guides
+- **[Database Setup](/docs/documentation/db/overview)** - Detailed database configuration guides
 
 
