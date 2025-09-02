@@ -102,7 +102,8 @@
                   "docs/documentation/agents/tools",
                   "docs/documentation/agents/structured-input-output",
                   "docs/documentation/agents/dependencies",
-                  "docs/documentation/agents/metrics"
+                  "docs/documentation/agents/metrics",
+                  "docs/documentation/agents/run-cancel"
                 ]
               },
               {
@@ -126,7 +127,8 @@
                   "docs/documentation/teams/knowledge",
                   "docs/documentation/teams/metrics",
                   "docs/documentation/teams/dependencies",
-                  "docs/documentation/teams/structured-input-output"
+                  "docs/documentation/teams/structured-input-output",
+                  "docs/documentation/teams/run-cancel"
                 ]
               },
               {
