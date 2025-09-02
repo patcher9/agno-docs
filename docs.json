@@ -768,19 +768,8 @@
               {
                 "group": "Agent",
                 "pages": [
-                  {
-                    "group": "Async",
-                    "pages": [
-                      "examples/concepts/agent/async/basic",
-                      "examples/concepts/agent/async/data_analyst",
-                      "examples/concepts/agent/async/structured_output",
-                      "examples/concepts/agent/async/reasoning",
-                      "examples/concepts/agent/async/gather_agents"
-                    ]
-                  },
-                  {
-                    "group": "Agents",
-                    "pages": [
+                
+                
                       {
                         "group": "Agentic Search",
                         "pages": [
@@ -788,6 +777,41 @@
                           "examples/concepts/agent/agents/agentic_search/agentic_rag_with_reasoning",
                           "examples/concepts/agent/agents/agentic_search/agentic_rag_infinity_reranker",
                           "examples/concepts/agent/agents/agentic_search/lightrag/agentic_rag_with_lightrag"
+                        ]
+                      },
+                      {
+                        "group": "Async",
+                        "pages": [
+                          "examples/concepts/agent/async/basic",
+                          "examples/concepts/agent/async/data_analyst",
+                          "examples/concepts/agent/async/structured_output",
+                          "examples/concepts/agent/async/reasoning",
+                          "examples/concepts/agent/async/gather_agents"
+                        ]
+                      },
+                      {
+                        "group": "Context Management",
+                        "pages": [
+                          "examples/concepts/agent/agents/context_management/datetime_instructions",
+                          "examples/concepts/agent/agents/context_management/dynamic_instructions",
+                          "examples/concepts/agent/agents/context_management/few_shot_learning",
+                          "examples/concepts/agent/agents/context_management/instructions",
+                          "examples/concepts/agent/agents/context_management/instructions_via_function",
+                          "examples/concepts/agent/agents/context_management/location_instructions"
+                        ]
+                      },
+                      {
+                        "group": "Dependencies",
+                        "pages": [
+                          "examples/concepts/agent/agents/dependencies/add_dependencies_run",
+                          "examples/concepts/agent/agents/dependencies/add_dependencies_to_context"
+                        ]
+                      },
+                      {
+                        "group": "Events",
+                        "pages": [
+                          "examples/concepts/agent/agents/events/basic_agent_events",
+                          "examples/concepts/agent/agents/events/reasoning_agent_events"
                         ]
                       },
                       {
@@ -832,29 +856,27 @@
                           "examples/concepts/agent/agents/input_and_output/structured_input"
                         ]
                       },
+                     
                       {
-                        "group": "Context Management",
+                        "group": "Multimodal",
                         "pages": [
-                          "examples/concepts/agent/agents/context_management/datetime_instructions",
-                          "examples/concepts/agent/agents/context_management/dynamic_instructions",
-                          "examples/concepts/agent/agents/context_management/few_shot_learning",
-                          "examples/concepts/agent/agents/context_management/instructions",
-                          "examples/concepts/agent/agents/context_management/instructions_via_function",
-                          "examples/concepts/agent/agents/context_management/location_instructions"
-                        ]
-                      },
-                      {
-                        "group": "Dependencies",
-                        "pages": [
-                          "examples/concepts/agent/agents/dependencies/add_dependencies_run",
-                          "examples/concepts/agent/agents/dependencies/add_dependencies_to_context"
-                        ]
-                      },
-                      {
-                        "group": "Events",
-                        "pages": [
-                          "examples/concepts/agent/agents/events/basic_agent_events",
-                          "examples/concepts/agent/agents/events/reasoning_agent_events"
+                          "examples/concepts/agent/multimodal/image_to_text",
+                          "examples/concepts/agent/multimodal/image_to_structured_output",
+                          "examples/concepts/agent/multimodal/image_input_high_fidelity",
+                          "examples/concepts/agent/multimodal/image_to_image_agent",
+                          "examples/concepts/agent/multimodal/image_to_audio",
+                          "examples/concepts/agent/multimodal/audio_to_text",
+                          "examples/concepts/agent/multimodal/audio_input_output",
+                          "examples/concepts/agent/multimodal/audio_multi_turn",
+                          "examples/concepts/agent/multimodal/audio_sentiment_analysis",
+                          "examples/concepts/agent/multimodal/audio_streaming",
+                          "examples/concepts/agent/multimodal/video_caption_agent",
+                          "examples/concepts/agent/multimodal/video_to_shorts",
+                          "examples/concepts/agent/multimodal/generate_image_with_intermediate_steps",
+                          "examples/concepts/agent/multimodal/generate_video_using_models_lab",
+                          "examples/concepts/agent/multimodal/generate_video_using_replicate",
+                          "examples/concepts/agent/multimodal/agent_same_run_image_analysis",
+                          "examples/concepts/agent/multimodal/agent_using_multimodal_tool_response_in_runs"
                         ]
                       },
                       {
@@ -871,70 +893,50 @@
                           "examples/concepts/agent/agents/other/scenario_testing",
                           "examples/concepts/agent/agents/other/tool_call_limit"
                         ]
-                      }
-                    ]
+                    
                   },
                   {
-                    "group": "Context",
+                    "group": "RAG",
                     "pages": [
-                      "examples/concepts/agent/context/01-add_context",
-                      "examples/concepts/agent/context/02-agent_context",
-                      "examples/concepts/agent/context/03-context_in_instructions"
-                    ]
-                  },
-                  {
-                    "group": "State",
-                    "pages": [
-                      "examples/concepts/agent/state/01-session-state",
-                      "examples/concepts/agent/state/02-state-in-prompt",
-                      "examples/concepts/agent/state/03-session-state-storage",
-                      "examples/concepts/agent/state/04-session-state-user-id",
-                      "examples/concepts/agent/state/05-session-state-full-example",
-                      "examples/concepts/agent/state/06-team-session-state"
+                      "examples/concepts/agent/rag/agentic_rag_lancedb",
+                      "examples/concepts/agent/rag/agentic_rag_pgvector",
+                      "examples/concepts/agent/rag/agentic_rag_with_reranking",
+                      "examples/concepts/agent/rag/rag_sentence_transformer",
+                      "examples/concepts/agent/rag/rag_with_lance_db_and_sqlite",
+                      "examples/concepts/agent/rag/traditional_rag_lancedb",
+                      "examples/concepts/agent/rag/traditional_rag_pgvector"
                     ]
                   },
                   {
                     "group": "Session",
                     "pages": [
-                      "examples/concepts/agent/session/chat_history",
-                      "examples/concepts/agent/session/multi_user_multi_session",
-                      "examples/concepts/agent/session/session_summary"
+                      "examples/concepts/agent/session/01_persistent_session",
+                      "examples/concepts/agent/session/02_persistent_session_history",
+                      "examples/concepts/agent/session/03_session_summary",
+                      "examples/concepts/agent/session/04_session_summary_references",
+                      "examples/concepts/agent/session/05_chat_history",
+                      "examples/concepts/agent/session/06_rename_session",
+                      "examples/concepts/agent/session/07_in_memory_db",
+                      "examples/concepts/agent/session/08_cache_session"
                     ]
                   },
                   {
-                    "group": "User Control Flows",
+                    "group": "State",
                     "pages": [
-                      "examples/concepts/agent/user-control-flows/01-confirmation-required",
-                      "examples/concepts/agent/user-control-flows/02-confirmation-required-async",
-                      "examples/concepts/agent/user-control-flows/03-confirmation-required-stream",
-                      "examples/concepts/agent/user-control-flows/04-user-input-required",
-                      "examples/concepts/agent/user-control-flows/05-user-input-required-async",
-                      "examples/concepts/agent/user-control-flows/06-user-input-required-stream",
-                      "examples/concepts/agent/user-control-flows/07-agentic-user-input",
-                      "examples/concepts/agent/user-control-flows/08-external-tool-execution",
-                      "examples/concepts/agent/user-control-flows/09-external-tool-execution-async",
-                      "examples/concepts/agent/user-control-flows/10-external-tool-execution-stream"
-                    ]
-                  },
-                  {
-                    "group": "Miscellaneous",
-                    "pages": [
-                      "examples/concepts/agent/others/agent_extra_metrics",
-                      "examples/concepts/agent/others/agent_metrics",
-                      "examples/concepts/agent/others/datetime_instructions",
-                      "examples/concepts/agent/others/location_instructions",
-                      "examples/concepts/agent/others/image_input_high_fidelity",
-                      "examples/concepts/agent/others/input_as_dict",
-                      "examples/concepts/agent/others/input_as_list",
-                      "examples/concepts/agent/others/input_as_message",
-                      "examples/concepts/agent/others/input_as_messages_list",
-                      "examples/concepts/agent/others/instructions_via_function",
-                      "examples/concepts/agent/others/instructions",
-                      "examples/concepts/agent/others/intermediate_steps",
-                      "examples/concepts/agent/others/response_as_variable",
-                      "examples/concepts/agent/others/success_criteria"
+                      "examples/concepts/agent/state/session_state_basic",
+                      "examples/concepts/agent/state/session_state_in_instructions",
+                      "examples/concepts/agent/state/session_state_in_context",
+                      "examples/concepts/agent/state/session_state_advanced",
+                      "examples/concepts/agent/state/session_state_multiple_users",
+                      "examples/concepts/agent/state/agentic_session_state",
+                      "examples/concepts/agent/state/dynamic_session_state",
+                      "examples/concepts/agent/state/change_state_on_run",
+                      "examples/concepts/agent/state/last_n_session_messages"
                     ]
                   }
+                 
+                 
+               
                 ]
               },
               {

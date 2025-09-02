@@ -1,9 +1,12 @@
-"""
-1. Run: `./cookbook/run_pgvector.sh` to start a postgres container with pgvector
-2. Run: `pip install openai sqlalchemy 'psycopg[binary]' pgvector agno` to install the dependencies
-3. Run: `python cookbook/rag/01_traditional_rag_pgvector.py` to run the agent
-"""
+---
+title: Traditional RAG with PgVector
+---
 
+This example demonstrates traditional RAG implementation using PgVector database with OpenAI embeddings, where knowledge context is automatically added to prompts without search functionality.
+
+## Code
+
+```python cookbook/agents/rag/traditional_rag_pgvector.py
 from agno.agent import Agent
 from agno.knowledge.embedder.openai import OpenAIEmbedder
 from agno.knowledge.knowledge import Knowledge
@@ -38,3 +41,35 @@ agent = Agent(
 agent.print_response(
     "How do I make chicken and galangal in coconut milk soup", stream=True
 )
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+    ```bash
+    pip install -U agno openai sqlalchemy psycopg pgvector
+    ```
+  </Step>
+
+  <Step title="Setup PgVector">
+    ```bash
+    # Start PostgreSQL container with pgvector
+    ./cookbook/run_pgvector.sh
+    ```
+  </Step>
+
+  <Step title="Run Agent">
+    <CodeGroup>
+    ```bash Mac
+    python cookbook/agents/rag/traditional_rag_pgvector.py
+    ```
+    
+    ```bash Windows
+    python cookbook/agents/rag/traditional_rag_pgvector.py
+    ```
+    </CodeGroup>
+  </Step>
+</Steps>

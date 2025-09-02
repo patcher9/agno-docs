@@ -1,5 +1,12 @@
-"""Run `pip install lancedb` to install dependencies."""
+---
+title: RAG with LanceDB and SQLite Storage
+---
 
+This example demonstrates how to implement RAG using LanceDB vector database with Ollama embeddings and SQLite for agent data storage, providing a complete local setup for document retrieval.
+
+## Code
+
+```python cookbook/agents/rag/rag_with_lance_db_and_sqlite.py
 from agno.agent import Agent
 from agno.db.sqlite.sqlite import SqliteDb
 from agno.knowledge.embedder.ollama import OllamaEmbedder
@@ -49,3 +56,37 @@ agent.print_response(
     "What is the first step of making Gluai Buat Chi from the knowledge base?",
     markdown=True,
 )
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+    ```bash
+    pip install -U agno lancedb ollama
+    ```
+  </Step>
+
+  <Step title="Setup Ollama">
+    ```bash
+    # Install and start Ollama
+    # Pull required models
+    ollama pull llama3.1:8b
+    ollama pull nomic-embed-text
+    ```
+  </Step>
+
+  <Step title="Run Agent">
+    <CodeGroup>
+    ```bash Mac
+    python cookbook/agents/rag/rag_with_lance_db_and_sqlite.py
+    ```
+    
+    ```bash Windows
+    python cookbook/agents/rag/rag_with_lance_db_and_sqlite.py
+    ```
+    </CodeGroup>
+  </Step>
+</Steps>

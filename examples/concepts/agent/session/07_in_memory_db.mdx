@@ -1,3 +1,12 @@
+---
+title: In-Memory Database Storage
+---
+
+This example demonstrates how to use an in-memory database for session storage, enabling conversation history and context management without requiring a persistent database setup.
+
+## Code
+
+```python cookbook/agents/session/07_in_memory_db.py
 """This example shows how to use an in-memory database.
 
 With this you will be able to store sessions, user memories, etc. without setting up a database.
@@ -42,3 +51,28 @@ pprint(
         for m in agent.get_messages_for_session()
     ]
 )
+```
+
+## Usage
+
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
+
+  <Step title="Install libraries">
+    ```bash
+    pip install -U agno openai rich
+    ```
+  </Step>
+
+  <Step title="Run Agent">
+    <CodeGroup>
+    ```bash Mac
+    python cookbook/agents/session/07_in_memory_db.py
+    ```
+    
+    ```bash Windows
+    python cookbook/agents/session/07_in_memory_db.py
+    ```
+    </CodeGroup>
+  </Step>
+</Steps>
