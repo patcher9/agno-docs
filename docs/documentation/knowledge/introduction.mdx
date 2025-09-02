@@ -119,8 +119,8 @@ if __name__ == "__main__":
     asyncio.run(agent.aprint_response("How to make Thai curry?", markdown=True))
 ```
 
-The `add_content()` function is sync by default. Call `add_content_async()` if you don't want to use async.
-Using `add_content_async()` ensures you take full advantage of the non-blocking operations, concurrent processing, and reduced latency that async vector database operations offer. This is especially valuable in production environments with high throughput requirements.
+The `add_content()` function is sync. You can also call `add_content_async()` for async usage.
+Using `add_content_async()` ensures you take full advantage of the non-blocking operations, concurrent processing, and reduced latency that async vector database operations offer. We recommend this approach, which is especially valuable in production environments with high throughput requirements.
 
 For more details on vector database async capabilities, see the [Vector Database Introduction](../knowledge/vectordb/introduction).
 
