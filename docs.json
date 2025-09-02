@@ -231,33 +231,6 @@
                       "docs/documentation/knowledge/filters/agentic-filters"
                     ]
                   },
-                  {
-                    "group": "Knowledge Sources",
-                    "pages": [
-                      "docs/documentation/knowledge/sources/custom_retriever",
-                      "docs/documentation/knowledge/sources/arxiv",
-                      "docs/documentation/knowledge/sources/combined",
-                      "docs/documentation/knowledge/sources/csv",
-                      "docs/documentation/knowledge/sources/csv-url",
-                      "docs/documentation/knowledge/sources/docx",
-                      "docs/documentation/knowledge/sources/document",
-                      "docs/documentation/knowledge/sources/json",
-                      "docs/documentation/knowledge/sources/combined",
-                      "docs/documentation/knowledge/sources/langchain",
-                      "docs/documentation/knowledge/sources/lightrag",
-                      "docs/documentation/knowledge/sources/llamaindex",
-                      "docs/documentation/knowledge/sources/markdown",
-                      "docs/documentation/knowledge/sources/pdf",
-                      "docs/documentation/knowledge/sources/pdf-url",
-                      "docs/documentation/knowledge/sources/pdf-bytes",
-                      "docs/documentation/knowledge/sources/s3_pdf",
-                      "docs/documentation/knowledge/sources/s3_text",
-                      "docs/documentation/knowledge/sources/text",
-                      "docs/documentation/knowledge/sources/website",
-                      "docs/documentation/knowledge/sources/wikipedia",
-                      "docs/documentation/knowledge/sources/youtube"
-                    ]
-                  },
                   "docs/documentation/knowledge/readers",
                   {
                     "group": "Chunking",
