@@ -156,6 +156,25 @@ reader = ReaderFactory.get_reader_for_url("https://youtube.com/watch?v=...")  # 
 reader = ReaderFactory.get_reader_for_url("https://example.com/doc.pdf")     # PDFUrlReader
 ```
 
+## Supported Readers
+
+The following readers are currently supported:
+| Reader Name      | Description                                              |
+|------------------|---------------------------------------------------------|
+| ArxivReader      | Fetches and processes academic papers from arXiv         |
+| CSVReader        | Parses CSV files and converts rows to documents          |
+| FirecrawlReader  | Uses Firecrawl API to scrape and crawl web content       |
+| JSONReader       | Processes JSON files and converts them into documents    |
+| MarkdownReader   | Reads and parses Markdown files                          |
+| PDFReader        | Reads and extracts text from PDF files                   |
+| TextReader       | Handles plain text files                                 |
+| URLReader        | Fetches and processes content from web URLs              |
+| WebPageReader    | Scrapes and processes content from web pages             |
+| WebsiteReader    | Crawls entire websites following links recursively       |
+| WikipediaReader  | Searches and reads Wikipedia articles                    |
+| YouTubeReader    | Extracts transcripts and metadata from YouTube videos    |
+
+
 ## Async Processing
 
 All readers support asynchronous processing for better performance:
@@ -172,7 +191,7 @@ tasks = [reader.async_read(file) for file in file_list]
 all_documents = await asyncio.gather(*tasks)
 ```
 
-## Usage in Knowledge Base
+## Usage in Knowledge
 
 Readers integrate seamlessly with Agno Knowledge:
 
