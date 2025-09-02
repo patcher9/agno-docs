@@ -1,9 +1,9 @@
 ---
-title: Human-in-the-Loop
+title: User Control Flows in Agents
 description: Learn how to control the flow of an agent's execution in Agno. We call this "User Control Flows".
 ---
 
-Human-in-the-Loop (User control flows) in Agno enable you to implement patterns where human oversight and input are required during agent execution. This is crucial for:
+User control flows (Human-in-the-Loop) in Agno enable you to implement patterns where human oversight and input are required during agent execution. This is crucial for:
 
 - Validating sensitive operations
 - Reviewing tool calls before execution
@@ -18,6 +18,11 @@ Agno supports four main types of user control flows:
 2. **User Input**: Gather specific information from users during execution
 3. **Dynamic User Input**: Have the agent collect user input as it needs it
 4. **External Tool Execution**: Execute tools outside of the agent's control
+
+
+<Note>
+Currently Agno only supports user control flows for `Agent`. `Team` and `Workflow` will be supported in the near future!
+</Note>
 
 
 ## Pausing Agent Execution

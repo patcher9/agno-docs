@@ -488,7 +488,7 @@
                 "pages": ["docs/documentation/multimodal/overview"]
               },
               {
-                "group": "User Control Flow",
+                "group": "Human-in-the-Loop",
                 "pages": ["docs/documentation/user_control_flow/overview"]
               },
               {
@@ -520,7 +520,7 @@
                 ]
               },
               {
-                "group": "Integrations",
+                "group": "Other Integrations",
                 "pages": [
                   "docs/integrations/discord/introduction",
                   {
