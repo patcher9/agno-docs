@@ -66,6 +66,51 @@ agent.print_response("What's the latest about gpt 4.5?", markdown=True)
 
 In this example, the `GoogleSearchTools` toolkit is configured to stop the agent after executing the `google_search` function and to show the result of this function.
 
+
+## Tool Built-in Parameters
+
+Agno automatically provides special parameters to your tools that give access to the agent's state. These parameters are injected automatically - you don't pass them when calling the tool.
+
+### Session State Parameter
+
+The built-in parameter `session_state` allows tools to access and modify persistent data across conversations.
+
+Add `session_state` as a parameter in your tool function to access the agent's persistent state:
+
+```python
+from agno.agent import Agent
+from agno.db.sqlite import SqliteDb
+from agno.models.openai import OpenAIChat
+
+def add_item(session_state: Dict[str, Any], item: str) -> str:
+    """Add an item to the shopping list."""
+    session_state["shopping_list"].append(item)
+    return f"The shopping list is now {session_state['shopping_list']}"
+
+def remove_item(session_state: Dict[str, Any], item: str) -> str:
+    """Remove an item from the shopping list."""
+    if item in session_state["shopping_list"]:
+        session_state["shopping_list"].remove(item)
+        return f"Removed {item}. List: {session_state['shopping_list']}"
+    return f"{item} not found in the shopping list"
+
+# Create an Agent with session state
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o-mini"),
+    # Initialize session state (default for all users)
+    session_state={"shopping_list": []},
+    db=SqliteDb(db_file="tmp/agents.db"),
+    tools=[add_item, remove_item],
+    # Use session state variables in instructions
+    instructions="Current shopping list: {shopping_list}",
+    markdown=True,
+)
+
+# Usage
+agent.print_response("Add milk, eggs, and bread to the shopping list", stream=True)
+print(f"Final session state: {agent.get_session_state()}")
+```
+
 ### `ToolResult` for Media Content
 
 When your tool needs to return media artifacts (images, videos, audio), use `ToolResult`:
@@ -94,31 +139,6 @@ def generate_image(prompt: str) -> ToolResult:
 ```
 
 This would **Make generated media available** to the LLM model.
-
-### Session State Management
-The `FunctionExecutionResult` class plays a crucial role in maintaining session state across tool calls. When your tool modifies the `session_state` parameter, those changes need to be persisted back to the agent's session. Here's how it works:
-```python
-@tool
-def update_user_profile(
-    name: str,
-    email: str,
-    session_state: Dict[str, Any]
-) -> str:
-    """Update user profile information."""
-    # Modify session state
-    session_state["user_profile"] = {
-        "name": name,
-        "email": email,
-        "updated_at": datetime.now().isoformat()
-    }
-    # Return simple string - Agno handles session state automatically
-    return f"Updated profile for {name}"
-```
-Behind the scenes, Agno:
-1. **Detects session state changes** in your tool function
-2. **Captures the modified session_state**
-3. **Creates a FunctionExecutionResult** with `updated_session_state`
-4. **Persists the changes** back to the agent
 
 ## Useful Links
 
