@@ -92,7 +92,7 @@ class ScrapedArticle(BaseModel):
 # --- Agents ---
 research_agent = Agent(
     name="Blog Research Agent",
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-nano"),
     tools=[GoogleSearchTools()],
     description=dedent("""\
     You are BlogResearch-X, an elite research assistant specializing in discovering
@@ -123,7 +123,7 @@ research_agent = Agent(
 
 content_scraper_agent = Agent(
     name="Content Scraper Agent",
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-nano"),
     tools=[Newspaper4kTools()],
     description=dedent("""\
     You are ContentBot-X, a specialist in extracting and processing digital content
@@ -155,7 +155,7 @@ content_scraper_agent = Agent(
 
 blog_writer_agent = Agent(
     name="Blog Writer Agent",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     description=dedent("""\
     You are BlogMaster-X, an elite content creator combining journalistic excellence
     with digital marketing expertise. Your strengths include:

@@ -24,7 +24,7 @@ from agno.utils.audio import write_audio_to_file
 # Create an AI Voice Interaction Agent
 agent = Agent(
     model=OpenAIChat(
-        id="gpt-4o-audio-preview",
+        id="gpt-5-mini-audio-preview",
         modalities=["text", "audio"],
         audio={"voice": "sage", "format": "wav"},
     ),

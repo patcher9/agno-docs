@@ -27,7 +27,7 @@ from agno.tools.lumalab import LumaLabTools
 
 luma_agent = Agent(
     name="Luma Video Agent",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[LumaLabTools()],  # Using the LumaLab tool we created
     markdown=True,
     debug_mode=True,

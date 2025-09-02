@@ -59,31 +59,31 @@ class SupplierProfile(BaseModel):
 
 
 crawl_agent: Agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[FirecrawlTools(crawl=True, limit=5)],
     instructions=CRAWLER_INSTRUCTIONS,
 )
 
 search_agent: Agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[DuckDuckGoTools()],
     instructions=SEARCH_INSTRUCTIONS,
 )
 
 wikipedia_agent: Agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[WikipediaTools()],
     instructions=WIKIPEDIA_INSTRUCTIONS,
 )
 
 competitor_agent: Agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[DuckDuckGoTools()],
     instructions=COMPETITOR_INSTRUCTIONS,
 )
 
 profile_agent: Agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     instructions=SUPPLIER_PROFILE_INSTRUCTIONS_GENERAL,
 )
 ```
@@ -306,7 +306,7 @@ def generate_supplier_profile(step_input: StepInput) -> StepOutput:
     html_content: str = ""
     for key, value in SUPPLIER_PROFILE_DICT.items():
         agent = Agent(
-            model=OpenAIChat(id="o3-mini"),
+            model=OpenAIChat(id="gpt-5-mini"),
             instructions="Instructions: "
             + SUPPLIER_PROFILE_INSTRUCTIONS_GENERAL
             + "Format to adhere to: "

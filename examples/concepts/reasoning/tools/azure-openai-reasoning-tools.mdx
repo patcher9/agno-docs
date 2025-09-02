@@ -13,7 +13,7 @@ from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.reasoning import ReasoningTools
 
 reasoning_agent = Agent(
-    model=AzureOpenAI(id="gpt-4o-mini"),
+    model=AzureOpenAI(id="gpt-5-nano"),
     tools=[
         DuckDuckGoTools(),
         ReasoningTools(

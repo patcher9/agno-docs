@@ -22,7 +22,7 @@ from agno.models.openai import OpenAIChat
 from agno.tools.duckduckgo import DuckDuckGoTools
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[DuckDuckGoTools()],
     markdown=True,
 )
@@ -63,7 +63,7 @@ response.raise_for_status()
 wav_data = response.content
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o-audio-preview", modalities=["text"]),
+    model=OpenAIChat(id="gpt-5-mini-audio-preview", modalities=["text"]),
     markdown=True,
 )
 agent.print_response(
@@ -109,7 +109,7 @@ from agno.tools.openai import OpenAITools
 from agno.utils.media import save_base64_data
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[OpenAITools(image_model="gpt-image-1")],
     markdown=True,
 )
@@ -224,7 +224,7 @@ from agno.utils.audio import write_audio_to_file
 
 agent = Agent(
     model=OpenAIChat(
-        id="gpt-4o-audio-preview",
+        id="gpt-5-mini-audio-preview",
         modalities=["text", "audio"],
         audio={"voice": "alloy", "format": "wav"},
     ),
@@ -250,7 +250,7 @@ from agno.tools.fal import FalTools
 
 fal_agent = Agent(
     name="Fal Video Generator Agent",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[
         FalTools(
             model="fal-ai/hunyuan-video",
@@ -293,7 +293,7 @@ wav_data = response.content
 
 agent = Agent(
     model=OpenAIChat(
-        id="gpt-4o-audio-preview",
+        id="gpt-5-mini-audio-preview",
         modalities=["text", "audio"],
         audio={"voice": "sage", "format": "wav"},
     ),

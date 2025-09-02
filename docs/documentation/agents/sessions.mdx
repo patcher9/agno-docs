@@ -25,7 +25,7 @@ Here we have an example where a single run is created with an Agent. A `run_id` 
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
-agent = Agent(model=OpenAIChat(id="o3-mini"))
+agent = Agent(model=OpenAIChat(id="gpt-5-mini"))
 
 # Run agent and return the response as a variable
 response = agent.run("Tell me a 5 second short story about a robot")
@@ -53,7 +53,7 @@ In the example below, we set a `session_id` to demo how to have multi-turn conve
     db = SqliteDb(db_file="tmp/data.db")
 
     agent = Agent(
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAIChat(id="gpt-5-nano"),
         db=db,
         add_history_to_context=True,
         num_history_runs=3,
@@ -189,7 +189,7 @@ db = SQLiteDb(db_file="agno.db")
 # Setup your Session Summary Manager, to adjust how summaries are created
 session_summary_manager = SessionSummaryManager(
     # Select the model used for session summary creation and updates. If not specified, the agent's model is used by default.
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     # You can also overwrite the prompt used for session summary creation
     session_summary_prompt="Create a very succinct summary of the following conversation:",
 )
@@ -286,7 +286,7 @@ os.remove("tmp/data.db")
 db = SqliteDb(db_file="tmp/data.db")
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-nano"),
     user_id="user_1",
     db=db,
     search_session_history=True,  # allow searching previous sessions

@@ -36,7 +36,7 @@ Let's create an Movie Agent to write a `MovieScript` for us.
 
     # Agent that uses structured outputs
     structured_output_agent = Agent(
-        model=OpenAIChat(id="o3-mini"),
+        model=OpenAIChat(id="gpt-5-mini"),
         description="You write movie scripts.",
         output_schema=MovieScript,
     )
@@ -84,7 +84,7 @@ MovieScript(
 
   ```python
   agent = Agent(
-    model=OpenAIChat(id="o3-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     description="You write movie scripts.",
     output_schema=MovieScript,
     use_json_mode=True,
@@ -131,7 +131,7 @@ class MovieScript(BaseModel):
 
 # Agent that uses structured outputs with streaming
 structured_output_agent = Agent(
-    model=OpenAIChat(id="o3-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     description="You write movie scripts.",
     output_schema=MovieScript,
 )
@@ -164,7 +164,7 @@ class ResearchTopic(BaseModel):
 
 hackernews_agent = Agent(
     name="Hackernews Agent",
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-nano"),
     tools=[HackerNewsTools()],
     role="Extract key insights and content from Hackernews posts",
 )
@@ -204,7 +204,7 @@ class ResearchTopic(BaseModel):
 # Define agents
 hackernews_agent = Agent(
     name="Hackernews Agent",
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-nano"),
     tools=[HackerNewsTools()],
     role="Extract key insights and content from Hackernews posts",
     input_schema=ResearchTopic,
@@ -231,7 +231,7 @@ agent = Agent(
     model=Claude(id="claude-sonnet-4-20250514"),  # The main processing model
     description="You write movie scripts.",
     output_schema=MovieScript,
-    parser_model=OpenAIChat(id="o3-mini"),  # Only used to parse the output
+    parser_model=OpenAIChat(id="gpt-5-mini"),  # Only used to parse the output
 )
 ```
 

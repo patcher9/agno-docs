@@ -53,7 +53,7 @@ class MovieScript(BaseModel):
 
 # Agent that uses JSON mode
 json_mode_agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     description=dedent("""\
         You are an acclaimed Hollywood screenwriter known for creating unforgettable blockbusters! 🎬
         With the combined storytelling prowess of Christopher Nolan, Aaron Sorkin, and Quentin Tarantino,
@@ -92,7 +92,7 @@ json_mode_agent = Agent(
 
 # Agent that uses structured outputs
 structured_output_agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     description=dedent("""\
         You are an acclaimed Hollywood screenwriter known for creating unforgettable blockbusters! 🎬
         With the combined storytelling prowess of Christopher Nolan, Aaron Sorkin, and Quentin Tarantino,

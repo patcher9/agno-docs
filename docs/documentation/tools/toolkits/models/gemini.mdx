@@ -51,7 +51,7 @@ from agno.tools.models.gemini import GeminiTools
 from agno.utils.media import save_base64_data
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[GeminiTools()],
     )
 
@@ -76,7 +76,7 @@ from agno.tools.models.gemini import GeminiTools
 from agno.utils.media import save_base64_data
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[GeminiTools(vertexai=True)],
         debug_mode=True,
 )

@@ -17,7 +17,7 @@ from agno.tools.calculator import CalculatorTools
 
 def multiply_and_exponentiate():
     agent = Agent(
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAIChat(id="gpt-5-nano"),
         tools=[CalculatorTools(add=True, multiply=True, exponentiate=True)],
     )
     response: RunOutput = agent.run(

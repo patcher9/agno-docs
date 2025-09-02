@@ -55,7 +55,7 @@ context_knowledge = Knowledge(
 # Primary Retriever Agent - Specialized in main document retrieval
 primary_retriever = Agent(
     name="Primary Retriever",
-    model=OpenAIChat(id="o3-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     role="Retrieve primary documents and core information from knowledge base",
     knowledge=primary_knowledge,
     search_knowledge=True,
@@ -71,7 +71,7 @@ primary_retriever = Agent(
 # Context Expander Agent - Specialized in expanding context
 context_expander = Agent(
     name="Context Expander",
-    model=OpenAIChat(id="o3-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     role="Expand context by finding related and supplementary information",
     knowledge=context_knowledge,
     search_knowledge=True,
@@ -87,7 +87,7 @@ context_expander = Agent(
 # Answer Synthesizer Agent - Specialized in synthesis
 answer_synthesizer = Agent(
     name="Answer Synthesizer",
-    model=OpenAIChat(id="o3-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     role="Synthesize retrieved information into comprehensive answers",
     instructions=[
         "Combine information from the Primary Retriever and Context Expander.",
@@ -102,7 +102,7 @@ answer_synthesizer = Agent(
 # Quality Validator Agent - Specialized in validation
 quality_validator = Agent(
     name="Quality Validator",
-    model=OpenAIChat(id="o3-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     role="Validate answer quality and suggest improvements",
     instructions=[
         "Review the synthesized answer for accuracy and completeness.",
@@ -118,7 +118,7 @@ quality_validator = Agent(
 distributed_rag_team = Team(
     name="Distributed RAG Team",
     mode="coordinate",  # Sequential coordination for RAG processing
-    model=OpenAIChat(id="o3-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     members=[
         primary_retriever,
         context_expander,

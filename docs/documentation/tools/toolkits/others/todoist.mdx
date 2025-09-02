@@ -49,7 +49,7 @@ todoist_agent = Agent(
         "When given a task to get, get the todoist task.",
     ],
     id="todoist-agent",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[TodoistTools()],
     markdown=True,
     debug_mode=True,

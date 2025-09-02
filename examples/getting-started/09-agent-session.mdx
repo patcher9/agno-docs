@@ -50,7 +50,7 @@ def create_agent(user: str = "user"):
         user_id=user,
         # Set the session_id on the agent to resume the conversation
         session_id=session_id,
-        model=OpenAIChat(id="gpt-4o"),
+        model=OpenAIChat(id="gpt-5-mini"),
         db=db,
         # Add chat history to messages
         add_history_to_context=True,

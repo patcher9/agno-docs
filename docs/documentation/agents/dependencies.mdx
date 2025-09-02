@@ -45,7 +45,7 @@ def get_top_hackernews_stories(num_stories: int = 5) -> str:
 
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     # Each function in the dependencies is evaluated when the agent is run,
     # think of it as dependency injection for Agents
     dependencies={"top_hackernews_stories": get_top_hackernews_stories},
@@ -92,7 +92,7 @@ def get_user_profile(user_id: str) -> str:
     return json.dumps(user_profile, indent=4)
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     # Each function in the context is resolved when the agent is run,
     # think of it as dependency injection for Agents
     dependencies={"user_profile": get_user_profile},

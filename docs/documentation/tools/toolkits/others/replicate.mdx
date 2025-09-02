@@ -29,7 +29,7 @@ from agno.tools.replicate import ReplicateTools
 
 image_agent = Agent(
     name="Image Generator Agent",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[ReplicateTools(model="luma/photon-flash")],
     description="You are an AI agent that can generate images using the Replicate API.",
     instructions=[

@@ -35,7 +35,7 @@ print("\n=== Example 1: Using KnowledgeTools in non-streaming mode ===\n")
 
 # Create agent with KnowledgeTools
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[
         KnowledgeTools(
             knowledge=agno_docs,
@@ -78,7 +78,7 @@ print("\n\n=== Example 2: Using KnowledgeTools in streaming mode ===\n")
 
 # Create a fresh agent for streaming
 streaming_agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[
         KnowledgeTools(
             knowledge=agno_docs,

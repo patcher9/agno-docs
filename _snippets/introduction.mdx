@@ -28,7 +28,7 @@ Let's create an Agent that can write a research report by searching the web and 
     from agno.tools.newspaper4k import Newspaper4kTools
 
     agent = Agent(
-        model=OpenAIChat(id="gpt-4o"),
+        model=OpenAIChat(id="gpt-5-mini"),
         tools=[DuckDuckGoTools(), Newspaper4kTools()],
         description="You are a senior NYT researcher writing an article on a topic.",
         instructions=[
