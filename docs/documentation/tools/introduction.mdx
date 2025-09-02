@@ -82,34 +82,31 @@ from agno.agent import Agent
 from agno.db.sqlite import SqliteDb
 from agno.models.openai import OpenAIChat
 
-def add_item(session_state: Dict[str, Any], item: str) -> str:
+
+def add_item(session_state, item: str) -> str:
     """Add an item to the shopping list."""
-    session_state["shopping_list"].append(item)
-    return f"The shopping list is now {session_state['shopping_list']}"
+    session_state["shopping_list"].append(item)  # type: ignore
+    return f"The shopping list is now {session_state['shopping_list']}"  # type: ignore
 
-def remove_item(session_state: Dict[str, Any], item: str) -> str:
-    """Remove an item from the shopping list."""
-    if item in session_state["shopping_list"]:
-        session_state["shopping_list"].remove(item)
-        return f"Removed {item}. List: {session_state['shopping_list']}"
-    return f"{item} not found in the shopping list"
 
-# Create an Agent with session state
+# Create an Agent that maintains state
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
-    # Initialize session state (default for all users)
+    # Initialize the session state with a counter starting at 0 (this is the default session state for all users)
     session_state={"shopping_list": []},
     db=SqliteDb(db_file="tmp/agents.db"),
-    tools=[add_item, remove_item],
-    # Use session state variables in instructions
-    instructions="Current shopping list: {shopping_list}",
+    tools=[add_item],
+    # You can use variables from the session state in the instructions
+    instructions="Current state (shopping list) is: {shopping_list}",
     markdown=True,
 )
 
-# Usage
+# Example usage
 agent.print_response("Add milk, eggs, and bread to the shopping list", stream=True)
 print(f"Final session state: {agent.get_session_state()}")
 ```
+
+See more in [Agent State](/docs/documentation/agents/state).
 
 ### `ToolResult` for Media Content
 
