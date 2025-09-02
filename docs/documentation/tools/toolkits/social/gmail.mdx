@@ -1,6 +1,5 @@
 ---
 title: Gmail
-sidebarTitle: Gmail
 ---
 
 **Gmail** enables an Agent to interact with Gmail, allowing it to read, search, send, and manage emails.
@@ -62,6 +61,7 @@ agent.print_response("Show me my latest 5 unread emails", markdown=True)
 | `send_email`          | Send an email immediately                                 |
 | `search_emails`       | Search emails using natural language queries              |
 
+You can use `include_tools` or `exclude_tools` to modify the list of tools the agent has access to. Learn more about [selecting tools](/docs/documentation/tools/selecting-tools).
 
 ## Developer Resources
 

@@ -54,6 +54,11 @@ agent.print_response("""
 | `api_key`    | `str`  | `None`  | Browserbase API key. If not provided, uses BROWSERBASE_API_KEY env var.                                                                                                                    |
 | `project_id` | `str`  | `None`  | Browserbase project ID. If not provided, uses BROWSERBASE_PROJECT_ID env var.                                                                                                              |
 | `base_url`   | `str`  | `None`  | Custom Browserbase API endpoint URL. Only use this if you're using a self-hosted Browserbase instance or need to connect to a different region. If not provided, uses BROWSERBASE_BASE_URL env var. |
+| `enable_navigate_to` | `bool` | `True` | Enable the navigate_to functionality. |
+| `enable_screenshot` | `bool` | `True` | Enable the screenshot functionality. |
+| `enable_get_page_content` | `bool` | `True` | Enable the get_page_content functionality. |
+| `enable_close_session` | `bool` | `True` | Enable the close_session functionality. |
+| `all` | `bool` | `False` | Enable all functionality. |
 
 ## Toolkit Functions
 
