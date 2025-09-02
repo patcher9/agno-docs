@@ -39,14 +39,13 @@ You may remove the reranking step if you don't need it.
 
 from agno.agent import Agent
 from agno.embedder.cohere import CohereEmbedder
-from agno.knowledge.url import UrlKnowledge
+from agno.knowledge.knowledge import Knowledge
 from agno.models.anthropic import Claude
 from agno.reranker.cohere import CohereReranker
 from agno.vectordb.lancedb import LanceDb, SearchType
 
 # Create a knowledge base, loaded with documents from a URL
-knowledge_base = UrlKnowledge(
-    urls=["https://docs.agno.com/introduction/agents.md"],
+knowledge_base = Knowledge(
     # Use LanceDB as the vector database, store embeddings in the `agno_docs` table
     vector_db=LanceDb(
         uri="tmp/lancedb",
@@ -73,8 +72,9 @@ agent = Agent(
 )
 
 if __name__ == "__main__":
-    # Load the knowledge base, comment after first run
-    # knowledge_base.load(recreate=True)
+    knowledge_base.add_content(
+        url="https://docs.agno.com/introduction/agents.md",
+    )
     agent.print_response("What are Agents?", stream=True)
 ```
 
@@ -95,15 +95,14 @@ Here's an example of an Agentic RAG Agent that uses reasoning to improve the qua
 
 from agno.agent import Agent
 from agno.embedder.cohere import CohereEmbedder
-from agno.knowledge.url import UrlKnowledge
+from agno.knowledge.knowledge import Knowledge
 from agno.models.anthropic import Claude
 from agno.reranker.cohere import CohereReranker
 from agno.tools.reasoning import ReasoningTools
 from agno.vectordb.lancedb import LanceDb, SearchType
 
 # Create a knowledge base, loaded with documents from a URL
-knowledge_base = UrlKnowledge(
-    urls=["https://docs.agno.com/introduction/agents.md"],
+knowledge_base = Knowledge(
     # Use LanceDB as the vector database, store embeddings in the `agno_docs` table
     vector_db=LanceDb(
         uri="tmp/lancedb",
@@ -131,8 +130,10 @@ agent = Agent(
 )
 
 if __name__ == "__main__":
-    # Load the knowledge base, comment after first run
-    # knowledge_base.load(recreate=True)
+    knowledge_base.add_content(
+        url="https://docs.agno.com/introduction/agents.md",
+    )
+
     agent.print_response(
         "What are Agents?",
         stream=True,

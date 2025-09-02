@@ -17,11 +17,10 @@ from rich.prompt import Prompt
 from typing import Optional
 
 from agno.agent import Agent
-from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
+from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.chroma import ChromaDb
 
-knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+knowledge_base = Knowledge(
     vector_db=ChromaDb(collection="recipes"),
 )
 
@@ -47,8 +46,10 @@ def pdf_agent(user: str = "user"):
         agent.print_response(message)
 
 if __name__ == "__main__":
-    # Comment out after first run
-    knowledge_base.load(recreate=False)
+    
+    knowledge_base.add_content(
+        urls="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf",
+    )
 
     typer.run(pdf_agent)
 ```
@@ -65,15 +66,14 @@ if __name__ == "__main__":
     import asyncio
 
     from agno.agent import Agent
-    from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
+    from agno.knowledge.knowledge import Knowledge
     from agno.vectordb.chroma import ChromaDb
 
     # Initialize ChromaDB
     vector_db = ChromaDb(collection="recipes", path="tmp/chromadb", persistent_client=True)
 
     # Create knowledge base
-    knowledge_base = PDFUrlKnowledgeBase(
-        urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+    knowledge_base = Knowledge(
         vector_db=vector_db,
     )
 
@@ -82,7 +82,10 @@ if __name__ == "__main__":
 
     if __name__ == "__main__":
         # Comment out after first run
-        asyncio.run(knowledge_base.aload(recreate=False))
+        asyncio.run(knowledge_base.add_content_async(
+            url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf",
+            )
+        )
 
         # Create and use the agent
         asyncio.run(agent.aprint_response("How to make Tom Kha Gai", markdown=True))

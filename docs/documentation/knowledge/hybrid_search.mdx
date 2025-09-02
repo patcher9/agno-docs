@@ -54,7 +54,7 @@ The following vector databases support hybrid search natively or via configurati
 ## Example: Hybrid Search using `pgvector`
 
 ```python
-from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
+from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector, SearchType
 
 # Database URL
@@ -68,13 +68,13 @@ hybrid_db = PgVector(
 )
 
 # Load PDF knowledge base using hybrid search
-knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+knowledge_base = Knowledge(
     vector_db=hybrid_db,
 )
 
-# Load the data into the DB (first-time setup)
-knowledge_base.load(recreate=True, upsert=True)
+knowledge_base.add_content(
+    url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"
+)
 
 # Run a hybrid search query
 results = hybrid_db.search("chicken coconut soup", limit=5)
