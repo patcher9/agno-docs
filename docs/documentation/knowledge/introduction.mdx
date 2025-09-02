@@ -26,7 +26,7 @@ knowledge = Knowledge(vector_db=...)
 
 # Add some knowledge content
 asyncio.run(
-    knowledge.add_content(
+    knowledge.add_content_async(
         text_content="The sky is blue",
     )
 )
@@ -110,7 +110,7 @@ agent = Agent(
 if __name__ == "__main__":
     # Asynchronously add the content of the PDF file to the knowledge.
     asyncio.run(
-        knowledge.add_content(
+        knowledge.add_content_async(
             path="data/pdf",
         )
     )
@@ -119,8 +119,8 @@ if __name__ == "__main__":
     asyncio.run(agent.aprint_response("How to make Thai curry?", markdown=True))
 ```
 
-The `add_content()` function is async by default. Call `add_content_sync()` if you don't want to use async.
-Using `add_content()` ensures you take full advantage of the non-blocking operations, concurrent processing, and reduced latency that async vector database operations offer. This is especially valuable in production environments with high throughput requirements.
+The `add_content()` function is sync by default. Call `add_content_async()` if you don't want to use async.
+Using `add_content_async()` ensures you take full advantage of the non-blocking operations, concurrent processing, and reduced latency that async vector database operations offer. This is especially valuable in production environments with high throughput requirements.
 
 For more details on vector database async capabilities, see the [Vector Database Introduction](../knowledge/vectordb/introduction).
 
