@@ -26,7 +26,7 @@ from typing import Optional
 from rich.prompt import Prompt
 
 from agno.agent import Agent
-from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
+from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pineconedb import PineconeDb
 
 api_key = os.getenv("PINECONE_API_KEY")
@@ -42,8 +42,7 @@ vector_db = PineconeDb(
     hybrid_alpha=0.5,
 )
 
-knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+knowledge_base = Knowledge(
     vector_db=vector_db,
 )
 
@@ -71,7 +70,9 @@ def pinecone_agent(user: str = "user"):
 
 if __name__ == "__main__":
     # Comment out after first run
-    knowledge_base.load(recreate=True, upsert=True)
+    knowledge_base.add_content(
+        url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"
+    )
 
     typer.run(pinecone_agent)
 ```
@@ -87,7 +88,7 @@ if __name__ == "__main__":
     from os import getenv
 
     from agno.agent import Agent
-    from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
+    from agno.knowledge.knowledge import Knowledge
     from agno.vectordb.pineconedb import PineconeDb
 
     api_key = getenv("PINECONE_API_KEY")
@@ -101,8 +102,7 @@ if __name__ == "__main__":
         api_key=api_key,
     )
 
-    knowledge_base = PDFUrlKnowledgeBase(
-        urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+    knowledge_base = Knowledge(
         vector_db=vector_db,
     )
 
@@ -115,10 +115,13 @@ if __name__ == "__main__":
     )
 
     if __name__ == "__main__":
-        # Comment out after first run
-        asyncio.run(knowledge_base.aload(recreate=False, upsert=True))
+        # Load knowledge base asynchronously
+        asyncio.run(knowledge_base.add_content_async(
+                url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"
+            )
+        )
 
-        # Create and use the agent
+        # Create and use the agent asynchronously
         asyncio.run(agent.aprint_response("How to make Tom Kha Gai", markdown=True))
     ```
     

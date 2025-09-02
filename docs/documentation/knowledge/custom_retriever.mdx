@@ -10,7 +10,7 @@ In some cases, you may need complete control over how your agent retrieves infor
 
 Follow the instructions in the [Qdrant Setup Guide](https://qdrant.tech/documentation/guides/installation/) to install Qdrant locally. Here is a guide to get API keys: [Qdrant API Keys](https://qdrant.tech/documentation/cloud/authentication/).
 
-### Example: Custom Retriever for a PDF Knowledge Base
+### Example: Custom Retriever for `Knowledge`
 
 Below is a detailed example of how to implement a custom retriever function using the `agno` library. This example demonstrates how to set up a knowledge base with PDF documents, define a custom retriever, and use it with an agent.
 
@@ -18,7 +18,7 @@ Below is a detailed example of how to implement a custom retriever function usin
 from typing import Optional
 from agno.agent import Agent
 from agno.embedder.openai import OpenAIEmbedder
-from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
+from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.qdrant import Qdrant
 from qdrant_client import QdrantClient
 
@@ -29,15 +29,14 @@ embedder = OpenAIEmbedder(id="text-embedding-3-small")
 # Initialize vector database connection
 vector_db = Qdrant(collection="thai-recipes", url="http://localhost:6333", embedder=embedder)
 # Load the knowledge base
-knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+knowledge_base = Knowledge(
     vector_db=vector_db,
 )
 
-# Load the knowledge base
-knowledge_base.load(recreate=True)  # Comment out after first run
-# Knowledge base is now loaded
-# ---------------------------------------------------------
+knowledge.add_content(
+    url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"
+)
+
 
 # Define the custom retriever
 # This is the function that the agent will use to retrieve documents
@@ -99,7 +98,7 @@ import asyncio
 from typing import Optional
 from agno.agent import Agent
 from agno.embedder.openai import OpenAIEmbedder
-from agno.knowledge.pdf_url import PDFUrlKnowledgeBase
+from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.qdrant import Qdrant
 from qdrant_client import AsyncQdrantClient
 
@@ -107,9 +106,12 @@ from qdrant_client import AsyncQdrantClient
 # Knowledge base setup (same as synchronous example)
 embedder = OpenAIEmbedder(id="text-embedding-3-small")
 vector_db = Qdrant(collection="thai-recipes", url="http://localhost:6333", embedder=embedder)
-knowledge_base = PDFUrlKnowledgeBase(
-    urls=["https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"],
+knowledge_base = Knowledge(
     vector_db=vector_db,
+)
+
+knowledge_base.add_content(
+    url="https://agno-public.s3.amazonaws.com/recipes/ThaiRecipes.pdf"
 )
 # ---------------------------------------------------------
 
@@ -144,10 +146,6 @@ async def main():
         search_knowledge=True,
         instructions="Search the knowledge base for information",
     )
-
-    # Load the knowledge base (uncomment for first run)
-    await knowledge_base.aload(recreate=True)
-
     # Example query
     query = "List down the ingredients to make Massaman Gai"
     await agent.aprint_response(query, markdown=True)

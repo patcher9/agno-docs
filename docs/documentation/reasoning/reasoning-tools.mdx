@@ -48,14 +48,13 @@ The Knowledge Tools take the Reasoning Tools one step further by allowing the Ag
 import os
 from agno.agent import Agent
 from agno.embedder.openai import OpenAIEmbedder
-from agno.knowledge.url import UrlKnowledge
+from agno.knowledge.knowledge import Knowledge
 from agno.models.openai import OpenAIChat
 from agno.tools.knowledge import KnowledgeTools
 from agno.vectordb.lancedb import LanceDb, SearchType
 
 
-agno_docs = UrlKnowledge(
-    urls=["https://docs.agno.com/llms-full.txt"],
+agno_docs = Knowledge(
     vector_db=LanceDb(
         uri="tmp/lancedb",
         table_name="agno_docs",
@@ -81,7 +80,9 @@ agent = Agent(
 )
 
 
-agno_docs.load(recreate=True)
+agno_docs.add_content(
+    url="https://docs.agno.com/llms-full.txt"
+)
 
 
 agent.print_response("How do I build multi-agent teams with Agno?", stream=True)

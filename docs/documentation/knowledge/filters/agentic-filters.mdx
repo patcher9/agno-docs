@@ -9,8 +9,12 @@ There are two ways to attach metadata to your documents:
 1. **Attach Metadata When Initializing the Knowledge Base**
 
     ```python
-    knowledge_base = PDFKnowledgeBase(
-        path=[
+    knowledge_base = Knowledge(
+        vector_db=vector_db,
+    )
+
+    knowledge_base.add_contents(
+        [
             {
                 "path": "path/to/cv1.pdf",
                 "metadata": {
@@ -20,30 +24,29 @@ There are two ways to attach metadata to your documents:
                 },
             },
             # ... more documents ...
-        ],
-        vector_db=vector_db,
+        ]
     )
-    knowledge_base.load(recreate=True)
+
     ```
+
 
 2. **Attach Metadata When Loading Documents One by One**
 
     ```python
-    # Initialize the PDFKnowledgeBase
-    knowledge_base = PDFKnowledgeBase(
+    # Initialize Knowledge
+    knowledge_base = Knowledge(
         vector_db=vector_db,
-        num_documents=5,
+        max_results=5,
     )
 
     # Load first document with user_1 metadata
-    knowledge_base.load_document(
+    knowledge_base.add_content(
         path=path/to/cv1.pdf,
         metadata={"user_id": "jordan_mitchell", "document_type": "cv", "year": 2025},
-        recreate=True,  # Set to True only for the first run, then set to False
     )
 
     # Load second document with user_2 metadata
-    knowledge_base.load_document(
+    knowledge_base.add_content(
         path=path/to/cv2.pdf,
         metadata={"user_id": "taylor_brooks", "document_type": "cv", "year": 2025},
     )
