@@ -36,7 +36,7 @@ knowledge = Knowledge(
 )
 
 # Load all documents into the vector database
-asyncio.run(knowledge.add_contents(
+asyncio.run(knowledge.add_contents_async(
     [
         {
             "path": downloaded_csv_paths[0],
