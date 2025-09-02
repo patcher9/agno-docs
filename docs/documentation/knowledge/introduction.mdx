@@ -26,7 +26,7 @@ knowledge = Knowledge(vector_db=...)
 
 # Add some knowledge content
 asyncio.run(
-    knowledge.add_content(
+    knowledge.add_content_async(
         text_content="The sky is blue",
     )
 )
@@ -110,7 +110,7 @@ agent = Agent(
 if __name__ == "__main__":
     # Asynchronously add the content of the PDF file to the knowledge.
     asyncio.run(
-        knowledge.add_content(
+        knowledge.add_content_async(
             path="data/pdf",
         )
     )
@@ -119,29 +119,11 @@ if __name__ == "__main__":
     asyncio.run(agent.aprint_response("How to make Thai curry?", markdown=True))
 ```
 
-The `add_content()` function is async by default. Call `add_content_sync()` if you don't want to use async.
-Using `add_content()` ensures you take full advantage of the non-blocking operations, concurrent processing, and reduced latency that async vector database operations offer. This is especially valuable in production environments with high throughput requirements.
+The `add_content()` function is sync. You can also call `add_content_async()` for async usage.
+Using `add_content_async()` ensures you take full advantage of the non-blocking operations, concurrent processing, and reduced latency that async vector database operations offer. We recommend this approach, which is especially valuable in production environments with high throughput requirements.
 
 For more details on vector database async capabilities, see the [Vector Database Introduction](../knowledge/vectordb/introduction).
 
 
 Knowledge content needs to be read before it can be passed to any VectorDB for chunking, embedding and storage.
 For more details on readers, auto selection and content types, see the [Content Types](../knowledge/content_types) page.
-
-
-TODO: Update these into files showing how we add content from these sources
-Use one of the following knowledge bases to simplify the chunking, loading, searching and optimization process:
-- [ArXiv knowledge base](/knowledge/arxiv): Load ArXiv papers to a knowledge base
-- [Combined knowledge base](/knowledge/combined): Combine multiple knowledge bases into 1
-- [CSV knowledge base](/knowledge/csv): Load local CSV files to a knowledge base
-- [CSV URL knowledge base](/knowledge/csv-url): Load CSV files from a URL to a knowledge base
-- [Document knowledge base](/knowledge/document): Load local docx files to a knowledge base
-- [JSON knowledge base](/knowledge/json): Load JSON files to a knowledge base
-- [LangChain knowledge base](/knowledge/langchain): Use a Langchain retriever as a knowledge base
-- [PDF knowledge base](/knowledge/pdf): Load local PDF files to a knowledge base
-- [PDF URL knowledge base](/knowledge/pdf-url): Load PDF files from a URL to a knowledge base
-- [S3 PDF knowledge base](/knowledge/s3_pdf): Load PDF files from S3 to a knowledge base
-- [S3 Text knowledge base](/knowledge/s3_text): Load text files from S3 to a knowledge base
-- [Text knowledge base](/knowledge/text): Load text/docx files to a knowledge base
-- [Website knowledge base](/knowledge/website): Load website data to a knowledge base
-- [Wikipedia knowledge base](/knowledge/wikipedia): Load wikipedia articles to a knowledge base

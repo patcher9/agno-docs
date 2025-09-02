@@ -31,7 +31,7 @@ agent = Agent(
 
 async def main():
     # Add URL content to knowledge base
-    await knowledge.add_content(
+    await knowledge.add_content_async(
         url="https://docs.agno.com/introduction",
         reader=URLReader(chunking_strategy=RecursiveChunking(chunk_size=1000)),
     )

@@ -20,7 +20,7 @@ knowledge = Knowledge(
     vector_db=PgVector(table_name="recipes_markdown_chunking", db_url=db_url),
 )
 
-asyncio.run(knowledge.add_content(
+asyncio.run(knowledge.add_content_async(
     url="https://github.com/agno-agi/agno/blob/main/README.md",
     reader=MarkdownReader(
         name="Markdown Chunking Reader",
