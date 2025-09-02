@@ -197,6 +197,7 @@
                   "docs/documentation/models/openai-responses",
                   "docs/documentation/models/openrouter",
                   "docs/documentation/models/perplexity",
+                  "docs/documentation/models/portkey",
                   "docs/documentation/models/sambanova",
                   "docs/documentation/models/together",
                   "docs/documentation/models/vercel",
@@ -2279,6 +2280,16 @@
                   "examples/models/perplexity/knowledge",
                   "examples/models/perplexity/memory",
                   "examples/models/perplexity/structured_output"
+                ]
+              },
+              {
+                "group": "Portkey",
+                "pages": [
+                  "examples/models/portkey/basic",
+                  "examples/models/portkey/basic_stream",
+                  "examples/models/portkey/tool_use",
+                  "examples/models/portkey/tool_use_stream",
+                  "examples/models/portkey/structured_output"
                 ]
               },
               {
