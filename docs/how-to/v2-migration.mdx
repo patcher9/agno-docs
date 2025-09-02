@@ -7,7 +7,7 @@ description: Guide to migrate your Agno applications from v1 to v2.
 If you have questions during your migration, we can help! Find us on [Discord](https://discord.gg/4MtYHHrgA8) or [Discourse](https://community.agno.com/).
 
 <Tip>
-Reference the [v2.0 Changelog](/docs/how-to/v2-changelog) for more details on the changes.
+Reference the [v2.0 Changelog](/docs/how-to/v2-changelog) for the full list of changes.
 </Tip>
 
 ## Migrating your Agno DB
@@ -28,9 +28,9 @@ Each section here covers a specific framework domain, with before and after exam
 
 ### 1. Agents and Teams
 
-[Agents](./getting-started/agents) and Teams are the main building blocks in the Agno framework.
+[Agents](/docs/documentation/agents/introduction) and [Teams](/docs/documentation/teams/introduction) are the main building blocks in the Agno framework.
 
-These are the v2 updates we have made to the `Agent` and `Team` classes:
+Below are some of the v2 updates we have made to the `Agent` and `Team` classes:
 
 1.1. Streaming responses with `arun` now returns an `AsyncIterator`, not a coroutine. This is how you consume the resulting events now, when streaming a run:
 ```python v2_arun.py
@@ -64,7 +64,7 @@ run_output: RunOutput = agent.run(...)
 
 
 <Tip>
-See the [Agent Updates](/docs/how-to/v2-changelog#agent-updates) section of the v2.0 changelog for more details on these changes.
+See the full list of changes in the [Agent Updates](/docs/how-to/v2-changelog#agent-updates) section of the changelog.
 </Tip>
 
 
@@ -129,6 +129,10 @@ team_session = team.get_latest_session()
 team_session.runs
 ```
 
+<Tip>
+See more changes in the [Storage Updates](/docs/how-to/v2-changelog#storage) section of the changelog.
+</Tip>
+
 ### 3. Memory
 
 Memory gives an Agent the ability to recall relevant information.
@@ -168,10 +172,14 @@ db = SqliteDb(db_file="agno.db", memory_table="your_memory_table_name")
 
 3.4. The methods you previously had access to through the Memory class, are now direclty available on the relevant `db` object. For example:
 ``` python v2_memory_db_methods.py
-agent.db.get_user_memories(user_id="123")
+agent.get_user_memories(user_id="123")
 ```
 
-You can find examples for other all other databases and advanced scenarios in the `/cookbook` folder.
+You can find examples for other all other databases and advanced scenarios in the [examples](/examples/concepts/memory) section.
+
+<Tip>
+See more changes in the [Memory Updates](/docs/how-to/v2-changelog#memory) section of the changelog.
+</Tip>
 
 ### 4. Knowledge
 
@@ -201,6 +209,10 @@ You can also delete all vectors created by a specific piece of content using `re
 - `retriever` -> `knowledge_retriever`
 - `add_references` -> `add_knowledge_to_context`
 
+<Tip>
+See more changes in the [Knowledge Updates](/docs/how-to/v2-changelog#knowledge) section of the changelog.
+</Tip>
+
 ### 5. Metrics
 
 Metrics are used to understand the usage and consumption related to a Session, a Run or a Message.
@@ -215,12 +227,14 @@ These are the changes we have made for v2:
 
 We have heavily updated our Workflows, aiming to provide top-of-the-line tooling to build agentic systems.
 
+<Tip>
 Make sure to check our [comprehensive migration guide for Workflows](/docs/how-to/workflows-migration).
+</Tip>
 
 
-### 7. Playground
+### 7. Playground -> AgentOS
 
-Our `Playground` has been deprecated. Our new platform offering will substitute all usage cases. 
+Our `Playground` has been deprecated. Our new [AgentOS](/docs/agent-os/introduction) offering will substitute all usecases. 
 
 See [AgentOS](/docs/agent-os/introduction) for more details!
 
