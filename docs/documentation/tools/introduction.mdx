@@ -108,9 +108,47 @@ print(f"Final session state: {agent.get_session_state()}")
 
 See more in [Agent State](/docs/documentation/agents/state).
 
+## Tool Results
+
+Tools can return different types of results depending on their complexity and what they need to communicate back to the agent.
+
+### Simple Return Types
+
+Most tools can return simple Python types directly like `str`, `int`, `float`, `dict`, and `list`:
+
+```python
+@tool
+def get_weather(city: str) -> str:
+    """Get the weather for a city."""
+    return f"The weather in {city} is sunny and 75°F"
+
+@tool
+def calculate_sum(a: int, b: int) -> int:
+    """Calculate the sum of two numbers."""
+    return a + b
+
+@tool
+def get_user_info(user_id: str) -> dict:
+    """Get user information."""
+    return {
+        "user_id": user_id,
+        "name": "John Doe",
+        "email": "john@example.com",
+        "status": "active"
+    }
+
+@tool
+def search_products(query: str) -> list:
+    """Search for products."""
+    return [
+        {"id": 1, "name": "Product A", "price": 29.99},
+        {"id": 2, "name": "Product B", "price": 39.99}
+    ]
+```
+
 ### `ToolResult` for Media Content
 
-When your tool needs to return media artifacts (images, videos, audio), use `ToolResult`:
+When your tool needs to return media artifacts (images, videos, audio), you **must** use `ToolResult`:
 
 <Snippet file="tool-result-reference.mdx" />
 
