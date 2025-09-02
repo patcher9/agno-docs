@@ -68,11 +68,11 @@
             "group": "Introduction",
             "pages": [
               "introduction",
-              "docs/getting_started/agents",
-              "docs/getting_started/multi-agent-systems",
-              "docs/getting_started/playground",
-              "docs/getting_started/monitoring",
-              "docs/getting_started/community"
+              "introduction/first-agent",
+              "introduction/run-agentos",
+              "introduction/manage-agentos",
+              "introduction/why-agno",
+              "introduction/community"
             ]
           },
           {
@@ -983,8 +983,8 @@
                     "group": "Search Coordination",
                     "pages": [
                       "examples/concepts/teams/search_coordination/coordinated_agentic_rag",
-                        "examples/concepts/teams/search_coordination/coordinated_reasoning_rag",
-                        "examples/concepts/teams/search_coordination/distributed_infinity_search"
+                      "examples/concepts/teams/search_coordination/coordinated_reasoning_rag",
+                      "examples/concepts/teams/search_coordination/distributed_infinity_search"
                     ]
                   },
                   {
