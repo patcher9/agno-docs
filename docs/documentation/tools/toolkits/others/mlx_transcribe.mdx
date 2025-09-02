@@ -63,7 +63,7 @@ agent.print_response("Summarize the reid hoffman ted talk, split into sections",
 | Parameter                         | Type                           | Default                                  | Description                                 |
 | --------------------------------- | ------------------------------ | ---------------------------------------- | ------------------------------------------- |
 | `base_dir`                        | `Path`                         | `Path.cwd()`                             | Base directory for audio files              |
-| `read_files_in_base_dir`          | `bool`                         | `True`                                   | Whether to register the read_files function |
+| `enable_read_files_in_base_dir`          | `bool`                         | `True`                                   | Whether to register the read_files function |
 | `path_or_hf_repo`                 | `str`                          | `"mlx-community/whisper-large-v3-turbo"` | Path or HuggingFace repo for the model      |
 | `verbose`                         | `bool`                         | `None`                                   | Enable verbose output                       |
 | `temperature`                     | `float` or `Tuple[float, ...]` | `None`                                   | Temperature for sampling                    |
