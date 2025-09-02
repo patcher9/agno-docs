@@ -20,7 +20,7 @@ from agno.tools.openai import OpenAITools
 video_processor = Agent(
     name="Video Processor",
     role="Handle video processing and audio extraction",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[MoviePyVideoTools(process_video=True, generate_captions=True)],
     instructions=[
         "Extract audio from videos for processing",
@@ -31,7 +31,7 @@ video_processor = Agent(
 caption_generator = Agent(
     name="Caption Generator",
     role="Generate and embed captions in videos",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[MoviePyVideoTools(embed_captions=True), OpenAITools()],
     instructions=[
         "Transcribe audio to create accurate captions",
@@ -44,7 +44,7 @@ caption_generator = Agent(
 caption_team = Team(
     name="Video Caption Team",
     members=[video_processor, caption_generator],
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     description="Team that generates and embeds captions for videos",
     instructions=[
         "Process videos to generate captions in this sequence:",

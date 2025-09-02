@@ -1,6 +1,6 @@
 | Parameter     | Type            | Default                                  | Description                                                                                      |
 |--------------|----------------|------------------------------------------|--------------------------------------------------------------------------------------------------|
-| `id`         | `str`           | `"gpt-4o"`                               | The model ID used for generating responses.                                                      |
+| `id`         | `str`           | `"gpt-5-mini"`                               | The model ID used for generating responses.                                                      |
 | `name`       | `str`           | `"LangDB"`                               | The name identifier for the LangDB agent.                                                        |
 | `provider`   | `str`           | `"LangDB:" + id`                         | The provider of the model, combining `"LangDB"` with the model ID.                               |
 | `api_key`    | `Optional[str]` | `getenv("LANGDB_API_KEY")`               | The API key for authenticating requests to LangDB, retrieved from the `LANGDB_API_KEY` environment variable. |

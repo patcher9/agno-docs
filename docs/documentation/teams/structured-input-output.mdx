@@ -37,7 +37,7 @@ Let's create an Movie Agent to write a `MovieScript` for us.
 
     stock_searcher = Agent(
         name="Stock Searcher",
-        model=OpenAIChat("gpt-4o"),
+        model=OpenAIChat("gpt-5-mini"),
         output_schema=StockAnalysis,
         role="Searches for information on stocks and provides price analysis.",
         tools=[
@@ -47,7 +47,7 @@ Let's create an Movie Agent to write a `MovieScript` for us.
 
     company_info_agent = Agent(
         name="Company Info Searcher",
-        model=OpenAIChat("gpt-4o"),
+        model=OpenAIChat("gpt-5-mini"),
         role="Searches for information about companies and recent news.",
         output_schema=CompanyAnalysis,
         tools=[
@@ -63,7 +63,7 @@ Let's create an Movie Agent to write a `MovieScript` for us.
     team = Team(
         name="Stock Research Team",
         mode="route",
-        model=OpenAIChat("gpt-4o"),
+        model=OpenAIChat("gpt-5-mini"),
         members=[stock_searcher, company_info_agent],
         output_schema=StockReport,
         markdown=True,
@@ -113,7 +113,7 @@ StockReport(
 
   ```python
   team = Team(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     members=[stock_searcher, company_info_agent],
     description="You write stock reports.",
     output_schema=StockReport,
@@ -162,7 +162,7 @@ class MovieScript(BaseModel):
 # Agent that uses structured outputs with streaming
 structured_output_team = Team(
     members=[],
-    model=OpenAIChat(id="o3-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     description="You write movie scripts.",
     output_schema=MovieScript,
 )
@@ -213,7 +213,7 @@ class ResearchProject(BaseModel):
 # Create research agents
 hackernews_agent = Agent(
     name="HackerNews Researcher",
-    model=OpenAIChat(id="o3-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[HackerNewsTools()],
     role="Research trending topics and discussions on HackerNews",
     instructions=[
@@ -225,7 +225,7 @@ hackernews_agent = Agent(
 
 web_researcher = Agent(
     name="Web Researcher",
-    model=OpenAIChat(id="o3-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[DuckDuckGoTools()],
     role="Conduct comprehensive web research",
     instructions=[
@@ -238,7 +238,7 @@ web_researcher = Agent(
 # Create team with input_schema for automatic validation
 research_team = Team(
     name="Research Team with Input Validation",
-    model=OpenAIChat(id="o3-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     members=[hackernews_agent, web_researcher],
     mode="collaborate",
     instructions=[
@@ -299,7 +299,7 @@ class ResearchProject(BaseModel):
 # Create research agents
 hackernews_agent = Agent(
     name="HackerNews Researcher",
-    model=OpenAIChat(id="o3-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[HackerNewsTools()],
     role="Research trending topics and discussions on HackerNews",
     instructions=[
@@ -311,7 +311,7 @@ hackernews_agent = Agent(
 
 web_researcher = Agent(
     name="Web Researcher",
-    model=OpenAIChat(id="o3-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[DuckDuckGoTools()],
     role="Conduct comprehensive web research",
     instructions=[
@@ -324,7 +324,7 @@ web_researcher = Agent(
 # Create team with input_schema for automatic validation
 research_team = Team(
     name="Research Team with Input Validation",
-    model=OpenAIChat(id="o3-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     members=[hackernews_agent, web_researcher],
     mode="collaborate",
     input_schema=ResearchProject,
@@ -360,7 +360,7 @@ team = Team(
     members=[...],
     description="You write movie scripts.",
     output_schema=MovieScript,
-    parser_model=OpenAIChat(id="o3-mini"),  # Only used to parse the output
+    parser_model=OpenAIChat(id="gpt-5-mini"),  # Only used to parse the output
 )
 ```
 

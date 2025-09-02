@@ -52,7 +52,7 @@ async def run_agent(task: str) -> None:
             server_params=server_params, transport="streamable-http", timeout_seconds=20
         ) as mcp:
             agent = Agent(
-                model=OpenAIChat(id="gpt-4o-mini"),
+                model=OpenAIChat(id="gpt-5-nano"),
                 tools=[mcp],
                 markdown=True,
             )

@@ -15,19 +15,23 @@ from agno.tools.mcp import MCPTools
 
 
 async def run_agent(message: str) -> None:
-    async with MCPTools(
-        transport="streamable-http",
-        # You can use any MCP server you want
-        url="https://docs-v2.agno.com/mcp"
-    ) as agno_tools:
-        # Define your Agent
-        agent = Agent(
-            model=OpenAIChat(id="gpt-5"),
-            tools=[agno_tools],
-            markdown=True,
-        )
-        # Run your Agent
-        await agent.aprint_response(input=message, stream=True)
+    agno_tools = MCPTools(
+      transport="streamable-http",
+      # You can use any MCP server you want
+      url="https://docs-v2.agno.com/mcp"
+    )
+    await agno_tools.connect()
+  
+    # Define your Agent
+    agent = Agent(
+        model=OpenAIChat(id="gpt-5-nano"),
+        tools=[agno_tools],
+        markdown=True,
+    )
+    # Run your Agent
+    await agent.aprint_response(input=message, stream=True)
+    
+    await agno_tools.close()
 
 
 if __name__ == "__main__":

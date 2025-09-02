@@ -3,7 +3,7 @@ title: Reasoning Models
 ---
 
 Reasoning models are a new class of large language models pre-trained to think before they answer. They produce a long internal chain of thought before responding. Examples of reasoning models include:
-- OpenAI o1-pro and o3-mini
+- OpenAI o1-pro and gpt-5-mini
 - Claude 3.7 sonnet in extended-thinking mode
 - Gemini 2.0 flash thinking
 - DeepSeek-R1
@@ -12,14 +12,14 @@ Reasoning models deeply consider and think through a plan before taking action. 
 
 ## Examples
 
-### o3-mini
+### gpt-5-mini
 
 ```python o3_mini.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
 # Setup your Agent using a reasoning model
-agent = Agent(model=OpenAIChat(id="o3-mini"))
+agent = Agent(model=OpenAIChat(id="gpt-5-mini"))
 
 # Run the Agent
 agent.print_response(
@@ -29,7 +29,7 @@ agent.print_response(
 )
 ```
 
-### o3-mini with tools
+### gpt-5-mini with tools
 
 ```python o3_mini_with_tools.py
 from agno.agent import Agent
@@ -38,7 +38,7 @@ from agno.tools.duckduckgo import DuckDuckGoTools
 
 # Setup your Agent using a reasoning model
 agent = Agent(
-    model=OpenAIChat(id="o3-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[DuckDuckGoTools()],
     markdown=True,
 )
@@ -47,7 +47,7 @@ agent = Agent(
 agent.print_response("What is the best basketball team in the NBA this year?", stream=True)
 ```
 
-### o3-mini with reasoning effort
+### gpt-5-mini with reasoning effort
 
 ```python o3_mini_with_reasoning_effort.py
 from agno.agent import Agent
@@ -56,7 +56,7 @@ from agno.tools.duckduckgo import DuckDuckGoTools
 
 # Setup your Agent using a reasoning model with high reasoning effort
 agent = Agent(
-    model=OpenAIChat(id="o3-mini", reasoning_effort="high"),
+    model=OpenAIChat(id="gpt-5-mini", reasoning_effort="high"),
     tools=[DuckDuckGoTools()],
     markdown=True,
 )

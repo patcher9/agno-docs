@@ -18,13 +18,13 @@ from agno.tools.hackernews import HackerNewsTools
 # Create team members
 hn_researcher = Agent(
     name="HackerNews Researcher",
-    model=OpenAIChat("gpt-4o"),
+    model=OpenAIChat("gpt-5-mini"),
     tools=[HackerNewsTools()],
 )
 
 web_searcher = Agent(
     name="Web Searcher", 
-    model=OpenAIChat("gpt-4o"),
+    model=OpenAIChat("gpt-5-mini"),
     tools=[DuckDuckGoTools()],
 )
 

@@ -34,7 +34,7 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
 # Setup your Agent using a reasoning model
-agent = Agent(model=OpenAIChat(id="o3-mini"))
+agent = Agent(model=OpenAIChat(id="gpt-5-mini"))
 
 # Run the Agent
 agent.print_response(
@@ -128,7 +128,7 @@ from agno.models.openai import OpenAIChat
 
 # Setup our Agent with reasoning enabled
 reasoning_agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     reasoning=True,
     markdown=True,
 )

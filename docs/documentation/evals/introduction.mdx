@@ -31,7 +31,7 @@ from agno.tools.calculator import CalculatorTools
 
 evaluation = AccuracyEval(
     model=OpenAIChat(id="o4-mini"),
-    agent=Agent(model=OpenAIChat(id="gpt-4o"), tools=[CalculatorTools(enable_all=True)]),
+    agent=Agent(model=OpenAIChat(id="gpt-5-mini"), tools=[CalculatorTools(enable_all=True)]),
     input="What is 10*5 then to the power of 2? do it step by step",
     expected_output="2500",
     additional_guidelines="Agent output should include the steps and the final answer.",
@@ -62,7 +62,7 @@ evaluator_agent = Agent(
 
 evaluation = AccuracyEval(
     model=OpenAIChat(id="o4-mini"),
-    agent=Agent(model=OpenAIChat(id="gpt-4o"), tools=[CalculatorTools(enable_all=True)]),
+    agent=Agent(model=OpenAIChat(id="gpt-5-mini"), tools=[CalculatorTools(enable_all=True)]),
     input="What is 10*5 then to the power of 2? do it step by step",
     expected_output="2500",
     # Use your evaluator Agent
@@ -123,7 +123,7 @@ from agno.models.openai import OpenAIChat
 from agno.eval.perf import PerfEval
 
 def simple_response():
-    agent = Agent(model=OpenAIChat(id='gpt-4o-mini'), system_message='Be concise, reply with one sentence.', add_history_to_messages=True)
+    agent = Agent(model=OpenAIChat(id='gpt-5-nano'), system_message='Be concise, reply with one sentence.', add_history_to_messages=True)
     response_1 = agent.run('What is the capital of France?')
     print(response_1.content)
     response_2 = agent.run('How many people live there?')
@@ -162,7 +162,7 @@ from agno.run.response import RunResponse
 def multiply_and_exponentiate():
 
     agent=Agent(
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAIChat(id="gpt-5-nano"),
         tools=[CalculatorTools(add=True, multiply=True, exponentiate=True)],
     )
     response: RunResponse = agent.run("What is 10*5 then to the power of 2? do it step by step")

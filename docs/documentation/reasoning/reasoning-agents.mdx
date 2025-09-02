@@ -16,7 +16,7 @@ from agno.models.openai import OpenAIChat
 
 # Setup our Agent with reasoning enabled
 reasoning_agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     reasoning=True,
     markdown=True,
 )
@@ -37,11 +37,11 @@ If `reasoning_model` is not set, the primary `Agent` model will be used for reas
 
 ### Reasoning Model Requirements
 
-The `reasoning_model` must be able to handle structured outputs, this includes models like gpt-4o and claude-3-7-sonnet that support structured outputs natively or gemini models that support structured outputs using JSON mode.
+The `reasoning_model` must be able to handle structured outputs, this includes models like gpt-5-mini and claude-3-7-sonnet that support structured outputs natively or gemini models that support structured outputs using JSON mode.
 
 ### Using a Reasoning Model that supports native Reasoning
 
-If you set `reasoning_model` to a model that supports native Reasoning like o3-mini or deepseek-r1, the reasoning model will be used to reason and the primary `Agent` model will be used to respond. See [Reasoning Models + Response Models](/docs/documentation/reasoning/reasoning-models#reasoning-model-response-model) for more information.
+If you set `reasoning_model` to a model that supports native Reasoning like gpt-5-mini or deepseek-r1, the reasoning model will be used to reason and the primary `Agent` model will be used to respond. See [Reasoning Models + Response Models](/docs/documentation/reasoning/reasoning-models#reasoning-model-response-model) for more information.
 
 ## Reasoning with tools
 
@@ -54,7 +54,7 @@ from agno.tools.duckduckgo import DuckDuckGoTools
 
 # Setup our Agent with reasoning enabled
 reasoning_agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[DuckDuckGoTools()],
     instructions=["Use tables to show data"],
     markdown=True,
@@ -80,7 +80,7 @@ task = (
     "How can all six people get across the river safely? Provide a step-by-step solution and show the solutions as an ascii diagram"
 )
 reasoning_agent = Agent(
-    model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True
+    model=OpenAIChat(id="gpt-5-mini-2024-08-06"), reasoning=True, markdown=True
 )
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
@@ -93,7 +93,7 @@ from agno.models.openai import OpenAIChat
 
 task = "Prove that for any positive integer n, the sum of the first n odd numbers is equal to n squared. Provide a detailed proof."
 reasoning_agent = Agent(
-    model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True
+    model=OpenAIChat(id="gpt-5-mini-2024-08-06"), reasoning=True, markdown=True
 )
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
@@ -113,7 +113,7 @@ task = (
     "The study concludes that the new teaching method is effective in improving mathematical performance among high school students."
 )
 reasoning_agent = Agent(
-    model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True
+    model=OpenAIChat(id="gpt-5-mini-2024-08-06"), reasoning=True, markdown=True
 )
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
@@ -132,7 +132,7 @@ task = (
     "Provide your answer also as an ascii art diagram."
 )
 reasoning_agent = Agent(
-    model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True
+    model=OpenAIChat(id="gpt-5-mini-2024-08-06"), reasoning=True, markdown=True
 )
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
@@ -145,7 +145,7 @@ from agno.models.openai import OpenAIChat
 
 task = "Plan an itinerary from Los Angeles to Las Vegas"
 reasoning_agent = Agent(
-    model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True
+    model=OpenAIChat(id="gpt-5-mini-2024-08-06"), reasoning=True, markdown=True
 )
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```
@@ -158,7 +158,7 @@ from agno.models.openai import OpenAIChat
 
 task = "Write a short story about life in 5000000 years"
 reasoning_agent = Agent(
-    model=OpenAIChat(id="gpt-4o-2024-08-06"), reasoning=True, markdown=True
+    model=OpenAIChat(id="gpt-5-mini-2024-08-06"), reasoning=True, markdown=True
 )
 reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 ```

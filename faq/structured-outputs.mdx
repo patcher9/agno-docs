@@ -30,13 +30,13 @@ class User(BaseModel):
     email: str
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     description="You are a helpful assistant that can extract information from a user's profile.",
     output_schema=User,
 )
 ```
 
-In the example above, the model will generate a response that matches the `User` schema using structured outputs via OpenAI's `gpt-4o` model. The agent will then return the `User` object as-is.
+In the example above, the model will generate a response that matches the `User` schema using structured outputs via OpenAI's `gpt-5-mini` model. The agent will then return the `User` object as-is.
 
 ---
 
@@ -59,7 +59,7 @@ class User(BaseModel):
     email: str
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     description="You are a helpful assistant that can extract information from a user's profile.",
     output_schema=User,
     use_json_mode=True,

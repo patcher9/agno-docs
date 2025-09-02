@@ -18,7 +18,7 @@ configure(token=getenv("ATLA_API_KEY"))
 
 agent = Agent(
     name="Internet Search Agent",
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-nano"),
     tools=[DuckDuckGoTools()],
     instructions="You are an internet search agent. Find and provide accurate information on any topic.",
     debug_mode=True,

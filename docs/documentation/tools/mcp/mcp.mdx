@@ -43,7 +43,7 @@ You can connect your Agents to any MCP server, using Agno's MCP integration.
 
     async with MCPTools(command=f"uvx mcp-server-git") as mcp_tools:
         # Setup and run the agent
-        agent = Agent(model=OpenAIChat(id="gpt-4o"), tools=[mcp_tools])
+        agent = Agent(model=OpenAIChat(id="gpt-5-mini"), tools=[mcp_tools])
         await agent.aprint_response("What is the license for this project?", stream=True)
     ```
     </Step>
@@ -74,7 +74,7 @@ async def run_agent(message: str) -> None:
     # MCP server to access the filesystem (via `npx`)
     async with MCPTools(f"npx -y @modelcontextprotocol/server-filesystem {file_path}") as mcp_tools:
         agent = Agent(
-            model=OpenAIChat(id="gpt-4o"),
+            model=OpenAIChat(id="gpt-5-mini"),
             tools=[mcp_tools],
             instructions=dedent("""\
                 You are a filesystem assistant. Help users explore files and directories.
@@ -138,7 +138,7 @@ async def run_server() -> None:
                 - Use headings to organize your responses
                 - Be concise and focus on relevant information\
             """),
-            model=OpenAIChat(id="gpt-4o"),
+            model=OpenAIChat(id="gpt-5-mini"),
             storage=SqliteAgentStorage(
                 table_name="basic_agent",
                 db_file=agent_storage_file,

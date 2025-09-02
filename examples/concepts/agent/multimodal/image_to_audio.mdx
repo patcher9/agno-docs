@@ -18,7 +18,7 @@ from rich.text import Text
 
 cwd = Path(__file__).parent.resolve()
 
-image_agent = Agent(model=OpenAIChat(id="gpt-4o"))
+image_agent = Agent(model=OpenAIChat(id="gpt-5-mini"))
 
 image_path = Path(__file__).parent.joinpath("sample.jpg")
 image_story: RunOutput = image_agent.run(
@@ -32,7 +32,7 @@ print(formatted_text)
 
 audio_agent = Agent(
     model=OpenAIChat(
-        id="gpt-4o-audio-preview",
+        id="gpt-5-mini-audio-preview",
         modalities=["text", "audio"],
         audio={"voice": "sage", "format": "wav"},
     ),

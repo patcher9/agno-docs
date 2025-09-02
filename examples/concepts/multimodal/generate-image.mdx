@@ -14,7 +14,7 @@ from agno.utils.common import dataclass_to_dict
 from rich.pretty import pprint
 
 image_agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[DalleTools()],
     description="You are an AI agent that can create images using DALL-E.",
     instructions=[

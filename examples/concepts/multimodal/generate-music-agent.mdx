@@ -17,7 +17,7 @@ from agno.utils.log import logger
 agent = Agent(
     name="ModelsLab Music Agent",
     id="ml_music_agent",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
         tools=[ModelsLabTools(wait_for_completion=True, file_type=FileType.MP3)],
     description="You are an AI agent that can generate music using the ModelsLabs API.",
     instructions=[

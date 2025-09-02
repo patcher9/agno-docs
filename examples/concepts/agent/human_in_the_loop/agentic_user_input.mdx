@@ -63,7 +63,7 @@ class EmailTools(Toolkit):
 
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-nano"),
     tools=[EmailTools(), UserControlFlowTools()],
     markdown=True,
 )

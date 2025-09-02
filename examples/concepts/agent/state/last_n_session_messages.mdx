@@ -17,7 +17,7 @@ from agno.models.openai import OpenAIChat
 os.remove("tmp/data.db")
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-nano"),
     user_id="user_1",
     db=SqliteDb(db_file="tmp/data.db"),
     add_history_to_context=True,

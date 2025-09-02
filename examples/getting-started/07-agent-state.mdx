@@ -38,7 +38,7 @@ def get_counter(session_state) -> str:
 
 # Create an Agent that maintains state
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     # Initialize the session state with a counter starting at 0
     session_state={"count": 0},
     tools=[increment_counter, get_counter],

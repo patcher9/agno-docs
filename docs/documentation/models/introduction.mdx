@@ -13,7 +13,7 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     description="Share 15 minute healthy recipes.",
     markdown=True,
 )
@@ -26,7 +26,7 @@ You can set `exponential_backoff` to `True` on the `Agent` to automatically retr
 
 ```python
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     exponential_backoff=True,
     retries=2,
     retry_delay=1,

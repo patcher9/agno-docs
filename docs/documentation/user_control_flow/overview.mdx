@@ -68,7 +68,7 @@ def sensitive_operation(data: str) -> str:
     return "Operation completed"
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[sensitive_operation],
 )
 
@@ -97,7 +97,7 @@ from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.utils import pprint
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-nano"),
     tools=[DuckDuckGoTools(requires_confirmation_tools=["duckduckgo_search"])],
 )
 
@@ -147,7 +147,7 @@ def send_email(to: str, subject: str, body: str) -> dict:
     return f"Email sent to {to} with subject {subject} and body {body}"
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[send_email],
 )
 
@@ -199,7 +199,7 @@ def send_email(subject: str, body: str, to_address: str) -> str:
     return f"Sent email to {to_address} with subject {subject} and body {body}"
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[send_email],
 )
 
@@ -284,7 +284,7 @@ class EmailTools(Toolkit):
 
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-nano"),
     tools=[EmailTools(), UserControlFlowTools()],
     markdown=True,
     debug_mode=True,
@@ -347,7 +347,7 @@ def execute_shell_command(command: str) -> str:
 
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-nano"),
     tools=[execute_shell_command],
     markdown=True,
 )
