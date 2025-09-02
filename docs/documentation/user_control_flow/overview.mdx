@@ -1,9 +1,9 @@
 ---
-title: User Control Flows
-description: Learn how to control the flow of an agent's execution in Agno. This is also called "Human in the Loop".
+title: User Control Flows in Agents
+description: Learn how to control the flow of an agent's execution in Agno. We call this "User Control Flows".
 ---
 
-User control flows in Agno enable you to implement "Human in the Loop" patterns, where human oversight and input are required during agent execution. This is crucial for:
+User control flows (Human-in-the-Loop) in Agno enable you to implement patterns where human oversight and input are required during agent execution. This is crucial for:
 
 - Validating sensitive operations
 - Reviewing tool calls before execution
@@ -20,6 +20,11 @@ Agno supports four main types of user control flows:
 4. **External Tool Execution**: Execute tools outside of the agent's control
 
 
+<Note>
+Currently Agno only supports user control flows for `Agent`. `Team` and `Workflow` will be supported in the near future!
+</Note>
+
+
 ## Pausing Agent Execution
 
 User control flows interrupt the agent's execution and require human oversight. The run can then be continued by calling the `continue_run` method.
@@ -27,18 +32,18 @@ User control flows interrupt the agent's execution and require human oversight. 
 For example:
 
 ```python
-agent.run("Perform sensitive operation")
+run_response = agent.run("Perform sensitive operation")
 
-if agent.is_paused:
+if run_response.is_paused:
     # The agent will pause while human input is provided
-    # ... perform other tasks
+    # ... perform other tasks, update the tools if needed
 
     # The user can then continue the run
-    response = agent.continue_run()
-    # or response = await agent.acontinue_run()
+    response = agent.continue_run(run_id=run_response.run_id, updated_tools=run_response.tools)
+    # or response = await agent.acontinue_run(run_id=run_response.run_id, updated_tools=run_response.tools)
 ```
 
-The `continue_run` method continues with the state of the agent at the time of the pause.  You can also pass the `run_response` of a specific run to the `continue_run` method, or the `run_id`.
+The `continue_run` method continues with the state of the agent at the time of the pause.  You can also pass the `RunOutput` of a specific run to the `continue_run` method, or the `run_id` and list of updated tools.
 
 
 ## User Confirmation
@@ -68,18 +73,18 @@ agent = Agent(
 )
 
 # Run the agent
-agent.run("Perform sensitive operation")
+run_response = agent.run("Perform sensitive operation")
 
 # Handle confirmation
-if agent.is_paused:
-    for tool in agent.run_response.tools_requiring_confirmation:
+if run_response.is_paused:
+    for tool in run_response.tools_requiring_confirmation:
         # Get user confirmation
         print(f"Tool {tool.tool_name}({tool.tool_args}) requires confirmation")
         confirmed = input(f"Confirm? (y/n): ").lower() == "y"
         tool.confirmed = confirmed
 
   # Continue execution
-  response = agent.continue_run()
+  response = agent.continue_run(run_id=run_response.run_id, updated_tools=run_response.tools)
 ```
 
 You can also specify which tools in a toolkit require confirmation.
@@ -88,17 +93,17 @@ You can also specify which tools in a toolkit require confirmation.
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools import tool
-from agno.tools.yfinance import YFinanceTools
+from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.utils import pprint
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
-    tools=[YFinanceTools(requires_confirmation_tools=["get_current_stock_price"])],
+    tools=[DuckDuckGoTools(requires_confirmation_tools=["duckduckgo_search"])],
 )
 
-agent.run("What is the current stock price of Apple?")
-if agent.is_paused:
-    for tool in agent.run_response.tools_requiring_confirmation:
+run_response = agent.run("What is the latest news on AI?")
+if run_response.is_paused:
+    for tool in run_response.tools_requiring_confirmation:
         print(f"Tool {tool.tool_name}({tool.tool_args}) requires confirmation")
         confirmed = input(f"Confirm? (y/n): ").lower() == "y"
 
@@ -108,7 +113,7 @@ if agent.is_paused:
             # We update the tools in place
             tool.confirmed = True
 
-    run_response = agent.continue_run()
+    run_response = agent.continue_run(run_id=run_response.run_id, updated_tools=run_response.tools)
     pprint.pprint_run_response(run_response)
 ```
 
@@ -146,9 +151,9 @@ agent = Agent(
     tools=[send_email],
 )
 
-agent.run("Send an email please")
-if agent.is_paused:
-    for tool in agent.run_response.tools_requiring_user_input:
+run_response = agent.run("Send an email please")
+if run_response.is_paused:
+    for tool in run_response.tools_requiring_user_input:
         input_schema: List[UserInputField] = tool.user_input_schema
 
         for field in input_schema:
@@ -162,11 +167,11 @@ if agent.is_paused:
             field.value = user_value
 
     run_response = (
-        agent.continue_run()
+        agent.continue_run(run_id=run_response.run_id, updated_tools=run_response.tools)
     )
 ```
 
-The `RunResponse` object has a list of tools and in the case of `requires_user_input`, the tools that require input will have `user_input_schema` populated.
+The `RunOutput` object has a list of tools and in the case of `requires_user_input`, the tools that require input will have `user_input_schema` populated.
 This is a list of `UserInputField` objects.
 
 ```python
@@ -180,7 +185,6 @@ class UserInputField:
 You can also specify which fields should be filled by the user while the agent will provide the rest of the fields.
 
 ```python
-
 # You can either specify the user_input_fields leave empty for all fields to be provided by the user
 @tool(requires_user_input=True, user_input_fields=["to_address"])
 def send_email(subject: str, body: str, to_address: str) -> str:
@@ -199,9 +203,9 @@ agent = Agent(
     tools=[send_email],
 )
 
-agent.run("Send an email with the subject 'Hello' and the body 'Hello, world!'")
-if agent.is_paused:
-    for tool in agent.run_response.tools_requiring_user_input:
+run_response = agent.run("Send an email with the subject 'Hello' and the body 'Hello, world!'")
+if run_response.is_paused:
+    for tool in run_response.tools_requiring_user_input:
         input_schema: List[UserInputField] = tool.user_input_schema
 
         for field in input_schema:
@@ -216,7 +220,7 @@ if agent.is_paused:
                 print(f"Value provided by the agent: {field.value}")
 
     run_response = (
-        agent.continue_run()
+        agent.continue_run(run_id=run_response.run_id, updated_tools=run_response.tools)
     )
 ```
 
@@ -304,7 +308,7 @@ while run_response.is_paused:
             else:
                 print(f"Value provided by the agent: {field.value}")
 
-    run_response = agent.continue_run(run_response=run_response)
+    run_response = agent.continue_run(run_id=run_response.run_id, updated_tools=run_response.tools)
 
     # If the agent is not paused for input, we are done
     if not run_response.is_paused:
@@ -359,7 +363,7 @@ if run_response.is_paused:
             # We have to set the result on the tool execution object so that the agent can continue
             tool.result = result
 
-    run_response = agent.continue_run()
+    run_response = agent.continue_run(run_id=run_response.run_id, updated_tools=run_response.tools)
     pprint.pprint_run_response(run_response)
 ```
 
@@ -372,5 +376,5 @@ if run_response.is_paused:
 ## Developer Resources
 
 - View more [Examples](/examples/concepts/user-control-flows)
-- View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/agent_concepts/user_control_flows)
+- View [Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/agents/human_in_the_loop)
 

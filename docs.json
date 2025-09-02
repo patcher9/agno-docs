@@ -488,7 +488,7 @@
                 "pages": ["docs/documentation/multimodal/overview"]
               },
               {
-                "group": "User Control Flow",
+                "group": "Human-in-the-Loop",
                 "pages": ["docs/documentation/user_control_flow/overview"]
               },
               {
@@ -520,7 +520,7 @@
                 ]
               },
               {
-                "group": "Integrations",
+                "group": "Other Integrations",
                 "pages": [
                   "docs/integrations/discord/introduction",
                   {
@@ -1844,6 +1844,7 @@
               {
                 "group": "Integrations",
                 "pages": [
+              
                   {
                     "group": "Discord",
                     "pages": [
@@ -1855,21 +1856,24 @@
                   {
                     "group": "Observability",
                     "pages": [
+                      "examples/concepts/integrations/observability/agent_ops",
+                      "examples/concepts/integrations/observability/atla_op",
                       "examples/concepts/integrations/observability/arize-phoenix-via-openinference",
                       "examples/concepts/integrations/observability/arize-phoenix-via-openinference-local",
                       "examples/concepts/integrations/observability/langfuse_via_openinference",
+                      "examples/concepts/integrations/observability/langfuse_via_openinference_response_model",
                       "examples/concepts/integrations/observability/langfuse_via_openlit",
+                      "examples/concepts/integrations/observability/langfuse_via_openinference_team",
                       "examples/concepts/integrations/observability/langsmith-via-openinference",
                       "examples/concepts/integrations/observability/langtrace-op",
+                      "examples/concepts/integrations/observability/langwatch_op",
                       "examples/concepts/integrations/observability/weave-op"
                     ]
                   },
                   {
-                    "group": "Testing",
-                    "pages": [
-                      "examples/concepts/integrations/testing/scenario/basic"
-                    ]
-                  }
+                "group": "Testing",
+                "pages": ["examples/concepts/integrations/testing/scenario/basic"]
+                  }                
                 ]
               }
             ]

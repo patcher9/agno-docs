@@ -1,6 +1,5 @@
 ---
 title: Arize Phoenix via OpenInference
-sidebarTitle: Arize Phoenix (Cloud Collector)
 ---
 
 ## Overview
@@ -15,7 +14,7 @@ import os
 
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
-from agno.tools.yfinance import YFinanceTools
+from agno.tools.duckduckgo import DuckDuckGoTools
 from phoenix.otel import register
 
 # Set environment variables for Arize Phoenix
@@ -32,13 +31,13 @@ tracer_provider = register(
 agent = Agent(
     name="Stock Price Agent",
     model=OpenAIChat(id="gpt-4o-mini"),
-    tools=[YFinanceTools()],
-    instructions="You are a stock price agent. Answer questions in the style of a stock analyst.",
+    tools=[DuckDuckGoTools()],
+    instructions="You are an internet search agent. Find and provide accurate information on any topic.",
     debug_mode=True,
 )
 
 # Use the agent
-agent.print_response("What is the current price of Tesla?")
+agent.print_response("What are the latest developments in artificial intelligence?")
 ```
 
 ## Usage
@@ -46,7 +45,7 @@ agent.print_response("What is the current price of Tesla?")
 <Steps>
   <Step title="Install Dependencies">
     ```bash
-    pip install agno arize-phoenix openai openinference-instrumentation-agno opentelemetry-sdk opentelemetry-exporter-otlp
+    pip install -U agno arize-phoenix ddgs openai openinference-instrumentation-agno opentelemetry-sdk opentelemetry-exporter-otlp
     ```
   </Step>
 
