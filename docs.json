@@ -243,6 +243,7 @@
                       "docs/documentation/knowledge/sources/youtube"
                     ]
                   },
+                  "docs/documentation/knowledge/readers",
                   {
                     "group": "Chunking",
                     "pages": [
@@ -254,10 +255,6 @@
                       "docs/documentation/knowledge/chunking/csv-row-chunking",
                       "docs/documentation/knowledge/chunking/markdown-chunking"
                     ]
-                  },
-                  {
-                    "group": "Readers",
-                    "pages": ["docs/documentation/knowledge/readers/pdf_reader"]
                   },
                   {
                     "group": "Vector DBs",
