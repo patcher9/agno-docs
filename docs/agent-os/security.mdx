@@ -12,7 +12,7 @@ Generate keys through the AgentOS UI, configure them on your server, and use the
 
 ## Generate a Security Key
 
-From the AgentOS control plane, generate a security key.
+From the AgentOS control plane, generate a security key or set your own.
 
 <Frame>
   <video
@@ -27,9 +27,8 @@ From the AgentOS control plane, generate a security key.
 </Frame>
 
 <Tip>
-You can also create your own security key and set it on the AgentOS UI.
+  You can also create your own security key and set it on the AgentOS UI.
 </Tip>
-
 
 ## Enable Authentication
 
@@ -55,7 +54,9 @@ services:
 ```
 
 <Note>
-  **How it works**: AgentOS reads `OS_SECURITY_KEY` into the AgentOS router's internal authorization logic. If configured, requests without a valid `Authorization: Bearer` header return `401 Unauthorized`.
+  **How it works**: AgentOS reads `OS_SECURITY_KEY` into the AgentOS router's
+  internal authorization logic. If configured, requests without a valid
+  `Authorization: Bearer` header return `401 Unauthorized`.
 </Note>
 
 ## Key Rotation
