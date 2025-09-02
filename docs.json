@@ -1759,7 +1759,7 @@
               {
                 "group": "Integrations",
                 "pages": [
-                  "examples/concepts/observability/agent_ops",
+              
                   {
                     "group": "Discord",
                     "pages": [
@@ -1768,25 +1768,29 @@
                       "examples/concepts/integrations/discord/agent_with_user_memory"
                     ]
                   },
-                  "examples/concepts/observability/atla_op",
                   {
                     "group": "Observability",
                     "pages": [
-                      "examples/concepts/observability/langfuse_via_openinference",
-                      "examples/concepts/observability/langfuse_via_openinference_response_model",
-                      "examples/concepts/observability/langfuse_via_openlit",
-                      "examples/concepts/observability/langfuse_via_openinference_team"
+                      "examples/concepts/integrations/observability/agent_ops",
+                      "examples/concepts/integrations/observability/atla_op",
+                      "examples/concepts/integrations/observability/arize-phoenix-via-openinference",
+                      "examples/concepts/integrations/observability/arize-phoenix-via-openinference-local",
+                      "examples/concepts/integrations/observability/langfuse_via_openinference",
+                      "examples/concepts/integrations/observability/langfuse_via_openinference_response_model",
+                      "examples/concepts/integrations/observability/langfuse_via_openlit",
+                      "examples/concepts/integrations/observability/langfuse_via_openinference_team",
+                        "examples/concepts/integrations/observability/langsmith-via-openinference",
+                    "examples/concepts/integrations/observability/langtrace-op",
+                    "examples/concepts/integrations/observability/langwatch_op",
+                    "examples/concepts/integrations/observability/weave-op"
                     ]
-                  },
-                  "examples/concepts/observability/langsmith-via-openinference",
-                  "examples/concepts/observability/langtrace-op",
-                  "examples/concepts/observability/langwatch_op",
-                  "examples/concepts/observability/weave-op"
+                  }
+                
                 ]
               },
               {
                 "group": "Testing",
-                "pages": ["examples/concepts/testing/scenario/basic"]
+                "pages": ["examples/concepts/integrations/testing/scenario/basic"]
               }
             ]
           },
