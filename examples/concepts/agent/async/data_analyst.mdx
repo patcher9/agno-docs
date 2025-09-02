@@ -25,7 +25,7 @@ duckdb_tools.create_table_from_path(
 )
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[duckdb_tools],
     markdown=True,
     additional_context=dedent("""\

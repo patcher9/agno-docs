@@ -11,7 +11,7 @@ from agno.models.openai import OpenAIResponses
 from agno.tools.googlesearch import GoogleSearchTools
 
 agent = Agent(
-    model=OpenAIResponses(id="gpt-4o"),
+    model=OpenAIResponses(id="gpt-5-mini"),
     tools=[GoogleSearchTools()],
     markdown=True,
     add_history_to_context=True,

@@ -34,7 +34,7 @@ from rich.prompt import Prompt
 console = Console()
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-nano"),
     tools=[DuckDuckGoTools(requires_confirmation_tools=["get_current_stock_price"])],
     markdown=True,
 )

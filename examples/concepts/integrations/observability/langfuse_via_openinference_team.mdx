@@ -44,7 +44,7 @@ article_agent = Agent(
     name="Article Summarization Agent",
     role="Summarize articles from URLs",
     id="article-summarizer",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[Newspaper4kTools()],
     instructions=[
         "You are a content summarization specialist.",
@@ -58,7 +58,7 @@ news_research_agent = Agent(
     name="News Research Agent",
     role="Research and find related news",
     id="news-research",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[DuckDuckGoTools()],
     instructions=[
         "You are a news research analyst.",
@@ -73,7 +73,7 @@ news_analysis_team = Team(
     mode="coordinate",
     id=str(uuid4()),
     user_id=str(uuid4()),
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     members=[
         article_agent,
         news_research_agent,

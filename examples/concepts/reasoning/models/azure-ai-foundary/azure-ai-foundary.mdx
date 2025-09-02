@@ -10,7 +10,7 @@ from agno.agent import Agent
 from agno.models.azure import AzureAIFoundry
 
 agent = Agent(
-    model=AzureAIFoundry(id="gpt-4o"),
+    model=AzureAIFoundry(id="gpt-5-mini"),
     reasoning_model=AzureAIFoundry(
         id="DeepSeek-R1",
         azure_endpoint=os.getenv("AZURE_ENDPOINT"),

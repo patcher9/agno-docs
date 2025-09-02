@@ -5,7 +5,7 @@ description: Learn how to use Azure OpenAI models in Agno.
 
 Use OpenAI models through Azure's infrastructure. Learn more [here](https://learn.microsoft.com/azure/ai-services/openai/overview).
 
-Azure OpenAI provides access to OpenAI's models like `GPT-4o`, `o3-mini`, and more.
+Azure OpenAI provides access to OpenAI's models like `GPT-4o`, `gpt-5-mini`, and more.
 
 ## Authentication
 
@@ -41,7 +41,7 @@ from agno.models.azure import AzureOpenAI
 from os import getenv
 
 agent = Agent(
-    model=AzureOpenAI(id="gpt-4o"),
+    model=AzureOpenAI(id="gpt-5-mini"),
     markdown=True
 )
 
@@ -57,7 +57,7 @@ Prompt caching will happen automatically using our `AzureOpenAI` model. You can 
 
 ## Advanced Examples
 
-View more examples [here](/examples/models/azure/openai).
+View more examples [here](/examples/models/azure/openai/basic).
 
 ## Parameters
 

@@ -33,7 +33,7 @@ from agno.tools.newspaper4k import Newspaper4kTools
 
 # Initialize the research agent with advanced journalistic capabilities
 research_agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[DuckDuckGoTools(), Newspaper4kTools()],
     description=dedent("""\
         You are an elite investigative journalist with decades of experience at the New York Times.

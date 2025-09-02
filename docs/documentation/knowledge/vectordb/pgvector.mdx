@@ -34,7 +34,7 @@ knowledge_base = PDFUrlKnowledgeBase(
 knowledge_base.load(recreate=True, upsert=True)
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     knowledge=knowledge_base,
     # Add a tool to read chat history.
     read_chat_history=True,

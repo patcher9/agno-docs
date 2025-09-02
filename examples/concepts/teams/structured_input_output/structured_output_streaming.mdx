@@ -22,7 +22,7 @@ class StockAnalysis(BaseModel):
 
 stock_searcher = Agent(
     name="Stock Searcher",
-    model=OpenAIChat("o3-mini"),
+    model=OpenAIChat("gpt-5-mini"),
     output_schema=StockAnalysis,
     role="Searches the web for information on a stock.",
     tools=[
@@ -43,7 +43,7 @@ class CompanyAnalysis(BaseModel):
 
 company_info_agent = Agent(
     name="Company Info Searcher",
-    model=OpenAIChat("o3-mini"),
+    model=OpenAIChat("gpt-5-mini"),
     role="Searches the web for information on a stock.",
     output_schema=CompanyAnalysis,
     tools=[
@@ -66,7 +66,7 @@ class StockReport(BaseModel):
 team = Team(
     name="Stock Research Team",
     mode="coordinate",
-    model=OpenAIChat("o3-mini"),
+    model=OpenAIChat("gpt-5-mini"),
     members=[stock_searcher, company_info_agent],
     output_schema=StockReport,
     markdown=True,

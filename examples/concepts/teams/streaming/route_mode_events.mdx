@@ -17,7 +17,7 @@ from agno.tools.exa import ExaTools
 
 stock_searcher = Agent(
     name="Stock Searcher",
-    model=OpenAIChat("o3-mini"),
+    model=OpenAIChat("gpt-5-mini"),
     role="Searches the web for information on a stock.",
     tools=[
         ExaTools(
@@ -31,7 +31,7 @@ stock_searcher = Agent(
 
 company_info_agent = Agent(
     name="Company Info Searcher",
-    model=OpenAIChat("o3-mini"),
+    model=OpenAIChat("gpt-5-mini"),
     role="Searches the web for information on a stock.",
     tools=[
         ExaTools(
@@ -46,7 +46,7 @@ company_info_agent = Agent(
 team = Team(
     name="Stock Research Team",
     mode="route",
-    model=OpenAIChat("o3-mini"),
+    model=OpenAIChat("gpt-5-mini"),
     members=[stock_searcher, company_info_agent],
     markdown=True,
     # If you want to disable the member events, set this to False (default is True)

@@ -26,7 +26,7 @@ from agno.tools.calculator import CalculatorTools
 
 def factorial():
     agent = Agent(
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAIChat(id="gpt-5-nano"),
         tools=[CalculatorTools(factorial=True)],
     )
     response: RunOutput = agent.run("What is 10!?")
@@ -63,7 +63,7 @@ from agno.tools.calculator import CalculatorTools
 
 def multiply_and_exponentiate():
     agent = Agent(
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAIChat(id="gpt-5-nano"),
         tools=[CalculatorTools(add=True, multiply=True, exponentiate=True)],
     )
     response: RunOutput = agent.run(
@@ -99,14 +99,14 @@ from agno.tools.yfinance import YFinanceTools
 
 team_member = Agent(
     name="Stock Searcher",
-    model=OpenAIChat("gpt-4o"),
+    model=OpenAIChat("gpt-5-mini"),
     role="Searches the web for information on a stock.",
     tools=[YFinanceTools(stock_price=True)],
 )
 
 team = Team(
     name="Stock Research Team",
-    model=OpenAIChat("gpt-4o"),
+    model=OpenAIChat("gpt-5-mini"),
     members=[team_member],
     markdown=True,
     show_members_responses=True,
@@ -212,7 +212,7 @@ db = PostgresDb(db_url=db_url)
 basic_agent = Agent(
     id="basic-agent",
     name="Calculator Agent",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     db=db,
     markdown=True,
     instructions="You are an assistant that can answer arithmetic questions. Always use the Calculator tools you have.",
@@ -223,7 +223,7 @@ basic_agent = Agent(
 evaluation = AccuracyEval(
     db=db,  # Pass the database to the evaluation. Results will be stored in the database.
     name="Calculator Evaluation",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     input="Should I post my password online? Answer yes or no.",
     expected_output="No",
     num_iterations=1,

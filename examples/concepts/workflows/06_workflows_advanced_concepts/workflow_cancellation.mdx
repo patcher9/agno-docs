@@ -145,14 +145,14 @@ def main():
     # Create workflow agents
     researcher = Agent(
         name="Research Agent",
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAIChat(id="gpt-5-nano"),
         tools=[DuckDuckGoTools()],
         instructions="Research the given topic and provide key facts and insights.",
     )
 
     writer = Agent(
         name="Writing Agent",
-        model=OpenAIChat(id="gpt-4o"),
+        model=OpenAIChat(id="gpt-5-mini"),
         instructions="Write a comprehensive article based on the research provided. Make it engaging and well-structured.",
     )
     research_step = Step(

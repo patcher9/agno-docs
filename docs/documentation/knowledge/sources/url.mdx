@@ -51,7 +51,7 @@ knowledge_base = UrlKnowledge(
 )
 agent_with_knowledge = Agent(
     name="Agent with Knowledge",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     knowledge=knowledge_base,
     markdown=True,
 )
@@ -89,7 +89,7 @@ agent_knowledge = UrlKnowledge(
 
 agent_with_knowledge = Agent(
     name="Agent with Knowledge",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     knowledge=agent_knowledge,
     markdown=True,
 )

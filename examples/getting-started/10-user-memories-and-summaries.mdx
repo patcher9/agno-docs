@@ -56,7 +56,7 @@ def create_agent(user: str = "user"):
             session_id = existing_sessions[0].session_id
 
     agent = Agent(
-        model=OpenAIChat(id="gpt-4o"),
+        model=OpenAIChat(id="gpt-5-mini"),
         user_id=user,
         session_id=session_id,
         enable_user_memories=True,

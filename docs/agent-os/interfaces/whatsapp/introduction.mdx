@@ -18,7 +18,7 @@ from agno.models.openai import OpenAIChat
 from agno.tools.openai import OpenAITools
 
 image_agent = Agent(
-    model=OpenAIChat(id="gpt-4o"), # Ensure OPENAI_API_KEY is set
+    model=OpenAIChat(id="gpt-5-mini"), # Ensure OPENAI_API_KEY is set
     tools=[OpenAITools(image_model="gpt-image-1")],
     markdown=True,
     debug_mode=True,

@@ -13,9 +13,9 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
 reasoning_agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     reasoning_model=OpenAIChat(
-        id="gpt-4o", # This model will be used for reasoning, although it is not a native reasoning model.
+        id="gpt-5-mini", # This model will be used for reasoning, although it is not a native reasoning model.
         max_tokens=1200,
     ),
     markdown=True,
@@ -28,7 +28,7 @@ reasoning_agent.print_response(
 
 # It uses the default model of the Agent
 reasoning_agent = Agent(
-    model=OpenAIChat(id="gpt-4o", max_tokens=1200),
+    model=OpenAIChat(id="gpt-5-mini", max_tokens=1200),
     reasoning=True,
     markdown=True,
 )

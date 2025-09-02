@@ -19,7 +19,7 @@ from agno.models.openai import OpenAIChat
 
 def run_agent():
     agent = Agent(
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAIChat(id="gpt-5-nano"),
         system_message="Be concise, reply with one sentence.",
     )
 
@@ -71,7 +71,7 @@ tools = [get_weather]
 
 
 def instantiate_agent():
-    return Agent(model=OpenAIChat(id="gpt-4o"), tools=tools)  # type: ignore
+    return Agent(model=OpenAIChat(id="gpt-5-mini"), tools=tools)  # type: ignore
 
 
 instantiation_perf = PerformanceEval(
@@ -101,7 +101,7 @@ from agno.models.openai import OpenAIChat
 # Simple async function to run an Agent.
 async def arun_agent():
     agent = Agent(
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAIChat(id="gpt-5-nano"),
         system_message="Be concise, reply with one sentence.",
     )
     response = await agent.arun("What is the capital of France?")
@@ -132,7 +132,7 @@ db = SqliteDb(db_file="tmp/memory.db")
 
 def run_agent():
     agent = Agent(
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAIChat(id="gpt-5-nano"),
         system_message="Be concise, reply with one sentence.",
         db=db,
         enable_user_memories=True,
@@ -173,7 +173,7 @@ db = SqliteDb(db_file="tmp/storage.db")
 
 def run_agent():
     agent = Agent(
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAIChat(id="gpt-5-nano"),
         system_message="Be concise, reply with one sentence.",
         add_history_to_context=True,
         db=db,
@@ -233,7 +233,7 @@ from agno.eval.performance import PerformanceEval
 from agno.models.openai import OpenAIChat
 from agno.team.team import Team
 
-team_member = Agent(model=OpenAIChat(id="gpt-4o"))
+team_member = Agent(model=OpenAIChat(id="gpt-5-mini"))
 
 
 def instantiate_team():
@@ -292,7 +292,7 @@ def get_weather(city: str) -> str:
 
 weather_agent = Agent(
     id="weather_agent",
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-nano"),
     role="Weather Agent",
     description="You are a helpful assistant that can answer questions about the weather.",
     instructions="Be concise, reply with one sentence.",
@@ -304,7 +304,7 @@ weather_agent = Agent(
 
 team = Team(
     members=[weather_agent],
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-nano"),
     instructions="Be concise, reply with one sentence.",
     db=db,
     markdown=True,
@@ -479,7 +479,7 @@ db = PostgresDb(db_url=db_url)
 basic_agent = Agent(
     id="basic-agent",
     name="Calculator Agent",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     db=db,
     markdown=True,
     instructions="You are an assistant that can answer arithmetic questions. Always use the Calculator tools you have.",
@@ -490,7 +490,7 @@ basic_agent = Agent(
 evaluation = AccuracyEval(
     db=db,  # Pass the database to the evaluation. Results will be stored in the database.
     name="Calculator Evaluation",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     input="Should I post my password online? Answer yes or no.",
     expected_output="No",
     num_iterations=1,

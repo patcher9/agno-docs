@@ -54,7 +54,7 @@ async def atask3(delay: int):
 
 
 async_agent = Agent(
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-nano"),
     tools=[atask2, atask1, atask3],
     markdown=True,
 )
@@ -86,7 +86,7 @@ How to use:
   executed simultaneously.
 </Note>
 
-In this example, `gpt-4o` makes three simultaneous tool calls to `atask1`, `atask2` and `atask3`. Normally these tool calls would execute sequentially, but using the `aprint_response` function, they run concurrently, improving execution time.
+In this example, `gpt-5-mini` makes three simultaneous tool calls to `atask1`, `atask2` and `atask3`. Normally these tool calls would execute sequentially, but using the `aprint_response` function, they run concurrently, improving execution time.
 
 <img
   height="200"

@@ -113,7 +113,7 @@ async def create_filesystem_agent(session):
 
     # Create an agent with the MCP toolkit
     return Agent(
-        model=OpenAIChat(id="gpt-4o"),
+        model=OpenAIChat(id="gpt-5-mini"),
         tools=[mcp_tools],
         instructions=dedent("""\
             You are a filesystem assistant. Help users explore files and directories.

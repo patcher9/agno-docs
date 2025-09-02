@@ -112,7 +112,7 @@ agno_assist_knowledge = Knowledge(
 agno_assist = Agent(
     name="Agno Assist",
     role="Help with Agno framework questions and code",
-    model=OpenAIChat(id="o3-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     instructions="Search your knowledge before answering. Help write working Agno code.",
     tools=[
         KnowledgeTools(

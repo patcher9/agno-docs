@@ -33,7 +33,7 @@ db = PostgresDb(db_url=db_url, session_table="team_metrics_sessions")
 # Create stock research agent
 stock_searcher = Agent(
     name="Stock Searcher",
-    model=OpenAIChat("o3-mini"),
+    model=OpenAIChat("gpt-5-mini"),
     role="Searches the web for information on a stock.",
     tools=[
         ExaTools(
@@ -49,7 +49,7 @@ stock_searcher = Agent(
 team = Team(
     name="Stock Research Team",
     mode="route",
-    model=OpenAIChat("o3-mini"),
+    model=OpenAIChat("gpt-5-mini"),
     members=[stock_searcher],
     db=db,  # Database required for session metrics
     session_id="team_metrics_demo",

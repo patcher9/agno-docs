@@ -52,7 +52,7 @@ async def run_agent():
     async with MCPTools(server_params=server_params) as mcp_tools:
         agent = Agent(
             name="NotionDocsAgent",
-            model=OpenAIChat(id="gpt-4o"),
+            model=OpenAIChat(id="gpt-5-mini"),
             tools=[mcp_tools],
             description="Agent to query and modify Notion docs via MCP",
             instructions=dedent("""\

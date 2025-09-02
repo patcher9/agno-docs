@@ -43,20 +43,20 @@ def get_current_context() -> dict:
 
 profile_agent = Agent(
     name="ProfileAnalyst",
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-nano"),
     instructions="You analyze user profiles and provide personalized recommendations.",
 )
 
 context_agent = Agent(
     name="ContextAnalyst",
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-nano"),
     instructions="You analyze current context and timing to provide relevant insights.",
 )
 
 team = Team(
     name="PersonalizationTeam",
     mode="coordinate",  # Use coordinate mode for simpler team behavior
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-nano"),
     members=[profile_agent, context_agent],
     dependencies={
         "user_profile": get_user_profile,

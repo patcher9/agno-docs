@@ -16,7 +16,7 @@ from agno.tools.mcp import MCPTools
 server_url = "http://localhost:8000/sse"
 
 async with MCPTools(url=server_url, transport="sse") as mcp_tools:
-    agent = Agent(model=OpenAIChat(id="gpt-4o"), tools=[mcp_tools])
+    agent = Agent(model=OpenAIChat(id="gpt-5-mini"), tools=[mcp_tools])
     await agent.aprint_response("What is the license for this project?", stream=True)
 ```
 
@@ -80,7 +80,7 @@ Let's set up a simple local server and connect to it using the SSE transport:
         async def run_agent(message: str) -> None:
             async with MCPTools(transport="sse", url=server_url) as mcp_tools:
                 agent = Agent(
-                    model=OpenAIChat(id="gpt-4o"),
+                    model=OpenAIChat(id="gpt-5-mini"),
                     tools=[mcp_tools],
                     markdown=True,
                 )
@@ -95,7 +95,7 @@ Let's set up a simple local server and connect to it using the SSE transport:
                 urls=[server_url],
             ) as mcp_tools:
                 agent = Agent(
-                    model=OpenAIChat(id="gpt-4o"),
+                    model=OpenAIChat(id="gpt-5-mini"),
                     tools=[mcp_tools],
                     markdown=True,
                 )

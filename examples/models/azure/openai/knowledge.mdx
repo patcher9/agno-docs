@@ -27,7 +27,7 @@ asyncio.run(knowledge.add_content_async(
 ))
 
 agent = Agent(
-    model=AzureOpenAI(id="gpt-4o-mini"),
+    model=AzureOpenAI(id="gpt-5-nano"),
     knowledge=knowledge,
 )
 agent.print_response("How to make Thai curry?", markdown=True)

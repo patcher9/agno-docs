@@ -1,0 +1,107 @@
+---
+title: Your First Agent
+description: Build your first AI Agent with Agno.
+---
+
+**Agents are AI programs where a large language model controls the flow of execution.**
+
+In the following example, we'll build an Agent that can answer questions using the Agno MCP server. Don't let the _async_ scare you, this is a simple yet complete example that you can build on top of by connecting to any MCP server available.
+
+```python agno_mcp.py
+import asyncio
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.tools.mcp import MCPTools
+
+
+async def run_agent(message: str) -> None:
+    agno_tools = MCPTools(
+      transport="streamable-http",
+      # You can use any MCP server you want
+      url="https://docs-v2.agno.com/mcp"
+    )
+    await agno_tools.connect()
+  
+    # Define your Agent
+    agent = Agent(
+        model=OpenAIChat(id="gpt-5-nano"),
+        tools=[agno_tools],
+        markdown=True,
+    )
+    # Run your Agent
+    await agent.aprint_response(input=message, stream=True)
+    
+    await agno_tools.close()
+
+
+if __name__ == "__main__":
+    asyncio.run(run_agent("What is Agno?"))
+```
+
+## Run your Agent
+
+Create a virtual environment, install dependencies, export your API key and run the Agent.
+
+<Steps>
+  <Step title="Setup your virtual environment">
+
+    <CodeGroup>
+    ```bash Mac
+    uv venv --python 3.12
+    source .venv/bin/activate
+    ```
+
+    ```bash Windows
+    uv venv --python 3.12
+    .venv/Scripts/activate
+    ```
+    </CodeGroup>
+
+  </Step>
+  <Step title="Install dependencies">
+
+    <CodeGroup>
+    ```bash Mac
+    uv pip install -U agno openai
+    ```
+
+    ```bash Windows
+    uv pip install -U agno openai
+    ```
+    </CodeGroup>
+
+  </Step>
+  <Step title="Export your OpenAI key">
+
+    <CodeGroup>
+    ```bash Mac
+    export OPENAI_API_KEY=sk-***
+    ```
+
+    ```bash Windows
+    setx OPENAI_API_KEY sk-***
+    ```
+    </CodeGroup>
+
+  </Step>
+  <Step title="Run the agent">
+
+    ```shell
+    python agno_mcp.py
+    ```
+
+  </Step>
+</Steps>
+
+<Note>
+
+Set `debug_mode=True` or `export AGNO_DEBUG=true` to see the system and user messages.
+
+</Note>
+
+## Add Memory and Reasoning
+
+<Tip>
+  You can use the `Memory` and `Reasoning` separately, you don't need to use
+  them together.
+</Tip>
