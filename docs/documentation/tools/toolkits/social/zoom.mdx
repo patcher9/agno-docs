@@ -56,13 +56,13 @@ Schedule a team meeting with the following details:
 """, markdown=True)
 ```
 
-## Toolkit Parameters
+## Toolkit Params
 
-| Parameter           | Type     | Default      | Description                                                |
-| ------------------ | -------- | ------------ | ---------------------------------------------------------- |
-| `account_id`       | `str`    | `None`       | Zoom account ID (from Server-to-Server OAuth app)          |
-| `client_id`        | `str`    | `None`       | Client ID (from Server-to-Server OAuth app)                |
-| `client_secret`    | `str`    | `None`       | Client secret (from Server-to-Server OAuth app)            |
+| Parameter        | Type           | Default | Description                                                                      |
+| ---------------- | -------------- | ------- | -------------------------------------------------------------------------------- |
+| `account_id`     | `Optional[str]`| `None`  | Zoom account ID. If not provided, uses ZOOM_ACCOUNT_ID environment variable.   |
+| `client_id`      | `Optional[str]`| `None`  | Zoom client ID. If not provided, uses ZOOM_CLIENT_ID environment variable.     |
+| `client_secret`  | `Optional[str]`| `None`  | Zoom client secret. If not provided, uses ZOOM_CLIENT_SECRET environment variable. |
 
 
 ## Toolkit Functions

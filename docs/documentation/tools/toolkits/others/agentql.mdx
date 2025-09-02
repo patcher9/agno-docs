@@ -39,11 +39,13 @@ agent.print_response("https://docs.agno.com/introduction", markdown=True)
 
 ## Toolkit Params
 
-| Parameter       | Type   | Default | Description                         |
-| --------------- | ------ | ------- | ----------------------------------- |
-| `api_key`       | `str`  | `None`  | API key for AgentQL                 |
-| `scrape`        | `bool` | `True`  | Whether to use the scrape text tool |
-| `agentql_query` | `str`  | `None`  | Custom AgentQL query                |
+| Parameter                      | Type   | Default | Description                                       |
+| ------------------------------ | ------ | ------- | ------------------------------------------------- |
+| `api_key`                      | `str`  | `None`  | API key for AgentQL                               |
+| `enable_scrape_website`        | `bool` | `True`  | Enables functionality to scrape websites         |
+| `enable_custom_scrape_website` | `bool` | `False` | Enables functionality to use custom AgentQL queries |
+| `all`                          | `bool` | `False` | Enables all functionality when set to True       |
+| `agentql_query`                | `str`  | `""`    | Custom AgentQL query string                       |
 
 ## Toolkit Functions
 

@@ -54,21 +54,20 @@ agent.print_response(
 )
 ```
 
-## Toolkit Parameters
+## Toolkit Params
 
-These parameters are passed to the `BrightDataTools` constructor.
-
-| Parameter              | Type            | Default            | Description                                                                                           |
-| ---------------------- | --------------- | ------------------ | ----------------------------------------------------------------------------------------------------- |
-| `api_key`              | `Optional[str]` | `None`             | BrightData API key. If not provided, uses `BRIGHT_DATA_API_KEY` environment variable.                |
-| `serp_zone`            | `str`           | `"serp_api"`       | Zone for search engine requests. Can be overridden with `BRIGHT_DATA_SERP_ZONE` environment variable. |
-| `web_unlocker_zone`    | `str`           | `"web_unlocker1"`  | Zone for web scraping requests. Can be overridden with `BRIGHT_DATA_WEB_UNLOCKER_ZONE` environment variable. |
-| `scrape_as_markdown`   | `bool`          | `True`             | Enable the `scrape_as_markdown` tool.                                                                |
-| `get_screenshot`       | `bool`          | `False`            | Enable the `get_screenshot` tool.                                                                    |
-| `search_engine`        | `bool`          | `True`             | Enable the `search_engine` tool.                                                                     |
-| `web_data_feed`        | `bool`          | `True`             | Enable the `web_data_feed` tool.                                                                     |
-| `verbose`              | `bool`          | `False`            | Enable verbose logging.                                                                               |
-| `timeout`              | `int`           | `600`              | Timeout in seconds for web data feed requests.                                                       |
+| Parameter                   | Type           | Default            | Description                                                                                                   |
+| --------------------------- | -------------- | ------------------ | ------------------------------------------------------------------------------------------------------------- |
+| `api_key`                   | `Optional[str]`| `None`             | BrightData API key. If not provided, uses BRIGHT_DATA_API_KEY environment variable.                         |
+| `enable_scrape_markdown`    | `bool`         | `True`             | Enable the scrape_as_markdown function.                                                                      |
+| `enable_screenshot`         | `bool`         | `True`             | Enable the get_screenshot function.                                                                           |
+| `enable_search_engine`      | `bool`         | `True`             | Enable the search_engine function.                                                                            |
+| `enable_web_data_feed`      | `bool`         | `True`             | Enable the web_data_feed function.                                                                            |
+| `all`                       | `bool`         | `False`            | Enable all available functions. When True, all enable flags are ignored.                                     |
+| `serp_zone`                 | `str`          | `"serp_api"`       | SERP zone for search operations. Can be overridden with BRIGHT_DATA_SERP_ZONE environment variable.         |
+| `web_unlocker_zone`         | `str`          | `"web_unlocker1"`  | Web unlocker zone for scraping operations. Can be overridden with BRIGHT_DATA_WEB_UNLOCKER_ZONE environment variable. |
+| `verbose`                   | `bool`         | `False`            | Enable verbose logging.                                                                                       |
+| `timeout`                   | `int`          | `600`              | Timeout in seconds for operations.                                                                            |
 
 ## Toolkit Functions
 

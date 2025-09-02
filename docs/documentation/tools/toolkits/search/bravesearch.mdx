@@ -35,17 +35,20 @@ agent.print_response("AI Agents", markdown=True)
 
 ## Toolkit Params
 
-| Parameter           | Type  | Default | Description                                         |
-| ------------------- | ----- | ------- | --------------------------------------------------- |
-| `fixed_max_results` | `int` | `None`  | Optional fixed maximum number of results to return. |
-| `fixed_language`    | `str` | `None`  | Optional fixed language for the requests.           |
+| Parameter              | Type           | Default | Description                                                                        |
+| ---------------------- | -------------- | ------- | ---------------------------------------------------------------------------------- |
+| `api_key`              | `Optional[str]` | `None`  | Brave API key. If not provided, will use BRAVE_API_KEY environment variable.      |
+| `fixed_max_results`    | `Optional[int]` | `None`  | A fixed number of maximum results.                                                |
+| `fixed_language`       | `Optional[str]` | `None`  | A fixed language for the search results.                                          |
+| `enable_brave_search`  | `bool`          | `True`  | Enable or disable the brave_search function.                                      |
+| `all`                  | `bool`          | `False` | Enable all available functions in the toolkit.                                    |
 
 
 ## Toolkit Functions
 
 | Function        | Description                                                                                                                                                                                                                                                                            |
 | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `brave_search` | Searches Brave for a specified query. Parameters include `query` for the search term, `max_results` for the maximum number of results (default is 5),`country` for the geographic region (default is "US") of the search results and `language` for the language of the search results (default is "en"). Returns the search results as a JSON formatted string. |
+| `brave_search` | Searches Brave for a specified query. Parameters include `query` (str) for the search term, `max_results` (int, default=5) for the maximum number of results, `country` (str, default="US") for the country code for search results, and `search_lang` (str, default="en") for the language of the search results. Returns a JSON formatted string containing the search results. |
 
 ## Developer Resources
 

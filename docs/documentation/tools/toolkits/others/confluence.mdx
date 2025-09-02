@@ -36,15 +36,15 @@ agent = Agent(
 agent.print_response("How many spaces are there and what are their names?")
 ```
 
-## Toolkit Functions
+## Toolkit Params
 
-| Parameter | Type     | Default | Description                                                                                                                    |
-| --------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `username`| `str`    | -  | Confluence username. Can also be set via environment variable CONFLUENCE_USERNAME.                                           |
-| `password`| `str`    | -  | Confluence password or API key. Can also be set via environment variables CONFLUENCE_API_KEY or CONFLUENCE_PASSWORD.       |
-| `url`     | `str`    | -  | Confluence instance URL. Can also be set via environment variable CONFLUENCE_URL.                                            |
-| `api_key` | `str`    | -  | Confluence API key (alternative to password).                                                                                 |
-| `ssl_verify` | `bool`    | `True`  | If True, verify the SSL certificate.                                                                                 |
+| Parameter    | Type           | Default | Description                                                                                                               |
+| ------------ | -------------- | ------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `username`   | `Optional[str]`| `None`  | Confluence username. If not provided, uses CONFLUENCE_USERNAME environment variable.                                    |
+| `password`   | `Optional[str]`| `None`  | Confluence password. If not provided, uses CONFLUENCE_PASSWORD environment variable.                                    |
+| `url`        | `Optional[str]`| `None`  | Confluence instance URL. If not provided, uses CONFLUENCE_URL environment variable.                                     |
+| `api_key`    | `Optional[str]`| `None`  | Confluence API key (alternative to password). If not provided, uses CONFLUENCE_API_KEY environment variable.           |
+| `verify_ssl` | `bool`         | `True`  | Whether to verify SSL certificates when making requests.                                                                 |
 
 ## Toolkit Functions
 

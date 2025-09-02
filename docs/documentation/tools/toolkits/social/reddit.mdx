@@ -1,0 +1,164 @@
+---
+title: Reddit
+description: RedditTools enables agents to interact with Reddit for browsing posts, comments, and subreddit information.
+---
+
+## Example
+
+The following agent can browse and analyze Reddit content:
+
+```python
+from agno.agent import Agent
+from agno.tools.reddit import RedditTools
+
+agent = Agent(
+    instructions=[
+        "You are a Reddit content analyst that helps explore and understand Reddit data",
+        "Browse subreddits, analyze posts, and provide insights about discussions",
+        "Respect Reddit's community guidelines and rate limits",
+        "Provide clear summaries of Reddit content and trends",
+    ],
+    tools=[RedditTools()],
+)
+
+agent.print_response("Show me the top posts from r/technology today", stream=True)
+```
+
+## Toolkit Params
+
+| Parameter        | Type                | Default            | Description                                                    |
+| ---------------- | ------------------- | ------------------ | -------------------------------------------------------------- |
+| `reddit_instance`| `Optional[praw.Reddit]` | `None`         | Existing Reddit instance to use.                              |
+| `client_id`      | `Optional[str]`     | `None`             | Reddit client ID. Uses REDDIT_CLIENT_ID if not set.         |
+| `client_secret`  | `Optional[str]`     | `None`             | Reddit client secret. Uses REDDIT_CLIENT_SECRET if not set. |
+| `user_agent`     | `Optional[str]`     | `"RedditTools v1.0"`| User agent string for API requests.                         |
+| `username`       | `Optional[str]`     | `None`             | Reddit username for authenticated access.                    |
+| `password`       | `Optional[str]`     | `None`             | Reddit password for authenticated access.                    |
+
+## Toolkit Functions
+
+| Function                  | Description                                                      |
+| ------------------------- | ---------------------------------------------------------------- |
+| `get_subreddit_info`      | Get information about a specific subreddit.                     |
+| `get_subreddit_posts`     | Get posts from a subreddit with various sorting options.        |
+| `search_subreddits`       | Search for subreddits by name or topic.                         |
+| `get_post_details`        | Get detailed information about a specific post.                 |
+| `get_post_comments`       | Get comments from a specific post.                              |
+| `search_posts`            | Search for posts across Reddit or within subreddits.            |
+| `get_user_info`           | Get information about a Reddit user.                            |
+| `get_user_posts`          | Get posts submitted by a specific user.                         |
+| `get_user_comments`       | Get comments made by a specific user.                           |
+| `create_post`             | Create a new post (requires authentication).                    |
+| `create_comment`          | Create a comment on a post (requires authentication).           |
+| `vote_on_post`            | Vote on a post (requires authentication).                       |
+| `vote_on_comment`         | Vote on a comment (requires authentication).                    |
+
+## Access Modes
+
+### Read-Only Access
+With just `client_id` and `client_secret`:
+- Browse public subreddits and posts
+- Search content
+- Get user information
+- View comments and discussions
+
+### Authenticated Access
+With username and password credentials:
+- Create posts and comments
+- Vote on content
+- Access private subreddits
+- Perform user-specific actions
+
+## Content Browsing
+
+### Subreddit Exploration
+- Get subreddit information and statistics
+- Browse posts with different sorting (hot, new, top, rising)
+- Search for relevant subreddits
+- Analyze community activity
+
+### Post Analysis
+- Get detailed post information
+- Read comments and discussions
+- Analyze post engagement metrics
+- Track post performance over time
+
+### User Research
+- Get user profile information
+- Browse user's post history
+- Analyze user's comment activity
+- Study user engagement patterns
+
+## Search Capabilities
+
+### Post Search
+- Search across all of Reddit
+- Filter by subreddit, time period, and sorting
+- Find posts by keywords or topics
+- Analyze search trends
+
+### Subreddit Discovery
+- Find subreddits by topic
+- Discover related communities
+- Explore niche interests
+- Analyze community growth
+
+## Content Creation
+
+### Posting (Requires Authentication)
+- Submit text posts
+- Submit link posts
+- Choose appropriate subreddits
+- Set post flair and options
+
+### Commenting (Requires Authentication)
+- Reply to posts
+- Respond to comments
+- Create comment threads
+- Edit and delete comments
+
+### Voting (Requires Authentication)
+- Upvote/downvote posts
+- Vote on comments
+- Influence content visibility
+- Participate in community curation
+
+## Rate Limiting and Best Practices
+
+### API Limits
+- Respect Reddit's rate limits
+- Use appropriate delays between requests
+- Cache results when possible
+- Monitor API usage
+
+### Community Guidelines
+- Follow subreddit rules
+- Respect content policies
+- Avoid spam and excessive posting
+- Maintain authentic engagement
+
+## Use Cases
+
+### Content Analysis
+- Analyze trending topics
+- Study community sentiment
+- Track discussion patterns
+- Research market opinions
+
+### Community Research
+- Study subreddit dynamics
+- Analyze user behavior
+- Research niche communities
+- Track community growth
+
+### Content Strategy
+- Find relevant communities
+- Analyze successful content
+- Identify engagement patterns
+- Plan content distribution
+
+## Developer Resources
+
+- View [Tools Source](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/reddit.py)
+- [Reddit API Documentation](https://www.reddit.com/dev/api/)
+- [PRAW Documentation](https://praw.readthedocs.io/)

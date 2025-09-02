@@ -10,16 +10,7 @@ from agno.tools.calculator import CalculatorTools
 
 agent = Agent(
     tools=[
-        CalculatorTools(
-            add=True,
-            subtract=True,
-            multiply=True,
-            divide=True,
-            exponentiate=True,
-            factorial=True,
-            is_prime=True,
-            square_root=True,
-        )
+        CalculatorTools()
     ],
         markdown=True,
 )

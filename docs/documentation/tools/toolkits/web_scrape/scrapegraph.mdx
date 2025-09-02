@@ -43,22 +43,27 @@ agent.print_response("""
 
 <Note>View the [Startup Analyst example](/examples/agents/startup-analyst-agent) & [Agentic Deep Researcher Workflow](/examples/workflows/agentic-deep-researcher) </Note>
 
+## Toolkit Params
+
+| Parameter                | Type           | Default | Description                                                                                               |
+| ------------------------ | -------------- | ------- | --------------------------------------------------------------------------------------------------------- |
+| `api_key`                | `Optional[str]`| `None`  | ScrapeGraph API key. If not provided, uses SGAI_API_KEY environment variable.                           |
+| `enable_smartscraper`    | `bool`         | `True`  | Enable the smartscraper function for LLM-powered data extraction.                                       |
+| `enable_markdownify`     | `bool`         | `False` | Enable the markdownify function for webpage to markdown conversion.                                      |
+| `enable_crawl`           | `bool`         | `False` | Enable the crawl function for website crawling and data extraction.                                      |
+| `enable_searchscraper`   | `bool`         | `False` | Enable the searchscraper function for web search and information extraction.                            |
+| `enable_agentic_crawler` | `bool`         | `False` | Enable the agentic_crawler function for automated browser actions and AI extraction.                    |
+| `all`                    | `bool`         | `False` | Enable all available functions. When True, all enable flags are ignored.                                 |
+
 ## Toolkit Functions
 
-| Function       | Description                                                                    |
-| -------------- | ------------------------------------------------------------------------------ |
-| `smartscraper` | Extracts structured data from a webpage using an LLM and a natural language prompt. Returns a JSON string of the result or an error. |
-| `markdownify`  | Converts a webpage to markdown format. Returns the markdown string or an error.   |
-
-## Toolkit Parameters
-
-These parameters are passed to the `ScrapeGraphTools` constructor.
-
-| Parameter      | Type            | Default | Description                                                                                                                             |
-| -------------- | --------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| `api_key`      | `Optional[str]` | `None`  | API key for ScrapeGraph services. If not provided, it defaults to the `SGAI_API_KEY` environment variable.                             |
-| `smartscraper` | `bool`          | `True`  | Enable the `smartscraper` tool.                                                                                                         |
-| `markdownify`  | `bool`          | `False` | Enable the `markdownify` tool. |
+| Function           | Description                                                                                                                                    |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `smartscraper`     | Extract structured data from a webpage using LLM and natural language prompt. Parameters: url (str), prompt (str).                          |
+| `markdownify`      | Convert a webpage to markdown format. Parameters: url (str).                                                                                  |
+| `crawl`            | Crawl a website and extract structured data. Parameters: url (str), prompt (str), schema (dict), cache_website (bool), depth (int), max_pages (int), same_domain_only (bool), batch_size (int). |
+| `searchscraper`    | Search the web and extract information. Parameters: prompt (str).                                                                             |
+| `agentic_crawler`  | Perform automated browser actions with optional AI extraction. Parameters: url (str), steps (List[str]), use_session (bool), user_prompt (Optional[str]), output_schema (Optional[dict]), ai_extraction (bool). |
 
 ## Developer Resources
 

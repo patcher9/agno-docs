@@ -1,0 +1,211 @@
+---
+title: Trafilatura
+description: TrafilaturaTools provides advanced web scraping and text extraction capabilities with support for crawling and content analysis.
+---
+
+## Example
+
+The following agent can extract and analyze web content:
+
+```python
+from agno.agent import Agent
+from agno.tools.trafilatura import TrafilaturaTools
+
+agent = Agent(
+    instructions=[
+        "You are a web content extraction specialist",
+        "Extract clean text and structured data from web pages",
+        "Provide detailed analysis of web content and metadata",
+        "Help with content research and web data collection",
+    ],
+    tools=[TrafilaturaTools()],
+)
+
+agent.print_response("Extract the main content from https://example.com/article", stream=True)
+```
+
+## Toolkit Params
+
+| Parameter            | Type                | Default     | Description                                                    |
+| -------------------- | ------------------- | ----------- | -------------------------------------------------------------- |
+| `output_format`      | `str`               | `"txt"`     | Default output format (txt, json, xml, markdown, csv, html). |
+| `include_comments`   | `bool`              | `False`     | Whether to extract comments along with main text.            |
+| `include_tables`     | `bool`              | `False`     | Whether to include table content.                            |
+| `include_images`     | `bool`              | `False`     | Whether to include image information (experimental).         |
+| `include_formatting` | `bool`              | `False`     | Whether to preserve text formatting.                         |
+| `include_links`      | `bool`              | `False`     | Whether to preserve links (experimental).                    |
+| `with_metadata`      | `bool`              | `False`     | Whether to include metadata in extractions.                  |
+| `favor_precision`    | `bool`              | `False`     | Whether to prefer precision over recall.                     |
+| `favor_recall`       | `bool`              | `False`     | Whether to prefer recall over precision.                     |
+| `target_language`    | `Optional[str]`     | `None`      | Target language filter (ISO 639-1 format).                  |
+| `deduplicate`        | `bool`              | `True`      | Whether to remove duplicate segments.                        |
+| `max_crawl_urls`     | `int`               | `100`       | Maximum number of URLs to crawl per website.                |
+| `max_known_urls`     | `int`               | `1000`      | Maximum number of known URLs during crawling.               |
+
+## Toolkit Functions
+
+| Function              | Description                                                      |
+| --------------------- | ---------------------------------------------------------------- |
+| `extract_text`        | Extract clean text content from a URL or HTML.                  |
+| `extract_metadata`    | Extract metadata information from web pages.                    |
+| `html_to_text`        | Convert HTML content to clean text.                             |
+| `crawl_website`       | Crawl a website and extract content from multiple pages.        |
+| `batch_extract`       | Extract content from multiple URLs in batch.                    |
+| `get_page_info`       | Get comprehensive page information including metadata.          |
+
+## Content Extraction Features
+
+### Text Extraction
+- Clean main content extraction
+- Removal of navigation, ads, and boilerplate
+- Preservation of article structure
+- Multiple output formats supported
+
+### Metadata Extraction
+- Title and description extraction
+- Author and publication date detection
+- Language identification
+- Social media metadata
+
+### Advanced Processing
+- Comment extraction
+- Table content preservation
+- Image information capture
+- Link preservation
+
+## Output Formats
+
+### Text Formats
+- **txt**: Plain text output
+- **markdown**: Markdown formatted text
+- **json**: Structured JSON data
+- **xml**: XML structured output
+
+### Structured Formats
+- **csv**: Tabular data extraction
+- **html**: Clean HTML output
+- **xmltei**: TEI XML format
+
+## Web Crawling Capabilities
+
+### Focused Crawling
+- Intelligent URL discovery
+- Content-based crawling decisions
+- Duplicate URL detection
+- Crawl depth control
+
+### Batch Processing
+- Multiple URL processing
+- Concurrent extraction
+- Progress tracking
+- Error handling
+
+## Content Quality Control
+
+### Precision vs Recall
+- **Favor Precision**: Extract only high-confidence content
+- **Favor Recall**: Extract more content with potential noise
+- **Balanced**: Default balanced approach
+
+### Language Filtering
+- Target specific languages
+- Automatic language detection
+- Multi-language content handling
+- Language-specific optimizations
+
+### Deduplication
+- Remove duplicate text segments
+- Content similarity detection
+- Efficient processing of repetitive content
+- Clean output generation
+
+## Use Cases
+
+### Content Research
+- Academic research and analysis
+- Market research and competitor analysis
+- News and media monitoring
+- Content aggregation
+
+### Data Collection
+- Web scraping for datasets
+- Content migration projects
+- Archive creation
+- Information extraction
+
+### SEO and Marketing
+- Content analysis and optimization
+- Competitor content research
+- Meta tag extraction
+- Social media content analysis
+
+### Journalism and Publishing
+- Source material extraction
+- Fact-checking assistance
+- Content curation
+- Research automation
+
+## Advanced Configuration
+
+### High-Precision Extraction
+```python
+tools = TrafilaturaTools(
+    favor_precision=True,
+    include_metadata=True,
+    output_format="json"
+)
+```
+
+### Comprehensive Content Extraction
+```python
+tools = TrafilaturaTools(
+    include_comments=True,
+    include_tables=True,
+    include_links=True,
+    include_formatting=True,
+    with_metadata=True
+)
+```
+
+### Website Crawling Setup
+```python
+tools = TrafilaturaTools(
+    max_crawl_urls=500,
+    max_known_urls=2000,
+    target_language="en"
+)
+```
+
+## Performance Optimization
+
+### Caching
+- Built-in URL and content caching
+- Cache management utilities
+- Performance optimization
+- Reduced redundant requests
+
+### Rate Limiting
+- Respectful crawling practices
+- Configurable request delays
+- Server load consideration
+- Ethical scraping guidelines
+
+## Error Handling
+
+### Robust Processing
+- Network error recovery
+- Malformed HTML handling
+- Encoding issue resolution
+- Graceful degradation
+
+### Content Validation
+- Content quality assessment
+- Empty content detection
+- Extraction confidence scoring
+- Error reporting and logging
+
+## Developer Resources
+
+- View [Tools Source](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/trafilatura.py)
+- [Trafilatura Documentation](https://trafilatura.readthedocs.io/)
+- [Web Scraping Best Practices](https://trafilatura.readthedocs.io/en/latest/corefunctions.html)

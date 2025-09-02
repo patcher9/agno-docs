@@ -59,22 +59,13 @@ agent.print_response(
 | `create_list`     | Creates a new list on a specified board.                         |
 | `list_boards`     | Lists all Trello boards accessible by the authenticated user.    |
 
-## Toolkit Parameters
+## Toolkit Params
 
-These parameters are passed to the `TrelloTools` constructor.
-
-| Parameter         | Type          | Default | Description                                                                 |
-| ----------------- | ------------- | ------- | --------------------------------------------------------------------------- |
-| `api_key`         | `Optional[str]` | `None`  | Trello API key. Defaults to `TRELLO_API_KEY` environment variable.        |
-| `api_secret`      | `Optional[str]` | `None`  | Trello API secret. Defaults to `TRELLO_API_SECRET` environment variable.    |
-| `token`           | `Optional[str]` | `None`  | Trello token. Defaults to `TRELLO_TOKEN` environment variable.              |
-| `create_card`     | `bool`        | `True`  | Enable the `create_card` tool.                                              |
-| `get_board_lists` | `bool`        | `True`  | Enable the `get_board_lists` tool.                                          |
-| `move_card`       | `bool`        | `True`  | Enable the `move_card` tool.                                                |
-| `get_cards`       | `bool`        | `True`  | Enable the `get_cards` tool.                                                |
-| `create_board`    | `bool`        | `True`  | Enable the `create_board` tool.                                             |
-| `create_list`     | `bool`        | `True`  | Enable the `create_list` tool.                                              |
-| `list_boards`     | `bool`        | `True`  | Enable the `list_boards` tool.                                              |
+| Parameter    | Type           | Default | Description                                                                         |
+| ------------ | -------------- | ------- | ----------------------------------------------------------------------------------- |
+| `api_key`    | `Optional[str]`| `None`  | Trello API key. If not provided, uses TRELLO_API_KEY environment variable.        |
+| `api_secret` | `Optional[str]`| `None`  | Trello API secret. If not provided, uses TRELLO_API_SECRET environment variable.  |
+| `token`      | `Optional[str]`| `None`  | Trello token. If not provided, uses TRELLO_TOKEN environment variable.            |
 
 ### Board Filter Options for `list_boards`
 
