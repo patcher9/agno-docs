@@ -33,7 +33,7 @@ result = await team.arun("What is the weather in Tokyo?")
 
 You can cancel a run by using the `cancel_run` function on the Team.
 
-Below is a basic example that starts an team run in a thread and cancels it from another thread, simulating how it can be done via an API. This is supported via [AgentOS](/docs/agent_os) as well.
+Below is a basic example that starts an team run in a thread and cancels it from another thread, simulating how it can be done via an API. This is supported via [AgentOS](/docs/agent-os/introduction) as well.
 
 ```python
 import threading
@@ -234,7 +234,7 @@ if __name__ == "__main__":
     main()
 ```
 
-For a more complete example, see [Cancel a run](https://github.com/agno-agi/agno/blob/main/cookbook/teams/basic/team_cancel_a_run.py).
+For a more complete example, see [Cancel a run](https://github.com/agno-agi/agno/tree/v2.0/cookbook/teams/basic/team_cancel_a_run.py).
 
 
 ## RunOutput
@@ -253,7 +253,7 @@ The `Team.run()` function returns a `TeamRunOutput` object when not streaming. H
 - `model`: The model used for the run.
 - `member_responses`: The list of member responses. Optional to add when `store_member_responses=True` on the `Team`.
 
-See detailed documentation in the [TeamRunOutput](/reference/teams/team-run-output) documentation.
+See detailed documentation in the [TeamRunOutput](/reference/teams/team-response) documentation.
 
 ### Using an Output Model
 
@@ -410,10 +410,10 @@ The following events are sent by the `Team.run()` and `Team.arun()` functions de
 | `TeamOutputModelResponseStarted` | Indicates the start of the output model response |
 | `TeamOutputModelResponseCompleted` | Signals completion of the output model response |
 
-See detailed documentation in the [TeamRunOutput](/reference/teams/team-run-output) documentation.
+See detailed documentation in the [TeamRunOutput](/reference/teams/team-response) documentation.
 
 ## Developer Resources
 
 - View the [Team schema](/reference/teams/team)
-- View the [TeamRunOutput schema](/reference/teams/team-run-output)
-- View [Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/teams/README.md)
+- View the [TeamRunOutput schema](/reference/teams/team-response)
+- View [Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/teams/README.md)

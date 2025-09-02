@@ -60,26 +60,12 @@
     }
   },
   "navigation": {
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Forum",
-          "icon": "discourse",
-          "href": "https://community.agno.com/"
-        },
-        {
-          "anchor": "Discord",
-          "icon": "discord",
-          "href": "https://agno.link/discord"
-        }
-      ]
-    },
     "tabs": [
       {
         "tab": "Documentation",
         "groups": [
           {
-            "group": "Getting Started",
+            "group": "Introduction",
             "pages": [
               "introduction",
               "docs/getting_started/agents",
@@ -128,9 +114,9 @@
                   {
                     "group": "Team Modes",
                     "pages": [
-                      "docs/documentation/teams/route",
-                      "docs/documentation/teams/coordinate",
-                      "docs/documentation/teams/collaborate"
+                      "docs/documentation/teams/modes/route",
+                      "docs/documentation/teams/modes/coordinate",
+                      "docs/documentation/teams/modes/collaborate"
                     ]
                   },
                   "docs/documentation/teams/storage",
@@ -332,7 +318,6 @@
                   "docs/documentation/reasoning/reasoning-agents"
                 ]
               },
-
               {
                 "group": "Tools",
                 "pages": [
@@ -528,54 +513,42 @@
               {
                 "group": "Evals",
                 "pages": [
-                  "docs/documentation/evals/introduction",
-                  "docs/documentation/evals/platform"
+                  "evals/introduction",
+                  "evals/accuracy",
+                  "evals/performance",
+                  "evals/reliability"
                 ]
               },
               {
-                "group": "Applications",
+                "group": "Integrations",
                 "pages": [
-                  "applications/playground/introduction",
-                  "applications/fastapi/introduction",
-                  "applications/whatsapp/introduction",
-                  "applications/ag-ui/introduction",
-                  "applications/slack/introduction",
-                  "applications/discord/introduction"
+                  "docs/integrations/discord/introduction",
+                  {
+                    "group": "Observability",
+                    "pages": [
+                      "docs/integrations/observability/introduction",
+                      "docs/integrations/observability/agentops",
+                      "docs/integrations/observability/arize",
+                      "docs/integrations/observability/atla",
+                      "docs/integrations/observability/langdb",
+                      "docs/integrations/observability/langfuse",
+                      "docs/integrations/observability/langsmith",
+                      "docs/integrations/observability/langtrace",
+                      "docs/integrations/observability/weave"
+                    ]
+                  },
+                  {
+                    "group": "Testing",
+                    "pages": ["docs/integrations/testing/scenario-testing"]
+                  }
                 ]
               }
             ]
           },
           {
-            "group": "Other",
+            "group": "Agent UI",
             "hidden": true,
-            "pages": [
-              {
-                "group": "Agent UI",
-                "pages": ["docs/other/agent-ui/introduction"]
-              },
-              {
-                "group": "Agent API",
-                "pages": ["docs/other/agent-api/introduction"]
-              },
-              {
-                "group": "Observability",
-                "pages": [
-                  "docs/other/observability/introduction",
-                  "docs/other/observability/agentops",
-                  "docs/other/observability/arize",
-                  "docs/other/observability/atla",
-                  "docs/other/observability/langdb",
-                  "docs/other/observability/langfuse",
-                  "docs/other/observability/langsmith",
-                  "docs/other/observability/langtrace",
-                  "docs/other/observability/weave"
-                ]
-              },
-              {
-                "group": "Testing",
-                "pages": ["docs/other/testing/scenario-testing"]
-              }
-            ]
+            "pages": ["docs/agent-ui/introduction"]
           },
           {
             "group": "Help",
@@ -603,32 +576,32 @@
         "tab": "Examples",
         "groups": [
           {
-            "group": "Examples",
+            "group": "Getting Started",
             "pages": [
               "examples/introduction",
               {
-                "group": "Getting Started",
+                "group": "Basic Flows",
                 "pages": [
                   "examples/getting-started/introduction",
-                  "examples/getting-started/basic-agent",
-                  "examples/getting-started/agent-with-tools",
-                  "examples/getting-started/agent-with-knowledge",
-                  "examples/getting-started/agent-with-storage",
-                  "examples/getting-started/agent-team",
-                  "examples/getting-started/structured-output",
-                  "examples/getting-started/custom-tools",
-                  "examples/getting-started/research-agent",
-                  "examples/getting-started/research-workflow",
-                  "examples/getting-started/image-agent",
-                  "examples/getting-started/image-generation",
-                  "examples/getting-started/video-generation",
-                  "examples/getting-started/audio-agent",
-                  "examples/getting-started/agent-state",
-                  "examples/getting-started/agent-context",
-                  "examples/getting-started/agent-session",
-                  "examples/getting-started/user-memories",
-                  "examples/getting-started/retry-functions",
-                  "examples/getting-started/human-in-the-loop"
+                  "examples/getting-started/01-basic-agent",
+                  "examples/getting-started/02-agent-with-tools",
+                  "examples/getting-started/03-agent-with-knowledge",
+                  "examples/getting-started/04-write-your-own-tool",
+                  "examples/getting-started/05-structured-output",
+                  "examples/getting-started/06-agent-with-storage",
+                  "examples/getting-started/07-agent-state",
+                  "examples/getting-started/08-agent-context",
+                  "examples/getting-started/09-agent-session",
+                  "examples/getting-started/10-user-memories-and-summaries",
+                  "examples/getting-started/11-retry-function-call",
+                  "examples/getting-started/12-human-in-the-loop",
+                  "examples/getting-started/13-image-agent",
+                  "examples/getting-started/14-image-generation",
+                  "examples/getting-started/15-video-generation",
+                  "examples/getting-started/16-audio-agent",
+                  "examples/getting-started/17-agent-team",
+                  "examples/getting-started/18-research-agent-exa",
+                  "examples/getting-started/19-blog-generator-workflow"
                 ]
               }
             ]
@@ -704,17 +677,6 @@
                   "examples/use-cases/workflows/employee-recruiter",
                   "examples/use-cases/workflows/investment-report-generator",
                   "examples/use-cases/workflows/startup-idea-validator"
-                ]
-              },
-              {
-                "group": "Streamlit Apps",
-                "pages": [
-                  "examples/use-cases/streamlit/agentic-rag",
-                  "examples/use-cases/streamlit/answer-engine",
-                  "examples/use-cases/streamlit/text-to-sql",
-                  "examples/use-cases/streamlit/game-generator",
-                  "examples/use-cases/streamlit/geobuddy",
-                  "examples/use-cases/streamlit/chess-team"
                 ]
               }
             ]
@@ -999,9 +961,7 @@
                   },
                   {
                     "group": "Metrics",
-                    "pages": [
-                      "examples/concepts/teams/metrics/team_metrics"
-                    ]
+                    "pages": ["examples/concepts/teams/metrics/team_metrics"]
                   },
                   {
                     "group": "Multimodal",
@@ -1026,8 +986,8 @@
                     "group": "Search Coordination",
                     "pages": [
                       "examples/concepts/teams/search_coordination/coordinated_agentic_rag",
-                      "examples/concepts/teams/search_coordination/coordinated_reasoning_rag",
-                      "examples/concepts/teams/search_coordination/distributed_infinity_search"
+                        "examples/concepts/teams/search_coordination/coordinated_reasoning_rag",
+                        "examples/concepts/teams/search_coordination/distributed_infinity_search"
                     ]
                   },
                   {
@@ -1195,6 +1155,10 @@
                         "pages": [
                           "examples/concepts/reasoning/models/openai/o1-pro",
                           "examples/concepts/reasoning/models/openai/o3-mini-tools",
+                          "examples/concepts/reasoning/models/openai/o3-mini",
+                          "examples/concepts/reasoning/models/openai/o4-mini",
+                          "examples/concepts/reasoning/models/openai/reasoning-model-gpt-4-1",
+                          "examples/concepts/reasoning/models/openai/reasoning-summary",
                           "examples/concepts/reasoning/models/openai/reasoning-effort"
                         ]
                       },
@@ -1209,16 +1173,26 @@
                   {
                     "group": "Teams",
                     "pages": [
-                      "examples/concepts/reasoning/teams/reasoning-tool-team",
-                      "examples/concepts/reasoning/teams/knowledge-tool-team"
+                      "examples/concepts/reasoning/teams/finance_team_chain_of_thought",
+                      "examples/concepts/reasoning/teams/knowledge-tool-team",
+                      "examples/concepts/reasoning/teams/reasoning-finance-team"
                     ]
                   },
                   {
                     "group": "Tools",
                     "pages": [
+                      "examples/concepts/reasoning/tools/azure-openai-reasoning-tools",
+                      "examples/concepts/reasoning/tools/capture-reasoning-content-knowledge-tools",
+                      "examples/concepts/reasoning/tools/capture-reasoning-content-reasoning-tools",
+                      "examples/concepts/reasoning/tools/cerebras-llama-reasoning-tools",
+                      "examples/concepts/reasoning/tools/claude-reasoning-tools",
+                      "examples/concepts/reasoning/tools/gemini-reasoning-tools",
+                      "examples/concepts/reasoning/tools/groq-llama-finance-agent",
+                      "examples/concepts/reasoning/tools/ollama-reasoning-tools",
+                      "examples/concepts/reasoning/tools/openai-reasoning-tools",
+                      "examples/concepts/reasoning/tools/vercel-reasoning-tools",
                       "examples/concepts/reasoning/tools/reasoning-tools",
-                      "examples/concepts/reasoning/tools/knowledge-tools",
-                      "examples/concepts/reasoning/tools/gemini-reasoning-tools"
+                      "examples/concepts/reasoning/tools/knowledge-tools"
                     ]
                   }
                 ]
@@ -1243,7 +1217,7 @@
                   "examples/concepts/multimodal/video-to-shorts"
                 ]
               },
-
+            
               {
                 "group": "Knowledge",
                 "pages": [
@@ -1288,7 +1262,6 @@
                       "examples/concepts/knowledge/rag/agentic-rag-pgvector",
                       "examples/concepts/knowledge/rag/agentic-rag-lancedb",
                       "examples/concepts/knowledge/rag/agentic-rag-with-reranking",
-                      "examples/concepts/knowledge/rag/agentic-rag-agent-ui",
                       "examples/concepts/knowledge/rag/rag-with-lance-db-and-sqlite",
                       "examples/concepts/knowledge/rag/rag_sentence_transformer"
                     ]
@@ -1832,6 +1805,9 @@
                     "group": "Accuracy",
                     "pages": [
                       "examples/concepts/evals/accuracy/basic",
+                      "examples/concepts/evals/accuracy/accuracy_async",
+                      "examples/concepts/evals/accuracy/accuracy_comparison",
+                      "examples/concepts/evals/accuracy/accuracy_db_logging",
                       "examples/concepts/evals/accuracy/accuracy_with_given_answer",
                       "examples/concepts/evals/accuracy/accuracy_with_tools",
                       "examples/concepts/evals/accuracy/accuracy_with_teams"
@@ -1840,48 +1816,61 @@
                   {
                     "group": "Performance",
                     "pages": [
+                      "examples/concepts/evals/performance/performance_simple_response",
                       "examples/concepts/evals/performance/performance_agent_instantiation",
                       "examples/concepts/evals/performance/performance_instantiation_with_tool",
-                      "examples/concepts/evals/performance/performance_simple_response",
+                      "examples/concepts/evals/performance/performance_team_instantiation",
                       "examples/concepts/evals/performance/performance_with_storage",
-                      "examples/concepts/evals/performance/performance_team_instantiation"
+                      "examples/concepts/evals/performance/performance_async",
+                      "examples/concepts/evals/performance/performance_with_memory",
+                      "examples/concepts/evals/performance/performance_team_with_memory",
+                      "examples/concepts/evals/performance/performance_db_logging"
                     ]
                   },
                   {
                     "group": "Reliability",
                     "pages": [
                       "examples/concepts/evals/reliability/basic",
+                      "examples/concepts/evals/reliability/reliability_async",
+                      "examples/concepts/evals/reliability/reliability_db_logging",
+                      "examples/concepts/evals/reliability/reliability_single_tool",
                       "examples/concepts/evals/reliability/reliability_with_multiple_tools",
-                      "examples/concepts/evals/reliability/reliability_with_teams"
+                      "examples/concepts/evals/reliability/reliability_with_teams",
+                      "examples/concepts/evals/reliability/reliability_team_advanced"
                     ]
                   }
                 ]
               },
               {
-                "group": "Observability",
+                "group": "Integrations",
                 "pages": [
                   {
-                    "group": "Arize Phoenix",
+                    "group": "Discord",
                     "pages": [
-                      "examples/concepts/observability/arize-phoenix-via-openinference",
-                      "examples/concepts/observability/arize-phoenix-via-openinference-local"
+                      "examples/concepts/integrations/discord/basic",
+                      "examples/concepts/integrations/discord/agent_with_media",
+                      "examples/concepts/integrations/discord/agent_with_user_memory"
                     ]
                   },
                   {
-                    "group": "Langfuse",
+                    "group": "Observability",
                     "pages": [
-                      "examples/concepts/observability/langfuse_via_openinference",
-                      "examples/concepts/observability/langfuse_via_openlit"
+                      "examples/concepts/integrations/observability/arize-phoenix-via-openinference",
+                      "examples/concepts/integrations/observability/arize-phoenix-via-openinference-local",
+                      "examples/concepts/integrations/observability/langfuse_via_openinference",
+                      "examples/concepts/integrations/observability/langfuse_via_openlit",
+                      "examples/concepts/integrations/observability/langsmith-via-openinference",
+                      "examples/concepts/integrations/observability/langtrace-op",
+                      "examples/concepts/integrations/observability/weave-op"
                     ]
                   },
-                  "examples/concepts/observability/langsmith-via-openinference",
-                  "examples/concepts/observability/langtrace-op",
-                  "examples/concepts/observability/weave-op"
+                  {
+                    "group": "Testing",
+                    "pages": [
+                      "examples/concepts/integrations/testing/scenario/basic"
+                    ]
+                  }
                 ]
-              },
-              {
-                "group": "Testing",
-                "pages": ["examples/concepts/testing/scenario/basic"]
               }
             ]
           },
@@ -2338,6 +2327,7 @@
       },
       {
         "tab": "Deploy",
+        "hidden": true,
         "groups": [
           {
             "group": "Workspaces",
@@ -2454,7 +2444,66 @@
               },
               {
                 "group": "Knowledge",
-                "pages": ["reference/knowledge/knowledge"]
+                "pages": [
+                  "reference/knowledge/knowledge",
+                  {
+                    "group": "Embedders",
+                    "pages": [
+                      "reference/knowledge/embedder/azure_openai",
+                      "reference/knowledge/embedder/cohere",
+                      "reference/knowledge/embedder/fastembed",
+                      "reference/knowledge/embedder/fireworks",
+                      "reference/knowledge/embedder/gemini",
+                      "reference/knowledge/embedder/huggingface",
+                      "reference/knowledge/embedder/mistral",
+                      "reference/knowledge/embedder/ollama",
+                      "reference/knowledge/embedder/openai",
+                      "reference/knowledge/embedder/sentence-transformer",
+                      "reference/knowledge/embedder/together",
+                      "reference/knowledge/embedder/voyageai"
+                    ]
+                  },
+                  {
+                    "group": "Readers",
+                    "pages": [
+                      "reference/knowledge/reader/base",
+                      "reference/knowledge/reader/arxiv",
+                      "reference/knowledge/reader/csv",
+                      "reference/knowledge/reader/csv_url",
+                      "reference/knowledge/reader/docx",
+                      "reference/knowledge/reader/json",
+                      "reference/knowledge/reader/pdf",
+                      "reference/knowledge/reader/text",
+                      "reference/knowledge/reader/website",
+                      "reference/knowledge/reader/youtube",
+                      "reference/knowledge/reader/firecrawl",
+                      "reference/knowledge/reader/wikipedia"
+                    ]
+                  },
+                  {
+                    "group": "Rerankers",
+                    "pages": ["reference/knowledge/reranker/cohere"]
+                  },
+                  {
+                    "group": "Chunking",
+                    "pages": [
+                      "reference/knowledge/chunking/fixed-size",
+                      "reference/knowledge/chunking/agentic",
+                      "reference/knowledge/chunking/semantic",
+                      "reference/knowledge/chunking/recursive",
+                      "reference/knowledge/chunking/document",
+                      "reference/knowledge/chunking/csv-row",
+                      "reference/knowledge/chunking/markdown"
+                    ]
+                  },
+                  {
+                    "group": "Remote Content",
+                    "pages": [
+                      "reference/knowledge/remote-content/gcs-content",
+                      "reference/knowledge/remote-content/s3-content"
+                    ]
+                  }
+                ]
               },
               {
                 "group": "Vector Databases",
@@ -2475,23 +2524,6 @@
                 ]
               },
               {
-                "group": "Embedders",
-                "pages": [
-                  "reference/embedder/azure_openai",
-                  "reference/embedder/cohere",
-                  "reference/embedder/fastembed",
-                  "reference/embedder/fireworks",
-                  "reference/embedder/gemini",
-                  "reference/embedder/huggingface",
-                  "reference/embedder/mistral",
-                  "reference/embedder/ollama",
-                  "reference/embedder/openai",
-                  "reference/embedder/sentence-transformer",
-                  "reference/embedder/together",
-                  "reference/embedder/voyageai"
-                ]
-              },
-              {
                 "group": "Memory",
                 "pages": ["reference/memory/memory"]
               },
@@ -2509,150 +2541,98 @@
                   "reference/storage/redis",
                   "reference/storage/gcs"
                 ]
-              },
-              {
-                "group": "Rerankers",
-                "pages": ["reference/reranker/cohere"]
-              },
-              {
-                "group": "Chunking",
-                "pages": [
-                  "reference/chunking/fixed-size",
-                  "reference/chunking/agentic",
-                  "reference/chunking/semantic",
-                  "reference/chunking/recursive",
-                  "reference/chunking/document",
-                  "reference/chunking/csv-row",
-                  "reference/chunking/markdown"
-                ]
-              },
-              {
-                "group": "Readers",
-                "pages": [
-                  "reference/reader/base",
-                  "reference/reader/arxiv",
-                  "reference/reader/csv",
-                  "reference/reader/csv_url",
-                  "reference/reader/docx",
-                  "reference/reader/json",
-                  "reference/reader/pdf",
-                  "reference/reader/text",
-                  "reference/reader/website",
-                  "reference/reader/youtube",
-                  "reference/reader/firecrawl",
-                  "reference/reader/wikipedia"
-                ]
-              },
-              {
-                "group": "Remote Content",
-                "pages": [
-                  "reference/remote-content/gcs-content",
-                  "reference/remote-content/s3-content"
-                ]
               }
             ]
           },
           {
             "group": "AgentOS API",
-            "pages": ["reference-api/overview"]
-          },
-          {
-            "group": "Core",
-            "pages": ["reference-api/schema/core/config"]
-          },
-          {
-            "group": "Agents",
             "pages": [
-              "reference-api/schema/agents/create-agent-run",
-              "reference-api/schema/agents/create-agent-run",
-              "reference-api/schema/agents/cancel-agent-run",
-              "reference-api/schema/agents/continue-agent-run",
-              "reference-api/schema/agents/get-agents",
-              "reference-api/schema/agents/get-agent",
-              "reference-api/schema/agents/get-agent-sessions",
-              "reference-api/schema/agents/get-agent-session-by-id",
-              "reference-api/schema/agents/get-agent-session-runs",
-              "reference-api/schema/agents/delete-agent-session",
-              "reference-api/schema/agents/rename-agent-session"
-            ]
-          },
-          {
-            "group": "Teams",
-            "pages": [
-              "reference-api/schema/teams/create-team-run",
-              "reference-api/schema/teams/cancel-team-run",
-              "reference-api/schema/teams/get-teams",
-              "reference-api/schema/teams/get-team",
-              "reference-api/schema/teams/get-team-sessions",
-              "reference-api/schema/teams/get-team-session-by-id",
-              "reference-api/schema/teams/get-team-session-runs",
-              "reference-api/schema/teams/delete-team-session",
-              "reference-api/schema/teams/rename-team-session"
-            ]
-          },
-          {
-            "group": "Workflows",
-            "pages": [
-              "reference-api/schema/workflows/create-workflow-run",
-              "reference-api/schema/workflows/cancel-workflow-run",
-              "reference-api/schema/workflows/get-workflows",
-              "reference-api/schema/workflows/get-workflow",
-              "reference-api/schema/workflows/get-workflow-sessions",
-              "reference-api/schema/workflows/get-workflow-session-by-id",
-              "reference-api/schema/workflows/get-workflow-session-runs"
-            ]
-          },
-          {
-            "group": "Sessions",
-            "pages": [
-              "reference-api/schema/sessions/get-sessions",
-              "reference-api/schema/sessions/get-session-by-id",
-              "reference-api/schema/sessions/get-session-runs",
-              "reference-api/schema/sessions/rename-session",
-              "reference-api/schema/sessions/delete-session",
-              "reference-api/schema/sessions/delete-sessions"
-            ]
-          },
-          {
-            "group": "Memory",
-            "pages": [
-              "reference-api/schema/memory/get-memory",
-              "reference-api/schema/memory/get-memories",
-              "reference-api/schema/memory/create-memory",
-              "reference-api/schema/memory/update-memory",
-              "reference-api/schema/memory/delete-memory",
-              "reference-api/schema/memory/delete-memories",
-              "reference-api/schema/memory/get-topics",
-              "reference-api/schema/memory/get-user-memory-stats"
-            ]
-          },
-          {
-            "group": "Evals",
-            "pages": [
-              "reference-api/schema/evals/get-eval-runs",
-              "reference-api/schema/evals/get-eval-run",
-              "reference-api/schema/evals/delete-eval-runs",
-              "reference-api/schema/evals/run-eval",
-              "reference-api/schema/evals/update-eval-run"
-            ]
-          },
-          {
-            "group": "Knowledge",
-            "pages": [
-              "reference-api/schema/knowledge/upload-content",
-              "reference-api/schema/knowledge/get-content",
-              "reference-api/schema/knowledge/get-content-by-id",
-              "reference-api/schema/knowledge/get-content-status",
-              "reference-api/schema/knowledge/update-content",
-              "reference-api/schema/knowledge/delete-all-content",
-              "reference-api/schema/knowledge/delete-content-by-id"
-            ]
-          },
-          {
-            "group": "Metrics",
-            "pages": [
-              "reference-api/schema/metrics/get-metrics",
-              "reference-api/schema/metrics/calculate-metrics"
+              "reference-api/overview",
+              {
+                "group": "Core",
+                "pages": ["reference-api/schema/core/config"]
+              },
+              {
+                "group": "Agents",
+                "pages": [
+                  "reference-api/schema/agents/create-agent-run",
+                  "reference-api/schema/agents/cancel-agent-run",
+                  "reference-api/schema/agents/continue-agent-run",
+                  "reference-api/schema/agents/get-agents",
+                  "reference-api/schema/agents/get-agent"
+                ]
+              },
+              {
+                "group": "Teams",
+                "pages": [
+                  "reference-api/schema/teams/create-team-run",
+                  "reference-api/schema/teams/cancel-team-run",
+                  "reference-api/schema/teams/get-teams",
+                  "reference-api/schema/teams/get-team"
+                ]
+              },
+              {
+                "group": "Workflows",
+                "pages": [
+                  "reference-api/schema/workflows/create-workflow-run",
+                  "reference-api/schema/workflows/cancel-workflow-run",
+                  "reference-api/schema/workflows/get-workflows",
+                  "reference-api/schema/workflows/get-workflow"
+                ]
+              },
+              {
+                "group": "Sessions",
+                "pages": [
+                  "reference-api/schema/sessions/get-sessions",
+                  "reference-api/schema/sessions/get-session-by-id",
+                  "reference-api/schema/sessions/get-session-runs",
+                  "reference-api/schema/sessions/rename-session",
+                  "reference-api/schema/sessions/delete-session",
+                  "reference-api/schema/sessions/delete-sessions"
+                ]
+              },
+              {
+                "group": "Memory",
+                "pages": [
+                  "reference-api/schema/memory/get-memory",
+                  "reference-api/schema/memory/get-memories",
+                  "reference-api/schema/memory/create-memory",
+                  "reference-api/schema/memory/update-memory",
+                  "reference-api/schema/memory/delete-memory",
+                  "reference-api/schema/memory/delete-memories",
+                  "reference-api/schema/memory/get-topics",
+                  "reference-api/schema/memory/get-user-memory-stats"
+                ]
+              },
+              {
+                "group": "Evals",
+                "pages": [
+                  "reference-api/schema/evals/get-eval-runs",
+                  "reference-api/schema/evals/get-eval-run",
+                  "reference-api/schema/evals/delete-eval-runs",
+                  "reference-api/schema/evals/run-eval",
+                  "reference-api/schema/evals/update-eval-run"
+                ]
+              },
+              {
+                "group": "Knowledge",
+                "pages": [
+                  "reference-api/schema/knowledge/upload-content",
+                  "reference-api/schema/knowledge/get-content",
+                  "reference-api/schema/knowledge/get-content-by-id",
+                  "reference-api/schema/knowledge/get-content-status",
+                  "reference-api/schema/knowledge/update-content",
+                  "reference-api/schema/knowledge/delete-all-content",
+                  "reference-api/schema/knowledge/delete-content-by-id"
+                ]
+              },
+              {
+                "group": "Metrics",
+                "pages": [
+                  "reference-api/schema/metrics/get-metrics",
+                  "reference-api/schema/metrics/calculate-metrics"
+                ]
+              }
             ]
           }
         ]

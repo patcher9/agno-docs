@@ -41,7 +41,7 @@ Teams can be configured to work in one of three modes:
 
 ### Coordinate Mode
 
-In [**Coordinate Mode**](/docs/documentation/teams/coordinate), the team leader delegates tasks to team members and synthesizes their outputs into a single cohesive response. 
+In [**Coordinate Mode**](/docs/documentation/teams/modes/coordinate), the team leader delegates tasks to team members and synthesizes their outputs into a single cohesive response. 
 The team leader can send tasks to multiple members at once, or one after the other depending on the request and what the model decides is most appropriate.
 
 <Note>
@@ -50,7 +50,7 @@ In `async` execution, if more than one member is delegated to at once by the tea
 
 ### Route Mode
 
-In [**Route Mode**](/docs/documentation/teams/route), the team leader forwards your run input to the most appropriate team member based on the content of the input. The member's response is returned directly to the user and the team leader doesn't interpret/transform the response.
+In [**Route Mode**](/docs/documentation/teams/modes/route), the team leader forwards your run input to the most appropriate team member based on the content of the input. The member's response is returned directly to the user and the team leader doesn't interpret/transform the response.
 
 <Note>
 In `async` execution, if more than one member is forwarded to at once by the team leader, these members are run concurrently.
@@ -59,7 +59,7 @@ In `async` execution, if more than one member is forwarded to at once by the tea
 
 ### Collaborate Mode
 
-In [**Collaborate Mode**](/docs/documentation/teams/collaborate), all team members are given the same task and the team leader synthesizes their outputs into a cohesive response. 
+In [**Collaborate Mode**](/docs/documentation/teams/modes/collaborate), all team members are given the same task and the team leader synthesizes their outputs into a cohesive response. 
 
 <Note>
 In `async` execution, all the members are run concurrently.

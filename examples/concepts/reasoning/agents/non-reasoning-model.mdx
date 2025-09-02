@@ -1,9 +1,11 @@
 ---
 title: Non-Reasoning Model Agent
 ---
-This example demonstrates how it works when you pass a non-reasoning model as a reasoning model.
-It defaults to using the default OpenAI reasoning model.
-We recommend using the appropriate reasoning model or passing `reasoning=True` to use the default Chain-of-Thought reasoning.
+
+This example demonstrates how to use a non-reasoning model as a reasoning model.
+
+For reasoning, we recommend using a Reasoning Agent (with `reasoning=True`), or to use an appropriate reasoning model with `reasoning_model=`.
+
 ## Code
 
 ```python cookbook/reasoning/agents/default_chain_of_thought.py
@@ -13,8 +15,9 @@ from agno.models.openai import OpenAIChat
 reasoning_agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     reasoning_model=OpenAIChat(
-        id="gpt-4o", max_tokens=1200
-    ),  # Should default to manual COT because it is not a native reasoning model
+        id="gpt-4o", # This model will be used for reasoning, although it is not a native reasoning model.
+        max_tokens=1200,
+    ),
     markdown=True,
 )
 reasoning_agent.print_response(
@@ -22,7 +25,6 @@ reasoning_agent.print_response(
     stream=True,
     show_full_reasoning=True,
 )
-
 
 # It uses the default model of the Agent
 reasoning_agent = Agent(
@@ -35,8 +37,6 @@ reasoning_agent.print_response(
     stream=True,
     show_full_reasoning=True,
 )
-
-
 ```
 
 ## Usage
