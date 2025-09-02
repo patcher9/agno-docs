@@ -18,7 +18,7 @@ pip install ag-ui-protocol
   <Step title="Run the backend">
   Expose an Agno Agent through the AG-UI interface using `AgentOS` and `AGUI`.
 
-```python
+```python basic.py
 from agno.agent.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.os import AgentOS
@@ -51,12 +51,12 @@ With Dojo running, open `http://localhost:3000` and select your Agno agent.
   </Step>
 </Steps>
 
-You can see more in our cookbook examples at `cookbook/agent_os/interfaces/agui/*`.
+You can see more in our [cookbook examples](https://github.com/agno-agi/agno/tree/v2.0/cookbook/agent_os/interfaces/agui/).
 
 ## Core Components
 
 - `AGUI` (interface): Wraps an Agno `Agent` or `Team` into an AG-UI compatible FastAPI router.
-- `AgentOS.serve`: Serves your FastAPI app with Uvicorn.
+- `AgentOS.serve`: Serves your FastAPI app (including the AGUI router) with Uvicorn.
 
 `AGUI` mounts protocol-compliant routes on your app.
 
@@ -88,7 +88,7 @@ Mounted at the interface's route prefix (root by default):
 
 Refer to `ag-ui-protocol` docs for payload details.
 
-## Serving the Application
+## Serving your AgentOS
 
 Use `AgentOS.serve` to run your app with Uvicorn.
 
@@ -101,4 +101,4 @@ Use `AgentOS.serve` to run your app with Uvicorn.
 | `port`    | `int`                 | `7777`        | Port to bind.                          |
 | `reload`  | `bool`                | `False`       | Enable auto-reload for development.    |
 
-See cookbook examples under `cookbook/agent_os/interfaces/agui/`.
+See [cookbook examples](https://github.com/agno-agi/agno/tree/v2.0/cookbook/agent_os/interfaces/agui/).
