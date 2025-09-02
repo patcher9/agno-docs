@@ -169,6 +169,7 @@
                     ]
                   },
                   "docs/documentation/models/cohere",
+                  "docs/documentation/models/dashscope",
                   "docs/documentation/models/deepinfra",
                   "docs/documentation/models/deepseek",
                   "docs/documentation/models/fireworks",
@@ -1973,6 +1974,18 @@
                   "examples/models/cohere/structured_output",
                   "examples/models/cohere/storage",
                   "examples/models/cohere/knowledge"
+                ]
+              },
+              {
+                "group": "Dashscope",
+                "pages": [
+                  "examples/models/dashscope/basic",
+                  "examples/models/dashscope/basic_stream",
+                  "examples/models/dashscope/tool_use",
+                  "examples/models/dashscope/image_agent",
+                  "examples/models/dashscope/image_agent_bytes",
+                  "examples/models/dashscope/structured_output",
+                  "examples/models/dashscope/thinking_agent"
                 ]
               },
               {
