@@ -61,9 +61,7 @@ env:
 ```
 
 <Note>
-  **How it works**: AgentOS reads `OS_SECURITY_KEY` into
-  `settings.os_security_key`. If configured, requests without a valid
-  `Authorization: Bearer` header return `401 Unauthorized`.
+  **How it works**: AgentOS reads `OS_SECURITY_KEY` into the AgentOS router's internal authorization logic. If configured, requests without a valid `Authorization: Bearer` header return `401 Unauthorized`.
 </Note>
 
 ## Key Rotation
