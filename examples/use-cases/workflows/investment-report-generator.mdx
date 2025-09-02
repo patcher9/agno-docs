@@ -26,7 +26,7 @@ Example companies to analyze:
 - "PFE, JNJ, MRNA" (Healthcare Focus)
 - "XOM, CVX, BP" (Energy Sector)
 
-Run `pip install openai yfinance agno` to install dependencies.
+Run `pip install openai ddgs agno` to install dependencies.
 
 ```python investment_report_generator.py
 """💰 Investment Report Generator - Your AI Financial Analysis Studio!
@@ -54,7 +54,7 @@ Example companies to analyze:
 - "PFE, JNJ, MRNA" (Healthcare Focus)
 - "XOM, CVX, BP" (Energy Sector)
 
-Run `pip install openai yfinance agno` to install dependencies.
+Run `pip install openai ddgs agno` to install dependencies.
 """
 
 import asyncio
@@ -66,7 +66,7 @@ from textwrap import dedent
 from agno.agent import Agent
 from agno.db.sqlite import SqliteDb
 from agno.models.openai import OpenAIChat
-from agno.tools.yfinance import YFinanceTools
+from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.utils.pprint import pprint_run_response
 from agno.workflow.types import WorkflowExecutionInput
 from agno.workflow.workflow import Workflow
@@ -112,7 +112,7 @@ stock_analyst = Agent(
     name="Stock Analyst",
     model=OpenAIChat(id="gpt-4o"),
     tools=[
-        YFinanceTools(
+        DuckDuckGoTools(
             company_info=True, analyst_recommendations=True, company_news=True
         )
     ],
@@ -408,7 +408,7 @@ if __name__ == "__main__":
 
   <Step title="Install libraries">  
     ```bash
-    openai yfinance agno
+    openai ddgs agno
     ```
   </Step>
 
