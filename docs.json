@@ -1767,13 +1767,12 @@
                       "examples/concepts/integrations/observability/langwatch_op",
                       "examples/concepts/integrations/observability/weave-op"
                     ]
-                  }
-                
-                ]
-              },
-              {
+                  },
+                  {
                 "group": "Testing",
                 "pages": ["examples/concepts/integrations/testing/scenario/basic"]
+                  }                
+                ]
               }
             ]
           },
