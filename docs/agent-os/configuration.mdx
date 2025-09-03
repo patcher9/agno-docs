@@ -1,0 +1,158 @@
+---
+title: AgentOS Configuration
+description: Learn how to check and adjust your AgentOS configuration
+---
+
+You can check your AgentOS configuration at any time using the `/config` endpoint.
+
+This is the information you will find there:
+
+- **OS ID**: The ID of your AgentOS
+- **Description**: The description of your AgentOS
+- **Databases**: The list of IDs of the databases present in your AgentOS
+- **Agents**: The list of Agents available in your AgentOS
+- **Teams**: The list of Teams available in your AgentOS
+- **Workflows**: The list of Workflows available in your AgentOS
+- **Interfaces**: The list of Interfaces available in your AgentOS. E.g. WhatsApp, Slack, etc.
+- **Chat**: The list of quick prompts for each Agent, Team and Workflow in your AgentOS
+- **Session**: The configuration for the Session page
+- **Metrics**: The configuration for the Metrics page
+- **Memory**: The configuration for the Memory page
+- **Knowledge**: The configuration for the Knowledge page
+- **Evals**: The configuration for the Evals page
+
+## Providing Extra Configuration
+
+When setting up your AgentOS, you may want to set some extra configuration to personalize some aspects.
+
+### What can be configured?
+
+- **Quick prompts**: You can provide one to three quick prompts for each one of your agents, teams and workflows. This is useful to propose some default prompts that explain users what each agent, team and workflow can do.
+- **Display names**: You can specify the display name for your AgentOS pages (Sessions, Memory, etc). This is very useful when using multiple databases, to clearly communicate to users which data is being displayed.
+
+### Setting your configuration
+
+You can provide your AgentOS configuration in two different ways: with a configuration YAML file, or using the `AgentOSConfig` class.
+
+### Configuration YAML File
+
+1. Create a YAML file with your configuration. For example:
+
+```yaml
+chat:
+  quick_prompts:
+    marketing-agent:
+      - "What can you do?"
+      - "How is our latest post working?"
+      - "Tell me about our active marketing campaigns"
+memory:
+  dbs:
+    - db_id: db-0001
+      domain_config:
+        display_name: Main app user memories
+    - db_id: db-0002
+      domain_config:
+        display_name: Support flow user memories
+```
+
+2. Pass the configuration to your AgentOS using the `config` parameter:
+
+```python
+from agno.os import AgentOS
+
+agent_os = AgentOS(
+    ...
+    config=<path_to_your_config_file>
+)
+```
+
+### AgentOSConfig Class
+
+You can also provide your configuration using the `AgentOSConfig` class:
+
+```python
+from agno.os import AgentOS
+from agno.os.config import (
+    AgentOSConfig,
+    ChatConfig,
+    DatabaseConfig,
+    MemoryConfig,
+    MemoryDomainConfig,
+)
+
+agent_os = AgentOS(
+    ...
+    config=AgentOSConfig(
+        chat=ChatConfig(
+            quick_prompts={
+                "marketing-agent": [
+                    "What can you do?",
+                    "How is our latest post working?",
+                    "Tell me about our active marketing campaigns",
+                ]
+            }
+        ),
+        memory=MemoryConfig(
+            dbs=[
+                DatabaseConfig(
+                    db_id=marketing_db.id,
+                    domain_config=MemoryDomainConfig(
+                        display_name="Main app user memories",
+                    ),
+                ),
+                DatabaseConfig(
+                    db_id=support_db.id,
+                    domain_config=MemoryDomainConfig(
+                        display_name="Support flow user memories",
+                    ),
+                )
+            ],
+        ),
+    ),
+)
+```
+
+
+## The /config endpoint
+
+You will use the `/config` endpoint to check your AgentOS configuration.
+
+You will receive a JSON response with your configuration. Using the previous examples, you will receive:
+
+```json
+{
+	"os_id": "0001",
+	"description": "Your AgentOS",
+	"databases": [
+		"db-0001"
+	],
+	"chat": {
+		"quick_prompts": {
+			"marketing-agent": [
+				"What can you do?",
+				"How is our latest post working?",
+				"Tell me about our active marketing campaigns"
+			]
+		}
+	},
+	"memory": {
+		"dbs": [
+			{
+				"db_id": "db-0001",
+				"domain_config": {
+					"display_name": "Main app user memories"
+				}
+			},
+			{
+				"db_id": "db-0002",
+				"domain_config": {
+					"display_name": "Support flow user memories"
+				}
+			}
+		]
+	},
+    ...
+}
+```
+
+

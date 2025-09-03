@@ -563,6 +563,7 @@
               "docs/agent-os/knowledge-management",
               "docs/agent-os/session-tracking",
               "docs/agent-os/security",
+              "docs/agent-os/configuration",
               {
                 "group": "Interfaces",
                 "pages": [
@@ -578,6 +579,7 @@
             "pages": [
               "examples/agent-os/basic",
               "examples/agent-os/demo",
+              "examples/agent-os/extra_configuration",
               {
                 "group": "Interfaces",
                 "pages": [
