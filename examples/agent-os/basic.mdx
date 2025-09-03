@@ -5,9 +5,7 @@ description: "Complete AgentOS setup with PostgreSQL, agents, teams, and workflo
 
 ## Code
 
-```python cookbook/os/basic.py
-"""Minimal example for AgentOS."""
-
+```python cookbook/agent_os/basic.py
 from agno.agent import Agent
 from agno.db.postgres import PostgresDb
 from agno.models.openai import OpenAIChat
@@ -87,7 +85,7 @@ if __name__ == "__main__":
 
   <Step title="Install libraries">
     ```bash
-    pip install -U agno fastapi uvicorn sqlalchemy pgvector psycopg
+    pip install -U agno openai fastapi uvicorn sqlalchemy pgvector psycopg
     ```
   </Step>
 
@@ -107,11 +105,11 @@ if __name__ == "__main__":
   <Step title="Run Example">
     <CodeGroup>
     ```bash Mac
-    python cookbook/os/basic.py
+    python cookbook/agent_os/basic.py
     ```
 
     ```bash Windows
-    python cookbook/os/basic.py
+    python cookbook/agent_os/basic.py
     ```
     </CodeGroup>
   </Step>
