@@ -1,5 +1,5 @@
 ---
-title: "Advanced"
+title: "Advanced AgentOS Demo"
 description: "Advanced AgentOS demo with multiple agents, knowledge base, and evaluation system"
 ---
 
@@ -121,9 +121,6 @@ agent_os = AgentOS(
 )
 app = agent_os.get_app()
 
-# Uncomment to create a memory
-# agno_agent.print_response("I love astronomy, specifically the science behind nebulae")
-
 
 if __name__ == "__main__":
     # Simple run to generate and record a session
@@ -174,16 +171,3 @@ if __name__ == "__main__":
     </CodeGroup>
   </Step>
 </Steps>
-
-## Key Features
-
-- **Multi-Agent Architecture**: Specialized agents for different domains (Finance, Research, Knowledge)
-- **Knowledge Base**: PostgreSQL-backed knowledge system with vector storage
-- **Research Team**: Coordinated team with DuckDuckGo search capabilities
-- **Financial Analysis**: YFinance tools for market data and stock analysis
-- **Vector Database**: PgVector integration for semantic search
-- **Evaluation System**: Built-in accuracy evaluation for agent responses
-- **Authentication**: Optional security key authentication
-- **User Memory**: Persistent memory across all agents and teams
-- **Agentic Context**: Advanced context management for teams
-
