@@ -1,26 +1,25 @@
 ---
-title: "AgentOS with Custom Routers"
+title: "AgentOS with Custom FastAPI App"
 description: "Complete AgentOS setup with custom FastAPI app and router"
 ---
 
 ## Code
 
-```python cookbook/agent_os/custom_routers.py
-
-from fastapi import FastAPI, APIRouter
-
+```python cookbook/agent_os/custom_fastapi_app.py
 from agno.agent import Agent
 from agno.db.postgres import PostgresDb
 from agno.models.anthropic import Claude
 from agno.os import AgentOS
 from agno.tools.duckduckgo import DuckDuckGoTools
+from fastapi import FastAPI
+from starlette.middleware.cors import CORSMiddleware
 
 # Setup the database
 db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
 
 # Setup basic agents, teams and workflows
 web_research_agent = Agent(
-    name="Web Research Agent",
+    name="Basic Agent",
     model=Claude(id="claude-sonnet-4-0"),
     db=db,
     tools=[DuckDuckGoTools()],
@@ -30,11 +29,24 @@ web_research_agent = Agent(
     markdown=True,
 )
 
-# Your own FastAPI app
-custom_app = FastAPI()
-router = APIRouter()
+# Custom FastAPI app
+app: FastAPI = FastAPI(
+    title="Custom FastAPI App",
+    version="1.0.0",
+)
 
-@router.post("/customers")  
+# Add Middlewares
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+# Add your own routes
+@app.post("/customers")
 async def get_customers():
     return [
         {
@@ -49,15 +61,18 @@ async def get_customers():
         },
     ]
 
-custom_app.include_router(router)  # Include the custom router in the FastAPI app
 
-
-# Setup our AgentOS app
+# Setup our AgentOS app by passing your FastAPI app
 agent_os = AgentOS(
     description="Example app with custom routers",
     agents=[web_research_agent],
-    fastapi_app=custom_app,  # Pass the FastAPI app with the custom router
+    fastapi_app=app,
 )
+
+# Alternatively, add all routes from AgentOS app to the current app
+# for route in agent_os.get_routes():
+#     app.router.routes.append(route)
+
 app = agent_os.get_app()
 
 
@@ -68,8 +83,7 @@ if __name__ == "__main__":
     http://localhost:7777/docs
 
     """
-    agent_os.serve(app="custom_routers:app", reload=True)
-
+    agent_os.serve(app="custom_fastapi_app:app", reload=True)
 ```
 
 ## Usage
@@ -86,7 +100,7 @@ if __name__ == "__main__":
 
   <Step title="Install libraries">
     ```bash
-    pip install -U agno anthropic fastapi uvicorn sqlalchemy pgvector psycopg
+    pip install -U agno anthropic fastapi["standard"] uvicorn sqlalchemy pgvector psycopg
     ```
   </Step>
 
@@ -103,7 +117,13 @@ if __name__ == "__main__":
     ```
   </Step>
 
-  <Step title="Run Example">
+  <Step title="Run Example with FastAPI CLI">
+    ```bash
+    fastapi run cookbook/agent_os/custom_fastapi_app.py
+    ```
+  </Step>
+
+  <Step title="Run Example with Python">
     <CodeGroup>
     ```bash Mac
     python cookbook/agent_os/custom_routers.py

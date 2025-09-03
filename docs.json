@@ -563,6 +563,7 @@
               "agent-os/session-tracking",
               "agent-os/security",
               "agent-os/configuration",
+              "agent-os/custom-fastapi",
               {
                 "group": "Interfaces",
                 "pages": [
@@ -579,7 +580,7 @@
               "examples/agent-os/basic",
               "examples/agent-os/demo",
               "examples/agent-os/extra_configuration",
-              "examples/agent-os/custom_router",
+              "examples/agent-os/custom-fastapi",
               {
                 "group": "Interfaces",
                 "pages": [
