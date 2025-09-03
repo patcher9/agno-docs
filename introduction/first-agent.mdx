@@ -20,7 +20,9 @@ agent = Agent(
 agent.print_response("Summarize the top 5 stories on hackernews", stream=True)
 ```
 
-Next, let's build an Agent that can answer questions about Agno using the Agno MCP server. **This is a simple and complete example that you can extend by connecting any MCP server**.
+## Build your first Agent
+
+Next, let's build an Agent that can answer questions about Agno using the Agno MCP server. **This is a simple yet complete example that you can extend by connecting any MCP server**.
 
 ```python agno_mcp.py lines
 import asyncio
@@ -30,20 +32,35 @@ from agno.tools.mcp import MCPTools
 
 
 async def run_agent(message: str) -> None:
-    async with MCPTools(
+    # Define the MCP server you want to use
+    agno_mcp_server = MCPTools(
         transport="streamable-http", url="https://docs-v2.agno.com/mcp"
-    ) as agno_mcp_server:
-        agent = Agent(
-            model=Claude(id="claude-sonnet-4-0"),
-            tools=[agno_mcp_server],
-            markdown=True,
-        )
-        await agent.aprint_response(input=message, stream=True)
+    )
+    # Connect to the MCP server
+    await agno_mcp_server.connect()
+
+    # Define your Agent
+    agent = Agent(
+        model=Claude(id="claude-sonnet-4-0"),
+        tools=[agno_mcp_server],
+        markdown=True,
+    )
+    # Run the Agent and print the response
+    await agent.aprint_response(input=message, stream=True)
+
+    # Close the MCP server
+    await agno_mcp_server.close()
 
 
 if __name__ == "__main__":
     asyncio.run(run_agent("What is Agno?"))
 ```
+
+<Tip>
+
+Unfortuntately, the DevEx of MCP is not great. Agno helps, but there's only so much we can do.
+
+</Tip>
 
 ## Run your Agent
 
@@ -116,33 +133,40 @@ Agno supports most databases as storage drivers, but in this example we'll use S
 
 ```python agno_mcp.py lines
 import asyncio
-
 from agno.agent import Agent
 from agno.db.sqlite import SqliteDb
 from agno.models.anthropic import Claude
 from agno.tools.mcp import MCPTools
 
-# Setup a database for the Agent // [!code ++:2]
+# Create a database for the Agent
 db = SqliteDb(db_file="agno.db")
 
 
 async def run_agent(message: str) -> None:
-    async with MCPTools(
+    # Define the MCP server you want to use
+    agno_mcp_server = MCPTools(
         transport="streamable-http", url="https://docs-v2.agno.com/mcp"
-    ) as agno_mcp_server:
-        agent = Agent(
-            # Add the database to the Agent // [!code ++:2]
-            db=db,
-            model=Claude(id="claude-sonnet-4-0"),
-            tools=[agno_mcp_server],
-            # Add the previous session history to the context // [!code ++:4]
-            add_history_to_context=True,
-            # Specify how many messages to add to the context
-            num_history_runs=3,
-            markdown=True,
-        )
-        # Manually set the session id so we can continue the same session across runs // [!code ++]
-        await agent.aprint_response(input=message, stream=True, session_id="session_1")
+    )
+    # Connect to the MCP server
+    await agno_mcp_server.connect()
+
+    # Define your Agent
+    agent = Agent(
+        model=Claude(id="claude-sonnet-4-0"),
+        # Add the database to the Agent
+        db=db,
+        tools=[agno_mcp_server],
+        # Add the previous session history to the context
+        add_history_to_context=True,
+        # Specify how many messages to add to the context
+        num_history_runs=3,
+        markdown=True,
+    )
+    # Manually set the session id so we can continue the same session across runs
+    await agent.aprint_response(input=message, stream=True, session_id="session_1")
+
+    # Close the MCP server
+    await agno_mcp_server.close()
 
 
 if __name__ == "__main__":
@@ -180,3 +204,5 @@ Now, the Agent will store the session history and state in the database. Run the
 </Steps>
 
 The first time you run the Agent, it will not have any session history and state. But when you run it multiple times, it will persist the session history and state in the database.
+
+Next, let's serve your Agent using the AgentOS.
