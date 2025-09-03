@@ -475,7 +475,7 @@
               },
               {
                 "group": "Human-in-the-Loop",
-                "pages": ["concepts/user_control_flow/overview"]
+                "pages": ["concepts/hitl/overview"]
               },
               {
                 "group": "Storage",
