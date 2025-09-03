@@ -3,28 +3,33 @@ title: Context Engineering
 description: Learn how to write prompts and other context engineering techniques for your agents.
 ---
 
-You can change the way your Agent behaves by changing the **system** message context that is sent to the language model.
+Context engineering is the process of designing and controlling the information (context) that is sent to language models to guide their behavior and outputs. 
+In Agno, this means carefully crafting the system message, which includes the agent's description, instructions, and other relevant settings. By thoughtfully engineering this context, you can:
 
-In Agno, the system message is dynamically created using `description` and `instructions` and a number of other settings.
+- Steer the agent toward specific behaviors or roles.
+- Constrain or expand the agent's capabilities.
+- Ensure outputs are consistent, relevant, and aligned with your application's needs.
+- Enable advanced use cases such as multi-step reasoning, tool use, or structured output.
 
-Understanding how these prompts are created will help you build better Agents.
+Effective context engineering involves iteratively refining the system message, experimenting with different descriptions and instructions, and leveraging features like input/output schemas or tool integrations. 
 
-<Tip>
-  You can always set the `system_message` to override any dynamically generated
-  system prompt.
-</Tip>
+The context of an Agno agent consists of the following:
+- **System message**: The system message is the main context that is sent to the agent, including all additional context
+- **User message**: The user message is the message that is sent to the agent.
+- **Chat history**: The chat history is the history of the conversation between the agent and the user.
+- **Additional input**: Any few-shot examples or other additional input that is added to the context.
 
-The following are the key parameters that are used to create the system message:
+## System message context
+
+The following are some key parameters that are used to create the system message:
 
 1. **Description**: A description that guides the overall behaviour of the agent.
 2. **Instructions**: A list of precise, task-specific instructions on how to achieve its goal.
 3. **Expected Output**: A description of the expected output from the Agent.
 
-## System message context
-
 The system message is created using `description`, `instructions` and a number of other settings. The `description` is added to the start of the system message and `instructions` are added as a list. For example:
 
-```python instructions.py
+```python
 from agno.agent import Agent
 
 agent = Agent(
@@ -49,24 +54,6 @@ You are a pilot on a plane flying from Hawaii to Japan.
 </additional_information>
 ```
 
-### Set the system message directly
-
-You can manually set the system message using the `system_message` parameter. This will ignore all other settings and use the system message you provide.
-
-```python
-from agno.agent import Agent
-
-agent = Agent(system_message="Share a 2 sentence story about")
-agent.print_response("Love in the year 12000.")
-```
-
-<Tip>
-  Some models via some model providers, like `llama-3.2-11b-vision-preview` on
-  Groq, require no system message with other messages. To remove the system
-  message, set `create_default_system_message=False` and `system_message=None`.
-  Additionally, if `markdown=True` is set, it will add a system message, so
-  either remove it or explicitly disable the system message.
-</Tip>
 
 ### Additional Context
 
@@ -123,6 +110,25 @@ The Agent creates a default system message that can be customized using the foll
 | `build_context`                  | `bool`      | `True`  | Optionally disable the building of the context.                                                                                                                            |
 
 See the full [Agent reference](/reference/agents/agent) for more information.
+
+### Set the system message directly
+
+You can manually set the system message using the `system_message` parameter. This will ignore all other settings and use the system message you provide.
+
+```python
+from agno.agent import Agent
+
+agent = Agent(system_message="Share a 2 sentence story about")
+agent.print_response("Love in the year 12000.")
+```
+
+<Tip>
+  Some models via some model providers, like `llama-3.2-11b-vision-preview` on
+  Groq, require no system message with other messages. To remove the system
+  message, set `build_context=False` and `system_message=None`.
+  Additionally, if `markdown=True` is set, it will add a system message, so
+  either remove it or explicitly disable the system message.
+</Tip>
 
 ## User message
 

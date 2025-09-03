@@ -72,13 +72,13 @@ Use `debug_mode=True` to view the raw messages used by the agent.
 Use the `Agent.run()` function to capture the response as a variable.
 
 ```python
-from agno.agent import Agent, RunResponse
+from agno.agent import Agent, RunOutput
 from agno.utils.pprint import pprint_run_response
 
 agent = Agent(...)
 
 # Run agent and return the response as a variable
-response: RunResponse = agent.run("Simulation theory")
+response: RunOutput = agent.run("Simulation theory")
 # Print the response in markdown format
 pprint_run_response(response, markdown=True)
 ```
@@ -89,14 +89,14 @@ By default `stream=False`, set `stream=True` to return a stream.
 from typing import Iterator
 
 # Run agent and return the response as a stream
-response_stream: Iterator[RunResponse] = agent.run("Simulation theory", stream=True)
+response_stream: Iterator[RunOutputEvent] = agent.run("Simulation theory", stream=True)
 # Print the response stream in markdown format
 pprint_run_response(response_stream, markdown=True, show_time=True)
 ```
 
-## RunResponse
+## RunOutput
 
-The `Agent.run()` function returns a `RunResponse` object or an stream of `RunResponse` objects if `stream=True`.
+The `Agent.run()` function returns a `RunOutput` object or an stream of `RunOutput` objects if `stream=True`.
 
 ### Attributes
 

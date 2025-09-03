@@ -156,7 +156,7 @@ from agno.agent import Agent
 from agno.eval.reliability import ReliabilityEval, ReliabilityResult
 from agno.tools.calculator import CalculatorTools
 from agno.models.openai import OpenAIChat
-from agno.run.response import RunResponse
+from agno.run.agent import RunOutput
 
 
 def multiply_and_exponentiate():
@@ -165,7 +165,7 @@ def multiply_and_exponentiate():
         model=OpenAIChat(id="gpt-5-nano"),
         tools=[CalculatorTools(add=True, multiply=True, exponentiate=True)],
     )
-    response: RunResponse = agent.run("What is 10*5 then to the power of 2? do it step by step")
+    response: RunOutput = agent.run("What is 10*5 then to the power of 2? do it step by step")
     evaluation = ReliabilityEval(
         agent_response=response,
         expected_tool_calls=["multiply", "exponentiate"],

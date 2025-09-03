@@ -9,7 +9,7 @@ import os
 from uuid import uuid4
 
 import requests
-from agno.agent import Agent, RunResponse
+from agno.agent import Agent, RunOutput
 from agno.models.openai import OpenAIChat
 from agno.tools.models_labs import FileType, ModelsLabTools
 from agno.utils.log import logger
@@ -33,7 +33,7 @@ agent = Agent(
     debug_mode=True,
 )
 
-music: RunResponse = agent.run("Generate a 30 second classical music piece")
+music: RunOutput = agent.run("Generate a 30 second classical music piece")
 
 save_dir = "audio_generations"
 

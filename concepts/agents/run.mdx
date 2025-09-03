@@ -28,9 +28,75 @@ response: RunOutput = agent.run("Tell me a 5 second short story about a robot")
 pprint_run_response(response, markdown=True)
 ```
 
-## Typed inputs and outputs
+### Typed inputs and outputs
 
-🚧 coming soon 🚧
+An agent can be provided with typed input (i.e a pydantic model) by passing it in the `Agent.run()` or `Agent.print_response()` as the `input` parameter.
+
+```python
+from typing import List
+
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.tools.hackernews import HackerNewsTools
+from pydantic import BaseModel, Field
+
+
+class ResearchTopic(BaseModel):
+    """Structured research topic with specific requirements"""
+
+    topic: str
+    focus_areas: List[str] = Field(description="Specific areas to focus on")
+    target_audience: str = Field(description="Who this research is for")
+    sources_required: int = Field(description="Number of sources needed", default=5)
+
+hackernews_agent = Agent(
+    name="Hackernews Agent",
+    model=OpenAIChat(id="gpt-5-nano"),
+    tools=[HackerNewsTools()],
+    role="Extract key insights and content from Hackernews posts",
+)
+
+hackernews_agent.print_response(
+    input=ResearchTopic(
+        topic="AI",
+        focus_areas=["AI", "Machine Learning"],
+        target_audience="Developers",
+        sources_required=5,
+    )
+)
+```
+
+<Tip>
+You can set the `input_schema` on the agent to validate the input. See more details in the [Input and Output](/concepts/agents/input-output) documentation.
+</Tip>
+
+In addition, you can set the `output_schema` on the agent to specify typed output.
+
+```python hackernews_agent.py
+from pydantic import BaseModel, Field
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.tools.hackernews import HackerNewsTools
+
+class HackernewsReport(BaseModel):
+    title: str = Field(..., description="Title of the Hackernews article.")
+    subtitle: str = Field(..., description="Subtitle of the Hackernews article.")
+    content: str = Field(..., description="Content of the Hackernews article.")
+
+hackernews_agent = Agent(
+    name="Hackernews Agent",
+    model=OpenAIChat(id="gpt-5-nano"),
+    tools=[HackerNewsTools()],
+    role="Extract key insights and content from Hackernews posts and write a report about it.",
+    output_schema=HackernewsReport,
+)
+
+hackernews_agent.print_response("Latest happening in the world of AI")
+```
+
+<Tip>
+See more details in the [Input and Output](/concepts/agents/input-output) documentation.
+</Tip>
 
 ### RunOutput
 
@@ -197,24 +263,3 @@ The following events are yielded by the `Agent.run()` and `Agent.arun()` functio
 - View the [Agent schema](/reference/agents/agent)
 - View the [RunOutput schema](/reference/agents/run-response)
 - View [Agent Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/agents/README.md)
-
-### Using an Output Model
-
-You can use a different model to produce the run output of the agent.
-This is useful when the primary model is optimized for image analysis, for example, but you want a different model to produce a structured output response.
-
-```python
-agent = Agent(
-    model=Claude(id="claude-sonnet-4-20250514"),  # The main processing model
-    description="You write movie scripts.",
-    output_schema=MovieScript,
-    output_model=OpenAIChat(id="gpt-5-mini"),  # Only used to parse the output
-)
-```
-
-You can also provide a custom `output_model_prompt` to your Output Model to customize the model's instructions.
-
-<Tip>
-  Gemini models often reject requests to use tools and produce structured output
-  at the same time. Using an Output Model is an effective workaround for this.
-</Tip>

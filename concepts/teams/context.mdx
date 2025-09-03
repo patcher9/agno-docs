@@ -3,20 +3,31 @@ title: Context Engineering
 description: Learn how to write prompts and other context engineering techniques for your teams.
 ---
 
-You can change the way your Team behaves by changing the **system** message context that is sent to the language model.
+Context engineering is the process of designing and controlling the information (context) that is sent to language models to guide their behavior and outputs. 
+In Agno, this means carefully crafting the system message, which includes the team's description, instructions, and other relevant settings. By thoughtfully engineering this context, you can:
 
-In Agno, the system message is dynamically created using `description` and `instructions` and a number of other settings.
+- Steer the team toward specific behaviors or roles.
+- Constrain or expand the team's capabilities.
+- Ensure outputs are consistent, relevant, and aligned with your application's needs.
+- Enable advanced use cases such as multi-step reasoning, tool use, or structured output for your team.
 
-Understanding how these prompts are created will help you build better Multi-Agent Systems.
+Effective context engineering involves iteratively refining the system message, experimenting with different descriptions and instructions, and leveraging features like input/output schemas or tool integrations. 
 
-<Tip>
-  You can always set the `system_message` to override any dynamically generated
-  system prompt.
-</Tip>
+The context of an Agno team consists of the following:
+- **System message**: The system message is the main context that is sent to the team, including all additional context
+- **User message**: The user message is the message that is sent to the team.
+- **Chat history**: The chat history is the history of the conversation between the team and the user.
+- **Additional input**: Any few-shot examples or other additional input that is added to the context.
 
 See [Agent Context Engineering](/concepts/agents/context) for more information.
 
 ## System message context
+
+The following are some key parameters that are used to create the system message:
+
+1. **Description**: A description that guides the overall behaviour of the agent.
+2. **Instructions**: A list of precise, task-specific instructions on how to achieve its goal.
+3. **Expected Output**: A description of the expected output from the Agent.
 
 The system message is created using `description`, `instructions` and a number of other settings. The `description` is added to the start of the system message and `instructions` are added as a list. For example:
 
@@ -180,6 +191,17 @@ The Team leader creates a default system message that can be customized using th
 | `build_context`                  | `bool`      | `True`  | Optionally disable the building of the context.                                                                                                                            |
 
 See the full [Team reference](/reference/teams/team) for more information.
+
+### Set the system message directly
+
+You can manually set the system message using the `system_message` parameter. This will ignore all other settings and use the system message you provide.
+
+```python
+from agno.team import Team
+
+team = Team(members=[], system_message="Share a 2 sentence story about")
+team.print_response("Love in the year 12000.")
+```
 
 ## User message
 

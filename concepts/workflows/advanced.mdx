@@ -651,7 +651,7 @@ Workflows seamlessly handle media artifacts (images, videos, audio) throughout t
 - **Step Propagation**: Media is passed through to individual steps (Agents, Teams, or Custom Functions)
 - **Artifact Accumulation**: Each step receives shared media from previous steps and can produce additional outputs
 - **Format Compatibility**: Automatic conversion between artifact formats ensures seamless integration
-- **Complete Preservation**: Final `WorkflowRunResponse` contains all accumulated media from the entire execution chain
+- **Complete Preservation**: Final `WorkflowRunOutput` contains all accumulated media from the entire execution chain
 
 Here's an example of how to pass image as input:
 
@@ -708,7 +708,7 @@ if __name__ == "__main__":
 ```
 
 <Note>
-If you are using `Workflow.run()`, you need to use `WorkflowRunResponse` to access the images, videos, and audio.
+If you are using `Workflow.run()`, you need to use `WorkflowRunOutput` to access the images, videos, and audio.
 ```python
 from agno.run.workflow import WorkflowRunOutput
 

@@ -53,7 +53,7 @@ Similar to images, you can also use audio and video as an input.
 import base64
 
 import requests
-from agno.agent import Agent, RunResponse  # noqa
+from agno.agent import Agent, RunOutput  # noqa
 from agno.media import Audio
 from agno.models.openai import OpenAIChat
 
@@ -217,7 +217,7 @@ audio_agent.print_response("Generate a kick sound effect")
 Some models can directly generate audio as part of their response.
 
 ```python audio_agent.py
-from agno.agent import Agent, RunResponse
+from agno.agent import Agent, RunOutput
 from agno.models.openai import OpenAIChat
 from agno.utils.audio import write_audio_to_file
 
@@ -229,7 +229,7 @@ agent = Agent(
     ),
     markdown=True,
 )
-response: RunResponse = agent.run("Tell me a 5 second scary story")
+response: RunOutput = agent.run("Tell me a 5 second scary story")
 
 # Save the response audio to a file
 if response.response_audio is not None:

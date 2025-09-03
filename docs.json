@@ -83,13 +83,13 @@
                   "concepts/agents/introduction",
                   "concepts/agents/run",
                   "concepts/agents/sessions",
-                  "concepts/agents/storage",
+                  "concepts/agents/input-output",
                   "concepts/agents/context",
                   "concepts/agents/state",
+                  "concepts/agents/storage",
                   "concepts/agents/memory",
                   "concepts/agents/knowledge",
                   "concepts/agents/tools",
-                  "concepts/agents/structured-input-output",
                   "concepts/agents/dependencies",
                   "concepts/agents/metrics",
                   "concepts/agents/run-cancel"
@@ -109,14 +109,14 @@
                       "concepts/teams/modes/collaborate"
                     ]
                   },
-                  "concepts/teams/storage",
+                  "concepts/teams/input-output",
                   "concepts/teams/context",
                   "concepts/teams/state",
+                  "concepts/teams/storage",
                   "concepts/teams/memory",
                   "concepts/teams/knowledge",
                   "concepts/teams/metrics",
                   "concepts/teams/dependencies",
-                  "concepts/teams/structured-input-output",
                   "concepts/teams/run-cancel"
                 ]
               },
@@ -508,24 +508,24 @@
               {
                 "group": "Other Integrations",
                 "pages": [
-                  "docs/integrations/discord/introduction",
+                  "integrations/discord/introduction",
                   {
                     "group": "Observability",
                     "pages": [
-                      "docs/integrations/observability/introduction",
-                      "docs/integrations/observability/agentops",
-                      "docs/integrations/observability/arize",
-                      "docs/integrations/observability/atla",
-                      "docs/integrations/observability/langdb",
-                      "docs/integrations/observability/langfuse",
-                      "docs/integrations/observability/langsmith",
-                      "docs/integrations/observability/langtrace",
-                      "docs/integrations/observability/weave"
+                      "integrations/observability/introduction",
+                      "integrations/observability/agentops",
+                      "integrations/observability/arize",
+                      "integrations/observability/atla",
+                      "integrations/observability/langdb",
+                      "integrations/observability/langfuse",
+                      "integrations/observability/langsmith",
+                      "integrations/observability/langtrace",
+                      "integrations/observability/weave"
                     ]
                   },
                   {
                     "group": "Testing",
-                    "pages": ["docs/integrations/testing/scenario-testing"]
+                    "pages": ["integrations/testing/scenario-testing"]
                   }
                 ]
               }
@@ -534,16 +534,16 @@
           {
             "group": "Agent UI",
             "hidden": true,
-            "pages": ["docs/agent-ui/introduction"]
+            "pages": ["agent-ui/introduction"]
           },
           {
             "group": "Help",
             "pages": [
-              "docs/how-to/install",
-              "docs/how-to/v2-changelog",
-              "docs/how-to/v2-migration",
-              "docs/how-to/workflows-migration",
-              "docs/how-to/contribute"
+              "how-to/install",
+              "how-to/v2-changelog",
+              "how-to/v2-migration",
+              "how-to/workflows-migration",
+              "how-to/contribute"
             ]
           }
         ]
@@ -554,20 +554,20 @@
           {
             "group": "AgentOS",
             "pages": [
-              "docs/agent-os/introduction",
-              "docs/agent-os/control-plane",
-              "docs/agent-os/creating-your-first-os",
-              "docs/agent-os/connecting-your-os",
-              "docs/agent-os/chat-interface",
-              "docs/agent-os/knowledge-management",
-              "docs/agent-os/session-tracking",
-              "docs/agent-os/security",
+              "agent-os/introduction",
+              "agent-os/control-plane",
+              "agent-os/creating-your-first-os",
+              "agent-os/connecting-your-os",
+              "agent-os/chat-interface",
+              "agent-os/knowledge-management",
+              "agent-os/session-tracking",
+              "agent-os/security",
               {
                 "group": "Interfaces",
                 "pages": [
-                  "docs/agent-os/interfaces/whatsapp/introduction",
-                  "docs/agent-os/interfaces/ag-ui/introduction",
-                  "docs/agent-os/interfaces/slack/introduction"
+                  "agent-os/interfaces/whatsapp/introduction",
+                  "agent-os/interfaces/ag-ui/introduction",
+                  "agent-os/interfaces/slack/introduction"
                 ]
               }
             ]
