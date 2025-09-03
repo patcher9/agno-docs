@@ -4,7 +4,7 @@ title: Mem0 Memory
 ## Code
 
 ```python cookbook/agent_concepts/memory/mem0_memory.py
-from agno.agent import Agent, RunResponse
+from agno.agent import Agent, RunOutput
 from agno.models.openai import OpenAIChat
 from agno.utils.pprint import pprint_run_response
 from mem0 import MemoryClient
@@ -25,7 +25,7 @@ agent = Agent(
     context={"memory": client.get_all(user_id=user_id)},
     add_context=True,
 )
-run: RunResponse = agent.run("What do you know about me?")
+run: RunOutput = agent.run("What do you know about me?")
 
 pprint_run_response(run)
 

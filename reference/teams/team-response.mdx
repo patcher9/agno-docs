@@ -1,11 +1,11 @@
 ---
-title: TeamRunResponse
+title: TeamRunOutput
 sidebarTitle: Team Run Response & Events
 ---
 
-The `TeamRunResponse` class represents the response from a team run, containing both the team's overall response and individual member responses. It supports streaming and provides real-time events throughout the execution of a team.
+The `TeamRunOutput` class represents the response from a team run, containing both the team's overall response and individual member responses. It supports streaming and provides real-time events throughout the execution of a team.
 
-## TeamRunResponse Attributes
+## TeamRunOutput Attributes
 
 | Attribute | Type | Default | Description |
 |-----------|------|---------|-------------|
@@ -16,7 +16,7 @@ The `TeamRunResponse` class represents the response from a team run, containing 
 | `metrics` | `Dict[str, Any]` | `None` | Usage metrics of the run |
 | `model` | `str` | `None` | The model used in the run |
 | `model_provider` | `str` | `None` | The model provider used in the run |
-| `member_responses` | `List[Union[TeamRunResponse, RunResponse]]` | `[]` | Responses from individual team members |
+| `member_responses` | `List[Union[TeamRunOutput, RunOutput]]` | `[]` | Responses from individual team members |
 | `run_id` | `str` | `None` | Run Id |
 | `team_id` | `str` | `None` | Team Id for the run |
 | `session_id` | `str` | `None` | Session Id for the run |
@@ -28,9 +28,9 @@ The `TeamRunResponse` class represents the response from a team run, containing 
 | `reasoning_content` | `str` | `None` | Any reasoning content the model produced |
 | `citations` | `Citations` | `None` | Any citations used in the response |
 | `created_at` | `int` | Current timestamp | Unix timestamp of the response creation |
-| `extra_data` | `RunResponseExtraData` | `None` | Extra data containing optional fields like `references`, `add_messages`, `history`, `reasoning_steps`, and `reasoning_messages` |
+| `extra_data` | `RunOutputExtraData` | `None` | Extra data containing optional fields like `references`, `add_messages`, `history`, `reasoning_steps`, and `reasoning_messages` |
 
-## TeamRunResponseEvent Types
+## TeamRunOutputEvent Types
 
 The following events are sent by the `Team.run()` function depending on the team's configuration:
 
@@ -39,7 +39,7 @@ The following events are sent by the `Team.run()` function depending on the team
 | Event Type | Description |
 |------------|-------------|
 | `TeamRunStarted` | Indicates the start of a team run |
-| `TeamRunResponseContent` | Contains the model's response text as individual chunks |
+| `TeamRunContent` | Contains the model's response text as individual chunks |
 | `TeamRunCompleted` | Signals successful completion of the team run |
 | `TeamRunError` | Indicates an error occurred during the team run |
 | `TeamRunCancelled` | Signals that the team run was cancelled |
@@ -68,9 +68,9 @@ The following events are sent by the `Team.run()` function depending on the team
 
 ## Event Attributes
 
-### Base TeamRunResponseEvent
+### Base TeamRunOutputEvent
 
-All events inherit from `BaseTeamRunResponseEvent` which provides these common attributes:
+All events inherit from `BaseTeamRunOutputEvent` which provides these common attributes:
 
 | Attribute | Type | Default | Description |
 |-----------|------|---------|-------------|
@@ -81,7 +81,7 @@ All events inherit from `BaseTeamRunResponseEvent` which provides these common a
 | `session_id` | `Optional[str]` | `None` | ID of the current session |
 | `content` | `Optional[Any]` | `None` | For backwards compatibility |
 
-### RunResponseStartedEvent
+### RunStartedEvent
 
 | Attribute | Type | Default | Description |
 |-----------|------|---------|-------------|
@@ -89,24 +89,32 @@ All events inherit from `BaseTeamRunResponseEvent` which provides these common a
 | `model` | `str` | `""` | The model being used |
 | `model_provider` | `str` | `""` | The provider of the model |
 
-### RunResponseContentEvent
+### IntermediateRunContentEvent
 
 | Attribute | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"TeamRunResponseContent"` | Event type |
+| `event` | `str` | `"TeamRunIntermediateContent"` | Event type |
+| `content` | `Optional[Any]` | `None` | Intermediate content of the response |
+| `content_type` | `str` | `"str"` | Type of the content |
+
+### RunContentEvent
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `event` | `str` | `"TeamRunContent"` | Event type |
 | `content` | `Optional[Any]` | `None` | The content of the response |
 | `content_type` | `str` | `"str"` | Type of the content |
 | `thinking` | `Optional[str]` | `None` | Internal thoughts of the model |
 | `citations` | `Optional[Citations]` | `None` | Citations used in the response |
 | `response_audio` | `Optional[AudioResponse]` | `None` | Model's audio response |
 | `image` | `Optional[ImageArtifact]` | `None` | Image attached to the response |
-| `extra_data` | `Optional[RunResponseExtraData]` | `None` | Additional response data |
+| `extra_data` | `Optional[RunOutputExtraData]` | `None` | Additional response data |
 
-### RunResponseCompletedEvent
+### RunCompletedEvent
 
 | Attribute | Type | Default | Description |
 |-----------|------|---------|-------------|
-| `event` | `str` | `"TeamRunCompleted"` | Event type |
+| `event` | `str` | `"TeamRunContent"` | Event type |
 | `content` | `Optional[Any]` | `None` | Final content of the response |
 | `content_type` | `str` | `"str"` | Type of the content |
 | `reasoning_content` | `Optional[str]` | `None` | Reasoning content produced |
@@ -116,17 +124,17 @@ All events inherit from `BaseTeamRunResponseEvent` which provides these common a
 | `videos` | `Optional[List[VideoArtifact]]` | `None` | Videos attached to the response |
 | `audio` | `Optional[List[AudioArtifact]]` | `None` | Audio snippets attached to the response |
 | `response_audio` | `Optional[AudioResponse]` | `None` | Model's audio response |
-| `extra_data` | `Optional[RunResponseExtraData]` | `None` | Additional response data |
-| `member_responses` | `List[Union[TeamRunResponse, RunResponse]]` | `[]` | Responses from individual team members |
+| `extra_data` | `Optional[RunOutputExtraData]` | `None` | Additional response data |
+| `member_responses` | `List[Union[TeamRunOutput, RunOutput]]` | `[]` | Responses from individual team members |
 
-### RunResponseErrorEvent
+### RunErrorEvent
 
 | Attribute | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `event` | `str` | `"TeamRunError"` | Event type |
 | `content` | `Optional[Any]` | `None` | Error message |
 
-### RunResponseCancelledEvent
+### RunCancelledEvent
 
 | Attribute | Type | Default | Description |
 |-----------|------|---------|-------------|
@@ -187,3 +195,27 @@ All events inherit from `BaseTeamRunResponseEvent` which provides these common a
 | Attribute | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `event` | `str` | `"TeamMemoryUpdateCompleted"` | Event type |
+
+### ParserModelResponseStartedEvent
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `event` | `str` | `"TeamParserModelResponseStarted"` | Event type |
+
+### ParserModelResponseCompletedEvent
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `event` | `str` | `"TeamParserModelResponseCompleted"` | Event type |
+
+### OutputModelResponseStartedEvent
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `event` | `str` | `"TeamOutputModelResponseStarted"` | Event type |
+
+### OutputModelResponseCompletedEvent
+
+| Attribute | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `event` | `str` | `"TeamOutputModelResponseCompleted"` | Event type |

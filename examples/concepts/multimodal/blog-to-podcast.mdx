@@ -11,7 +11,7 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.eleven_labs import ElevenLabsTools
 from agno.tools.firecrawl import FirecrawlTools
-from agno.agent import Agent, RunResponse
+from agno.agent import Agent, RunOutput
 from agno.utils.audio import write_audio_to_file
 from agno.utils.log import logger
 
@@ -44,7 +44,7 @@ blog_to_podcast_agent = Agent(
     debug_mode=True,
 )
 
-podcast: RunResponse = blog_to_podcast_agent.run(
+podcast: RunOutput = blog_to_podcast_agent.run(
     f"Convert the blog content to a podcast: {url}"
 )
 
