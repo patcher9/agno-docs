@@ -704,6 +704,13 @@
                 ]
               }
             ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "reference/agent-os/agent-os",
+              "reference/agent-os/configuration"
+            ]
           }
         ]
       },
