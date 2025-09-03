@@ -26,7 +26,7 @@ from agno.tools.calculator import CalculatorTools
 
 def factorial():
     agent = Agent(
-        model=OpenAIChat(id="gpt-5-nano"),
+        model=OpenAIChat(id="gpt-5-mini"),
         tools=[CalculatorTools(factorial=True)],
     )
     response: RunOutput = agent.run("What is 10!?")
@@ -63,7 +63,7 @@ from agno.tools.calculator import CalculatorTools
 
 def multiply_and_exponentiate():
     agent = Agent(
-        model=OpenAIChat(id="gpt-5-nano"),
+        model=OpenAIChat(id="gpt-5-mini"),
         tools=[CalculatorTools(add=True, multiply=True, exponentiate=True)],
     )
     response: RunOutput = agent.run(

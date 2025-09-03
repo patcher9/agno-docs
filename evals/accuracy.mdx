@@ -95,7 +95,7 @@ evaluation = AccuracyEval(
     name="Tools Evaluation",
     model=OpenAIChat(id="o4-mini"),
     agent=Agent(
-        model=OpenAIChat(id="gpt-5-nano"),
+        model=OpenAIChat(id="gpt-5-mini"),
         tools=[CalculatorTools(factorial=True)],
     ),
     input="What is 10!?",

@@ -13,7 +13,7 @@ url = "https://agno-public.s3.amazonaws.com/demo_data/sample_conversation.wav"
 
 agent = Agent(
     name="Groq Transcription Agent",
-    model=OpenAIChat(id="gpt-5-nano"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[GroqTools(exclude_tools=["generate_speech"])],
 )
 

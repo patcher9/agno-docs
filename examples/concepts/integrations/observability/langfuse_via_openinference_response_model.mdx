@@ -57,7 +57,7 @@ class WebSearchResult(BaseModel):
 
 agent = Agent(
     name="Web Research Agent",
-    model=OpenAIChat(id="gpt-5-nano"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[DuckDuckGoTools()],
     instructions="You are a web research agent. Use DuckDuckGo to search the web and find relevant information. Analyze the search results and provide structured information about what you find.",
     debug_mode=True,

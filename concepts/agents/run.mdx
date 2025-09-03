@@ -51,7 +51,7 @@ class ResearchTopic(BaseModel):
 
 hackernews_agent = Agent(
     name="Hackernews Agent",
-    model=OpenAIChat(id="gpt-5-nano"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[HackerNewsTools()],
     role="Extract key insights and content from Hackernews posts",
 )
@@ -85,7 +85,7 @@ class HackernewsReport(BaseModel):
 
 hackernews_agent = Agent(
     name="Hackernews Agent",
-    model=OpenAIChat(id="gpt-5-nano"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[HackerNewsTools()],
     role="Extract key insights and content from Hackernews posts and write a report about it.",
     output_schema=HackernewsReport,

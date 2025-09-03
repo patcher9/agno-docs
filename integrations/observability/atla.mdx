@@ -39,7 +39,7 @@ configure(token=getenv("ATLA_API_KEY"))
 # Step 2: Create your Agno agent
 agent = Agent(
     name="Market Analysis Agent",
-    model=OpenAIChat(id="gpt-5-nano"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[DuckDuckGoTools()],
     instructions="Provide professional market analysis with data-driven insights.",
     debug_mode=True,

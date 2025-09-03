@@ -97,7 +97,7 @@ from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.utils import pprint
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-5-nano"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[DuckDuckGoTools(requires_confirmation_tools=["duckduckgo_search"])],
 )
 
@@ -284,7 +284,7 @@ class EmailTools(Toolkit):
 
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-5-nano"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[EmailTools(), UserControlFlowTools()],
     markdown=True,
     debug_mode=True,
@@ -347,7 +347,7 @@ def execute_shell_command(command: str) -> str:
 
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-5-nano"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[execute_shell_command],
     markdown=True,
 )

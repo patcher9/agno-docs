@@ -13,7 +13,7 @@ from agno.team.team import Team
 
 team = Team(
     db=InMemoryDb(),
-    model=OpenAIChat(id="gpt-5-nano"),
+    model=OpenAIChat(id="gpt-5-mini"),
     members=[],
     instructions="Users name is {user_name} and age is {age}",
 )

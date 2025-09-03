@@ -15,7 +15,7 @@ from agno.models.openai.chat import OpenAIChat
 from agno.tools.yfinance import YFinanceTools
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-5-nano"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[YFinanceTools(company_news=True, cache_results=True)],
     tool_call_limit=1, # The Agent will not perform more than one tool call.
 )

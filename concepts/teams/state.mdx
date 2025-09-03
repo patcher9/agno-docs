@@ -86,7 +86,7 @@ def remove_item(session_state, item: str) -> str:
 shopping_agent = Agent(
     name="Shopping List Agent",
     role="Manage the shopping list",
-    model=OpenAIChat(id="gpt-5-nano"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[add_item, remove_item],
 )
 
@@ -118,7 +118,7 @@ def add_chore(session_state, chore: str) -> str:
 shopping_team = Team(
     name="Shopping Team",
     mode="coordinate",
-    model=OpenAIChat(id="gpt-5-nano"),
+    model=OpenAIChat(id="gpt-5-mini"),
     members=[shopping_agent],
     session_state={"shopping_list": [], "chores": []},
     tools=[list_items, add_chore],
@@ -227,7 +227,7 @@ from agno.db.in_memory import InMemoryDb
 
 team = Team(
     db=InMemoryDb(),
-    model=OpenAIChat(id="gpt-5-nano"),
+    model=OpenAIChat(id="gpt-5-mini"),
     members=[],
     instructions="Users name is {user_name} and age is {age}",
 )

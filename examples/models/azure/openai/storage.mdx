@@ -17,7 +17,7 @@ db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 db = PostgresDb(db_url=db_url)
 
 agent = Agent(
-    model=AzureOpenAI(id="gpt-5-nano"),
+    model=AzureOpenAI(id="gpt-5-mini"),
     db=db,
     tools=[DuckDuckGoTools()],
     add_history_to_context=True,

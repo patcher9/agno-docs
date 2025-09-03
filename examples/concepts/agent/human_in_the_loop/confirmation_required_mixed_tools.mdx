@@ -70,7 +70,7 @@ def send_email(to: str, subject: str, body: str) -> str:
 
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-5-nano"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[get_top_hackernews_stories, send_email],
     markdown=True,
 )

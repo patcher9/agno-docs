@@ -18,7 +18,7 @@ db = SqliteDb(db_file="tmp/storage.db")
 
 def run_agent():
     agent = Agent(
-        model=OpenAIChat(id="gpt-5-nano"),
+        model=OpenAIChat(id="gpt-5-mini"),
         system_message="Be concise, reply with one sentence.",
         add_history_to_context=True,
         db=db,

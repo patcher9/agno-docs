@@ -17,7 +17,7 @@ session_id = str(uuid4())
 user_id = "john_doe@example.com"
 
 agent_1 = Agent(
-    model=OpenAIChat(id="gpt-5-nano"),
+    model=OpenAIChat(id="gpt-5-mini"),
     instructions="You are really friendly and helpful.",
     db=db,
     add_history_to_messages=True,
@@ -25,7 +25,7 @@ agent_1 = Agent(
 )
 
 agent_2 = Agent(
-    model=OpenAIChat(id="gpt-5-nano"),
+    model=OpenAIChat(id="gpt-5-mini"),
     instructions="You are really grumpy and mean.",
     db=db,
     add_history_to_messages=True,

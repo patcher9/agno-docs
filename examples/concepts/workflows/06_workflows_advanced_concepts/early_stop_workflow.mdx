@@ -22,7 +22,7 @@ from agno.workflow.types import StepInput, StepOutput
 # Create agents with more specific validation criteria
 data_validator = Agent(
     name="Data Validator",
-    model=OpenAIChat(id="gpt-5-nano"),
+    model=OpenAIChat(id="gpt-5-mini"),
     instructions=[
         "You are a data validator. Analyze the provided data and determine if it's valid.",
         "For data to be VALID, it must meet these criteria:",
@@ -38,13 +38,13 @@ data_validator = Agent(
 
 data_processor = Agent(
     name="Data Processor",
-    model=OpenAIChat(id="gpt-5-nano"),
+    model=OpenAIChat(id="gpt-5-mini"),
     instructions="Process and transform the validated data.",
 )
 
 report_generator = Agent(
     name="Report Generator",
-    model=OpenAIChat(id="gpt-5-nano"),
+    model=OpenAIChat(id="gpt-5-mini"),
     instructions="Generate a final report from processed data.",
 )
 

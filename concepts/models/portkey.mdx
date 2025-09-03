@@ -41,7 +41,7 @@ from agno.agent import Agent, RunOutput
 from agno.models.portkey import Portkey
 
 agent = Agent(
-    model=Portkey(id="gpt-5-nano"),
+    model=Portkey(id="gpt-5-mini"),
     markdown=True
 )
 
@@ -71,7 +71,7 @@ config = {
 
 agent = Agent(
     model=Portkey(
-        id="gpt-5-nano",
+        id="gpt-5-mini",
         config=config,
     ),
 )

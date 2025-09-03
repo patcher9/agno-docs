@@ -82,7 +82,7 @@ output_path.parent.mkdir(parents=True, exist_ok=True)
 
 agent = Agent(
     name="Groq Translation Agent",
-    model=OpenAIChat(id="gpt-5-nano"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[GroqTools()],
     )
 

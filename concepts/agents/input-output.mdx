@@ -202,7 +202,7 @@ An agent can be provided with structured input (i.e a pydantic model) by passing
 
         hackernews_agent = Agent(
             name="Hackernews Agent",
-            model=OpenAIChat(id="gpt-5-nano"),
+            model=OpenAIChat(id="gpt-5-mini"),
             tools=[HackerNewsTools()],
             role="Extract key insights and content from Hackernews posts",
         )
@@ -264,7 +264,7 @@ You can set `input_schema` on the Agent to validate the input.  If you then pass
         # Define agents
         hackernews_agent = Agent(
             name="Hackernews Agent",
-            model=OpenAIChat(id="gpt-5-nano"),
+            model=OpenAIChat(id="gpt-5-mini"),
             tools=[HackerNewsTools()],
             role="Extract key insights and content from Hackernews posts",
             input_schema=ResearchTopic,
