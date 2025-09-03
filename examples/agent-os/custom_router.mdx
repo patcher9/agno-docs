@@ -30,11 +30,11 @@ web_research_agent = Agent(
     markdown=True,
 )
 
-# Custom FastAPI app with custom router
+# Your own FastAPI app
 custom_app = FastAPI()
 router = APIRouter()
 
-@router.post("/customers")
+@router.post("/customers")  
 async def get_customers():
     return [
         {
@@ -49,14 +49,14 @@ async def get_customers():
         },
     ]
 
-custom_app.include_router(router)
+custom_app.include_router(router)  # Include the custom router in the FastAPI app
 
 
 # Setup our AgentOS app
 agent_os = AgentOS(
     description="Example app with custom routers",
     agents=[web_research_agent],
-    fastapi_app=custom_app,
+    fastapi_app=custom_app,  # Pass the FastAPI app with the custom router
 )
 app = agent_os.get_app()
 
