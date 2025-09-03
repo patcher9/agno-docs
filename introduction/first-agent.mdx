@@ -3,35 +3,42 @@ title: Your First Agent
 description: Build your first AI Agent with Agno.
 ---
 
-**Agents are AI programs where a large language model controls the flow of execution.**
+**Agents are AI programs where a machine learning model controls the flow of execution.**
 
-In the following example, we'll build an Agent that can answer questions using the Agno MCP server. Don't let the _async_ scare you, this is a simple yet complete example that you can build on top of by connecting to any MCP server available.
+In 10 lines of code, we have an AI program that takes action based on user input and available tools. This agent will fetch the top stories from HackerNews and summarize them.
 
-```python agno_mcp.py
+```python hackernews_agent.py lines
+from agno.agent import Agent
+from agno.models.anthropic import Claude
+from agno.tools.hackernews import HackerNewsTools
+
+agent = Agent(
+    model=Claude(id="claude-sonnet-4-0"),
+    tools=[HackerNewsTools()],
+    markdown=True,
+)
+agent.print_response("Summarize the top 5 stories on hackernews", stream=True)
+```
+
+Next, let's build an Agent that can answer questions about Agno using the Agno MCP server. **This is a simple and complete example that you can extend by connecting any MCP server**.
+
+```python agno_mcp.py lines
 import asyncio
 from agno.agent import Agent
-from agno.models.openai import OpenAIChat
+from agno.models.anthropic import Claude
 from agno.tools.mcp import MCPTools
 
 
 async def run_agent(message: str) -> None:
-    agno_tools = MCPTools(
-      transport="streamable-http",
-      # You can use any MCP server you want
-      url="https://docs-v2.agno.com/mcp"
-    )
-    await agno_tools.connect()
-  
-    # Define your Agent
-    agent = Agent(
-        model=OpenAIChat(id="gpt-5-mini"),
-        tools=[agno_tools],
-        markdown=True,
-    )
-    # Run your Agent
-    await agent.aprint_response(input=message, stream=True)
-    
-    await agno_tools.close()
+    async with MCPTools(
+        transport="streamable-http", url="https://docs-v2.agno.com/mcp"
+    ) as agno_mcp_server:
+        agent = Agent(
+            model=Claude(id="claude-sonnet-4-0"),
+            tools=[agno_mcp_server],
+            markdown=True,
+        )
+        await agent.aprint_response(input=message, stream=True)
 
 
 if __name__ == "__main__":
@@ -62,24 +69,24 @@ Create a virtual environment, install dependencies, export your API key and run 
 
     <CodeGroup>
     ```bash Mac
-    uv pip install -U agno openai mcp
+    uv pip install -U agno anthropic mcp
     ```
 
     ```bash Windows
-    uv pip install -U agno openai mcp
+    uv pip install -U agno anthropic mcp
     ```
     </CodeGroup>
 
   </Step>
-  <Step title="Export your OpenAI key">
+  <Step title="Export your Anthropic API key">
 
     <CodeGroup>
     ```bash Mac
-    export OPENAI_API_KEY=sk-***
+    export ANTHROPIC_API_KEY=sk-***
     ```
 
     ```bash Windows
-    setx OPENAI_API_KEY sk-***
+    setx ANTHROPIC_API_KEY sk-***
     ```
     </CodeGroup>
 
@@ -98,3 +105,78 @@ Create a virtual environment, install dependencies, export your API key and run 
 Set `debug_mode=True` or `export AGNO_DEBUG=true` to see the system and user messages.
 
 </Note>
+
+## Give your Agent Storage
+
+By default, Agent runs are stateless i.e. the model API doesn’t remember previous messages. But in most cases, we want sessions to continue across multiple requests. Storage solves this by saving chat history and state in a database, so we can add past messages to the context and make our Agents stateful. When an Agent runs, it retrieves the stored history and state, adds them to the context, and resumes the conversation.
+
+Storage also enables deeper insights: inspecting sessions, extracting few-shot examples, and building monitoring tools. It helps us track data, improve reliability, and build better Agents.
+
+Agno supports most databases as storage drivers, but in this example we'll use SQLite to keep things simple. Update the `agno_mcp.py` file and give your Agent a Sqlite database:
+
+```python agno_mcp.py lines
+import asyncio
+
+from agno.agent import Agent
+from agno.db.sqlite import SqliteDb
+from agno.models.anthropic import Claude
+from agno.tools.mcp import MCPTools
+
+# Setup a database for the Agent // [!code ++:2]
+db = SqliteDb(db_file="agno.db")
+
+
+async def run_agent(message: str) -> None:
+    async with MCPTools(
+        transport="streamable-http", url="https://docs-v2.agno.com/mcp"
+    ) as agno_mcp_server:
+        agent = Agent(
+            # Add the database to the Agent // [!code ++:2]
+            db=db,
+            model=Claude(id="claude-sonnet-4-0"),
+            tools=[agno_mcp_server],
+            # Add the previous session history to the context // [!code ++:4]
+            add_history_to_context=True,
+            # Specify how many messages to add to the context
+            num_history_runs=3,
+            markdown=True,
+        )
+        # Manually set the session id so we can continue the same session across runs // [!code ++]
+        await agent.aprint_response(input=message, stream=True, session_id="session_1")
+
+
+if __name__ == "__main__":
+    asyncio.run(run_agent("What was my last message?"))
+    asyncio.run(run_agent("What is Agno?"))
+    asyncio.run(run_agent("What was my last message?"))
+```
+
+Now, the Agent will store the session history and state in the database. Run the Agent multiple times and see how it persists the session history and state:
+
+<Steps>
+  <Step title="Install new dependencies">
+
+    <CodeGroup>
+    ```bash Mac
+    uv pip install -U sqlalchemy
+    ```
+
+    ```bash Windows
+    uv pip install -U sqlalchemy
+    ```
+    </CodeGroup>
+
+  </Step>
+  <Step title="Run the agent multiple times">
+
+    ```shell
+    python agno_mcp.py
+    ```
+    ```shell
+    python agno_mcp.py
+    ```
+
+  </Step>
+</Steps>
+
+The first time you run the Agent, it will not have any session history and state. But when you run it multiple times, it will persist the session history and state in the database.
