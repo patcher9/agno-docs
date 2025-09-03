@@ -30,7 +30,7 @@ agent = Agent(
 )
 
 # Question with streaming
-output_stream: Iterator[RunResponse] = agent.run(
+output_stream: Iterator[RunOutputEvent] = agent.run(
     "Is a golden retriever a good family dog?", 
     stream=True
 )

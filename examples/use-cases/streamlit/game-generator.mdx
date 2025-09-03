@@ -10,9 +10,9 @@ import json
 from pathlib import Path
 from typing import Iterator
 
-from agno.agent import Agent, RunResponse
+from agno.agent import Agent, RunOutput
 from agno.models.openai import OpenAIChat
-from agno.run.response import RunEvent
+from agno.run.agent import RunEvent
 from agno.storage.workflow.sqlite import SqliteWorkflowStorage
 from agno.utils.log import logger
 from agno.utils.pprint import pprint_run_response
@@ -67,7 +67,7 @@ class GameGenerator(Workflow):
         output_schema=QAOutput,
     )
 
-    def run(self, game_description: str) -> Iterator[RunResponse]:
+    def run(self, game_description: str) -> Iterator[RunOutputEvent]:
         logger.info(f"Game description: {game_description}")
 
         game_output = self.game_developer.run(game_description)
@@ -80,7 +80,7 @@ class GameGenerator(Workflow):
             game_code = game_output.content.code
             logger.info(f"Game code: {game_code}")
         else:
-            yield RunResponse(
+            yield RunOutput(
                 run_id=self.run_id,
                 event=RunEvent.workflow_completed,
                 content="Sorry, could not generate a game.",
@@ -102,13 +102,13 @@ class GameGenerator(Workflow):
             # Store the resulting code
             game_output_path.write_text(game_code)
 
-            yield RunResponse(
+            yield RunOutput(
                 run_id=self.run_id,
                 event=RunEvent.workflow_completed,
                 content=game_output.content.instructions,
             )
         else:
-            yield RunResponse(
+            yield RunOutput(
                 run_id=self.run_id,
                 event=RunEvent.workflow_completed,
                 content="Sorry, could not QA the game.",
@@ -138,7 +138,7 @@ if __name__ == "__main__":
     )
 
     # Execute the workflow
-    result: Iterator[RunResponse] = game_generator.run(
+    result: Iterator[RunOutputEvent] = game_generator.run(
         game_description=game_description
     )
 

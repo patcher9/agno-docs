@@ -1,0 +1,125 @@
+---
+title: What are Workflows?
+sidebarTitle: Overview
+description: Learn how Agno Workflows enable deterministic, controlled automation of multi-agent systems
+---
+
+Agno Workflows enable you to build deterministic, controlled agentic flows by orchestrating agents, teams, and functions through a series of defined steps. Unlike free-form agent interactions, workflows provide structured automation with predictable execution patterns, making them ideal for production systems that require reliable, repeatable processes.
+
+![Workflows](/images/workflows_v2_flow.png)
+
+## Why should you use Workflows?
+
+Workflows provide deterministic control over your agentic systems, enabling you to build reliable automation that executes consistently every time. They're essential when you need:
+
+**Deterministic Execution**
+
+- Predictable step-by-step processing with defined inputs and outputs
+- Consistent results across multiple runs
+- Clear audit trails for production systems
+
+**Complex Orchestration**
+
+- Multi-agent coordination with controlled handoffs
+- Parallel processing and conditional branching
+- Loop structures for iterative tasks
+
+Workflows excel at **deterministic agent automation**, while [Teams](/concepts/teams/introduction) are designed for **dynamic agentic coordination**. Use workflows when you need predictable, repeatable processes; use teams when you need flexible, collaborative problem-solving.
+
+## Deterministic Step Execution
+
+Workflows execute as a controlled sequence of steps, where each step produces deterministic outputs that feed into the next step. This creates predictable data flows and consistent results, unlike free-form agent conversations.
+
+**Step Types**
+
+- **Agents**: Individual AI executors with specific capabilities and instructions
+- **Teams**: Coordinated groups of agents working together on complex problems
+- **Functions**: Custom Python functions for specialized processing logic
+
+**Deterministic Benefits**
+Your agents and teams retain their individual characteristics and capabilities, but now operate within a structured framework that ensures:
+
+- **Predictable execution**: Steps run in defined order with controlled inputs/outputs
+- **Repeatable results**: Same inputs produce consistent outputs across runs
+- **Clear data flow**: Output from each step explicitly becomes input for the next
+- **Controlled state**: Session management and state persistence between steps
+- **Reliable error handling**: Built-in retry mechanisms and error recovery
+
+## Workflow Input
+
+Workflows support multiple input types for maximum flexibility:
+
+| Input Type         | Example                                           | Use Case                   |
+| ------------------ | ------------------------------------------------- | -------------------------- |
+| **String**         | `"Analyze AI trends"`                             | Simple text prompts        |
+| **Pydantic Model** | `ResearchRequest(topic="AI", depth=5)`            | Type-safe structured input |
+| **List**           | `["AI", "ML", "LLMs"]`                            | Multiple items to process  |
+| **Dictionary**     | `{"query": "AI", "sources": ["web", "academic"]}` | Key-value pairs            |
+
+<Note>
+  When this input is passed to an `Agent` or `Team`, it will be serialized to a
+  string before being passed to the agent or team.
+</Note>
+
+See more on Pydantic as input in the [Structured Inputs](/concepts/workflows/advanced#structured-inputs) documentation.
+
+## Architectural components
+
+1. The **`Workflow`** class is the top-level orchestrator that manages the entire execution process.
+2. **`Step`** is the fundamental unit of work in the workflow system. Each step encapsulates exactly one `executor` - either an `Agent`, a `Team`, or a custom Python function. This design ensures clarity and maintainability while preserving the individual characteristics of each executor.
+3. **`Loop`** is a construct that allows you to execute one or more steps multiple times. This is useful when you need to repeat a set of steps until a certain condition is met.
+4. **`Parallel`** is a construct that allows you to execute one or more steps in parallel. This is useful when you need to execute a set of steps concurrently with the outputs joined together.
+5. **`Condition`** makes a step conditional based on criteria you specify.
+6. **`Router`** allows you to specify which step(s) to execute next, effectively creating branching logic in your workflow.
+
+<Note>
+  When using a custom Python function as an executor for a step, `StepInput` and
+  `StepOutput` provides standardized interfaces for data flow between steps:
+  ![Workflows Step IO](/images/step_io_flow.png)
+</Note>
+
+## How to make your first workflow?
+
+There are different types of patterns you can use to build your workflows.
+For example you can combine agents, teams, and functions to build a workflow.
+
+```python
+from agno.workflow import Step, Workflow, StepOutput
+
+def data_preprocessor(step_input):
+    # Custom preprocessing logic
+
+    # Or you can also run any agent/team over here itself
+    # response = some_agent.run(...)
+    return StepOutput(content=f"Processed: {step_input.input}") # <-- Now pass the agent/team response in content here
+
+workflow = Workflow(
+    name="Mixed Execution Pipeline",
+    steps=[
+        research_team,      # Team
+        data_preprocessor,  # Function
+        content_agent,      # Agent
+    ]
+)
+
+workflow.print_response("Analyze the competitive landscape for fintech startups", markdown=True)
+```
+
+## Useful Links
+
+<CardGroup cols={2}>
+  <Card
+    title="View Complete Example"
+    icon="code"
+    href="/examples/concepts/workflows/01-basic-workflows/sequence_of_functions_and_agents"
+  >
+    See the full example with agents, teams, and functions working together
+  </Card>
+  <Card
+    title="Use in AgentOS"
+    icon="play"
+    href="/agent-os/chat-interface#run-a-workflow"
+  >
+    Run your workflows through the AgentOS chat interface
+  </Card>
+</CardGroup>
