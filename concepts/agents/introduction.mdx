@@ -1,0 +1,121 @@
+---
+title: Agents
+sidebarTitle: Overview
+description: Learn about Agno Agents and how they work.
+hideToc: true
+---
+
+**Agents** at Agno are the building blocks of your agentic system. They are autonomous AI programs that dynamically determine their course of action using a **large language model**.
+
+The core components of an Agent are:
+
+- **Model:** controls the flow of execution. It decides whether to reason, act or respond.
+- **Instructions:** are how we program the Agent, teaching it how to use tools and respond.
+- **Tools:** enable an Agent to take actions and interact with external systems.
+- **Reasoning:** enables Agents to "think" before responding and "analyze" the results of their actions (i.e. tool calls), this improves reliability and quality of responses.
+- **Knowledge:** is domain-specific information that the Agent can **search at runtime** to make better decisions and provide accurate responses (Retrieval-Augmented Generation, or RAG). Knowledge is stored in a vector database and this **search at runtime** pattern is known as Agentic RAG/Agentic Search.
+- **Storage:** is used by Agents to save session history and state in a database. Model APIs are stateless and storage enables us to continue conversations from where they left off. This makes Agents stateful, enabling multi-turn, long-term conversations.
+- **Memory:** gives Agents the ability to store and recall information from previous interactions, allowing them to learn user preferences and personalize their responses.
+
+<Tip>
+  If this is your first time building agents, [follow these
+  examples](/docs/getting_started/agents) before diving into advanced concepts.
+</Tip>
+
+## Guides
+
+<CardGroup cols={2}>
+  <Card
+    title="Running your Agent"
+    icon="user-robot"
+    iconType="duotone"
+    href="/concepts/agents/run"
+  >
+    Learn how to run your agents.
+  </Card>
+  <Card
+    title="Agent Sessions"
+    icon="comments"
+    iconType="duotone"
+    href="/concepts/agents/sessions"
+  >
+    Learn about agent sessions.
+  </Card>
+  <Card
+    title="Agent Storage"
+    icon="database"
+    iconType="duotone"
+    href="/concepts/agents/storage"
+  >
+    Learn about session storage.
+  </Card>
+  <Card
+    title="Context Engineering"
+    icon="file-lines"
+    iconType="duotone"
+    href="/concepts/agents/context"
+  >
+    Learn about context engineering.
+  </Card>
+  <Card
+    title="Dependencies"
+    icon="brackets-curly"
+    iconType="duotone"
+    href="/concepts/agents/dependencies"
+  >
+    Learn about dependency injection in your agent's context.
+  </Card>
+  <Card
+    title="Agent State"
+    icon="crystal-ball"
+    iconType="duotone"
+    href="/concepts/agents/state"
+  >
+    Learn about managing agent state.
+  </Card>
+  <Card
+    title="Memory"
+    icon="head-side-brain"
+    iconType="duotone"
+    href="/concepts/agents/memory"
+  >
+    Learn about adding memory to your agents.
+  </Card>
+  <Card
+    title="Tools"
+    icon="wrench"
+    iconType="duotone"
+    href="/concepts/agents/tools"
+  >
+    Learn about adding tools to your agents.
+  </Card>
+  <Card
+    title="Structured Input & Output"
+    icon="fire"
+    iconType="duotone"
+    href="/concepts/agents/structured-input-output"
+  >
+    Learn about structured output responses.
+  </Card>
+  <Card
+    title="Knowledge"
+    icon="books"
+    iconType="duotone"
+    href="/concepts/agents/knowledge"
+  >
+    Learn about knowledge in agents.
+  </Card>
+  <Card
+    title="Agent Metrics"
+    icon="chart-line"
+    iconType="duotone"
+    href="/concepts/agents/metrics"
+  >
+    Learn how to track agent metrics.
+  </Card>
+</CardGroup>
+
+## Developer Resources
+
+- View the [Agent schema](/reference/agents/agent)
+- View [Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/agents/README.md)

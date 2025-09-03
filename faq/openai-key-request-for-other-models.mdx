@@ -8,7 +8,6 @@ If you see a request for an OpenAI API key but haven't explicitly configured Ope
 - The default model when unspecified in `Agent`
 - The default embedder is OpenAIEmbedder with VectorDBs, unless specified
 
-
 ## Quick fix: Configure a Different Model
 
 It is best to specify the model for the agent explicitly, otherwise it would default to `OpenAIChat`.
@@ -28,7 +27,7 @@ agent = Agent(
 agent.print_response("Share a 2 sentence horror story.")
 ```
 
-For more details on configuring different model providers, check our [models documentation](/docs/documentation/models)
+For more details on configuring different model providers, check our [models documentation](/concepts/models)
 
 ## Quick fix: Configure a Different Embedder
 
@@ -59,4 +58,4 @@ knowledge = Knowledge(
 )
 ```
 
-For more details on configuring different model providers, check our [Embeddings documentation](/docs/documentation/knowledge/embedder/)
+For more details on configuring different model providers, check our [Embeddings documentation](/concepts/knowledge/embedder/)

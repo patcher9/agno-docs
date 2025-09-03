@@ -70,7 +70,6 @@
               "introduction",
               "introduction/first-agent",
               "introduction/run-agentos",
-              "introduction/manage-agentos",
               "introduction/why-agno",
               "introduction/community"
             ]
@@ -81,361 +80,361 @@
               {
                 "group": "Agents",
                 "pages": [
-                  "docs/documentation/agents/introduction",
-                  "docs/documentation/agents/run",
-                  "docs/documentation/agents/sessions",
-                  "docs/documentation/agents/storage",
-                  "docs/documentation/agents/context",
-                  "docs/documentation/agents/state",
-                  "docs/documentation/agents/memory",
-                  "docs/documentation/agents/knowledge",
-                  "docs/documentation/agents/tools",
-                  "docs/documentation/agents/structured-input-output",
-                  "docs/documentation/agents/dependencies",
-                  "docs/documentation/agents/metrics",
-                  "docs/documentation/agents/run-cancel"
+                  "concepts/agents/introduction",
+                  "concepts/agents/run",
+                  "concepts/agents/sessions",
+                  "concepts/agents/storage",
+                  "concepts/agents/context",
+                  "concepts/agents/state",
+                  "concepts/agents/memory",
+                  "concepts/agents/knowledge",
+                  "concepts/agents/tools",
+                  "concepts/agents/structured-input-output",
+                  "concepts/agents/dependencies",
+                  "concepts/agents/metrics",
+                  "concepts/agents/run-cancel"
                 ]
               },
               {
                 "group": "Teams",
                 "pages": [
-                  "docs/documentation/teams/introduction",
-                  "docs/documentation/teams/run",
-                  "docs/documentation/teams/sessions",
+                  "concepts/teams/introduction",
+                  "concepts/teams/run",
+                  "concepts/teams/sessions",
                   {
                     "group": "Team Modes",
                     "pages": [
-                      "docs/documentation/teams/modes/route",
-                      "docs/documentation/teams/modes/coordinate",
-                      "docs/documentation/teams/modes/collaborate"
+                      "concepts/teams/modes/route",
+                      "concepts/teams/modes/coordinate",
+                      "concepts/teams/modes/collaborate"
                     ]
                   },
-                  "docs/documentation/teams/storage",
-                  "docs/documentation/teams/context",
-                  "docs/documentation/teams/state",
-                  "docs/documentation/teams/memory",
-                  "docs/documentation/teams/knowledge",
-                  "docs/documentation/teams/metrics",
-                  "docs/documentation/teams/dependencies",
-                  "docs/documentation/teams/structured-input-output",
-                  "docs/documentation/teams/run-cancel"
+                  "concepts/teams/storage",
+                  "concepts/teams/context",
+                  "concepts/teams/state",
+                  "concepts/teams/memory",
+                  "concepts/teams/knowledge",
+                  "concepts/teams/metrics",
+                  "concepts/teams/dependencies",
+                  "concepts/teams/structured-input-output",
+                  "concepts/teams/run-cancel"
                 ]
               },
               {
                 "group": "Workflows",
                 "pages": [
-                  "docs/documentation/workflows/overview",
-                  "docs/documentation/workflows/types_of_workflows",
-                  "docs/documentation/workflows/run_workflow",
-                  "docs/documentation/workflows/workflow_session_state",
-                  "docs/documentation/workflows/advanced"
+                  "concepts/workflows/overview",
+                  "concepts/workflows/types_of_workflows",
+                  "concepts/workflows/run_workflow",
+                  "concepts/workflows/workflow_session_state",
+                  "concepts/workflows/advanced"
                 ]
               },
               {
                 "group": "Models",
                 "pages": [
-                  "docs/documentation/models/introduction",
-                  "docs/documentation/models/compatibility",
-                  "docs/documentation/models/openai-like",
-                  "docs/documentation/models/aimlapi",
-                  "docs/documentation/models/anthropic",
+                  "concepts/models/introduction",
+                  "concepts/models/compatibility",
+                  "concepts/models/openai-like",
+                  "concepts/models/aimlapi",
+                  "concepts/models/anthropic",
                   {
                     "group": "AWS",
                     "pages": [
-                      "docs/documentation/models/aws-bedrock",
-                      "docs/documentation/models/aws-claude"
+                      "concepts/models/aws-bedrock",
+                      "concepts/models/aws-claude"
                     ]
                   },
                   {
                     "group": "Azure",
                     "pages": [
-                      "docs/documentation/models/azure-ai-foundry",
-                      "docs/documentation/models/azure-openai"
+                      "concepts/models/azure-ai-foundry",
+                      "concepts/models/azure-openai"
                     ]
                   },
                   {
                     "group": "Cerebras",
                     "pages": [
-                      "docs/documentation/models/cerebras",
-                      "docs/documentation/models/cerebras_openai"
+                      "concepts/models/cerebras",
+                      "concepts/models/cerebras_openai"
                     ]
                   },
-                  "docs/documentation/models/cohere",
-                  "docs/documentation/models/dashscope",
-                  "docs/documentation/models/deepinfra",
-                  "docs/documentation/models/deepseek",
-                  "docs/documentation/models/fireworks",
-                  "docs/documentation/models/google",
-                  "docs/documentation/models/groq",
-                  "docs/documentation/models/huggingface",
-                  "docs/documentation/models/ibm-watsonx",
-                  "docs/documentation/models/langdb",
+                  "concepts/models/cohere",
+                  "concepts/models/dashscope",
+                  "concepts/models/deepinfra",
+                  "concepts/models/deepseek",
+                  "concepts/models/fireworks",
+                  "concepts/models/google",
+                  "concepts/models/groq",
+                  "concepts/models/huggingface",
+                  "concepts/models/ibm-watsonx",
+                  "concepts/models/langdb",
                   {
                     "group": "LiteLLM",
                     "pages": [
-                      "docs/documentation/models/litellm",
-                      "docs/documentation/models/litellm_openai"
+                      "concepts/models/litellm",
+                      "concepts/models/litellm_openai"
                     ]
                   },
-                  "docs/documentation/models/lmstudio",
-                  "docs/documentation/models/meta",
-                  "docs/documentation/models/mistral",
-                  "docs/documentation/models/nvidia",
-                  "docs/documentation/models/nebius",
-                  "docs/documentation/models/ollama",
-                  "docs/documentation/models/openai",
-                  "docs/documentation/models/openai-responses",
-                  "docs/documentation/models/openrouter",
-                  "docs/documentation/models/perplexity",
-                  "docs/documentation/models/portkey",
-                  "docs/documentation/models/sambanova",
-                  "docs/documentation/models/together",
-                  "docs/documentation/models/vercel",
-                  "docs/documentation/models/vllm",
-                  "docs/documentation/models/xai"
+                  "concepts/models/lmstudio",
+                  "concepts/models/meta",
+                  "concepts/models/mistral",
+                  "concepts/models/nvidia",
+                  "concepts/models/nebius",
+                  "concepts/models/ollama",
+                  "concepts/models/openai",
+                  "concepts/models/openai-responses",
+                  "concepts/models/openrouter",
+                  "concepts/models/perplexity",
+                  "concepts/models/portkey",
+                  "concepts/models/sambanova",
+                  "concepts/models/together",
+                  "concepts/models/vercel",
+                  "concepts/models/vllm",
+                  "concepts/models/xai"
                 ]
               },
               {
                 "group": "Knowledge",
                 "pages": [
-                  "docs/documentation/knowledge/introduction",
-                  "docs/documentation/knowledge/content_types",
-                  "docs/documentation/knowledge/search",
-                  "docs/documentation/knowledge/hybrid_search",
+                  "concepts/knowledge/introduction",
+                  "concepts/knowledge/content_types",
+                  "concepts/knowledge/search",
+                  "concepts/knowledge/hybrid_search",
                   {
                     "group": "Knowledge Filters",
                     "pages": [
-                      "docs/documentation/knowledge/filters/introduction",
-                      "docs/documentation/knowledge/filters/manual-filters",
-                      "docs/documentation/knowledge/filters/agentic-filters"
+                      "concepts/knowledge/filters/introduction",
+                      "concepts/knowledge/filters/manual-filters",
+                      "concepts/knowledge/filters/agentic-filters"
                     ]
                   },
-                  "docs/documentation/knowledge/readers",
+                  "concepts/knowledge/readers",
                   {
                     "group": "Chunking",
                     "pages": [
-                      "docs/documentation/knowledge/chunking/fixed-size-chunking",
-                      "docs/documentation/knowledge/chunking/agentic-chunking",
-                      "docs/documentation/knowledge/chunking/semantic-chunking",
-                      "docs/documentation/knowledge/chunking/recursive-chunking",
-                      "docs/documentation/knowledge/chunking/document-chunking",
-                      "docs/documentation/knowledge/chunking/csv-row-chunking",
-                      "docs/documentation/knowledge/chunking/markdown-chunking"
+                      "concepts/knowledge/chunking/fixed-size-chunking",
+                      "concepts/knowledge/chunking/agentic-chunking",
+                      "concepts/knowledge/chunking/semantic-chunking",
+                      "concepts/knowledge/chunking/recursive-chunking",
+                      "concepts/knowledge/chunking/document-chunking",
+                      "concepts/knowledge/chunking/csv-row-chunking",
+                      "concepts/knowledge/chunking/markdown-chunking"
                     ]
                   },
                   {
                     "group": "Vector DBs",
                     "pages": [
-                      "docs/documentation/knowledge/vectordb/introduction",
-                      "docs/documentation/knowledge/vectordb/pgvector",
-                      "docs/documentation/knowledge/vectordb/cassandra",
-                      "docs/documentation/knowledge/vectordb/chroma",
-                      "docs/documentation/knowledge/vectordb/couchbase",
-                      "docs/documentation/knowledge/vectordb/clickhouse",
-                      "docs/documentation/knowledge/vectordb/lancedb",
-                      "docs/documentation/knowledge/vectordb/lightrag",
-                      "docs/documentation/knowledge/vectordb/milvus",
-                      "docs/documentation/knowledge/vectordb/pinecone",
-                      "docs/documentation/knowledge/vectordb/qdrant",
-                      "docs/documentation/knowledge/vectordb/singlestore",
-                      "docs/documentation/knowledge/vectordb/mongodb",
-                      "docs/documentation/knowledge/vectordb/azure_cosmos_mongodb",
-                      "docs/documentation/knowledge/vectordb/weaviate",
-                      "docs/documentation/knowledge/vectordb/surrealdb"
+                      "concepts/knowledge/vectordb/introduction",
+                      "concepts/knowledge/vectordb/pgvector",
+                      "concepts/knowledge/vectordb/cassandra",
+                      "concepts/knowledge/vectordb/chroma",
+                      "concepts/knowledge/vectordb/couchbase",
+                      "concepts/knowledge/vectordb/clickhouse",
+                      "concepts/knowledge/vectordb/lancedb",
+                      "concepts/knowledge/vectordb/lightrag",
+                      "concepts/knowledge/vectordb/milvus",
+                      "concepts/knowledge/vectordb/pinecone",
+                      "concepts/knowledge/vectordb/qdrant",
+                      "concepts/knowledge/vectordb/singlestore",
+                      "concepts/knowledge/vectordb/mongodb",
+                      "concepts/knowledge/vectordb/azure_cosmos_mongodb",
+                      "concepts/knowledge/vectordb/weaviate",
+                      "concepts/knowledge/vectordb/surrealdb"
                     ]
                   },
                   {
                     "group": "Embeddings",
                     "pages": [
-                      "docs/documentation/knowledge/embedder/introduction",
-                      "docs/documentation/knowledge/embedder/openai",
-                      "docs/documentation/knowledge/embedder/gemini",
-                      "docs/documentation/knowledge/embedder/ollama",
-                      "docs/documentation/knowledge/embedder/azure_openai",
-                      "docs/documentation/knowledge/embedder/cohere",
-                      "docs/documentation/knowledge/embedder/fireworks",
-                      "docs/documentation/knowledge/embedder/huggingface",
-                      "docs/documentation/knowledge/embedder/mistral",
-                      "docs/documentation/knowledge/embedder/qdrant_fastembed",
-                      "docs/documentation/knowledge/embedder/sentencetransformers",
-                      "docs/documentation/knowledge/embedder/together",
-                      "docs/documentation/knowledge/embedder/voyageai",
-                      "docs/documentation/knowledge/embedder/aws_bedrock"
+                      "concepts/knowledge/embedder/introduction",
+                      "concepts/knowledge/embedder/openai",
+                      "concepts/knowledge/embedder/gemini",
+                      "concepts/knowledge/embedder/ollama",
+                      "concepts/knowledge/embedder/azure_openai",
+                      "concepts/knowledge/embedder/cohere",
+                      "concepts/knowledge/embedder/fireworks",
+                      "concepts/knowledge/embedder/huggingface",
+                      "concepts/knowledge/embedder/mistral",
+                      "concepts/knowledge/embedder/qdrant_fastembed",
+                      "concepts/knowledge/embedder/sentencetransformers",
+                      "concepts/knowledge/embedder/together",
+                      "concepts/knowledge/embedder/voyageai",
+                      "concepts/knowledge/embedder/aws_bedrock"
                     ]
                   },
-                  "docs/documentation/knowledge/custom_retriever"
+                  "concepts/knowledge/custom_retriever"
                 ]
               },
               {
                 "group": "Memory",
                 "pages": [
-                  "docs/documentation/memory/overview",
-                  "docs/documentation/memory/advanced"
+                  "concepts/memory/overview",
+                  "concepts/memory/advanced"
                 ]
               },
               {
                 "group": "Reasoning",
                 "pages": [
-                  "docs/documentation/reasoning/introduction",
-                  "docs/documentation/reasoning/reasoning-models",
-                  "docs/documentation/reasoning/reasoning-tools",
-                  "docs/documentation/reasoning/reasoning-agents"
+                  "concepts/reasoning/introduction",
+                  "concepts/reasoning/reasoning-models",
+                  "concepts/reasoning/reasoning-tools",
+                  "concepts/reasoning/reasoning-agents"
                 ]
               },
               {
                 "group": "Tools",
                 "pages": [
-                  "docs/documentation/tools/introduction",
-                  "docs/documentation/tools/tool-decorator",
-                  "docs/documentation/tools/exceptions",
-                  "docs/documentation/tools/hooks",
-                  "docs/documentation/tools/hitl",
+                  "concepts/tools/introduction",
+                  "concepts/tools/tool-decorator",
+                  "concepts/tools/exceptions",
+                  "concepts/tools/hooks",
+                  "concepts/tools/hitl",
                   {
                     "group": "Toolkits",
                     "pages": [
-                      "docs/documentation/tools/toolkits/toolkits",
+                      "concepts/tools/toolkits/toolkits",
                       {
                         "group": "Search",
                         "pages": [
-                          "docs/documentation/tools/toolkits/search/arxiv",
-                          "docs/documentation/tools/toolkits/search/baidusearch",
-                          "docs/documentation/tools/toolkits/search/duckduckgo",
-                          "docs/documentation/tools/toolkits/search/exa",
-                          "docs/documentation/tools/toolkits/search/googlesearch",
-                          "docs/documentation/tools/toolkits/search/hackernews",
-                          "docs/documentation/tools/toolkits/search/linkup",
-                          "docs/documentation/tools/toolkits/search/pubmed",
-                          "docs/documentation/tools/toolkits/search/searxng",
-                          "docs/documentation/tools/toolkits/search/serpapi",
-                          "docs/documentation/tools/toolkits/search/serper",
-                          "docs/documentation/tools/toolkits/search/tavily",
-                          "docs/documentation/tools/toolkits/search/valyu",
-                          "docs/documentation/tools/toolkits/search/wikipedia",
-                          "docs/documentation/tools/toolkits/search/bravesearch"
+                          "concepts/tools/toolkits/search/arxiv",
+                          "concepts/tools/toolkits/search/baidusearch",
+                          "concepts/tools/toolkits/search/duckduckgo",
+                          "concepts/tools/toolkits/search/exa",
+                          "concepts/tools/toolkits/search/googlesearch",
+                          "concepts/tools/toolkits/search/hackernews",
+                          "concepts/tools/toolkits/search/linkup",
+                          "concepts/tools/toolkits/search/pubmed",
+                          "concepts/tools/toolkits/search/searxng",
+                          "concepts/tools/toolkits/search/serpapi",
+                          "concepts/tools/toolkits/search/serper",
+                          "concepts/tools/toolkits/search/tavily",
+                          "concepts/tools/toolkits/search/valyu",
+                          "concepts/tools/toolkits/search/wikipedia",
+                          "concepts/tools/toolkits/search/bravesearch"
                         ]
                       },
                       {
                         "group": "Social",
                         "pages": [
-                          "docs/documentation/tools/toolkits/social/discord",
-                          "docs/documentation/tools/toolkits/social/email",
-                          "docs/documentation/tools/toolkits/social/gmail",
-                          "docs/documentation/tools/toolkits/social/reddit",
-                          "docs/documentation/tools/toolkits/social/slack",
-                          "docs/documentation/tools/toolkits/social/telegram",
-                          "docs/documentation/tools/toolkits/social/twilio",
-                          "docs/documentation/tools/toolkits/social/webex",
-                          "docs/documentation/tools/toolkits/social/whatsapp",
-                          "docs/documentation/tools/toolkits/social/x",
-                          "docs/documentation/tools/toolkits/social/zoom"
+                          "concepts/tools/toolkits/social/discord",
+                          "concepts/tools/toolkits/social/email",
+                          "concepts/tools/toolkits/social/gmail",
+                          "concepts/tools/toolkits/social/reddit",
+                          "concepts/tools/toolkits/social/slack",
+                          "concepts/tools/toolkits/social/telegram",
+                          "concepts/tools/toolkits/social/twilio",
+                          "concepts/tools/toolkits/social/webex",
+                          "concepts/tools/toolkits/social/whatsapp",
+                          "concepts/tools/toolkits/social/x",
+                          "concepts/tools/toolkits/social/zoom"
                         ]
                       },
                       {
                         "group": "Web Scraping",
                         "pages": [
-                          "docs/documentation/tools/toolkits/web_scrape/agentql",
-                          "docs/documentation/tools/toolkits/web_scrape/browserbase",
-                          "docs/documentation/tools/toolkits/web_scrape/crawl4ai",
-                          "docs/documentation/tools/toolkits/web_scrape/firecrawl",
-                          "docs/documentation/tools/toolkits/web_scrape/jina_reader",
-                          "docs/documentation/tools/toolkits/web_scrape/newspaper",
-                          "docs/documentation/tools/toolkits/web_scrape/newspaper4k",
-                          "docs/documentation/tools/toolkits/web_scrape/spider",
-                          "docs/documentation/tools/toolkits/web_scrape/trafilatura",
-                          "docs/documentation/tools/toolkits/web_scrape/website",
-                          "docs/documentation/tools/toolkits/web_scrape/scrapegraph",
-                          "docs/documentation/tools/toolkits/web_scrape/oxylabs",
-                          "docs/documentation/tools/toolkits/web_scrape/brightdata"
+                          "concepts/tools/toolkits/web_scrape/agentql",
+                          "concepts/tools/toolkits/web_scrape/browserbase",
+                          "concepts/tools/toolkits/web_scrape/crawl4ai",
+                          "concepts/tools/toolkits/web_scrape/firecrawl",
+                          "concepts/tools/toolkits/web_scrape/jina_reader",
+                          "concepts/tools/toolkits/web_scrape/newspaper",
+                          "concepts/tools/toolkits/web_scrape/newspaper4k",
+                          "concepts/tools/toolkits/web_scrape/spider",
+                          "concepts/tools/toolkits/web_scrape/trafilatura",
+                          "concepts/tools/toolkits/web_scrape/website",
+                          "concepts/tools/toolkits/web_scrape/scrapegraph",
+                          "concepts/tools/toolkits/web_scrape/oxylabs",
+                          "concepts/tools/toolkits/web_scrape/brightdata"
                         ]
                       },
                       {
                         "group": "Data",
                         "pages": [
-                          "docs/documentation/tools/toolkits/database/csv",
-                          "docs/documentation/tools/toolkits/database/duckdb",
-                          "docs/documentation/tools/toolkits/database/google_bigquery",
-                          "docs/documentation/tools/toolkits/database/neo4j",
-                          "docs/documentation/tools/toolkits/database/pandas",
-                          "docs/documentation/tools/toolkits/database/postgres",
-                          "docs/documentation/tools/toolkits/database/sql",
-                          "docs/documentation/tools/toolkits/database/zep"
+                          "concepts/tools/toolkits/database/csv",
+                          "concepts/tools/toolkits/database/duckdb",
+                          "concepts/tools/toolkits/database/google_bigquery",
+                          "concepts/tools/toolkits/database/neo4j",
+                          "concepts/tools/toolkits/database/pandas",
+                          "concepts/tools/toolkits/database/postgres",
+                          "concepts/tools/toolkits/database/sql",
+                          "concepts/tools/toolkits/database/zep"
                         ]
                       },
                       {
                         "group": "Local",
                         "pages": [
-                          "docs/documentation/tools/toolkits/local/calculator",
-                          "docs/documentation/tools/toolkits/local/docker",
-                          "docs/documentation/tools/toolkits/local/file",
-                          "docs/documentation/tools/toolkits/local/local_file_system",
-                          "docs/documentation/tools/toolkits/local/python",
-                          "docs/documentation/tools/toolkits/local/shell",
-                          "docs/documentation/tools/toolkits/local/sleep"
+                          "concepts/tools/toolkits/local/calculator",
+                          "concepts/tools/toolkits/local/docker",
+                          "concepts/tools/toolkits/local/file",
+                          "concepts/tools/toolkits/local/local_file_system",
+                          "concepts/tools/toolkits/local/python",
+                          "concepts/tools/toolkits/local/shell",
+                          "concepts/tools/toolkits/local/sleep"
                         ]
                       },
                       {
                         "group": "Models",
                         "pages": [
-                          "docs/documentation/tools/toolkits/models/azure_openai",
-                          "docs/documentation/tools/toolkits/models/gemini",
-                          "docs/documentation/tools/toolkits/models/groq",
-                          "docs/documentation/tools/toolkits/models/morph",
-                          "docs/documentation/tools/toolkits/models/nebius",
-                          "docs/documentation/tools/toolkits/models/openai"
+                          "concepts/tools/toolkits/models/azure_openai",
+                          "concepts/tools/toolkits/models/gemini",
+                          "concepts/tools/toolkits/models/groq",
+                          "concepts/tools/toolkits/models/morph",
+                          "concepts/tools/toolkits/models/nebius",
+                          "concepts/tools/toolkits/models/openai"
                         ]
                       },
                       {
                         "group": "Additional Toolkits",
                         "pages": [
-                          "docs/documentation/tools/toolkits/others/airflow",
-                          "docs/documentation/tools/toolkits/others/apify",
-                          "docs/documentation/tools/toolkits/others/aws_lambda",
-                          "docs/documentation/tools/toolkits/others/aws_ses",
-                          "docs/documentation/tools/toolkits/others/bitbucket",
-                          "docs/documentation/tools/toolkits/others/brandfetch",
-                          "docs/documentation/tools/toolkits/others/calcom",
-                          "docs/documentation/tools/toolkits/others/cartesia",
-                          "docs/documentation/tools/toolkits/others/clickup",
-                          "docs/documentation/tools/toolkits/others/composio",
-                          "docs/documentation/tools/toolkits/others/confluence",
-                          "docs/documentation/tools/toolkits/others/custom_api",
-                          "docs/documentation/tools/toolkits/others/dalle",
-                          "docs/documentation/tools/toolkits/others/daytona",
-                          "docs/documentation/tools/toolkits/others/desi_vocal",
-                          "docs/documentation/tools/toolkits/others/eleven_labs",
-                          "docs/documentation/tools/toolkits/others/e2b",
-                          "docs/documentation/tools/toolkits/others/evm",
-                          "docs/documentation/tools/toolkits/others/fal",
-                          "docs/documentation/tools/toolkits/others/financial_datasets",
-                          "docs/documentation/tools/toolkits/others/giphy",
-                          "docs/documentation/tools/toolkits/others/github",
-                          "docs/documentation/tools/toolkits/others/google_maps",
-                          "docs/documentation/tools/toolkits/others/googlecalendar",
-                          "docs/documentation/tools/toolkits/others/google_sheets",
-                          "docs/documentation/tools/toolkits/others/jira",
-                          "docs/documentation/tools/toolkits/others/knowledge",
-                          "docs/documentation/tools/toolkits/others/linear",
-                          "docs/documentation/tools/toolkits/others/lumalabs",
-                          "docs/documentation/tools/toolkits/others/mem0",
-                          "docs/documentation/tools/toolkits/others/memori",
-                          "docs/documentation/tools/toolkits/others/mlx_transcribe",
-                          "docs/documentation/tools/toolkits/others/models_labs",
-                          "docs/documentation/tools/toolkits/others/moviepy",
-                          "docs/documentation/tools/toolkits/others/opencv",
-                          "docs/documentation/tools/toolkits/others/openbb",
-                          "docs/documentation/tools/toolkits/others/openweather",
-                          "docs/documentation/tools/toolkits/others/reasoning",
-                          "docs/documentation/tools/toolkits/others/replicate",
-                          "docs/documentation/tools/toolkits/others/resend",
-                          "docs/documentation/tools/toolkits/others/todoist",
-                          "docs/documentation/tools/toolkits/others/trello",
-                          "docs/documentation/tools/toolkits/others/user_control_flow",
-                          "docs/documentation/tools/toolkits/others/visualization",
-                          "docs/documentation/tools/toolkits/others/web-browser",
-                          "docs/documentation/tools/toolkits/others/webtools",
-                          "docs/documentation/tools/toolkits/others/yfinance",
-                          "docs/documentation/tools/toolkits/others/youtube",
-                          "docs/documentation/tools/toolkits/others/zendesk"
+                          "concepts/tools/toolkits/others/airflow",
+                          "concepts/tools/toolkits/others/apify",
+                          "concepts/tools/toolkits/others/aws_lambda",
+                          "concepts/tools/toolkits/others/aws_ses",
+                          "concepts/tools/toolkits/others/bitbucket",
+                          "concepts/tools/toolkits/others/brandfetch",
+                          "concepts/tools/toolkits/others/calcom",
+                          "concepts/tools/toolkits/others/cartesia",
+                          "concepts/tools/toolkits/others/clickup",
+                          "concepts/tools/toolkits/others/composio",
+                          "concepts/tools/toolkits/others/confluence",
+                          "concepts/tools/toolkits/others/custom_api",
+                          "concepts/tools/toolkits/others/dalle",
+                          "concepts/tools/toolkits/others/daytona",
+                          "concepts/tools/toolkits/others/desi_vocal",
+                          "concepts/tools/toolkits/others/eleven_labs",
+                          "concepts/tools/toolkits/others/e2b",
+                          "concepts/tools/toolkits/others/evm",
+                          "concepts/tools/toolkits/others/fal",
+                          "concepts/tools/toolkits/others/financial_datasets",
+                          "concepts/tools/toolkits/others/giphy",
+                          "concepts/tools/toolkits/others/github",
+                          "concepts/tools/toolkits/others/google_maps",
+                          "concepts/tools/toolkits/others/googlecalendar",
+                          "concepts/tools/toolkits/others/google_sheets",
+                          "concepts/tools/toolkits/others/jira",
+                          "concepts/tools/toolkits/others/knowledge",
+                          "concepts/tools/toolkits/others/linear",
+                          "concepts/tools/toolkits/others/lumalabs",
+                          "concepts/tools/toolkits/others/mem0",
+                          "concepts/tools/toolkits/others/memori",
+                          "concepts/tools/toolkits/others/mlx_transcribe",
+                          "concepts/tools/toolkits/others/models_labs",
+                          "concepts/tools/toolkits/others/moviepy",
+                          "concepts/tools/toolkits/others/opencv",
+                          "concepts/tools/toolkits/others/openbb",
+                          "concepts/tools/toolkits/others/openweather",
+                          "concepts/tools/toolkits/others/reasoning",
+                          "concepts/tools/toolkits/others/replicate",
+                          "concepts/tools/toolkits/others/resend",
+                          "concepts/tools/toolkits/others/todoist",
+                          "concepts/tools/toolkits/others/trello",
+                          "concepts/tools/toolkits/others/user_control_flow",
+                          "concepts/tools/toolkits/others/visualization",
+                          "concepts/tools/toolkits/others/web-browser",
+                          "concepts/tools/toolkits/others/webtools",
+                          "concepts/tools/toolkits/others/yfinance",
+                          "concepts/tools/toolkits/others/youtube",
+                          "concepts/tools/toolkits/others/zendesk"
                         ]
                       }
                     ]
@@ -443,58 +442,58 @@
                   {
                     "group": "MCP",
                     "pages": [
-                      "docs/documentation/tools/mcp/mcp",
+                      "concepts/tools/mcp/mcp",
                       {
                         "group": "Transports",
                         "pages": [
-                          "docs/documentation/tools/mcp/transports/stdio",
-                          "docs/documentation/tools/mcp/transports/sse",
-                          "docs/documentation/tools/mcp/transports/streamable_http"
+                          "concepts/tools/mcp/transports/stdio",
+                          "concepts/tools/mcp/transports/sse",
+                          "concepts/tools/mcp/transports/streamable_http"
                         ]
                       },
-                      "docs/documentation/tools/mcp/advanced_usage"
+                      "concepts/tools/mcp/advanced_usage"
                     ]
                   },
                   {
                     "group": "Reasoning Tools",
                     "pages": [
-                      "docs/documentation/tools/reasoning_tools/reasoning-tools",
-                      "docs/documentation/tools/reasoning_tools/knowledge-tools"
+                      "concepts/tools/reasoning_tools/reasoning-tools",
+                      "concepts/tools/reasoning_tools/knowledge-tools"
                     ]
                   },
-                  "docs/documentation/tools/custom-toolkits",
-                  "docs/documentation/tools/selecting-tools",
-                  "docs/documentation/tools/attaching-tools",
-                  "docs/documentation/tools/async-tools",
-                  "docs/documentation/tools/caching",
-                  "docs/documentation/tools/tool_call_limit"
+                  "concepts/tools/custom-toolkits",
+                  "concepts/tools/selecting-tools",
+                  "concepts/tools/attaching-tools",
+                  "concepts/tools/async-tools",
+                  "concepts/tools/caching",
+                  "concepts/tools/tool_call_limit"
                 ]
               },
               {
                 "group": "Multimodal",
-                "pages": ["docs/documentation/multimodal/overview"]
+                "pages": ["concepts/multimodal/overview"]
               },
               {
                 "group": "Human-in-the-Loop",
-                "pages": ["docs/documentation/user_control_flow/overview"]
+                "pages": ["concepts/user_control_flow/overview"]
               },
               {
                 "group": "Storage",
                 "pages": [
-                  "docs/documentation/db/overview",
-                  "docs/documentation/db/postgres",
-                  "docs/documentation/db/mysql",
-                  "docs/documentation/db/sqlite",
-                  "docs/documentation/db/in_memory",
-                  "docs/documentation/db/dynamodb",
-                  "docs/documentation/db/mongodb",
-                  "docs/documentation/db/json",
-                  "docs/documentation/db/singlestore",
-                  "docs/documentation/db/redis",
-                  "docs/documentation/db/gcs",
-                  "docs/documentation/db/firestore",
-                  "docs/documentation/db/supabase",
-                  "docs/documentation/db/neon"
+                  "concepts/db/overview",
+                  "concepts/db/postgres",
+                  "concepts/db/mysql",
+                  "concepts/db/sqlite",
+                  "concepts/db/in_memory",
+                  "concepts/db/dynamodb",
+                  "concepts/db/mongodb",
+                  "concepts/db/json",
+                  "concepts/db/singlestore",
+                  "concepts/db/redis",
+                  "concepts/db/gcs",
+                  "concepts/db/firestore",
+                  "concepts/db/supabase",
+                  "concepts/db/neon"
                 ]
               },
               {

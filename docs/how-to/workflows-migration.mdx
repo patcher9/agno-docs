@@ -10,12 +10,12 @@ Workflows 2.0 is a completely new approach to agent automation, and requires an 
 
 ### Key Differences
 
-| Workflows 1.0 | Workflows 2.0 | Migration Path |
-|---------------|---------------|----------------|
-| Linear only | Multiple patterns | Add Parallel/Condition as needed |
-| Agent-focused | Mixed components | Convert functions to Steps |
-| Limited branching | Smart routing | Replace if/else with Router |
-| Manual loops | Built-in Loop | Use Loop component |
+| Workflows 1.0     | Workflows 2.0     | Migration Path                   |
+| ----------------- | ----------------- | -------------------------------- |
+| Linear only       | Multiple patterns | Add Parallel/Condition as needed |
+| Agent-focused     | Mixed components  | Convert functions to Steps       |
+| Limited branching | Smart routing     | Replace if/else with Router      |
+| Manual loops      | Built-in Loop     | Use Loop component               |
 
 ### Migration Steps
 
@@ -25,12 +25,12 @@ Workflows 2.0 is a completely new approach to agent automation, and requires an 
 4. **Enable streaming**: For event-based information
 5. **Add state management**: Use `workflow_session_state` for data sharing
 
-
 ### Example of Blog Post Generator Workflow
 
 Lets take an example that demonstrates how to build a sophisticated blog post generator that combines
 web research capabilities with professional writing expertise. The workflow uses a multi-stage
 approach:
+
 1. Intelligent web research and source gathering
 2. Content extraction and processing
 3. Professional blog post writing with proper citations
@@ -446,8 +446,8 @@ if __name__ == "__main__":
     pprint_run_response(blog_post, markdown=True)
 ```
 
-To convert this into **Workflows 2.0** structure, either we can break down the workflow into smaller steps and follow the [development guide](/docs/documentation/workflows/types_of_workflows).
-Or for simplicity we can directly replace the run method to a single custom function executor as mentioned [here](/docs/documentation/workflows/types_of_workflows#2-fully-python-workflow).
+To convert this into **Workflows 2.0** structure, either we can break down the workflow into smaller steps and follow the [development guide](/concepts/workflows/types_of_workflows).
+Or for simplicity we can directly replace the run method to a single custom function executor as mentioned [here](/concepts/workflows/types_of_workflows#2-fully-python-workflow).
 
 It will look like this:
 
@@ -917,6 +917,5 @@ if __name__ == "__main__":
 
     asyncio.run(main())
 ```
-
 
 For more examples and advanced patterns, see [here](/examples/concepts/workflows/01-basic-workflows). Each file demonstrates a specific pattern with detailed comments and real-world use cases.

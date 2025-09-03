@@ -1,0 +1,220 @@
+---
+title: Running Agents
+description: Learn how to run an agent and get the response.
+---
+
+The `Agent.run()` function runs the agent and generates a response, either as a `RunOutput` object or a stream of `RunOutputEvent` objects.
+
+<Note>
+  Many of our examples use `agent.print_response()` which is a helper utility to
+  print the response in the terminal. It uses `agent.run()` under the hood.
+</Note>
+
+## Running Agents
+
+Here's how to run your agent. The response is captured in the `response`.
+
+```python
+from agno.agent import Agent, RunOutput
+from agno.models.openai import OpenAIChat
+from agno.utils.pprint import pprint_run_response
+
+agent = Agent(model=OpenAIChat(id="gpt-5-mini"))
+
+# Run agent and return the response as a variable
+response: RunOutput = agent.run("Tell me a 5 second short story about a robot")
+
+# Print the response in markdown format
+pprint_run_response(response, markdown=True)
+```
+
+## Typed inputs and outputs
+
+🚧 coming soon 🚧
+
+### RunOutput
+
+The `Agent.run()` function returns a `RunOutput` object when not streaming. Here are some of the core attributes:
+
+- `run_id`: The id of the run.
+- `agent_id`: The id of the agent.
+- `agent_name`: The name of the agent.
+- `session_id`: The id of the session.
+- `user_id`: The id of the user.
+- `content`: The response content.
+- `content_type`: The type of content. In the case of structured output, this will be the class name of the pydantic model.
+- `reasoning_content`: The reasoning content.
+- `messages`: The list of messages sent to the model.
+- `metrics`: The metrics of the run. For more details see [Metrics](/concepts/agents/metrics).
+- `model`: The model used for the run.
+
+See detailed documentation in the [RunOutput](/reference/agents/run-response) documentation.
+
+## Streaming Responses
+
+To enable streaming, set `stream=True` when calling `run()`. This will return an iterator of `RunOutputEvent` objects instead of a single response.
+
+```python
+from typing import Iterator
+from agno.agent import Agent, RunOutputEvent
+from agno.models.openai import OpenAIChat
+from agno.utils.pprint import pprint_run_response
+
+agent = Agent(model=OpenAIChat(id="gpt-4-mini"))
+
+# Run agent and return the response as a stream
+response_stream: Iterator[RunOutputEvent] = agent.run(
+    "Tell me a 5 second short story about a lion",
+    stream=True
+)
+
+# Print the response stream in markdown format
+pprint_run_response(response_stream, markdown=True)
+```
+
+### Streaming Intermediate Steps
+
+For even more detailed streaming, you can enable intermediate steps by setting `stream_intermediate_steps=True`. This will provide real-time updates about the agent's internal processes.
+
+```python
+# Stream with intermediate steps
+response_stream: Iterator[RunOutputEvent] = agent.run(
+    "Tell me a 5 second short story about a lion",
+    stream=True,
+    stream_intermediate_steps=True
+)
+```
+
+### Handling Events
+
+You can process events as they arrive by iterating over the response stream:
+
+```python
+response_stream = agent.run("Tell me a 5 second short story about a lion", stream=True, stream_intermediate_steps=True)
+
+for event in response_stream:
+    if event.event == "RunContent":
+        print(f"Content: {event.content}")
+    elif event.event == "ToolCallStarted":
+        print(f"Tool call started: {event.tool}")
+    elif event.event == "ReasoningStep":
+        print(f"Reasoning step: {event.content}")
+    ...
+```
+
+You can see this behavior in action in the [AgentOS UI](https://os.agno.com/chat/agents).
+
+### Storing Events
+
+You can store all the events that happened during a run on the `RunOutput` object.
+
+```python
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.utils.pprint import pprint_run_response
+
+agent = Agent(model=OpenAIChat(id="gpt-5-mini"), store_events=True)
+
+response = agent.run("Tell me a 5 second short story about a lion", stream=True, stream_intermediate_steps=True)
+pprint_run_response(response)
+
+for event in response.events:
+    print(event.event)
+```
+
+By default the `RunContentEvent` event is not stored (because it would be very verbose). You can modify which events are skipped by setting the `events_to_skip` parameter.
+
+For example:
+
+```python
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.run.agent import RunEvent
+
+agent = Agent(model=OpenAIChat(id="gpt-5-mini"), store_events=True, events_to_skip=[RunEvent.run_started])
+```
+
+### Event Types
+
+The following events are yielded by the `Agent.run()` and `Agent.arun()` functions depending on the agent's configuration:
+
+#### Core Events
+
+| Event Type               | Description                                                                                                    |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| `RunStarted`             | Indicates the start of a run                                                                                   |
+| `RunContent`             | Contains the model's response text as individual chunks                                                        |
+| `RunIntermediateContent` | Contains the model's intermediate response text as individual chunks. This is used when `output_model` is set. |
+| `RunCompleted`           | Signals successful completion of the run                                                                       |
+| `RunError`               | Indicates an error occurred during the run                                                                     |
+| `RunCancelled`           | Signals that the run was cancelled                                                                             |
+
+#### Control Flow Events
+
+| Event Type     | Description                                  |
+| -------------- | -------------------------------------------- |
+| `RunPaused`    | Indicates the run has been paused            |
+| `RunContinued` | Signals that a paused run has been continued |
+
+#### Tool Events
+
+| Event Type          | Description                                                    |
+| ------------------- | -------------------------------------------------------------- |
+| `ToolCallStarted`   | Indicates the start of a tool call                             |
+| `ToolCallCompleted` | Signals completion of a tool call, including tool call results |
+
+#### Reasoning Events
+
+| Event Type           | Description                                          |
+| -------------------- | ---------------------------------------------------- |
+| `ReasoningStarted`   | Indicates the start of the agent's reasoning process |
+| `ReasoningStep`      | Contains a single step in the reasoning process      |
+| `ReasoningCompleted` | Signals completion of the reasoning process          |
+
+#### Memory Events
+
+| Event Type              | Description                                     |
+| ----------------------- | ----------------------------------------------- |
+| `MemoryUpdateStarted`   | Indicates that the agent is updating its memory |
+| `MemoryUpdateCompleted` | Signals completion of a memory update           |
+
+#### Parser Model events
+
+| Event Type                     | Description                                      |
+| ------------------------------ | ------------------------------------------------ |
+| `ParserModelResponseStarted`   | Indicates the start of the parser model response |
+| `ParserModelResponseCompleted` | Signals completion of the parser model response  |
+
+#### Output Model events
+
+| Event Type                     | Description                                      |
+| ------------------------------ | ------------------------------------------------ |
+| `OutputModelResponseStarted`   | Indicates the start of the output model response |
+| `OutputModelResponseCompleted` | Signals completion of the output model response  |
+
+## Developer Resources
+
+- View the [Agent schema](/reference/agents/agent)
+- View the [RunOutput schema](/reference/agents/run-response)
+- View [Agent Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/agents/README.md)
+
+### Using an Output Model
+
+You can use a different model to produce the run output of the agent.
+This is useful when the primary model is optimized for image analysis, for example, but you want a different model to produce a structured output response.
+
+```python
+agent = Agent(
+    model=Claude(id="claude-sonnet-4-20250514"),  # The main processing model
+    description="You write movie scripts.",
+    output_schema=MovieScript,
+    output_model=OpenAIChat(id="gpt-5-mini"),  # Only used to parse the output
+)
+```
+
+You can also provide a custom `output_model_prompt` to your Output Model to customize the model's instructions.
+
+<Tip>
+  Gemini models often reject requests to use tools and produce structured output
+  at the same time. Using an Output Model is an effective workaround for this.
+</Tip>
