@@ -728,11 +728,11 @@
         "tab": "Examples",
         "groups": [
           {
-            "group": "Getting Started",
+            "group": "Overview",
             "pages": [
               "examples/introduction",
               {
-                "group": "Basic Flows",
+                "group": "Getting Started",
                 "pages": [
                   "examples/getting-started/introduction",
                   "examples/getting-started/01-basic-agent",
@@ -759,7 +759,7 @@
             ]
           },
           {
-            "group": "Use-cases",
+            "group": "Use Cases",
             "pages": [
               {
                 "group": "Agents",
