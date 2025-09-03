@@ -1,6 +1,5 @@
 ---
 title: Groq
-sidebarTitle: Groq
 ---
 
 `GroqTools` allows an Agent to interact with the Groq API for performing fast audio transcription, translation, and text-to-speech (TTS).
@@ -107,6 +106,20 @@ groq_tools = GroqTools(
     tts_voice="Chip-PlayAI"
 )
 ```
+
+## Toolkit Params
+
+| Parameter                | Type           | Default                | Description                                                                                   |
+| ------------------------ | -------------- | ---------------------- | --------------------------------------------------------------------------------------------- |
+| `api_key`                | `Optional[str]`| `None`                 | Groq API key for authentication. If not provided, uses GROQ_API_KEY environment variable.   |
+| `transcription_model`    | `str`          | `"whisper-large-v3"`   | Model to use for audio transcription.                                                        |
+| `translation_model`      | `str`          | `"whisper-large-v3"`   | Model to use for audio translation to English.                                               |
+| `tts_model`              | `str`          | `"playai-tts"`         | Model to use for text-to-speech generation.                                                  |
+| `tts_voice`              | `str`          | `"Chip-PlayAI"`        | Voice to use for text-to-speech generation.                                                  |
+| `enable_transcribe_audio`| `bool`         | `True`                 | Enable the audio transcription function.                                                     |
+| `enable_translate_audio` | `bool`         | `True`                 | Enable the audio translation function.                                                       |
+| `enable_generate_speech` | `bool`         | `True`                 | Enable the text-to-speech generation function.                                               |
+| `all`                    | `bool`         | `False`                | Enable all available functions. When True, all enable flags are ignored.                     |
 
 ## Toolkit Functions
 

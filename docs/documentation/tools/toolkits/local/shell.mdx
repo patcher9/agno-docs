@@ -20,7 +20,15 @@ agent = Agent(tools=[ShellTools()])
 agent.print_response("Show me the contents of the current directory", markdown=True)
 ```
 
-## Functions in Toolkit
+## Toolkit Params
+
+| Parameter                  | Type         | Default | Description                                          |
+| -------------------------- | ------------ | ------- | ---------------------------------------------------- |
+| `base_dir`                 | `Path | str` | `None`  | Base directory for shell command execution          |
+| `enable_run_shell_command` | `bool`       | `True`  | Enables functionality to run shell commands         |
+| `all`                      | `bool`       | `False` | Enables all functionality when set to True          |
+
+## Toolkit Functions
 
 | Function            | Description                                           |
 | ------------------- | ----------------------------------------------------- |

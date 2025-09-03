@@ -1,6 +1,5 @@
 ---
 title: Gemini
-sidebarTitle: Gemini
 ---
 
 `GeminiTools` are a set of tools that allow an Agent to interact with Google AI API services for generating images and videos.
@@ -90,7 +89,19 @@ if response.videos:
         save_base64_data(video.content, f"tmp/kitten_piano_{video.id}.mp4")
 ```
 
+## Toolkit Params
 
+| Parameter                  | Type           | Default                      | Description                                                                                     |
+| -------------------------- | -------------- | ---------------------------- | ----------------------------------------------------------------------------------------------- |
+| `api_key`                  | `Optional[str]`| `None`                       | Google API key for authentication. If not provided, uses GOOGLE_API_KEY environment variable. |
+| `vertexai`                 | `bool`         | `False`                      | Whether to use Vertex AI instead of standard Gemini API. Required for video generation.        |
+| `project_id`               | `Optional[str]`| `None`                       | Google Cloud project ID. Required when using Vertex AI.                                        |
+| `location`                 | `Optional[str]`| `None`                       | Google Cloud location/region. Required when using Vertex AI.                                   |
+| `image_generation_model`   | `str`          | `"imagen-3.0-generate-002"`  | Model to use for image generation.                                                              |
+| `video_generation_model`   | `str`          | `"veo-2.0-generate-001"`     | Model to use for video generation.                                                              |
+| `enable_generate_image`    | `bool`         | `True`                       | Enable the image generation function.                                                           |
+| `enable_generate_video`    | `bool`         | `True`                       | Enable the video generation function.                                                           |
+| `all`                      | `bool`         | `False`                      | Enable all available functions. When True, all enable flags are ignored.                       |
 
 ## Toolkit Functions
 

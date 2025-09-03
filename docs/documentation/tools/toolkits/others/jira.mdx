@@ -38,7 +38,11 @@ agent.print_response("Find all issues in project PROJ", markdown=True)
 | `username`   | `str` | `None`  | The JIRA username for authentication, retrieved from the environment variable `JIRA_USERNAME`. Default is None if not set.    |
 | `password`   | `str` | `None`  | The JIRA password for authentication, retrieved from the environment variable `JIRA_PASSWORD`. Default is None if not set.    |
 | `token`      | `str` | `None`  | The JIRA API token for authentication, retrieved from the environment variable `JIRA_TOKEN`. Default is None if not set.      |
-
+| `enable_get_issue` | `bool` | `True` | Enable the get_issue functionality. |
+| `enable_create_issue` | `bool` | `True` | Enable the create_issue functionality. |
+| `enable_search_issues` | `bool` | `True` | Enable the search_issues functionality. |
+| `enable_add_comment` | `bool` | `True` | Enable the add_comment functionality. |
+| `all` | `bool` | `False` | Enable all functionality. |
 ## Toolkit Functions
 
 | Function        | Description                                                                                                                                                                                                                                                                                                                           |

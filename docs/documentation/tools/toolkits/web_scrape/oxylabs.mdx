@@ -2,9 +2,11 @@
 title: Oxylabs
 ---
 
-OxylabsTools provide Agents with access to Oxylabs' powerful web scraping capabilities, including SERP, Amazon product data, and universal web scraping endpoints.
+**OxylabsTools** provide Agents with access to Oxylabs' powerful web scraping capabilities, including SERP, Amazon product data, and universal web scraping endpoints.
 
 ## Prerequisites
+
+The following examples require the `oxylabs-sdk` library:
 
 ```shell
 pip install -U oxylabs-sdk
@@ -15,11 +17,10 @@ Set your credentials as environment variables (recommended):
 ```shell
 export OXYLABS_USERNAME=your_oxylabs_username
 export OXYLABS_PASSWORD=your_oxylabs_password
-```
-
+``` 
 ## Example
 
-```
+```python cookbook/tools/oxylabs_tools.py
 from agno.agent import Agent
 from agno.tools.oxylabs import OxylabsTools
 
@@ -31,7 +32,7 @@ agent = Agent(
 agent.print_response("""
 Search for 'latest iPhone reviews' and provide a summary of the top 3 results. 
 """)
-
+```
 ## Amazon Product Search
 
 ```

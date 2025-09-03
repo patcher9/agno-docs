@@ -67,8 +67,8 @@ agent = Agent(
     name="Emotion-Aware Translator Agent",
     description="Translates text, analyzes emotion, selects a suitable voice, creates a localized voice, and generates a voice note (audio file) using Cartesia TTS tools.",
     instructions=agent_instructions,
-    model=OpenAIChat(id="gpt-5-mini"),
-    tools=[CartesiaTools(voice_localize_enabled=True)],
+    model=OpenAIChat(id="gpt-4o"),
+    tools=[CartesiaTools(enable_localize_voice=True)],  
     )
 
 agent.print_response(
@@ -90,9 +90,9 @@ if response.audio:
 | `api_key`                | `str`            | `None`                                     | The Cartesia API key for authentication. If not provided, uses the `CARTESIA_API_KEY` env variable. |
 | `model_id`               | `str`            | `sonic-2`                                  | The model ID to use for text-to-speech.                                                         |
 | `default_voice_id`       | `str`            | `78ab82d5-25be-4f7d-82b3-7ad64e5b85b2`      | The default voice ID to use for text-to-speech and localization.                                 |
-| `text_to_speech_enabled` | `bool`           | `True`                                     | Enable text-to-speech functionality.                                                             |
-| `list_voices_enabled`    | `bool`           | `True`                                     | Enable listing available voices functionality.                                                   |
-| `voice_localize_enabled` | `bool`           | `False`                                    | Enable voice localization functionality.                                                         |
+| `enable_text_to_speech` | `bool`           | `True`                                     | Enable text-to-speech functionality.                                                             |
+| `enable_list_voices`    | `bool`           | `True`                                     | Enable listing available voices functionality.                                                   |
+| `enable_localize_voice` | `bool`           | `False`                                    | Enable voice localization functionality.                                                         |
 
 ## Toolkit Functions
 

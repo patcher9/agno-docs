@@ -12,10 +12,6 @@ from agno.tools.e2b import E2BTools
 
 e2b_tools = E2BTools(
     timeout=600,  # 10 minutes timeout (in seconds)
-    filesystem=True,
-    internet_access=True,
-    sandbox_management=True,
-    command_execution=True,
 )
 
 agent = Agent(

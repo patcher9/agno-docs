@@ -9,7 +9,7 @@ from agno.agent import Agent
 from agno.tools.airflow import AirflowTools
 
 agent = Agent(
-    tools=[AirflowTools(dags_dir="tmp/dags", save_dag=True, read_dag=True)],
+    tools=[AirflowTools(dags_dir="tmp/dags", enable_save_dag=True, enable_read_dag=True)],
         markdown=True,
 )
 
