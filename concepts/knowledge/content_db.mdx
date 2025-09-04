@@ -202,6 +202,7 @@ When using AgentOS, ContentsDB is mandatory for the Knowledge management interfa
 ```python
 from agno.os import AgentOS
 from agno.db.postgres import PostgresDb
+from agno.agent import Agent
 
 # ContentsDB is required for AgentOS Knowledge page
 contents_db = PostgresDb(
@@ -213,9 +214,16 @@ knowledge = Knowledge(
     contents_db=contents_db  # Must be provided for AgentOS
 )
 
+knowledge_agent = Agent(
+    name="Knowledge Agent"
+    knowledge=knowledge
+)
+
 # Create AgentOS app
 app = AgentOS(
-    knowledge_instances=[knowledge]
+    description="Example app for basic agent with knowledge capabilities",
+    os_id="knowledge-demo",
+    agents=[knowledge_agent],
 )
 ```
 
