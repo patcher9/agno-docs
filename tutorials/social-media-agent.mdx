@@ -22,7 +22,7 @@ Your social media intelligence system will:
 - Perform weighted sentiment analysis that accounts for influence and engagement
 - Detect viral content, controversy signals, and high-influence discussions
 - Generate executive-ready reports with strategic recommendations
-- Serve insights via [AgentOS](/docs/agent-os/introduction) API for integration with your applications
+- Serve insights via [AgentOS](/agent-os/introduction) API for integration with your applications
 
 ## Prerequisites and Setup
 
@@ -50,7 +50,7 @@ source venv/bin/activate     # If you are on Windows, use: venv\Scripts\activate
 # Install dependencies
 pip install "agno[infra]" openai exa_py python-dotenv
 
-4. Create a new project with [AgentOS](/docs/agent-os/introduction):
+4. Create a new project with [AgentOS](/agent-os/introduction):
 
 ```bash
 ag infra create              # Choose: [1] agent-infra-docker (default)
@@ -486,7 +486,7 @@ Now that we have completed our agent, we can spin-up the infrastructure for our 
 ag infra up
 ```
 
-Your [AgentOS](/docs/agent-os/introduction) API is now running. We are ready to start building!
+Your [AgentOS](/agent-os/introduction) API is now running. We are ready to start building!
 
 
 ### 4f. Test Your Complete Agent
