@@ -209,8 +209,11 @@ contents_db = PostgresDb(
     db_url="postgresql+psycopg://user:pass@localhost:5432/db"
 )
 
+vector_db = PgVector(table_name="vectors", db_url="http://my-postgress:5432")
+
+
 knowledge = Knowledge(
-    vector_db=your_vector_db,
+    vector_db=vector_db,
     contents_db=contents_db  # Must be provided for AgentOS
 )
 
