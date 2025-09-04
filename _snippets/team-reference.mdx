@@ -53,7 +53,7 @@
 | `add_memory_references` | `Optional[bool]` | `None` | If True, the agent adds a reference to the user memories in the response |
 | `enable_session_summaries` | `bool` | `False` | If True, the agent creates/updates session summaries at the end of runs |
 | `add_session_summary_references` | `Optional[bool]` | `None` | If True, the agent adds a reference to the session summaries in the response |
-| `add_history_to_messages` | `bool` | `False` | If True, add messages from the chat history to the messages list sent to the Model. |
+| `add_history_to_context` | `bool` | `False` | If True, add messages from the chat history to the messages list sent to the Model. |
 | `num_history_runs` | `int` | `3` | Number of historical runs to include in the messages |
 | `storage` | `Optional[Storage]` | `None` | Storage for the team |
 | `extra_data` | `Optional[Dict[str, Any]]` | `None` | Extra data stored with this team |
@@ -117,7 +117,7 @@ The team supports various memory and history features:
 - `enable_agentic_memory`: Enable agent memory management
 - `enable_user_memories`: Create/update user memories at the end of runs
 - `enable_session_summaries`: Create/update session summaries at the end of runs
-- `add_history_to_messages`: Add messages from the chat history to the messages list sent to the Model.
+- `add_history_to_context`: Add messages from the chat history to the messages list sent to the Model.
 - `num_history_runs`: Number of historical runs to include
 
 ## Tools and Functions

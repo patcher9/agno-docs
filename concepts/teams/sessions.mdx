@@ -205,7 +205,7 @@ We can give the Agent access to the chat history in the following ways:
 
 - We can set `add_history_to_context=True` and `num_history_runs=5` to add the messages from the last 5 runs automatically to every message sent to the agent.
 - We can set `read_chat_history=True` to provide a `get_chat_history()` tool to your agent allowing it to read any message in the entire chat history.
-- **We recommend setting all 3: `add_history_to_messages=True`, `num_history_runs=3` and `read_chat_history=True` for the best experience.**
+- **We recommend setting all 3: `add_history_to_context=True`, `num_history_runs=3` and `read_chat_history=True` for the best experience.**
 - We can also set `read_tool_call_history=True` to provide a `get_tool_call_history()` tool to your agent allowing it to read tool calls in reverse chronological order.
 
 Take a look at this example:
