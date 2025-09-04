@@ -106,12 +106,12 @@ async def run_team_with_events(prompt: str):
 
         # Handle member-level events
         if run_response_event.event in [RunEvent.tool_call_started]:
-            print(f"\n🤖 MEMBER TOOL STARTED: {run_response_event.agent_id}")
+            print(f"\n🤖 MEMBER TOOL STARTED: {run_response_event.id}")
             print(f"   Tool: {run_response_event.tool.tool_name}")
             print(f"   Args: {run_response_event.tool.tool_args}")
 
         if run_response_event.event in [RunEvent.tool_call_completed]:
-            print(f"\n✅ MEMBER TOOL COMPLETED: {run_response_event.agent_id}")
+            print(f"\n✅ MEMBER TOOL COMPLETED: {run_response_event.id}")
             print(f"   Tool: {run_response_event.tool.tool_name}")
             print(
                 f"   Result: {run_response_event.tool.result[:100]}..."
