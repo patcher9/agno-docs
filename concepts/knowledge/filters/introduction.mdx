@@ -38,7 +38,7 @@ Example:
 agent = Agent(
     name="KnowledgeFilterAgent",
     search_knowledge=False,  # Do not use agentic search
-    add_references=True,     # Add knowledge base references to the system prompt
+    add_knowledge_to_context=True,     # Add knowledge base references to the system prompt
     knowledge_filters={"user_id": "jordan_mitchell"}, # Pass filters like this
 )
 ```
