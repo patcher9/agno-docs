@@ -25,7 +25,7 @@ docker run -d \
 ```python agent_with_knowledge.py
 from agno.agent import Agent
 from agno.knowledge.knowledge import Knowledge
-from agno.storage.sqlite import SqliteStorage
+from agno.storage.sqlite import SqliteDb
 from agno.vectordb.clickhouse import Clickhouse
 
 knowledge=Knowledge(
@@ -43,7 +43,7 @@ knowledge.add_content(
 )
 
 agent = Agent(
-    storage=SqliteStorage(table_name="recipe_agent"),
+    storage=SqliteDb(table_name="recipe_agent"),
     knowledge=knowledge,
     # Enable the agent to search the knowledge base
     search_knowledge=True,

@@ -13,10 +13,10 @@ from agno.memory.v2.db.sqlite import SqliteMemoryDb
 from agno.memory.v2.manager import MemoryManager
 from agno.memory.v2.memory import Memory
 from agno.models.google import Gemini
-from agno.storage.sqlite import SqliteStorage
+from agno.storage.sqlite import SqliteDb
 from agno.tools.googlesearch import GoogleSearchTools
 
-agent_storage = SqliteStorage(
+agent_storage = SqliteDb(
     table_name="agent_sessions", db_file="tmp/persistent_memory.db"
 )
 memory_db = SqliteMemoryDb(table_name="memory", db_file="tmp/memory.db")

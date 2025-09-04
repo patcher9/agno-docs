@@ -7,11 +7,11 @@ title: Agent with Storage
 ```python cookbook/models/litellm/storage.py
 from agno.agent import Agent
 from agno.models.litellm import LiteLLM
-from agno.storage.sqlite import SqliteStorage
+from agno.storage.sqlite import SqliteDb
 from agno.tools.duckduckgo import DuckDuckGoTools
 
 # Create a storage backend using the Sqlite database
-storage = SqliteStorage(
+storage = SqliteDb(
     # store sessions in the ai.sessions table
     table_name="agent_sessions_storage",
     # db_file: Sqlite database file
