@@ -24,14 +24,10 @@ db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
 
 # Create your agents
 web_research_agent = Agent(
-    id="web-research-agent",
     name="Web Research Agent",
     model=Claude(id="claude-sonnet-4-0"),
     db=db,
     tools=[DuckDuckGoTools()],
-    add_history_to_context=True,
-    num_history_runs=3,
-    add_datetime_to_context=True,
     markdown=True,
 )
 
@@ -52,6 +48,10 @@ if __name__ == "__main__":
 Once enabled, your AgentOS will expose an MCP server at the `/mcp` endpoint that provides:
 - Access to your AgentOS configuration
 - Information about available agents, teams, and workflows
+- The ability to run agents, teams, and workflows
+- The ability to create and delete sessions
+- The ability to create, update, and delete memories
+- The ability to create and delete knowledge content
 
 See here for a [complete example](/examples/agent_os/mcp/enable_mcp_example).
 
@@ -90,5 +90,10 @@ if __name__ == "__main__":
     # Don't use reload=True with MCP tools to avoid lifespan issues
     agent_os.serve(app="mcp_tools_example:app")
 ```
+
+<Note>
+If you are using `MCPTools` within AgentOS, you should not use `reload=True` when serving your AgentOS. 
+This can break the MCP connection during the FastAPI lifecycle.
+</Note>
 
 See here for a [complete example](/examples/agent_os/mcp/mcp_tools_example).
