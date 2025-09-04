@@ -33,10 +33,10 @@ Basic Agent
 
 ```python agent.py
 from agno.agent import Agent
-from agno.models.vllm import vLLM
+from agno.models.vllm import VLLM
 
 agent = Agent(
-    model=vLLM(
+    model=VLLM(
         id="meta-llama/Llama-3.1-8B-Instruct",
         base_url="http://localhost:8000/",
     ),
@@ -56,11 +56,11 @@ vLLM models work seamlessly with Agno tools:
 
 ```python with_tools.py
 from agno.agent import Agent
-from agno.models.vllm import vLLM
+from agno.models.vllm import VLLM
 from agno.tools.duckduckgo import DuckDuckGoTools
 
 agent = Agent(
-    model=vLLM(id="meta-llama/Llama-3.1-8B-Instruct"),
+    model=VLLM(id="meta-llama/Llama-3.1-8B-Instruct"),
     tools=[DuckDuckGoTools()],
     markdown=True
 )
@@ -76,4 +76,4 @@ For the full list of supported models, see the [vLLM documentation](https://docs
 
 <Snippet file="model-vllm-params.mdx" />
 
-`vLLM` is a subclass of the [Model](/reference/models/model) class and has access to the same params.
+`VLLM` is a subclass of the [Model](/reference/models/model) class and has access to the same params.
