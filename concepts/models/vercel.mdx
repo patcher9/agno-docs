@@ -25,16 +25,16 @@ setx V0_API_KEY your-v0-api-key
 
 ## Example
 
-Use `v0` with your `Agent`. The following example assumes you have the `v0` Python class (as you provided) located at `agno/models/vercel.py`.
+Use `V0` with your `Agent`. The following example assumes you have the `V0` Python class (as you provided) located at `agno/models/vercel.py`.
 
 <CodeGroup>
 
 ```python agent.py
 from agno.agent import Agent
-from agno.models.vercel import v0
+from agno.models.vercel import V0
 
 agent = Agent(
-    model=v0(id="v0-1.0-md"),
+    model=V0(id="v0-1.0-md"),
     markdown=True
 )
 
@@ -53,4 +53,4 @@ agent.print_response("Create a simple web app that displays a random number betw
 
 <Snippet file="model-v0-params.mdx" />
 
-v0 also supports the params of [OpenAI](/reference/models/openai).
+V0 also supports the params of [OpenAI](/reference/models/openai).

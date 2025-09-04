@@ -6,6 +6,7 @@ description: Learn how to use models through the Portkey AI Gateway in Agno.
 Portkey is an AI Gateway that provides a unified interface to access multiple AI providers with advanced features like routing, load balancing, retries, and observability. Use Portkey to build production-ready AI applications with better reliability and cost optimization.
 
 With Portkey, you can:
+
 - Route requests across multiple AI providers
 - Implement fallback mechanisms for better reliability
 - Monitor and analyze your AI usage
@@ -37,7 +38,7 @@ Use `Portkey` with your `Agent`:
 <CodeGroup>
 
 ```python agent.py
-from agno.agent import Agent, RunOutput
+from agno.agent import Agent
 from agno.models.portkey import Portkey
 
 agent = Agent(
