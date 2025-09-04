@@ -199,6 +199,7 @@
                 "pages": [
                   "concepts/knowledge/introduction",
                   "concepts/knowledge/content_types",
+                  "concepts/knowledge/content_db",
                   "concepts/knowledge/search",
                   "concepts/knowledge/hybrid_search",
                   {
