@@ -558,12 +558,18 @@
               "agent-os/control-plane",
               "agent-os/creating-your-first-os",
               "agent-os/connecting-your-os",
-              "agent-os/chat-interface",
-              "agent-os/knowledge-management",
-              "agent-os/session-tracking",
               "agent-os/security",
               "agent-os/configuration",
+              "agent-os/mcp",
               "agent-os/custom-fastapi",
+              {
+                "group": "Features",
+                "pages": [
+                  "agent-os/features/chat-interface",
+                  "agent-os/features/knowledge-management",
+                  "agent-os/features/session-tracking"
+                ]
+              },
               {
                 "group": "Interfaces",
                 "pages": [
@@ -580,6 +586,13 @@
               "examples/agent-os/basic",
               "examples/agent-os/demo",
               "examples/agent-os/extra_configuration",
+              {
+                "group": "MCP",
+                "pages": [
+                  "examples/agent-os/mcp/enable_mcp_example",
+                  "examples/agent-os/mcp/mcp_tools_example"
+                ]
+              },
               "examples/agent-os/custom-fastapi",
               {
                 "group": "Interfaces",
