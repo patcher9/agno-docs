@@ -39,7 +39,7 @@ async def run_agent(task: str) -> None:
                 markdown=True,
             )
             await agent.aprint_response(
-                input=task,
+                message=task,
                 stream=True,
             )
     except Exception as e:

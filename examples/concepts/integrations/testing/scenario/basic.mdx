@@ -34,7 +34,7 @@ async def test_vegetarian_recipe_agent() -> None:
 
         async def call(self, input: scenario.AgentInput) -> scenario.AgentReturnTypes:
             response = self.agent.run(
-                input=input.last_new_user_message_str(), # Pass only the last user message
+                message=input.last_new_user_message_str(), # Pass only the last user message
                 session_id=input.thread_id, # Pass the thread id, this allows the agent to track history
             )
             return response.content
