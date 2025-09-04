@@ -11,7 +11,7 @@ Contents DB is a table in your database that keeps track of what content you've 
 While your vector database stores the actual content for search, this table tracks what you've added, when you added it, and its processing status.
 
 - **Vector Database**: Stores embeddings and chunks for semantic search
-- **Contents Database**: Tracks content metadata, status, and when coupled with [AgentOS Knowledge](/docs/agent-os/knowledge-management), provides management of your knowledge via API.
+- **Contents Database**: Tracks content metadata, status, and when coupled with [AgentOS Knowledge](/agent-os/knowledge-management), provides management of your knowledge via API.
 
 ## Why Use ContentsDB?
 
@@ -40,13 +40,13 @@ If you're using AgentOS, ContentsDB is **mandatory** for the Knowledge page func
 
 Agno supports multiple database backends for ContentsDB:
 
-- **[PostgreSQL](/docs/documentation/db/postgres)** - Recommended for production
-- **[SQLite](/docs/documentation/db/sqlite)** - Great for development and single-user applications  
-- **[MySQL](/docs/documentation/db/mysql)** - Enterprise-ready relational database
-- **[MongoDB](/docs/documentation/db/mongodb)** - Document-based NoSQL option
-- **[Redis](/docs/documentation/db/redis)** - In-memory option for high performance
-- **[In-Memory](/docs/documentation/db/in_memory)** - Temporary storage for testing
-- **Cloud Options** - [DynamoDB](/docs/documentation/db/dynamodb), [Firestore](/docs/documentation/db/firestore), [GCS](/docs/documentation/db/gcs)
+- **[PostgreSQL](/concepts/db/postgres)** - Recommended for production
+- **[SQLite](/concepts/db/sqlite)** - Great for development and single-user applications  
+- **[MySQL](/concepts/db/mysql)** - Enterprise-ready relational database
+- **[MongoDB](/concepts/db/mongodb)** - Document-based NoSQL option
+- **[Redis](/concepts/db/redis)** - In-memory option for high performance
+- **[In-Memory](/concepts/db/in_memory)** - Temporary storage for testing
+- **Cloud Options** - [DynamoDB](/concepts/db/dynamodb), [Firestore](/concepts/db/firestore), [GCS](/concepts/db/gcs)
 
 ### Basic Setup Example
 
@@ -242,12 +242,12 @@ With ContentsDB, the AgentOS Knowledge page provides:
 - **Search and Filtering**: Find content by metadata attributes
 - **Bulk Operations**: Manage multiple content items at once
 
-Check out the [AgentOS Knowledge](/docs/agent-os/knowledge-management) page for more in-depth information.
+Check out the [AgentOS Knowledge](/agent-os/knowledge-management) page for more in-depth information.
 
 ## Next Steps
 
-- **[Vector Databases](/docs/documentation/knowledge/vectordb/introduction)** - Understand the embedding storage layer
-- **[AgentOS](/docs/agent-os/introduction)** - Use your Knowledge in Agno AgentOS
-- **[Database Setup](/docs/documentation/db/overview)** - Detailed database configuration guides
+- **[Vector Databases](/concepts/knowledge/vectordb/introduction)** - Understand the embedding storage layer
+- **[AgentOS](/agent-os/introduction)** - Use your Knowledge in Agno AgentOS
+- **[Database Setup](/concepts/db/overview)** - Detailed database configuration guides
 
 
