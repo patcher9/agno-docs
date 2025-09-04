@@ -4,7 +4,7 @@
 |-----------|------|---------|-------------|
 | `session_id` | `str` | Required | Session UUID |
 | `agent_id` | `Optional[str]` | `None` | ID of the agent that this session is associated with |
-| `team_id` | `Optional[str]` | `None` | ID of the team that this session is associated with |
+| `id` | `Optional[str]` | `None` | ID of the team that this session is associated with |
 | `user_id` | `Optional[str]` | `None` | ID of the user interacting with this agent |
 | `workflow_id` | `Optional[str]` | `None` | ID of the workflow that this session is associated with |
 | `session_data` | `Optional[Dict[str, Any]]` | `None` | Session Data: session_name, session_state, images, videos, audio |
@@ -29,7 +29,7 @@ Retrieves a specific run by its `run_id`.
 
 Gets messages from the last N runs with various filtering options:
 - `agent_id`: Filter by agent ID
-- `team_id`: Filter by team ID  
+- `id`: Filter by team ID  
 - `last_n`: Number of recent runs to include
 - `skip_role`: Skip messages with specific role
 - `skip_status`: Skip runs with specific statuses

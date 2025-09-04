@@ -18,7 +18,7 @@ The `TeamRunOutput` class represents the response from a team run, containing bo
 | `model_provider` | `str` | `None` | The model provider used in the run |
 | `member_responses` | `List[Union[TeamRunOutput, RunOutput]]` | `[]` | Responses from individual team members |
 | `run_id` | `str` | `None` | Run Id |
-| `team_id` | `str` | `None` | Team Id for the run |
+| `id` | `str` | `None` | Team Id for the run |
 | `session_id` | `str` | `None` | Session Id for the run |
 | `tools` | `List[Dict[str, Any]]` | `None` | List of tools provided to the model |
 | `images` | `List[Image]` | `None` | List of images from member runs |
@@ -76,7 +76,7 @@ All events inherit from `BaseTeamRunOutputEvent` which provides these common att
 |-----------|------|---------|-------------|
 | `created_at` | `int` | Current timestamp | Unix timestamp of the event creation |
 | `event` | `str` | Event type value | The type of event |
-| `team_id` | `str` | `""` | ID of the team generating the event |
+| `id` | `str` | `""` | ID of the team generating the event |
 | `run_id` | `Optional[str]` | `None` | ID of the current run |
 | `session_id` | `Optional[str]` | `None` | ID of the current session |
 | `content` | `Optional[Any]` | `None` | For backwards compatibility |
