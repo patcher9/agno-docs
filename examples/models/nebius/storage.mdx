@@ -7,14 +7,14 @@ title: Agent with Storage
 ```python cookbook/models/nebius/storage.py
 from agno.agent import Agent
 from agno.models.nebius import Nebius
-from agno.storage.postgres import PostgresStorage
+from agno.storage.postgres import PostgresDb
 from agno.tools.duckduckgo import DuckDuckGoTools
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
 agent = Agent(
     model=Nebius(),
-    storage=PostgresStorage(table_name="agent_sessions", db_url=db_url),
+    storage=PostgresDb(table_name="agent_sessions", db_url=db_url),
     tools=[DuckDuckGoTools()],
     debug_mode=True,
         add_history_to_context=True,
