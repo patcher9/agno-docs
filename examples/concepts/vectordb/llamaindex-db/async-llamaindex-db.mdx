@@ -50,7 +50,7 @@ index = VectorStoreIndex(nodes=nodes, storage_context=storage_context)
 knowledge_retriever = VectorIndexRetriever(index)
 
 knowledge = Knowledge(
-    vector_db=LlamaIndexVectorDb(knowledge_retriever=knowledge_retriever)
+    vector_db=LlamaIndexVectorDb(knowledge_knowledge_retriever=knowledge_retriever)
 )
 
 # Create an agent with the knowledge instance
