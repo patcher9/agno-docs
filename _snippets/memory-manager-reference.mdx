@@ -30,8 +30,8 @@ The `MemoryManager` class is responsible for managing user memories, including c
 
 | Method | Description | Parameters | Returns |
 |--------|-------------|------------|---------|
-| `create_user_memories` | Creates memories from text or messages | `message: Optional[str] = None, messages: Optional[List[Message]] = None, id: Optional[str] = None, team_id: Optional[str] = None, user_id: Optional[str] = None` | `str` |
-| `acreate_user_memories` | Creates memories from text or messages (Async) | `message: Optional[str] = None, messages: Optional[List[Message]] = None, id: Optional[str] = None, team_id: Optional[str] = None, user_id: Optional[str] = None` | `str` |
+| `create_user_memories` | Creates memories from text or messages | `message: Optional[str] = None, messages: Optional[List[Message]] = None, agent_id: Optional[str] = None, team_id: Optional[str] = None, user_id: Optional[str] = None` | `str` |
+| `acreate_user_memories` | Creates memories from text or messages (Async) | `message: Optional[str] = None, messages: Optional[List[Message]] = None, agent_id: Optional[str] = None, team_id: Optional[str] = None, user_id: Optional[str] = None` | `str` |
 | `search_user_memories` | Searches user memories using specified retrieval method | `query: Optional[str] = None, limit: Optional[int] = None, retrieval_method: Optional[Literal["last_n", "first_n", "agentic"]] = None, user_id: Optional[str] = None` | `List[UserMemory]` |
 
 #### Memory Task Management
