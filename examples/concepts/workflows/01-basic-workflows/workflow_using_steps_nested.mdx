@@ -13,11 +13,11 @@ from agno.models.openai import OpenAIChat
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.exa import ExaTools
 from agno.tools.hackernews import HackerNewsTools
-from agno.workflows.condition import Condition
-from agno.workflows.parallel import Parallel
-from agno.workflows.step import Step
-from agno.workflows.steps import Steps
-from agno.workflows.workflow import Workflow
+from agno.workflow.condition import Condition
+from agno.workflow.parallel import Parallel
+from agno.workflow.step import Step
+from agno.workflow.steps import Steps
+from agno.workflow.workflow import Workflow
 
 # Define agents for different tasks
 researcher = Agent(
