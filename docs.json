@@ -55,8 +55,8 @@
     }
   },
   "integrations": {
-    "posthog": {
-      "apiKey": "phc_MjuWiUsZe9racJUG1IpiikP0gPInPwL0206gjfsBWSk"
+    "gtm": {
+      "tagId": "GTM-WBTFNG7M"
     }
   },
   "navigation": {

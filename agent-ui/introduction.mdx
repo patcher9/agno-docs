@@ -72,7 +72,7 @@ Let's start with a local playground server. Create a file `playground.py`
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.os import AgentOS
-from agno.db.sqlite import SqliteDb
+from agno.storage.sqlite import SqliteDb
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.yfinance import YFinanceTools
 
@@ -84,7 +84,7 @@ web_agent = Agent(
     tools=[DuckDuckGoTools()],
     instructions=["Always include sources"],
     # Store the agent sessions in a sqlite database
-    db=SqliteDb(session_table="web_agent", db_file=agent_storage),
+    storage=SqliteDb(table_name="web_agent", db_file=agent_storage),
     # Adds the current date and time to the instructions
     add_datetime_to_context=True,
     # Adds the history of the conversation to the messages
@@ -100,7 +100,7 @@ finance_agent = Agent(
     model=OpenAIChat(id="gpt-5-mini"),
     tools=[YFinanceTools(stock_price=True, analyst_recommendations=True, company_info=True, company_news=True)],
     instructions=["Always use tables to display data"],
-    db=SqliteDb(session_table="finance_agent", db_file=agent_storage),
+    storage=SqliteDb(table_name="finance_agent", db_file=agent_storage),
     add_datetime_to_context=True,
     add_history_to_context=True,
     num_history_runs=5,
