@@ -11,7 +11,7 @@ pip install chromadb
 
 ## Example
 
-```python cookbook/knowledge/vector_db/chroma_db/chroma_db.py
+```python agent_with_knowledge.py
 import asyncio
 
 from agno.agent import Agent
@@ -52,7 +52,7 @@ vector_db.delete_by_metadata({"user_tag": "Recipes from website"})
       ChromaDB also supports asynchronous operations, enabling concurrency and leading to better performance.
     </p>
     
-    ```python cookbook/knowledge/vector_db/chroma_db/async_chroma_db.py
+    ```python async_chroma_db.py
     # install chromadb - `pip install chromadb`
 
     import asyncio

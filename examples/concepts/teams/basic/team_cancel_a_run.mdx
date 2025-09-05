@@ -146,13 +146,13 @@ def main():
     # Create team members
     storyteller_agent = Agent(
         name="StorytellerAgent",
-        model=OpenAIChat(id="gpt-4o"),
+        model=OpenAIChat(id="gpt-5-mini"),
         description="An agent that writes creative stories",
     )
 
     editor_agent = Agent(
         name="EditorAgent",
-        model=OpenAIChat(id="gpt-4o"),
+        model=OpenAIChat(id="gpt-5-mini"),
         description="An agent that reviews and improves stories",
     )
 
@@ -160,7 +160,7 @@ def main():
     team = Team(
         name="Storytelling Team",
         members=[storyteller_agent, editor_agent],
-        model=OpenAIChat(id="gpt-4o"),  # Team leader model
+        model=OpenAIChat(id="gpt-5-mini"),  # Team leader model
         description="A team that collaborates to write detailed stories",
         mode="coordinate",  # Team members collaborate on the task
     )

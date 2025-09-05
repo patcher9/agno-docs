@@ -15,7 +15,7 @@ from agno.team import Team
 researcher = Agent(
     name="researcher",
     role="Research Assistant",
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     instructions="You are a research assistant. Find information and provide detailed analysis.",
     markdown=True,
 )
@@ -23,7 +23,7 @@ researcher = Agent(
 writer = Agent(
     name="writer",
     role="Content Writer", 
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     instructions="You are a content writer. Create well-structured content based on research.",
     markdown=True,
 )

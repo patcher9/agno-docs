@@ -33,7 +33,7 @@ from agno.tools.exa import ExaTools
 
 # Initialize the academic research agent with scholarly capabilities
 research_scholar = Agent(
-    model=OpenAIChat(id="gpt-4o"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[
         ExaTools(
             start_published_date=datetime.now().strftime("%Y-%m-%d"), type="keyword"

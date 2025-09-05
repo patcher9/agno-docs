@@ -43,7 +43,7 @@ knowledge.add_content(
 )
 
 agent = Agent(
-    db=SqliteDb(session_table="recipe_agent"),
+    db=SqliteDb(db_file="agno.db"),
     knowledge=knowledge,
     # Enable the agent to search the knowledge base
     search_knowledge=True,
