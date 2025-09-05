@@ -4,11 +4,11 @@ title: Agent with User Memory
 
 ## Code
 
-```python cookbook/apps/discord/agent_with_user_memory.py
+```python cookbook/integrations/discord/agent_with_user_memory.py
 from textwrap import dedent
 
 from agno.agent import Agent
-from agno.app.discord import DiscordClient
+from agno.integrations.discord import DiscordClient
 from agno.memory.v2.db.sqlite import SqliteMemoryDb
 from agno.memory.v2.manager import MemoryManager
 from agno.memory.v2.memory import Memory
@@ -43,8 +43,8 @@ personal_agent = Agent(
     model=Gemini(id="gemini-2.0-flash"),
     tools=[GoogleSearchTools()],
     add_history_to_context=True,
-    num_history_responses=3,
-    add_datetime_to_context=True,
+    num_history_runs=3,
+    add_datetime_to_instructions=True,
     markdown=True,
     memory=memory,
     enable_agentic_memory=True,
@@ -82,11 +82,11 @@ if __name__ == "__main__":
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/apps/discord/agent_with_user_memory.py
+    python cookbook/integrations/discord/agent_with_user_memory.py
     ```
 
     ```bash Windows
-    python cookbook/apps/discord/agent_with_user_memory.py
+    python cookbook/integrations/discord/agent_with_user_memory.py
     ```
     </CodeGroup>
   </Step>
