@@ -45,7 +45,7 @@ from typing import Dict, Iterator, Optional
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.run.workflow import WorkflowCompletedEvent
-from agno.db.sqlite import SqliteDb
+from agno.storage.sqlite import SqliteDb
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.newspaper4k import Newspaper4kTools
 from agno.utils.log import logger
@@ -117,7 +117,7 @@ class BlogPostGenerator(Workflow):
            - Gather both mainstream and expert opinions
            - Find supporting data and statistics\
         """),
-        output_schema=SearchResults,
+        response_model=SearchResults,
     )
 
     # Content Scraper: Extracts and processes article content
@@ -149,7 +149,7 @@ class BlogPostGenerator(Workflow):
            - Ensure accurate extraction
            - Maintain readability\
         """),
-        output_schema=ScrapedArticle,
+        response_model=ScrapedArticle,
     )
 
     # Content Writer Agent: Crafts engaging blog posts from research
@@ -426,7 +426,6 @@ if __name__ == "__main__":
         session_id=f"generate-blog-post-on-{url_safe_topic}",
         db=SqliteDb(
             db_file="tmp/agno_workflows.db",
-            session_table="generate_blog_post_workflows",
         ),
         debug_mode=True,
     )

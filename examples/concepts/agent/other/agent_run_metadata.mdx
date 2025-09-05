@@ -30,7 +30,7 @@ response = agent.run(
         "escalation_level": 2,
         "customer_tier": "enterprise",
         "department": "customer_success",
-        "id": "support_agent_v1",
+        "agent_id": "support_agent_v1",
         "business_impact": "revenue_critical",
         "estimated_resolution_time_minutes": 30,
     },
@@ -50,14 +50,8 @@ response = agent.run(
   </Step>
 
   <Step title="Run Agent">
-    <CodeGroup>
-    ```bash Mac
+    ```bash
     python cookbook/agents/other/agent_run_metadata.py
     ```
-    
-    ```bash Windows  
-    python cookbook/agents/other/agent_run_metadata.py
-    ```
-    </CodeGroup>
   </Step>
 </Steps>

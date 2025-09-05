@@ -43,7 +43,7 @@ db = Chroma(embedding_function=OpenAIEmbeddings(), persist_directory=str(chroma_
 knowledge_retriever = db.as_retriever()
 
 knowledge = Knowledge(
-    vector_db=LangChainVectorDb(knowledge_knowledge_retriever=knowledge_retriever)
+    vector_db=LangChainVectorDb(knowledge_retriever=knowledge_retriever)
 )
 
 agent = Agent(knowledge=knowledge)

@@ -8,7 +8,7 @@ sidebarTitle: Run Output & Events
 | Attribute          | Type                         | Default                       | Description                                                                                        |
 | ------------------ | ---------------------------- | ----------------------------- | -------------------------------------------------------------------------------------------------- |
 | `run_id`           | `Optional[str]`              | `None`                        | Run ID                                                                                             |
-| `id`         | `Optional[str]`              | `None`                        | Agent ID for the run                                                                               |
+| `agent_id`         | `Optional[str]`              | `None`                        | Agent ID for the run                                                                               |
 | `agent_name`       | `Optional[str]`              | `None`                        | Agent name for the run                                                                             |
 | `session_id`       | `Optional[str]`              | `None`                        | Session ID for the run                                                                             |
 | `parent_run_id`    | `Optional[str]`              | `None`                        | Parent run ID                                                                                      |
@@ -48,7 +48,7 @@ All events inherit from `BaseAgentRunEvent` which provides these common attribut
 |-----------|------|---------|-------------|
 | `created_at` | `int` | Current timestamp | Unix timestamp of the event creation |
 | `event` | `str` | Event type value | The type of event |
-| `id` | `str` | `""` | ID of the agent generating the event |
+| `agent_id` | `str` | `""` | ID of the agent generating the event |
 | `agent_name` | `str` | `""` | Name of the agent generating the event |
 | `run_id` | `Optional[str]` | `None` | ID of the current run |
 | `session_id` | `Optional[str]` | `None` | ID of the current session |
