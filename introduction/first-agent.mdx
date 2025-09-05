@@ -1,11 +1,11 @@
 ---
-title: Your First Agent
-description: Build your first AI Agent with Agno.
+title: Your first Agent
+description: Build and run your first AI Agent using Agno.
 ---
 
-**Agents are AI programs where a machine learning model controls the flow of execution.**
+**Agents are AI programs where an LLM controls the flow of execution.**
 
-In 10 lines of code, we have an AI program that takes action based on user input and available tools. This agent will fetch the top stories from HackerNews and summarize them.
+In 10 lines of code, we can build an Agent that takes action based on user input and available tools. This agent will fetch the top stories from HackerNews and summarize them.
 
 ```python hackernews_agent.py lines
 from agno.agent import Agent
@@ -22,49 +22,48 @@ agent.print_response("Summarize the top 5 stories on hackernews", stream=True)
 
 ## Build your first Agent
 
-Next, let's build an Agent that can answer questions about Agno using the Agno MCP server. **This is a simple yet complete example that you can extend by connecting any MCP server**.
+Instead of a toy demo, let's build an Agent that you can extend and build upon. We'll use the Agno MCP server to build an Agent that can answer questions about Agno, and also give it a database to store conversation history and state.
 
-```python agno_mcp.py lines
-import asyncio
+**This is a simple yet complete example that you can extend by connecting to any MCP server**.
+
+```python agno_agent.py lines
 from agno.agent import Agent
+from agno.db.sqlite import SqliteDb
 from agno.models.anthropic import Claude
+from agno.os import AgentOS
 from agno.tools.mcp import MCPTools
 
-
-async def run_agent(message: str) -> None:
-    # Define the MCP server you want to use
-    agno_mcp_server = MCPTools(
-        transport="streamable-http", url="https://docs-v2.agno.com/mcp"
-    )
-    # Connect to the MCP server
-    await agno_mcp_server.connect()
-
-    # Define your Agent
-    agent = Agent(
-        model=Claude(id="claude-sonnet-4-0"),
-        tools=[agno_mcp_server],
-        markdown=True,
-    )
-    # Run the Agent and print the response
-    await agent.aprint_response(input=message, stream=True)
-
-    # Close the MCP server
-    await agno_mcp_server.close()
+# Create the Agent
+agno_agent = Agent(
+    name="Agno Agent",
+    model=Claude(id="claude-sonnet-4-0"),
+    # Add a database to the Agent
+    db=SqliteDb(db_file="agno.db"),
+    # Add the Agno MCP server to the Agent
+    tools=[MCPTools(transport="streamable-http", url="https://docs-v2.agno.com/mcp")],
+    # Add the previous session history to the context
+    add_history_to_context=True,
+    markdown=True,
+)
 
 
-if __name__ == "__main__":
-    asyncio.run(run_agent("What is Agno?"))
+# Create the AgentOS
+agent_os = AgentOS(agents=[agno_agent])
+# Get the FastAPI app for the AgentOS
+app = agent_os.get_app()
 ```
 
-<Tip>
+<Check>
 
-Unfortuntately, the DevEx of MCP is not great. Agno helps, but there's only so much we can do.
+There is an incredible amount of alpha in these 25 lines of code.
 
-</Tip>
+You get a fully functional Agent with memory and state that can access MCP servers, served via a production-grade FastAPI application.
 
-## Run your Agent
+</Check>
 
-Create a virtual environment, install dependencies, export your API key and run the Agent.
+## Run your AgentOS
+
+The AgentOS gives us a FastAPI application with ready-to-use API endpoints for serving, monitoring and managing our Agents. Let's run it!
 
 <Steps>
   <Step title="Setup your virtual environment">
@@ -86,11 +85,11 @@ Create a virtual environment, install dependencies, export your API key and run 
 
     <CodeGroup>
     ```bash Mac
-    uv pip install -U agno anthropic mcp
+    uv pip install -U agno anthropic mcp 'fastapi[standard]' sqlalchemy
     ```
 
     ```bash Windows
-    uv pip install -U agno anthropic mcp
+    uv pip install -U agno anthropic mcp 'fastapi[standard]' sqlalchemy
     ```
     </CodeGroup>
 
@@ -108,101 +107,72 @@ Create a virtual environment, install dependencies, export your API key and run 
     </CodeGroup>
 
   </Step>
-  <Step title="Run the agent">
+  <Step title="Run your AgentOS">
 
     ```shell
-    python agno_mcp.py
+    fastapi dev agno_agent.py
     ```
+
+    This will start your AgentOS on `http://localhost:8000`
 
   </Step>
 </Steps>
 
-<Note>
+## Connect your AgentOS
 
-Set `debug_mode=True` or `export AGNO_DEBUG=true` to see the system and user messages.
+Agno provides a web interface that connects to your AgentOS, use it to monitor, manage and test your agentic system. Open [os.agno.com](https://os.agno.com) and sign in to your account.
 
-</Note>
+1. Click on **"Add new OS"** in the top navigation bar.
+2. Select **"Local"** to connect to a local AgentOS running on your machine.
+3. Enter the endpoint URL of your AgentOS. The default is `http://localhost:8000`.
+4. Give your AgentOS a descriptive name like "Development OS" or "Local 8000".
+5. Click **"Connect"**.
 
-## Give your Agent Storage
+<Frame>
+  <video
+    autoPlay
+    muted
+    loop
+    playsInline
+    style={{ borderRadius: "0.5rem", width: "100%", height: "auto" }}
+  >
+    <source src="/videos/agent-os-connect-1.mp4" type="video/mp4" />
+  </video>
+</Frame>
 
-By default, Agent runs are stateless i.e. the model API doesn’t remember previous messages. But in most cases, we want sessions to continue across multiple requests. Storage solves this by saving chat history and state in a database, so we can add past messages to the context and make our Agents stateful. When an Agent runs, it retrieves the stored history and state, adds them to the context, and resumes the conversation.
+Once connected, you'll see your new OS with a live status indicator.
 
-Storage also enables deeper insights: inspecting sessions, extracting few-shot examples, and building monitoring tools. It helps us track data, improve reliability, and build better Agents.
+## Chat with your Agent
 
-Agno supports most databases as storage drivers, but in this example we'll use SQLite to keep things simple. Update the `agno_mcp.py` file and give your Agent a Sqlite database:
+Next, let's chat with our Agent, go to the `Chat` section in the sidebar and select your Agent.
 
-```python agno_mcp.py lines
-import asyncio
-from agno.agent import Agent
-from agno.db.sqlite import SqliteDb
-from agno.models.anthropic import Claude
-from agno.tools.mcp import MCPTools
+- Ask a question like “What is Agno?”. The Agent will use the Agno MCP server to answer the question.
+- Agents keep their own history, tools, and instructions; switching agents won’t mix contexts.
 
-# Create a database for the Agent
-db = SqliteDb(db_file="agno.db")
+<Frame>
+  <video
+    autoPlay
+    muted
+    loop
+    playsInline
+    style={{ borderRadius: "0.5rem", width: "100%", height: "auto" }}
+  >
+    <source src="/videos/agno-agent-chat.mp4" type="video/mp4" />
+  </video>
+</Frame>
 
+<Tip>
 
-async def run_agent(message: str) -> None:
-    # Define the MCP server you want to use
-    agno_mcp_server = MCPTools(
-        transport="streamable-http", url="https://docs-v2.agno.com/mcp"
-    )
-    # Connect to the MCP server
-    await agno_mcp_server.connect()
+Click on Sessions to view your Agent's conversations. This data is stored in your Agent's database - no need for external tracing services.
 
-    # Define your Agent
-    agent = Agent(
-        model=Claude(id="claude-sonnet-4-0"),
-        # Add the database to the Agent
-        db=db,
-        tools=[agno_mcp_server],
-        # Add the previous session history to the context
-        add_history_to_context=True,
-        # Specify how many messages to add to the context
-        num_history_runs=3,
-        markdown=True,
-    )
-    # Manually set the session id so we can continue the same session across runs
-    await agent.aprint_response(input=message, stream=True, session_id="session_1")
+</Tip>
 
-    # Close the MCP server
-    await agno_mcp_server.close()
+## Pre-built API endpoints
 
+The FastAPI app generated by your AgentOS comes with pre-built, SSE-compatible API endpoints that you can use to build your agentic product.
 
-if __name__ == "__main__":
-    asyncio.run(run_agent("What was my last message?"))
-    asyncio.run(run_agent("What is Agno?"))
-    asyncio.run(run_agent("What was my last message?"))
-```
+Checkout the API endpoints at `/docs` of your AgentOS url, eg [http://localhost:8000/docs](http://localhost:8000/docs).
 
-Now, the Agent will store the session history and state in the database. Run the Agent multiple times and see how it persists the session history and state:
+## Next
 
-<Steps>
-  <Step title="Install new dependencies">
-
-    <CodeGroup>
-    ```bash Mac
-    uv pip install -U sqlalchemy
-    ```
-
-    ```bash Windows
-    uv pip install -U sqlalchemy
-    ```
-    </CodeGroup>
-
-  </Step>
-  <Step title="Run the agent multiple times">
-
-    ```shell
-    python agno_mcp.py
-    ```
-    ```shell
-    python agno_mcp.py
-    ```
-
-  </Step>
-</Steps>
-
-The first time you run the Agent, it will not have any session history and state. But when you run it multiple times, it will persist the session history and state in the database.
-
-Next, let's serve your Agent using the AgentOS.
+After running your first Agent, dive into [core concepts](/concepts/agents/introduction) and extend your Agent with more tools and capabilities.

@@ -117,7 +117,7 @@ class BlogPostGenerator(Workflow):
            - Gather both mainstream and expert opinions
            - Find supporting data and statistics\
         """),
-        response_model=SearchResults,
+        output_schema=SearchResults,
     )
 
     # Content Scraper: Extracts and processes article content
@@ -149,7 +149,7 @@ class BlogPostGenerator(Workflow):
            - Ensure accurate extraction
            - Maintain readability\
         """),
-        response_model=ScrapedArticle,
+        output_schema=ScrapedArticle,
     )
 
     # Content Writer Agent: Crafts engaging blog posts from research
@@ -424,10 +424,14 @@ if __name__ == "__main__":
     # - Sets up SQLite storage for caching results
     generate_blog_post = BlogPostGenerator(
         session_id=f"generate-blog-post-on-{url_safe_topic}",
+<<<<<<< HEAD
         storage=SqliteDb(
             table_name="generate_blog_post_workflows",
             mode="workflow",
             auto_upgrade_schema=True,
+=======
+        db=SqliteDb(
+>>>>>>> a42afe2f781ca8a0b489b3489f72ebefb6a2c654
             db_file="tmp/agno_workflows.db",
         ),
         debug_mode=True,

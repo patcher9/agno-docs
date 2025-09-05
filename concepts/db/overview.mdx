@@ -47,7 +47,7 @@ db = SQLiteDb(db_file="agno.db")
 agent = Agent(
     db=db,
     add_history_to_context=True, # Automatically add the persisted session history to the context
-    num_history_messages=3, # Specify how many messages to add to the context
+    num_history_runs=3, # Specify how many messages to add to the context
 )
 ```
 

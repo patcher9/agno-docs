@@ -7,14 +7,14 @@ title: Agent with Storage
 ```python cookbook/models/openai/chat/storage.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
-from agno.storage.postgres import PostgresDb
+from agno.db.postgres import PostgresDb
 from agno.tools.duckduckgo import DuckDuckGoTools
 
 db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
 
 agent = Agent(
     model=OpenAIChat(id="gpt-5-mini"),
-    storage=PostgresDb(table_name="agent_sessions", db_url=db_url),
+    db=PostgresDb(session_table="agent_sessions", db_url=db_url),
     tools=[DuckDuckGoTools()],
     add_history_to_context=True,
 )

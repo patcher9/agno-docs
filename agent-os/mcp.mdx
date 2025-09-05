@@ -1,0 +1,99 @@
+---
+title: "AgentOS MCP"
+description: "Learn how to enable MCP and use MCPTool-enabled agents inside your AgentOS"
+---
+
+Model Context Protocol (MCP) gives Agents the ability to interact with external systems through a standardized interface. Agno offers two patterns to work with MCP in
+
+1. **MCP Server**: Expose your AgentOS as an MCP server, allowing external systems to access specific capabilities of your AgentOS as tools
+2. **MCPTools**: Connect your agents to external MCP servers to access their tools and capabilities
+
+## Enabling MCP Server in AgentOS
+
+To enable the MCP server in your AgentOS, set `enable_mcp=True` when creating your AgentOS instance:
+
+```python enable_mcp_example.py
+from agno.agent import Agent
+from agno.db.postgres import PostgresDb
+from agno.models.anthropic import Claude
+from agno.os import AgentOS
+from agno.tools.duckduckgo import DuckDuckGoTools
+
+# Setup the database
+db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
+
+# Create your agents
+web_research_agent = Agent(
+    name="Web Research Agent",
+    model=Claude(id="claude-sonnet-4-0"),
+    db=db,
+    tools=[DuckDuckGoTools()],
+    markdown=True,
+)
+
+# Setup AgentOS with MCP enabled
+agent_os = AgentOS(
+    description="Example app with MCP enabled",
+    agents=[web_research_agent],
+    enable_mcp=True,  # This enables a LLM-friendly MCP server at /mcp
+)
+
+app = agent_os.get_app()
+
+if __name__ == "__main__":
+    # Your MCP server will be available at http://localhost:7777/mcp
+    agent_os.serve(app="enable_mcp_example:app", reload=True)
+```
+
+Once enabled, your AgentOS will expose an MCP server at the `/mcp` endpoint that provides:
+- Access to your AgentOS configuration
+- Information about available agents, teams, and workflows
+- The ability to run agents, teams, and workflows
+- The ability to create and delete sessions
+- The ability to create, update, and delete memories
+- The ability to create and delete knowledge content
+
+See here for a [complete example](/examples/agent_os/mcp/enable_mcp_example).
+
+## Using MCPTools in AgentOS
+
+[`MCPTools`](/concepts/tools/mcp) allows your agents to connect to external MCP servers and use their capabilities. 
+
+When using MCPTools within AgentOS, the system handles the lifecycle automatically:
+
+```python mcp_tools_example.py
+from agno.agent import Agent
+from agno.os import AgentOS
+from agno.tools.mcp import MCPTools
+
+# Create MCP-enabled agent
+mcp_tools = MCPTools(
+    transport="streamable-http", 
+    url="https://docs-v2.agno.com/mcp"
+)
+
+agent = Agent(
+    id="agno-agent",
+    name="Agno Agent",
+    tools=[mcp_tools],
+)
+
+# AgentOS manages MCP lifespan
+agent_os = AgentOS(
+    description="AgentOS with MCP Tools",
+    agents=[agent],
+)
+
+app = agent_os.get_app()
+
+if __name__ == "__main__":
+    # Don't use reload=True with MCP tools to avoid lifespan issues
+    agent_os.serve(app="mcp_tools_example:app")
+```
+
+<Note>
+If you are using `MCPTools` within AgentOS, you should not use `reload=True` when serving your AgentOS. 
+This can break the MCP connection during the FastAPI lifecycle.
+</Note>
+
+See here for a [complete example](/examples/agent_os/mcp/mcp_tools_example).
