@@ -18,7 +18,7 @@ Agno provides a beautiful UI for interacting with your agents, completely open s
 No data is sent to [agno.com](https://app.agno.com), all agent data is stored locally in your sqlite database.
 </Note>
 
-The Open Source Agent UI is built with Next.js and TypeScript. After the success of the [Agent Playground](/introduction/playground), the community asked for a self-hosted alternative and we delivered!
+The Open Source Agent UI is built with Next.js and TypeScript. After the success of the [Agent AgentOS](/agent-os/introduction), the community asked for a self-hosted alternative and we delivered!
 
 # Get Started with Agent UI
 
@@ -64,14 +64,14 @@ cd agent-ui && pnpm install && pnpm dev
 
 ## Connect to Local Agents
 
-The Agent UI needs to connect to a playground server, which you can run locally or on any cloud provider.
+The Agent UI needs to connect to a AgentOS server, which you can run locally or on any cloud provider.
 
-Let's start with a local playground server. Create a file `playground.py`
+Let's start with a local AgentOS server. Create a file `agentos.py`
 
-```python playground.py
+```python agentos.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
-from agno.playground import Playground
+from agno.os import AgentOS
 from agno.db.sqlite import SqliteDb
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.yfinance import YFinanceTools
@@ -107,14 +107,14 @@ finance_agent = Agent(
     markdown=True,
 )
 
-playground = Playground(agents=[web_agent, finance_agent])
-app = playground.get_app()
+agent_os = AgentOS(agents=[web_agent, finance_agent])
+app = agent_os.get_app()
 
 if __name__ == "__main__":
-    playground.serve("playground:app", reload=True)
+    agent_os.serve("agentos:app", reload=True)
 ```
 
-In another terminal, run the playground server:
+In another terminal, run the AgentOS server:
 
 <Steps>
   <Step title="Setup your virtual environment">
@@ -158,18 +158,18 @@ In another terminal, run the playground server:
     </CodeGroup>
 
   </Step>
-  <Step title="Run the Playground">
+  <Step title="Run the AgentOS">
 
     ```shell
-    python playground.py
+    python agentos.py
     ```
 
   </Step>
 </Steps>
 
-<Tip>Make sure the `serve_playground_app()` points to the file containing your `Playground` app.</Tip>
+<Tip>Make sure the `serve_agentos_app()` points to the file containing your `AgentOS` app.</Tip>
 
-## View the playground
+## View the AgentOS
 
 - Open [http://localhost:3000](http://localhost:3000) to view the Agent UI
 - Select the `localhost:7777` endpoint and start chatting with your agents!
