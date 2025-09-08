@@ -186,9 +186,9 @@ spanish_agent = Agent(
 
 multi_language_team = Team(
     name="Multi Language Team",
-    mode="route",
-    model=OpenAIChat(id="gpt-5-mini"),
+    model=OpenAIChat("gpt-5-mini"),
     members=[english_agent, spanish_agent],
+    respond_directly=True,
     markdown=True,
     instructions=[
         "You are a language router that directs questions to the appropriate language agent.",

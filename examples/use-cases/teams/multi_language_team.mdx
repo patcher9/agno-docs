@@ -41,7 +41,6 @@ german_agent = Agent(
 )
 multi_language_team = Team(
     name="Multi Language Team",
-    mode="route",
     model=OpenAIChat("gpt-5-mini"),
     members=[
         spanish_agent,
@@ -50,6 +49,7 @@ multi_language_team = Team(
         german_agent,
         chinese_agent,
     ],
+    respond_directly=True,
     description="You are a language router that directs questions to the appropriate language agent.",
     instructions=[
         "Identify the language of the user's question and direct it to the appropriate language agent.",

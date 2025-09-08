@@ -32,7 +32,6 @@ web_searcher = Agent(
 db = InMemoryDb()
 team = Team(
     name="Research Team",
-    mode="coordinate",
     members=[hn_researcher, web_searcher],
     db=db,
 )

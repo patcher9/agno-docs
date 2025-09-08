@@ -87,6 +87,100 @@
 
 ## Functions
 
+### `run`
+
+Run the agent.
+
+**Parameters:**
+
+- `input` (Union[str, List, Dict, Message, BaseModel, List[Message]]): The input to send to the agent
+- `stream` (Optional[bool]): Whether to stream the response
+- `stream_intermediate_steps` (Optional[bool]): Whether to stream intermediate steps
+- `user_id` (Optional[str]): User ID to use
+- `session_id` (Optional[str]): Session ID to use
+- `session_state` (Optional[Dict[str, Any]]): Session state to use
+- `audio` (Optional[Sequence[Audio]]): Audio files to include
+- `images` (Optional[Sequence[Image]]): Image files to include
+- `videos` (Optional[Sequence[Video]]): Video files to include
+- `files` (Optional[Sequence[File]]): Files to include
+- `retries` (Optional[int]): Number of retries to attempt
+- `knowledge_filters` (Optional[Dict[str, Any]]): Knowledge filters to apply
+- `add_history_to_context` (Optional[bool]): Whether to add history to context
+- `add_dependencies_to_context` (Optional[bool]): Whether to add dependencies to context
+- `add_session_state_to_context` (Optional[bool]): Whether to add session state to context
+- `dependencies` (Optional[Dict[str, Any]]): Dependencies to use for this run
+- `metadata` (Optional[Dict[str, Any]]): Metadata to use for this run
+- `debug_mode` (Optional[bool]): Whether to enable debug mode
+
+### `arun`
+
+Run the agent asynchronously.
+
+**Parameters:**
+
+- `input` (Union[str, List, Dict, Message, BaseModel, List[Message]]): The input to send to the agent
+- `stream` (Optional[bool]): Whether to stream the response
+- `user_id` (Optional[str]): User ID to use
+- `session_id` (Optional[str]): Session ID to use
+- `session_state` (Optional[Dict[str, Any]]): Session state to use
+- `audio` (Optional[Sequence[Audio]]): Audio files to include
+- `images` (Optional[Sequence[Image]]): Image files to include
+- `videos` (Optional[Sequence[Video]]): Video files to include
+- `files` (Optional[Sequence[File]]): Files to include
+- `stream_intermediate_steps` (Optional[bool]): Whether to stream intermediate steps
+- `retries` (Optional[int]): Number of retries to attempt
+- `knowledge_filters` (Optional[Dict[str, Any]]): Knowledge filters to apply
+- `debug_mode` (Optional[bool]): Whether to enable debug mode
+
+**Returns:**
+
+- `Union[RunOutput, AsyncIterator[RunOutputEvent]]`: Either a RunOutput or an iterator of RunOutputEvents, depending on the `stream` parameter
+
+
+### `continue_run`
+
+Continue a run.
+
+**Parameters:**
+
+- `run_response` (Optional[RunOutput]): The run response to continue
+- `run_id` (Optional[str]): The run ID to continue
+- `updated_tools` (Optional[List[ToolExecution]]): Updated tools to use, required if the run is resumed using `run_id`
+- `stream` (Optional[bool]): Whether to stream the response
+- `stream_intermediate_steps` (Optional[bool]): Whether to stream intermediate steps
+- `user_id` (Optional[str]): User ID to use
+- `session_id` (Optional[str]): Session ID to use
+- `retries` (Optional[int]): Number of retries to attempt
+- `knowledge_filters` (Optional[Dict[str, Any]]): Knowledge filters to apply
+- `dependencies` (Optional[Dict[str, Any]]): Dependencies to use for this run
+- `debug_mode` (Optional[bool]): Whether to enable debug mode
+
+**Returns:**
+
+- `Union[RunOutput, Iterator[RunOutputEvent]]`: Either a RunOutput or an iterator of RunOutputEvents, depending on the `stream` parameter
+
+### `acontinue_run`
+
+Continue a run asynchronously.
+
+**Parameters:**
+
+- `run_response` (Optional[RunOutput]): The run response to continue
+- `run_id` (Optional[str]): The run ID to continue
+- `updated_tools` (Optional[List[ToolExecution]]): Updated tools to use, required if the run is resumed using `run_id`
+- `stream` (Optional[bool]): Whether to stream the response
+- `stream_intermediate_steps` (Optional[bool]): Whether to stream intermediate steps
+- `user_id` (Optional[str]): User ID to use
+- `session_id` (Optional[str]): Session ID to use
+- `retries` (Optional[int]): Number of retries to attempt
+- `knowledge_filters` (Optional[Dict[str, Any]]): Knowledge filters to apply
+- `dependencies` (Optional[Dict[str, Any]]): Dependencies to use for this run
+- `debug_mode` (Optional[bool]): Whether to enable debug mode
+
+**Returns:**
+
+- `Union[RunOutput, AsyncIterator[Union[RunOutputEvent, RunOutput]]]`: Either a RunOutput or an iterator of RunOutputEvents, depending on the `stream` parameter
+
 ### `print_response`
 
 Run the agent and print the response.
@@ -110,33 +204,10 @@ Run the agent and print the response.
 - `console` (Optional[Any]): Console to use for output
 - `tags_to_include_in_markdown` (Optional[Set[str]]): Tags to include in markdown content
 - `knowledge_filters` (Optional[Dict[str, Any]]): Knowledge filters to apply
-- `debug_mode` (Optional[bool]): Whether to enable debug mode
-
-### `run`
-
-Run the agent.
-
-**Parameters:**
-
-- `input` (Union[str, List, Dict, Message, BaseModel, List[Message]]): The input to send to the agent
-- `stream` (Optional[bool]): Whether to stream the response
-- `stream_intermediate_steps` (Optional[bool]): Whether to stream intermediate steps
-- `user_id` (Optional[str]): User ID to use
-- `session_id` (Optional[str]): Session ID to use
-- `session_state` (Optional[Dict[str, Any]]): Session state to use
-- `audio` (Optional[Sequence[Audio]]): Audio files to include
-- `images` (Optional[Sequence[Image]]): Image files to include
-- `videos` (Optional[Sequence[Video]]): Video files to include
-- `files` (Optional[Sequence[File]]): Files to include
-- `retries` (Optional[int]): Number of retries to attempt
-- `knowledge_filters` (Optional[Dict[str, Any]]): Knowledge filters to apply
-- `add_history_to_context` (Optional[bool]): Add chat history to context
-- `add_dependencies_to_context` (Optional[bool]): Add dependencies to context
-- `add_session_state_to_context` (Optional[bool]): Add session state to context
+- `add_history_to_context` (Optional[bool]): Whether to add history to context
 - `dependencies` (Optional[Dict[str, Any]]): Dependencies to use for this run
-- `metadata` (Optional[Dict[str, Any]]): Metadata for this run
+- `metadata` (Optional[Dict[str, Any]]): Metadata to use for this run
 - `debug_mode` (Optional[bool]): Whether to enable debug mode
-- `yield_run_response` (bool): Whether to yield the run response
 
 **Returns:**
 
@@ -165,79 +236,43 @@ Run the agent and print the response asynchronously.
 - `console` (Optional[Any]): Console to use for output
 - `tags_to_include_in_markdown` (Optional[Set[str]]): Tags to include in markdown content
 - `knowledge_filters` (Optional[Dict[str, Any]]): Knowledge filters to apply
-- `debug_mode` (Optional[bool]): Whether to enable debug mode
-
-### `arun`
-
-Run the agent asynchronously.
-
-**Parameters:**
-
-- `input` (Union[str, List, Dict, Message, BaseModel, List[Message]]): The input to send to the agent
-- `stream` (Optional[bool]): Whether to stream the response
-- `user_id` (Optional[str]): User ID to use
-- `session_id` (Optional[str]): Session ID to use
-- `session_state` (Optional[Dict[str, Any]]): Session state to use
-- `audio` (Optional[Sequence[Audio]]): Audio files to include
-- `images` (Optional[Sequence[Image]]): Image files to include
-- `videos` (Optional[Sequence[Video]]): Video files to include
-- `files` (Optional[Sequence[File]]): Files to include
-- `stream_intermediate_steps` (Optional[bool]): Whether to stream intermediate steps
-- `retries` (Optional[int]): Number of retries to attempt
-- `knowledge_filters` (Optional[Dict[str, Any]]): Knowledge filters to apply
-- `add_history_to_context` (Optional[bool]): Add chat history to context
-- `add_dependencies_to_context` (Optional[bool]): Add dependencies to context
-- `add_session_state_to_context` (Optional[bool]): Add session state to context
+- `add_history_to_context` (Optional[bool]): Whether to add history to context
 - `dependencies` (Optional[Dict[str, Any]]): Dependencies to use for this run
-- `metadata` (Optional[Dict[str, Any]]): Metadata for this run
+- `metadata` (Optional[Dict[str, Any]]): Metadata to use for this run
 - `debug_mode` (Optional[bool]): Whether to enable debug mode
-- `yield_run_response` (Optional[bool]): Whether to yield the run response
 
-**Returns:**
+### `cli_app`
 
-- `Union[RunOutput, AsyncIterator[RunOutputEvent]]`: Either a RunOutput or an iterator of RunOutputEvents, depending on the `stream` parameter
-
-### `continue_run`
-
-Continue a run.
+Run an interactive command-line interface to interact with the agent.
 
 **Parameters:**
 
-- `run_response` (Optional[RunOutput]): The run response to continue
-- `run_id` (Optional[str]): The run ID to continue
-- `updated_tools` (Optional[List[ToolExecution]]): Updated tools to use, required if the run is resumed using `run_id`
-- `stream` (Optional[bool]): Whether to stream the response
-- `stream_intermediate_steps` (Optional[bool]): Whether to stream intermediate steps
-- `user_id` (Optional[str]): User ID to use
+- `input` (Optional[str]): The input to send to the agent
 - `session_id` (Optional[str]): Session ID to use
-- `retries` (Optional[int]): Number of retries to attempt
-- `knowledge_filters` (Optional[Dict[str, Any]]): Knowledge filters to apply
-- `debug_mode` (Optional[bool]): Whether to enable debug mode
+- `user_id` (Optional[str]): User ID to use
+- `user` (str): Name for the user (default: "User")
+- `emoji` (str): Emoji for the user (default: ":sunglasses:")
+- `stream` (bool): Whether to stream the response (default: False)
+- `markdown` (bool): Whether to format output as markdown (default: False)
+- `exit_on` (Optional[List[str]]): List of commands to exit the CLI
+- `**kwargs`: Additional keyword arguments
 
-**Returns:**
+### `acli_app`
 
-- `Union[RunOutput, Iterator[RunOutputEvent]]`: Either a RunOutput or an iterator of RunOutputEvents, depending on the `stream` parameter
-
-### `acontinue_run`
-
-Continue a run asynchronously.
+Run an interactive command-line interface to interact with the agent asynchronously.
 
 **Parameters:**
 
-- `run_response` (Optional[RunOutput]): The run response to continue
-- `run_id` (Optional[str]): The run ID to continue
-- `updated_tools` (Optional[List[ToolExecution]]): Updated tools to use, required if the run is resumed using `run_id`
-- `stream` (Optional[bool]): Whether to stream the response
-- `stream_intermediate_steps` (Optional[bool]): Whether to stream intermediate steps
-- `user_id` (Optional[str]): User ID to use
+- `input` (Optional[str]): The input to send to the agent
 - `session_id` (Optional[str]): Session ID to use
-- `retries` (Optional[int]): Number of retries to attempt
-- `knowledge_filters` (Optional[Dict[str, Any]]): Knowledge filters to apply
-- `debug_mode` (Optional[bool]): Whether to enable debug mode
+- `user_id` (Optional[str]): User ID to use
+- `user` (str): Name for the user (default: "User")
+- `emoji` (str): Emoji for the user (default: ":sunglasses:")
+- `stream` (bool): Whether to stream the response (default: False)
+- `markdown` (bool): Whether to format output as markdown (default: False)
+- `exit_on` (Optional[List[str]]): List of commands to exit the CLI
+- `**kwargs`: Additional keyword arguments
 
-**Returns:**
-
-- `Union[RunOutput, AsyncIterator[Union[RunOutputEvent, RunOutput]]]`: Either a RunOutput or an iterator of RunOutputEvents, depending on the `stream` parameter
 
 ### get_session_summary
 
@@ -327,6 +362,93 @@ Get the last run output for the session.
 **Returns:**
 
 - `Optional[RunOutput]`: The last run output
+
+### get_session_state
+
+Get the session state for the given session ID.
+
+**Parameters:**
+
+- `session_id` (Optional[str]): Session ID to use (if not provided, the current session is used)
+
+**Returns:**
+
+- `Dict[str, Any]`: The session state
+
+### get_session_metrics
+
+Get the session metrics for the given session ID.
+
+**Parameters:**
+
+- `session_id` (Optional[str]): Session ID to use (if not provided, the current session is used)
+
+**Returns:**
+
+- `Optional[Metrics]`: The session metrics
+
+### delete_session
+
+Delete a session.
+
+**Parameters:**
+
+- `session_id` (str): Session ID to delete
+
+### save_session
+
+Save a session to the database.
+
+**Parameters:**
+
+- `session` (AgentSession): The session to save
+
+### rename
+
+Rename the agent and update the session.
+
+**Parameters:**
+
+- `name` (str): The new name for the agent
+- `session_id` (Optional[str]): Session ID to use (if not provided, the current session is used)
+
+### get_session_name
+
+Get the session name for the given session ID.
+
+**Parameters:**
+
+- `session_id` (Optional[str]): Session ID to use (if not provided, the current session is used)
+
+**Returns:**
+
+- `str`: The session name
+
+### set_session_name
+
+Set the session name.
+
+**Parameters:**
+
+- `session_id` (Optional[str]): Session ID to use (if not provided, the current session is used)
+- `autogenerate` (bool): Whether to autogenerate the name
+- `session_name` (Optional[str]): The name to set
+
+**Returns:**
+
+- `AgentSession`: The updated session
+
+### get_messages_for_session
+
+Get the messages for the given session ID.
+
+**Parameters:**
+
+- `session_id` (Optional[str]): Session ID to use (if not provided, the current session is used)
+
+**Returns:**
+
+- `List[Message]`: The messages for the session
 
 ### get_chat_history
 

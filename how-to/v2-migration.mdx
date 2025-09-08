@@ -219,8 +219,7 @@ You can also delete all vectors created by a specific piece of content using`rem
 - `add_references` -> `add_knowledge_to_context`
 
 <Tip>
-  See more changes in the [Knowledge
-  Updates](/how-to/v2-changelog#knowledge) section of the changelog.
+  See more changes in the [Knowledge Updates](/how-to/v2-changelog#knowledge) section of the changelog.
 </Tip>
 
 ### 5. Metrics
@@ -233,7 +232,18 @@ These are the changes we have made for v2:
 5.2. Provider-specific metrics fields are now to be found inside the `provider_metrics` field.
 5.3. A new `additional_metrics` field has been added for you to add any extra fields you need.
 
-### 6. Workflows
+### 6. Teams
+
+We have refactored the `Team` class to be more flexible and powerful.
+
+The biggest changes is that the `mode` parameter has been deprecated. Instead there are attributes that can be used to control the behavior of the team:
+    - `respond_directly` -> If True, the team leader won't process responses from the members and instead will return them directly
+    - `delegate_task_to_all_members` -> If True, the team leader will delegate tasks to all members simultaneously, instead of one by one. When running async (using `arun`) members will run concurrently.
+    - `determine_input_for_members` -> `True` by default. Set to False if you want to send the run input directly to the member agents without the team leader synthesizing its own input. This is useful if you want to send pydantic model input directly to the member agents.
+
+See the [Team updates](/how-to/v2-changelog#team-updates) section of the changelog for more details.
+
+### 7. Workflows
 
 We have heavily updated our Workflows, aiming to provide top-of-the-line tooling to build agentic systems.
 

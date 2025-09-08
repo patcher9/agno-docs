@@ -4,9 +4,9 @@ sidebarTitle: Overview
 description: Tools are functions that helps Agno Agents to interact with the external world.
 ---
 
-Tools make agents - "agentic" by enabling them to interact with external systems like searching the web, running SQL, sending an email or calling APIs.
+Tools make agents "agentic" by enabling them to interact with external systems like searching the web, running SQL, sending an email or calling APIs.
 
-Agno comes with 80+ pre-built toolkits, but in most cases, you will write your own tools. The general syntax is:
+Agno comes with 120+ pre-built toolkits, but also allows you to write your own tools. The general syntax is:
 
 ```python
 import random
@@ -38,7 +38,7 @@ agent.print_response("What is the weather in San Francisco?", stream=True)
 
 In the example above, the `get_weather` function is a tool. When it is called, the tool result will be shown in the output.
 
-Then, the Agent will stop after the tool call because we set `stop_after_tool_call=True`.
+Then, the Agent will stop after the tool call (without waiting for the model to respond) because we set `stop_after_tool_call=True`.
 
 </Tip>
 
@@ -52,19 +52,16 @@ from agno.models.openai import OpenAIChat
 from agno.tools.googlesearch import GoogleSearchTools
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-4.5-preview"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[
-        GoogleSearchTools(
-            stop_after_tool_call_tools=["google_search"],
-            show_result_tools=["google_search"],
-        )
+        GoogleSearchTools()
     ],
 )
 
-agent.print_response("What's the latest about gpt 4.5?", markdown=True)
+agent.print_response("What's the latest about OpenAIs GPT-5?", markdown=True)
 ```
 
-In this example, the `GoogleSearchTools` toolkit is configured to stop the agent after executing the `google_search` function and to show the result of this function.
+In this example, the `GoogleSearchTools` toolkit is added to the agent and it comes pre-configured with the `google_search` function.
 
 ## Tool Built-in Parameters
 

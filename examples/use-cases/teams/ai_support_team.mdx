@@ -90,12 +90,13 @@ feedback_collector_agent = Agent(
 
 customer_support_team = Team(
     name="Customer Support Team",
-    mode="route",
     model=OpenAIChat("gpt-5-mini"),
     members=[doc_researcher_agent, escalation_manager_agent, feedback_collector_agent],
     markdown=True,
     debug_mode=True,
     show_members_responses=True,
+    determine_input_for_members=False,
+    respond_directly=True,
     instructions=[
         "You are the lead customer support agent responsible for classifying and routing customer inquiries.",
         "Carefully analyze each user message and determine if it is: a question that needs documentation research, a bug report that requires escalation, or product feedback.",

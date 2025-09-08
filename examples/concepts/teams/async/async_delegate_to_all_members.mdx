@@ -1,5 +1,5 @@
 ---
-title: "Async Collaborate Mode"
+title: "Async Collaborative Team"
 ---
 
 This example demonstrates a collaborative team of AI agents working together asynchronously to research topics across different platforms.
@@ -67,7 +67,6 @@ hackernews_researcher = Agent(
 
 agent_team = Team(
     name="Discussion Team",
-    mode="collaborate",
     model=OpenAIChat("gpt-5-mini"),
     members=[
         reddit_researcher,
@@ -77,6 +76,7 @@ agent_team = Team(
         "You are a discussion master.",
         "You have to stop the discussion when you think the team has reached a consensus.",
     ],
+    delegate_task_to_all_members=True,
     markdown=True,
     show_members_responses=True,
 )

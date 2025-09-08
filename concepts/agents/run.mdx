@@ -28,6 +28,29 @@ response: RunOutput = agent.run("Tell me a 5 second short story about a robot")
 pprint_run_response(response, markdown=True)
 ```
 
+<Tip>
+You can also run the agent asynchronously using the `Agent.arun()` method.
+See the [Async Agent](/examples/concepts/agent/async/basic) example.
+</Tip>
+
+### Print Response
+
+For development purposes, you can also print the response in the terminal using the `Agent.print_response()` method.
+
+```python
+agent.print_response("Tell me a 5 second short story about a robot")
+
+# Or for streaming
+agent.print_response("Tell me a 5 second short story about a robot", stream=True)
+```
+
+<Note>
+The `Agent.print_response()` method is a helper method that uses the `Agent.run()` method under the hood. 
+This is only for convenience during development and not recommended for production use.
+
+See the [Agent class reference](/reference/agents/agent) for more details.
+</Note>
+
 ### Typed inputs and outputs
 
 An agent can be provided with typed input (i.e a pydantic model) by passing it in the `Agent.run()` or `Agent.print_response()` as the `input` parameter.
@@ -116,6 +139,7 @@ The `Agent.run()` function returns a `RunOutput` object when not streaming. Here
 
 See detailed documentation in the [RunOutput](/reference/agents/run-response) documentation.
 
+
 ## Streaming Responses
 
 To enable streaming, set `stream=True` when calling `run()`. This will return an iterator of `RunOutputEvent` objects instead of a single response.
@@ -137,6 +161,11 @@ response_stream: Iterator[RunOutputEvent] = agent.run(
 # Print the response stream in markdown format
 pprint_run_response(response_stream, markdown=True)
 ```
+
+<Tip>
+You can also run the agent asynchronously using the `Agent.arun()` method. 
+See the [Async Agent Streaming](/examples/concepts/agent/async/streaming) example.
+</Tip>
 
 ### Streaming Intermediate Steps
 
@@ -298,8 +327,18 @@ async def get_customer_profile():
 
 See the [full example](/examples/concepts/agent/events/custom_events) for more details.
 
+## Interactive CLI 
+
+You can also interact with the agent via a CLI.
+
+```python
+agent.cli_app(input="Tell me a 5 second short story about a robot", stream=True)
+```
+
+See the [Agent class reference](/reference/agents/agent) for more details.
+
 ## Developer Resources
 
-- View the [Agent schema](/reference/agents/agent)
+- View the [Agent reference](/reference/agents/agent)
 - View the [RunOutput schema](/reference/agents/run-response)
 - View [Agent Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/agents/README.md)

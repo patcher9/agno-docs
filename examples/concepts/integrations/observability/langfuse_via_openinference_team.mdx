@@ -70,7 +70,6 @@ news_research_agent = Agent(
 # Create team with both agents
 news_analysis_team = Team(
     name="News Analysis Team",
-    mode="coordinate",
     id=str(uuid4()),
     user_id=str(uuid4()),
     model=OpenAIChat(id="gpt-5-mini"),

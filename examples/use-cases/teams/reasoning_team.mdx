@@ -1,12 +1,12 @@
 ---
-title: "Reasoning Team (Route Mode)"
+title: "Reasoning Team"
 ---
 
-This example shows how to create a reasoning team that routes requests to specialized agents using the `route` mode with reasoning capabilities.
+This example shows how to create a reasoning team that can handle complex queries involving web search and financial data using the `coordinate` mode with reasoning capabilities.
 
 ## Code
 
-```python cookbook/examples/teams/route_mode/reasoning_team.py
+```python cookbook/examples/teams/coordinate_mode/reasoning_team.py
 from agno.agent import Agent
 from agno.models.anthropic import Claude
 from agno.models.openai import OpenAIChat
@@ -26,8 +26,8 @@ web_agent = Agent(
 finance_agent = Agent(
     name="Finance Agent",
     role="Handle financial data requests",
-    model=OpenAIChat(id="gpt-5-mini"),
-    tools=[     
+    model=OpenAIChat(id="gpt-5-mini"),  
+    tools=[
         ExaTools(
             include_domains=["cnbc.com", "reuters.com", "bloomberg.com", "wsj.com"],
             show_results=True,
@@ -40,7 +40,6 @@ finance_agent = Agent(
 
 team_leader = Team(
     name="Reasoning Team Leader",
-    mode="route",
     model=Claude(id="claude-3-7-sonnet-latest"),
     members=[
         web_agent,
@@ -52,16 +51,7 @@ team_leader = Team(
 )
 
 team_leader.print_response(
-    "Hi", stream=True, stream_intermediate_steps=True, show_full_reasoning=True
-)
-team_leader.print_response(
-    "What is the stock price of Apple?",
-    stream=True,
-    stream_intermediate_steps=True,
-    show_full_reasoning=True,
-)
-team_leader.print_response(
-    "What's going on in New York?",
+    "Tell me 1 company in New York, 1 in San Francisco and 1 in Chicago and the stock price of each",
     stream=True,
     stream_intermediate_steps=True,
     show_full_reasoning=True,
@@ -90,7 +80,7 @@ team_leader.print_response(
 
     <Step title="Run the agent">
         ```bash
-        python cookbook/examples/teams/route_mode/reasoning_team.py
+        python cookbook/examples/teams/coordinate_mode/reasoning_team.py
         ```
     </Step>
 

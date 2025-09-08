@@ -1,5 +1,5 @@
 ---
-title: "Async Multi-Language Team Routing"
+title: "Async Multi-Language Team"
 ---
 
 This example demonstrates an asynchronous route team of AI agents working together to answer questions in different languages. The team consists of six specialized language agents (English, Japanese, Chinese, Spanish, French, and German) with a team leader that routes user questions to the appropriate language agent based on the input language.
@@ -62,7 +62,6 @@ german_agent = Agent(
 
 multi_language_team = Team(
     name="Multi Language Team",
-    mode="route",
     model=OpenAIChat("gpt-5-mini"),
     members=[
         english_agent,
@@ -73,6 +72,7 @@ multi_language_team = Team(
         chinese_agent,
     ],
     markdown=True,
+    respond_directly=True,
     instructions=[
         "You are a language router that directs questions to the appropriate language agent.",
         "If the user asks in a language whose agent is not a team member, respond in English with:",

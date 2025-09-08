@@ -77,7 +77,6 @@ Let's create an Movie Agent to write a `MovieScript` for us.
 
     team = Team(
         name="Stock Research Team",
-        mode="route",
         model=OpenAIChat("gpt-5-mini"),
         members=[stock_searcher, company_info_agent],
         output_schema=StockReport,
@@ -275,7 +274,6 @@ An agent can be provided with structured input (i.e a pydantic model) by passing
         name="Research Team with Input Validation",
         model=OpenAIChat(id="gpt-5-mini"),
         members=[hackernews_agent, web_researcher],
-        mode="collaborate",
         instructions=[
             "Conduct thorough research based on the validated input",
             "Coordinate between team members to avoid duplicate work",
@@ -383,7 +381,6 @@ You can set `input_schema` on the Team to validate the input.  If you then pass 
             name="Research Team with Input Validation",
             model=OpenAIChat(id="gpt-5-mini"),
             members=[hackernews_agent, web_researcher],
-            mode="collaborate",
             input_schema=ResearchProject,
             instructions=[
                 "Conduct thorough research based on the validated input",
