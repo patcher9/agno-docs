@@ -91,7 +91,8 @@
                   "concepts/agents/tools",
                   "concepts/agents/dependencies",
                   "concepts/agents/metrics",
-                  "concepts/agents/run-cancel"
+                  "concepts/agents/run-cancel",
+                  "concepts/agents/custom-logger"
                 ]
               },
               {
