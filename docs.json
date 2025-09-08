@@ -900,7 +900,8 @@
                     "group": "Events",
                     "pages": [
                       "examples/concepts/agent/events/basic_agent_events",
-                      "examples/concepts/agent/events/reasoning_agent_events"
+                      "examples/concepts/agent/events/reasoning_agent_events",
+                      "examples/concepts/agent/events/custom_events"
                     ]
                   },
                   {
@@ -1062,6 +1063,12 @@
                       "examples/concepts/teams/distributed_rag/distributed_rag_pgvector",
                       "examples/concepts/teams/distributed_rag/distributed_rag_lancedb",
                       "examples/concepts/teams/distributed_rag/distributed_rag_with_reranking"
+                    ]
+                  },
+                  {
+                    "group": "Events",
+                    "pages": [
+                      "examples/concepts/teams/events/custom_events"
                     ]
                   },
                   {
