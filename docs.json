@@ -578,7 +578,6 @@
           {
             "group": "Examples",
             "pages": [
-              "examples/agent-os/basic",
               "examples/agent-os/demo",
               "examples/agent-os/extra_configuration",
               {
@@ -629,13 +628,13 @@
               "reference-api/overview",
               {
                 "group": "Core",
-                "pages": ["reference-api/schema/core/config"]
+                "pages": ["reference-api/schema/core/get-os-configuration"]
               },
               {
                 "group": "Agents",
                 "pages": [
-                  "reference-api/schema/agents/get-agents",
-                  "reference-api/schema/agents/get-agent",
+                  "reference-api/schema/agents/list-all-agents",
+                  "reference-api/schema/agents/get-agent-details",
                   "reference-api/schema/agents/create-agent-run",
                   "reference-api/schema/agents/cancel-agent-run",
                   "reference-api/schema/agents/continue-agent-run"
@@ -644,8 +643,8 @@
               {
                 "group": "Teams",
                 "pages": [
-                  "reference-api/schema/teams/get-teams",
-                  "reference-api/schema/teams/get-team",
+                  "reference-api/schema/teams/list-all-teams",
+                  "reference-api/schema/teams/get-team-details",
                   "reference-api/schema/teams/create-team-run",
                   "reference-api/schema/teams/cancel-team-run"
                 ]
@@ -653,50 +652,50 @@
               {
                 "group": "Workflows",
                 "pages": [
-                  "reference-api/schema/workflows/get-workflows",
-                  "reference-api/schema/workflows/get-workflow",
-                  "reference-api/schema/workflows/create-workflow-run",
+                  "reference-api/schema/workflows/list-all-workflows",
+                  "reference-api/schema/workflows/get-workflow-details",
+                  "reference-api/schema/workflows/execute-workflow",
                   "reference-api/schema/workflows/cancel-workflow-run"
                 ]
               },
               {
                 "group": "Sessions",
                 "pages": [
-                  "reference-api/schema/sessions/get-sessions",
+                  "reference-api/schema/sessions/list-sessions",
                   "reference-api/schema/sessions/get-session-by-id",
                   "reference-api/schema/sessions/get-session-runs",
                   "reference-api/schema/sessions/rename-session",
                   "reference-api/schema/sessions/delete-session",
-                  "reference-api/schema/sessions/delete-sessions"
+                  "reference-api/schema/sessions/delete-multiple-sessions"
                 ]
               },
               {
                 "group": "Memory",
                 "pages": [
-                  "reference-api/schema/memory/get-memory",
-                  "reference-api/schema/memory/get-memories",
-                  "reference-api/schema/memory/get-topics",
-                  "reference-api/schema/memory/get-user-memory-stats",
+                  "reference-api/schema/memory/list-memories",
+                  "reference-api/schema/memory/get-memory-by-id",
+                  "reference-api/schema/memory/get-memory-topics",
+                  "reference-api/schema/memory/get-user-memory-statistics",
                   "reference-api/schema/memory/create-memory",
                   "reference-api/schema/memory/update-memory",
                   "reference-api/schema/memory/delete-memory",
-                  "reference-api/schema/memory/delete-memories"
+                  "reference-api/schema/memory/delete-multiple-memories"
                 ]
               },
               {
                 "group": "Evals",
                 "pages": [
-                  "reference-api/schema/evals/get-eval-runs",
-                  "reference-api/schema/evals/get-eval-run",
-                  "reference-api/schema/evals/run-eval",
-                  "reference-api/schema/evals/update-eval-run",
-                  "reference-api/schema/evals/delete-eval-runs"
+                  "reference-api/schema/evals/list-evaluation-runs",
+                  "reference-api/schema/evals/get-evaluation-run",
+                  "reference-api/schema/evals/execute-evaluation",
+                  "reference-api/schema/evals/update-evaluation-run",
+                  "reference-api/schema/evals/delete-evaluation-runs"
                 ]
               },
               {
                 "group": "Knowledge",
                 "pages": [
-                  "reference-api/schema/knowledge/get-content",
+                  "reference-api/schema/knowledge/list-content",
                   "reference-api/schema/knowledge/get-content-by-id",
                   "reference-api/schema/knowledge/get-content-status",
                   "reference-api/schema/knowledge/upload-content",
@@ -708,8 +707,8 @@
               {
                 "group": "Metrics",
                 "pages": [
-                  "reference-api/schema/metrics/get-metrics",
-                  "reference-api/schema/metrics/calculate-metrics"
+                  "reference-api/schema/metrics/get-agentos-metrics",
+                  "reference-api/schema/metrics/refresh-metrics"
                 ]
               }
             ]
