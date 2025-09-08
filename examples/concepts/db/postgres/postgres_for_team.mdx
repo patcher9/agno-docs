@@ -66,7 +66,6 @@ web_searcher = Agent(
 
 hn_team = Team(
     name="HackerNews Team",
-    mode="coordinate",
     model=OpenAIChat("gpt-5-mini"),
     members=[hn_researcher, web_searcher],
     db=db,

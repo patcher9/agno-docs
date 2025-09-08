@@ -101,14 +101,7 @@
                   "concepts/teams/introduction",
                   "concepts/teams/run",
                   "concepts/teams/sessions",
-                  {
-                    "group": "Team Modes",
-                    "pages": [
-                      "concepts/teams/modes/route",
-                      "concepts/teams/modes/coordinate",
-                      "concepts/teams/modes/collaborate"
-                    ]
-                  },
+                  "concepts/teams/delegation",
                   "concepts/teams/input-output",
                   "concepts/teams/context",
                   "concepts/teams/state",
@@ -811,30 +804,14 @@
               {
                 "group": "Teams",
                 "pages": [
-                  {
-                    "group": "Collaborate",
-                    "pages": [
-                      "examples/use-cases/teams/collaborate/discussion_team"
-                    ]
-                  },
-                  {
-                    "group": "Coordinate",
-                    "pages": [
-                      "examples/use-cases/teams/coordinate/autonomous_startup_team",
-                      "examples/use-cases/teams/coordinate/content_team",
-                      "examples/use-cases/teams/coordinate/hackernews_team",
-                      "examples/use-cases/teams/coordinate/news_agency_team",
-                      "examples/use-cases/teams/coordinate/reasoning_team"
-                    ]
-                  },
-                  {
-                    "group": "Route",
-                    "pages": [
-                      "examples/use-cases/teams/route/ai_support_team",
-                      "examples/use-cases/teams/route/multi_language_team",
-                      "examples/use-cases/teams/route/reasoning_team"
-                    ]
-                  }
+                  "examples/use-cases/teams/discussion_team",
+                  "examples/use-cases/teams/autonomous_startup_team",
+                  "examples/use-cases/teams/content_team",
+                  "examples/use-cases/teams/hackernews_team",
+                  "examples/use-cases/teams/news_agency_team",
+                  "examples/use-cases/teams/reasoning_team",
+                  "examples/use-cases/teams/ai_support_team",
+                  "examples/use-cases/teams/multi_language_team"
                 ]
               },
               {
@@ -1031,9 +1008,9 @@
                   {
                     "group": "Async",
                     "pages": [
-                      "examples/concepts/teams/async/async_collaborate",
-                      "examples/concepts/teams/async/async_coordinate",
-                      "examples/concepts/teams/async/async_route"
+                      "examples/concepts/teams/async/async_coordination_team",
+                      "examples/concepts/teams/async/async_delegate_to_all_members",
+                      "examples/concepts/teams/async/async_respond_directly"
                     ]
                   },
                   {

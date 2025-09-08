@@ -80,9 +80,9 @@ company_info_agent = Agent(
 # Create routing team
 team = Team(
     name="Stock Research Team",
-    mode="route",
     model=OpenAIChat("gpt-5-mini"),
     members=[stock_searcher, company_info_agent],
+    respond_directly=True,
     markdown=True,
     show_members_responses=True,
     instructions=[

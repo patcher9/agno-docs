@@ -22,7 +22,7 @@ agent_1 = Agent(name="News Agent", role="Get the latest news")
 
 agent_2 = Agent(name="Weather Agent", role="Get the weather for the next 7 days")
 
-team = Team(name="News and Weather Team", mode="coordinate", members=[agent_1, agent_2])
+team = Team(name="News and Weather Team", members=[agent_1, agent_2])
 
 # Synchronous execution
 result = team.run("What is the weather in Tokyo?")
@@ -30,6 +30,29 @@ result = team.run("What is the weather in Tokyo?")
 # Asynchronous execution
 result = await team.arun("What is the weather in Tokyo?")
 ```
+
+<Tip>
+You can also run the agent asynchronously using the `Team.arun()` method.
+</Tip>
+
+### Print Response
+
+For development purposes, you can also print the response in the terminal using the `Team.print_response()` method.
+
+```python
+team.print_response("What is the weather in Tokyo?")
+
+# Or for streaming
+team.print_response("What is the weather in Tokyo?", stream=True)
+```
+
+<Note>
+The `Team.print_response()` method is a helper method that uses the `Team.run()` method under the hood. 
+This is only for convenience during development and not recommended for production use.
+
+See the [Team class reference](/reference/teams/team) for more details.
+</Note>
+
 
 ### Typed inputs and outputs
 
@@ -95,7 +118,6 @@ research_team = Team(
     name="Research Team with Input Validation",
     model=OpenAIChat(id="gpt-5-mini"),
     members=[hackernews_agent, web_researcher],
-    mode="collaborate",
     instructions=[
         "Conduct thorough research based on the validated input",
         "Coordinate between team members to avoid duplicate work",
@@ -219,7 +241,7 @@ agent_1 = Agent(name="News Agent", role="Get the latest news")
 
 agent_2 = Agent(name="Weather Agent", role="Get the weather for the next 7 days")
 
-team = Team(name="News and Weather Team", mode="coordinate", members=[agent_1, agent_2])
+team = Team(name="News and Weather Team", members=[agent_1, agent_2])
 
 # Synchronous execution
 for chunk in team.run("What is the weather in Tokyo?", stream=True, stream_intermediate_steps=True):
@@ -388,8 +410,18 @@ async def get_customer_profile():
 
 See the [full example](/examples/concepts/teams/events/custom_events) for more details.
 
+## Interactive CLI 
+
+You can also interact with the team via a CLI.
+
+```python
+team.cli_app(input="What is the weather in Tokyo?", stream=True)
+```
+
+See the [Team class reference](/reference/teams/team) for more details.
+
 ## Developer Resources
 
-- View the [Team schema](/reference/teams/team)
+- View the [Team reference](/reference/teams/team)
 - View the [TeamRunOutput schema](/reference/teams/team-response)
 - View [Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/teams/README.md)

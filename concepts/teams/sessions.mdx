@@ -37,7 +37,7 @@ In the example below, we set a `session_id` to demo how to have multi-turn conve
             Agent(name="Agent 3", role="You answer questions in French"),
         ],
         db=db,
-        mode="route",
+        respond_directly=True,
     )
 
     user_1_id = "user_101"

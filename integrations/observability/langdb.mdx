@@ -104,7 +104,6 @@ finance_agent = Agent(
 # Coordinated Team
 reasoning_team = Team(
     name="Finance Reasoning Team",
-    mode="coordinate",
     model=LangDB(id="xai/grok-4"),
     members=[web_agent, finance_agent],
     instructions=[
