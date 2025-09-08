@@ -289,7 +289,6 @@
                   "concepts/tools/exceptions",
                   "concepts/tools/hooks",
                   "concepts/tools/hitl",
-                  "concepts/tools/custom-events",
                   {
                     "group": "Toolkits",
                     "pages": [
@@ -899,7 +898,8 @@
                     "group": "Events",
                     "pages": [
                       "examples/concepts/agent/events/basic_agent_events",
-                      "examples/concepts/agent/events/reasoning_agent_events"
+                      "examples/concepts/agent/events/reasoning_agent_events",
+                      "examples/concepts/agent/events/custom_events"
                     ]
                   },
                   {
