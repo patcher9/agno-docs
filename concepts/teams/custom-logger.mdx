@@ -12,7 +12,7 @@ This can be useful if you need your system to log in any specific format.
 ```python
 import logging
 
-from agno.agent import Agent
+from agno.team import Team
 from agno.utils.log import configure_agno_logging, log_info
 
 
@@ -32,10 +32,13 @@ configure_agno_logging(custom_default_logger=custom_logger)
 # Every use of the logging function in agno.utils.log will now use our custom logger.
 log_info("This is using our custom logger!")
 
-# Now let's setup an Agent and run it.
-# All logging coming from the Agent will use our custom logger.
+# Setting up an example Agent
 agent = Agent()
-agent.print_response("What can I do to improve my sleep?")
+
+# Now let's setup an example Team and run it.
+# All logging will use our custom logger.
+team = Team(members=[agent])
+team.print_response("What can I do to improve my sleep?")
 ```
 
 ## Multiple Loggers

@@ -117,7 +117,8 @@
                   "concepts/teams/knowledge",
                   "concepts/teams/metrics",
                   "concepts/teams/dependencies",
-                  "concepts/teams/run-cancel"
+                  "concepts/teams/run-cancel",
+                  "concepts/teams/custom-logger"
                 ]
               },
               {
