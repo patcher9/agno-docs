@@ -99,68 +99,6 @@ if __name__ == "__main__":
 ```
 
 
-## Using MCP in AgentOS
-
-You can also run MCP servers in the AgentOS, which provides a web interface for interacting with your agents. Here's an example of a GitHub agent running in the AgentOS:
-
-```python github_agentos.py
-import asyncio
-from os import getenv
-from textwrap import dedent
-
-import nest_asyncio
-from agno.agent import Agent
-from agno.models.openai import OpenAIChat
-from agno.os import AgentOS
-from agno.db.sqlite import SqliteDb
-from agno.tools.mcp import MCPTools
-
-# Allow nested event loops
-nest_asyncio.apply()
-
-agent_storage_file: str = "tmp/agents.db"
-
-
-async def run_server() -> None:
-    """Run the GitHub agent server."""
-    github_token = getenv("GITHUB_TOKEN") or getenv("GITHUB_ACCESS_TOKEN")
-    if not github_token:
-        raise ValueError("GITHUB_TOKEN environment variable is required")
-
-    # Create a client session to connect to the MCP server
-    async with MCPTools("npx -y @modelcontextprotocol/server-github") as mcp_tools:
-        agent = Agent(
-            name="MCP GitHub Agent",
-            tools=[mcp_tools],
-            instructions=dedent("""\
-                You are a GitHub assistant. Help users explore repositories and their activity.
-
-                - Use headings to organize your responses
-                - Be concise and focus on relevant information\
-            """),
-            model=OpenAIChat(id="gpt-5-mini"),
-            db=SqliteDb(
-                db_file=agent_storage_file,
-                session_table="basic_agent",
-            ),
-            add_history_to_context=True,
-            num_history_runs=3,
-            add_datetime_to_context=True,
-            markdown=True,
-        )
-
-        agent_os = AgentOS(agents=[agent])
-        app = agent_os.get_app()
-
-        # Serve the app while keeping the MCPTools context manager alive
-        agent_os.serve(app)
-
-
-if __name__ == "__main__":
-    asyncio.run(run_server())
-```
-
-
 ## Best Practices
 
 1. **Error Handling**: Always include proper error handling for MCP server connections and operations.

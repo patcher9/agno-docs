@@ -45,6 +45,7 @@ Some of the major changes are:
 
 - We have made significant changes to the innerworkings of `Agent`, `Team` and `Workflow` to make them completely stateless.
 - This means that `agent_session`, `session_metrics`, `session_state`, etc. should not be seen as stateful variables that would be updated during the course of a run, but rather as "defaults" for the agent if they can be set on initialisation.
+- `CustomEvent` is now supported and you can inherit from it to create your own custom events that can be yielded from your own tools. See the [documentation](/concepts/agents/run#custom-events) for more details.
 
 <Accordion title="Updates to Run Objects">
   For agents:
@@ -92,6 +93,7 @@ Some of the major changes are:
   - This will cancel the run and return a `RunCancelledEvent` during streaming, or set the `RunOutput.status` to `"cancelled"`.
 </Accordion>
 
+
 ## Storage
 
 - `Agent`, `Team`, `Workflow` and the various evals now all support a single `db` parameter. This is to enable storage for the instance of that class. This is required for persistence of sessions, memories, metrics, etc.
@@ -135,6 +137,11 @@ Some of the major changes are:
 - All tools that handle media (e.g. image generation tools) now correctly add this generated media to the `RunOutput`, but also make it available for subsequent model calls.
 - The interface of almost all the toolkits have been updated for a more consistent experience around switching specific tools on and off. The list of changes is too long to list here. We suggest you take a look at the toolkits you use specifically and how they have been updated.
 - `show_results` is now `True` by default for all tools. If you just set `stop_after_tool_call=True` then `show_results` will be automatically set to `True`.
+
+## Logging
+
+- Added support for custom loggers. See the [documentation](/concepts/agents/custom-logger) for more details.
+
 
 ## Agent updates
 
