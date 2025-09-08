@@ -1539,7 +1539,6 @@
                   "examples/concepts/memory/05-multi-user-multi-session-chat",
                   "examples/concepts/memory/06-multi-user-multi-session-chat-concurrent",
                   "examples/concepts/memory/07-share-memory-and-history-between-agents",
-                  "examples/concepts/memory/mem0-memory",
                   {
                     "group": "DB",
                     "pages": [
