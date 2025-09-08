@@ -91,7 +91,8 @@
                   "concepts/agents/tools",
                   "concepts/agents/dependencies",
                   "concepts/agents/metrics",
-                  "concepts/agents/run-cancel"
+                  "concepts/agents/run-cancel",
+                  "concepts/agents/custom-logger"
                 ]
               },
               {
@@ -116,7 +117,8 @@
                   "concepts/teams/knowledge",
                   "concepts/teams/metrics",
                   "concepts/teams/dependencies",
-                  "concepts/teams/run-cancel"
+                  "concepts/teams/run-cancel",
+                  "concepts/teams/custom-logger"
                 ]
               },
               {
@@ -898,7 +900,8 @@
                     "group": "Events",
                     "pages": [
                       "examples/concepts/agent/events/basic_agent_events",
-                      "examples/concepts/agent/events/reasoning_agent_events"
+                      "examples/concepts/agent/events/reasoning_agent_events",
+                      "examples/concepts/agent/events/custom_events"
                     ]
                   },
                   {
@@ -1060,6 +1063,12 @@
                       "examples/concepts/teams/distributed_rag/distributed_rag_pgvector",
                       "examples/concepts/teams/distributed_rag/distributed_rag_lancedb",
                       "examples/concepts/teams/distributed_rag/distributed_rag_with_reranking"
+                    ]
+                  },
+                  {
+                    "group": "Events",
+                    "pages": [
+                      "examples/concepts/teams/events/custom_events"
                     ]
                   },
                   {
@@ -1530,7 +1539,6 @@
                   "examples/concepts/memory/05-multi-user-multi-session-chat",
                   "examples/concepts/memory/06-multi-user-multi-session-chat-concurrent",
                   "examples/concepts/memory/07-share-memory-and-history-between-agents",
-                  "examples/concepts/memory/mem0-memory",
                   {
                     "group": "DB",
                     "pages": [
