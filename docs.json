@@ -1064,6 +1064,12 @@
                     ]
                   },
                   {
+                    "group": "Events",
+                    "pages": [
+                      "examples/concepts/teams/events/custom_events"
+                    ]
+                  },
+                  {
                     "group": "Knowledge",
                     "pages": [
                       "examples/concepts/teams/knowledge/team_with_knowledge",

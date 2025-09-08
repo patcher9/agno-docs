@@ -11,8 +11,9 @@ from dataclasses import dataclass
 from typing import Optional
 
 from agno.agent import Agent
+from agno.team import Team
 from agno.models.openai import OpenAIChat
-from agno.run.agent import CustomEvent
+from agno.run.team import CustomEvent
 from agno.tools import tool
 
 
@@ -30,9 +31,8 @@ class CustomerProfileEvent(CustomEvent):
 @tool()
 async def get_customer_profile():
     """
-    Get customer profiles.
+    Get the customer profile for the customer with ID 123.
     """
-
     yield CustomerProfileEvent(
         customer_name="John Doe",
         customer_email="john.doe@example.com",
@@ -40,17 +40,24 @@ async def get_customer_profile():
     )
 
 
-# Setup an Agent with our custom tool.
 agent = Agent(
+    name="Customer Support Agent",
+    role="Support agent that handles customer requests.",
     model=OpenAIChat(id="gpt-4o"),
+)
+
+# Setup the Team with our custom tool.
+team = Team(
+    members=[agent],
     tools=[get_customer_profile],
-    instructions="Your task is to retrieve customer profiles for the user.",
+    model=OpenAIChat(id="gpt-4o"),
+    instructions="You are a team that handles customer requests.",
 )
 
 
-async def run_agent():
-    # Running the Agent: it should call our custom tool and yield the custom event
-    async for event in agent.arun(
+async def run_team():
+    # Running the Team: The team should call our custom tool and yield the custom event
+    async for event in team.arun(
         "Hello, can you get me the customer profile for customer with ID 123?",
         stream=True,
     ):
@@ -58,5 +65,5 @@ async def run_agent():
             print(f"✅ Custom event emitted: {event}")
 
 
-asyncio.run(run_agent())
+asyncio.run(run_team())
 ```

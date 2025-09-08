@@ -351,9 +351,9 @@ See detailed documentation in the [TeamRunOutput](/reference/teams/team-response
 
 ### Custom Events
 
-If you are using custom tools, it will often be useful to be able to yield custom events. Your custom events will be yielded together with the rest of the expected Agno events.
+If you are using your own custom tools, it will often be useful to be able to yield custom events. Your custom events will be yielded together with the rest of the expected Agno events.
 
-Our recommended setup is to create your custom event class extending the `CustomEvent` one:
+We recommend creating your custom event class extending the built-in `CustomEvent` class:
 
 
 ```python
@@ -385,6 +385,8 @@ async def get_customer_profile():
         customer_phone="1234567890",
     )
 ```
+
+See the [full example](/examples/concepts/teams/events/custom_events) for more details.
 
 ## Developer Resources
 
