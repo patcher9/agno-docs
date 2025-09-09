@@ -5,7 +5,7 @@ description: Use Storage to persist Agent sessions and state to a database or fi
 
 **Why do we need Session Storage?**
 
-Agents are ephemeral and stateless. When you run an Agent, the no state is persisted automatically.
+Agents are ephemeral and stateless. When you run an Agent, no state is persisted automatically.
 
 In production environments, we serve (or trigger) Agents via an API and need to continue the same session across multiple requests.
 
@@ -24,7 +24,7 @@ from agno.db.sqlite import SqliteDb
 from rich.pretty import pprint
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-5-mini"),
+     model=OpenAIChat(id="gpt-5-mini"),
     # Fix the session id to continue the same session across execution cycles
     session_id="fixed_id_for_demo",
     db=SqliteDb(db_file="tmp/data.db"),

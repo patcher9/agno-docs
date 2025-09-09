@@ -15,9 +15,10 @@ agent = Agent(model=OpenAIChat(id="gpt-5-mini"), markdown=True)
 # print(run.content)
 
 # Print the response in the terminal
-agent.print_response("Share a 2 sentence horror story")
+run_response = agent.run("Share a 2 sentence horror story")
 
-agent.run_response.metrics
+# Access metrics from the response
+# print(run_response.metrics)
 ```
 
 ## Usage

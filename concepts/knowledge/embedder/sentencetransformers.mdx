@@ -10,7 +10,7 @@ The `SentenceTransformerEmbedder` class is used to embed text data into vectors 
 ```python cookbook/embedders/sentence_transformer_embedder.py
 from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector
-from agno.embedder.sentence_transformer import SentenceTransformerEmbedder
+from agno.knowledge.embedder.sentence_transformer import SentenceTransformerEmbedder
 
 # Embed sentence in database
 embeddings = SentenceTransformerEmbedder().get_embedding("The quick brown fox jumps over the lazy dog.")
@@ -39,4 +39,4 @@ knowledge = Knowledge(
 | `sentence_transformer_client` | `Optional[Client]` | -                   | Optional pre-configured SentenceTransformers client instance |
 
 ## Developer Resources
-- View [Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/agent_concepts/knowledge/embedders/sentence_transformer_embedder.py)
+- View [Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/knowledge/embedders/sentence_transformer_embedder.py)

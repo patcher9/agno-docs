@@ -8,22 +8,23 @@ title: Discord Tools
 from agno.agent import Agent
 from agno.tools.discord import DiscordTools
 
-discord_tools = DiscordTools(
-    bot_token=discord_token,
-    enable_messaging=True,
-    enable_history=True,
-    enable_channel_management=True,
-    enable_message_management=True,
-)
-
 discord_agent = Agent(
     name="Discord Agent",
     instructions=[
         "You are a Discord bot that can perform various operations.",
         "You can send messages, read message history, manage channels, and delete messages.",
     ],
-    tools=[discord_tools],
-        markdown=True,
+    tools=[
+        DiscordTools(
+            bot_token="YOUR_DISCORD_BOT_TOKEN",
+            enable_send_message=True,
+            enable_get_channel_messages=True,
+            enable_get_channel_info=True,
+            enable_list_channels=True,
+            enable_delete_message=True,
+        )
+    ],
+    markdown=True,
 )
 
 channel_id = "YOUR_CHANNEL_ID"

@@ -107,7 +107,7 @@ if run_response.is_paused:
         print(f"Tool {tool.tool_name}({tool.tool_args}) requires confirmation")
         confirmed = input(f"Confirm? (y/n): ").lower() == "y"
 
-        if message == "n":
+        if confirmed == False:
             tool.confirmed = False
         else:
             # We update the tools in place

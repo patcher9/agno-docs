@@ -9,7 +9,7 @@ This example demonstrates how to set and manage session state for different user
 ```python cookbook/examples/teams/state/change_state_on_run.py
 from agno.db.in_memory import InMemoryDb
 from agno.models.openai import OpenAIChat
-from agno.team.team import Team
+from agno.team import Team
 
 team = Team(
     db=InMemoryDb(),

@@ -55,11 +55,9 @@ agent = Agent(
     debug_mode=True,
 )
 
-agent.print_response(
+response = agent.print_response(
     "What is the recipe for a Thai curry?",
 )
-
-response = agent.run_response
 if response.images:
     download_image(response.images[0].url, Path("tmp/recipe_image.png"))
 ```

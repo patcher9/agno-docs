@@ -10,7 +10,7 @@ The `VoyageAIEmbedder` class is used to embed text data into vectors using the V
 ```python cookbook/embedders/voyageai_embedder.py
 from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector
-from agno.embedder.voyageai import VoyageAIEmbedder
+from agno.knowledge.embedder.voyageai import VoyageAIEmbedder
 
 # Embed sentence in database
 embeddings = VoyageAIEmbedder().get_embedding("The quick brown fox jumps over the lazy dog.")
@@ -45,4 +45,4 @@ knowledge = Knowledge(
 | `voyage_client`  | `Optional[Client]`         | -                                          | An instance of the Client to use for making API requests. Optional. |
 
 ## Developer Resources
-- View [Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/agent_concepts/knowledge/embedders/voyageai_embedder.py)
+- View [Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/knowledge/embedders/voyageai_embedder.py)

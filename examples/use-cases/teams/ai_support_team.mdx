@@ -15,7 +15,7 @@ from agno.team import Team
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.tools.exa import ExaTools
 from agno.tools.slack import SlackTools
-from agno.vectordb.pgvector.pgvector import PgVector
+from agno.vectordb.pgvector import PgVector
 
 knowledge = Knowledge(
     vector_db=PgVector(
@@ -90,7 +90,7 @@ feedback_collector_agent = Agent(
 
 customer_support_team = Team(
     name="Customer Support Team",
-    model=OpenAIChat("gpt-5-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     members=[doc_researcher_agent, escalation_manager_agent, feedback_collector_agent],
     markdown=True,
     debug_mode=True,

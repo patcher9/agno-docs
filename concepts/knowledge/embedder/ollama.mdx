@@ -12,7 +12,7 @@ The `OllamaEmbedder` can be used to embed text data into vectors locally using O
 ```python cookbook/embedders/ollama_embedder.py
 from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector
-from agno.embedder.ollama import OllamaEmbedder
+from agno.knowledge.embedder.ollama import OllamaEmbedder
 
 # Embed sentence in database
 embeddings = OllamaEmbedder(id="openhermes").get_embedding("The quick brown fox jumps over the lazy dog.")
@@ -45,4 +45,4 @@ knowledge = Knowledge(
 | `ollama_client` | `Optional[OllamaClient]`   | -              | An instance of the OllamaClient to use for making API requests. Optional. |
 
 ## Developer Resources
-- View [Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/agent_concepts/knowledge/embedders/ollama_embedder.py)
+- View [Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/knowledge/embedders/ollama_embedder.py)

@@ -15,6 +15,7 @@ You can read more about the [`PostgresDb` class](/concepts/db/postgres) in its s
 ```python supabase_for_agent.py
 from agno.agent import Agent
 from agno.db.postgres import PostgresDb
+from os import getenv
 
 # Get your Supabase project and password
 SUPABASE_PROJECT = getenv("SUPABASE_PROJECT")

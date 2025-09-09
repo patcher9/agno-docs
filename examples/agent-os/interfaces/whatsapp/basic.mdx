@@ -9,7 +9,7 @@ description: "Create a basic AI agent that integrates with WhatsApp Business API
 from agno.agent import Agent
 from agno.db.sqlite import SqliteDb
 from agno.models.openai import OpenAIChat
-from agno.os.app import AgentOS
+from agno.os import AgentOS
 from agno.os.interfaces.whatsapp import Whatsapp
 
 agent_db = SqliteDb(db_file="tmp/persistent_memory.db")

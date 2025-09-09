@@ -11,7 +11,7 @@ from typing import Optional
 from agno.agent import Agent
 from agno.eval.accuracy import AccuracyEval, AccuracyResult
 from agno.models.openai import OpenAIChat
-from agno.team.team import Team
+from agno.team import Team
 
 # Setup a team with two members
 english_agent = Agent(
@@ -27,7 +27,7 @@ spanish_agent = Agent(
 
 multi_language_team = Team(
     name="Multi Language Team",
-    model=OpenAIChat("gpt-5-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     members=[english_agent, spanish_agent],
     respond_directly=True,
     markdown=True,
