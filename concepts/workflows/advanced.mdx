@@ -278,7 +278,7 @@ When a workflow in streaming mode is cancelled, a specific event is triggered: `
 
 Workflows support early termination when specific conditions are met, preventing unnecessary processing and implementing safety gates. Any step can trigger early termination by returning `StepOutput(stop=True)`, immediately halting the entire workflow execution.
 
-![Early Stop Workflows](/images/early_stop.png)
+![Early Stop Workflows](/images/workflows-early-stop.png)
 
 ```python
 from agno.workflow import Step, Workflow, StepInput, StepOutput
