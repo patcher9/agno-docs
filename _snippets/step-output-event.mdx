@@ -7,9 +7,9 @@
 | *Inherits all fields from `BaseWorkflowRunOutputEvent`* |
 | **Properties (read-only):** |
 | `content` | `Optional[Union[str, Dict[str, Any], List[Any], BaseModel, Any]]` | - | Content from the step output |
-| `images` | `Optional[List[ImageArtifact]]` | - | Images from the step output |
-| `videos` | `Optional[List[VideoArtifact]]` | - | Videos from the step output |
-| `audio` | `Optional[List[AudioArtifact]]` | - | Audio from the step output |
+| `images` | `Optional[List[Image]]` | - | Images from the step output |
+| `videos` | `Optional[List[Video]]` | - | Videos from the step output |
+| `audio` | `Optional[List[Audio]]` | - | Audio from the step output |
 | `success` | `bool` | - | Whether the step succeeded |
 | `error` | `Optional[str]` | - | Error message if step failed |
 | `stop` | `bool` | - | Whether the step requested early termination |

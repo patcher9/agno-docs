@@ -161,14 +161,14 @@ When your tool needs to return media artifacts (images, videos, audio), you **mu
 
 ```python
 from agno.tools.function import ToolResult
-from agno.media import ImageArtifact
+from agno.media import Image
 
 @tool
 def generate_image(prompt: str) -> ToolResult:
     """Generate an image from a prompt."""
 
     # Create your image (example)
-    image_artifact = ImageArtifact(
+    image_artifact = Image(
         id="img_123",
         url="https://example.com/generated-image.jpg",
         original_prompt=prompt
@@ -176,7 +176,7 @@ def generate_image(prompt: str) -> ToolResult:
 
     return ToolResult(
         content=f"Generated image for: {prompt}",
-        images=[image_artifact]
+        images=[image]
     )
 ```
 

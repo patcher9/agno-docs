@@ -25,10 +25,10 @@ sidebarTitle: Run Output & Events
 | `metrics`          | `Optional[Metrics]`          | `None`                        | Usage metrics of the run                                                                          |
 | `additional_input` | `Optional[List[Message]]`    | `None`                        | Additional input messages                                                                          |
 | `tools`            | `Optional[List[ToolExecution]]` | `None`                        | List of tool executions                                                                           |
-| `images`           | `Optional[List[ImageArtifact]]` | `None`                        | List of images attached to the response                                                           |
-| `videos`           | `Optional[List[VideoArtifact]]` | `None`                        | List of videos attached to the response                                                           |
-| `audio`            | `Optional[List[AudioArtifact]]` | `None`                        | List of audio snippets attached to the response                                                   |
-| `response_audio`   | `Optional[AudioResponse]`    | `None`                        | The model's raw response in audio                                                                 |
+| `images`           | `Optional[List[Image]]` | `None`                        | List of images attached to the response                                                           |
+| `videos`           | `Optional[List[Video]]` | `None`                        | List of videos attached to the response                                                           |
+| `audio`            | `Optional[List[Audio]]` | `None`                        | List of audio snippets attached to the response                                                   |
+| `response_audio`   | `Optional[Audio]`    | `None`                        | The model's raw response in audio                                                                 |
 | `input`            | `Optional[RunInput]`         | `None`                        | Input media and messages from user                                                                |
 | `citations`        | `Optional[Citations]`        | `None`                        | Any citations used in the response                                                                |
 | `references`       | `Optional[List[MessageReferences]]` | `None`                        | References used in the response                                                                    |
@@ -77,8 +77,8 @@ All events inherit from `BaseAgentRunEvent` which provides these common attribut
 | `content_type` | `str` | `"str"` | Type of the content |
 | `reasoning_content` | `Optional[str]` | `None` | Reasoning content produced |
 | `citations` | `Optional[Citations]` | `None` | Citations used in the response |
-| `response_audio` | `Optional[AudioResponse]` | `None` | Model's audio response |
-| `image` | `Optional[ImageArtifact]` | `None` | Image attached to the response |
+| `response_audio` | `Optional[Audio]` | `None` | Model's audio response |
+| `image` | `Optional[Image]` | `None` | Image attached to the response |
 | `references` | `Optional[List[MessageReferences]]` | `None` | References used in the response |
 | `additional_input` | `Optional[List[Message]]` | `None` | Additional input messages |
 | `reasoning_steps` | `Optional[List[ReasoningStep]]` | `None` | Reasoning steps |
@@ -101,10 +101,10 @@ All events inherit from `BaseAgentRunEvent` which provides these common attribut
 | `content_type` | `str` | `"str"` | Type of the content |
 | `reasoning_content` | `Optional[str]` | `None` | Reasoning content produced |
 | `citations` | `Optional[Citations]` | `None` | Citations used in the response |
-| `images` | `Optional[List[ImageArtifact]]` | `None` | Images attached to the response |
-| `videos` | `Optional[List[VideoArtifact]]` | `None` | Videos attached to the response |
-| `audio` | `Optional[List[AudioArtifact]]` | `None` | Audio snippets attached to the response |
-| `response_audio` | `Optional[AudioResponse]` | `None` | Model's audio response |
+| `images` | `Optional[List[Image]]` | `None` | Images attached to the response |
+| `videos` | `Optional[List[Video]]` | `None` | Videos attached to the response |
+| `audio` | `Optional[List[Audio]]` | `None` | Audio snippets attached to the response |
+| `response_audio` | `Optional[Audio]` | `None` | Model's audio response |
 | `references` | `Optional[List[MessageReferences]]` | `None` | References used in the response |
 | `additional_input` | `Optional[List[Message]]` | `None` | Additional input messages |
 | `reasoning_steps` | `Optional[List[ReasoningStep]]` | `None` | Reasoning steps |
@@ -179,9 +179,9 @@ All events inherit from `BaseAgentRunEvent` which provides these common attribut
 | `event` | `str` | `"ToolCallCompleted"` | Event type |
 | `tool` | `Optional[ToolExecution]` | `None` | The tool that was called |
 | `content` | `Optional[Any]` | `None` | Result of the tool call |
-| `images` | `Optional[List[ImageArtifact]]` | `None` | Images produced by the tool |
-| `videos` | `Optional[List[VideoArtifact]]` | `None` | Videos produced by the tool |
-| `audio` | `Optional[List[AudioArtifact]]` | `None` | Audio produced by the tool |
+| `images` | `Optional[List[Image]]` | `None` | Images produced by the tool |
+| `videos` | `Optional[List[Video]]` | `None` | Videos produced by the tool |
+| `audio` | `Optional[List[Audio]]` | `None` | Audio produced by the tool |
 
 ### MemoryUpdateStartedEvent
 

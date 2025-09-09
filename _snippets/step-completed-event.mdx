@@ -5,9 +5,9 @@
 | `step_index` | `Optional[Union[int, tuple]]` | `None` | Index or position of the step |
 | `content` | `Optional[Any]` | `None` | Content output from the step |
 | `content_type` | `str` | `"str"` | Type of the content |
-| `images` | `Optional[List[ImageArtifact]]` | `None` | Image artifacts from the step |
-| `videos` | `Optional[List[VideoArtifact]]` | `None` | Video artifacts from the step |
-| `audio` | `Optional[List[AudioArtifact]]` | `None` | Audio artifacts from the step |
-| `response_audio` | `Optional[AudioResponse]` | `None` | Audio response from the step |
+| `images` | `Optional[List[Image]]` | `None` | Image artifacts from the step |
+| `videos` | `Optional[List[Video]]` | `None` | Video artifacts from the step |
+| `audio` | `Optional[List[Audio]]` | `None` | Audio artifacts from the step |
+| `response_audio` | `Optional[Audio]` | `None` | Audio response from the step |
 | `step_response` | `Optional[StepOutput]` | `None` | Complete step execution result object |
 | *Inherits all fields from `BaseWorkflowRunOutputEvent`* |
