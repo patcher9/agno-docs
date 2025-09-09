@@ -1,12 +1,15 @@
 ---
 title: What are Tools?
 sidebarTitle: Overview
-description: Tools are functions that helps Agno Agents to interact with the external world.
+description: Tools are functions your Agno Agents can use to get things done.
 ---
 
-Tools make agents "agentic" by enabling them to interact with external systems like searching the web, running SQL, sending an email or calling APIs.
+Tools are what make Agents capable of real-world action. While using LLMs directly you can only generate text, Agents equipped with tools can
 
-Agno comes with 120+ pre-built toolkits, but also allows you to write your own tools. The general syntax is:
+They are used to enable Agents to interact with external systems, and perform actions like searching the web, running SQL, sending an email or calling APIs.
+
+Agno comes with 120+ pre-built toolkits, which you can use to give your Agents all kind of abilities. You can also write your own tools, to give your Agents even more capabilities. The general syntax is:
+
 
 ```python
 import random
@@ -15,28 +18,30 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools import tool
 
-
+# This is our tool, marked by the @tool decorator
 @tool(stop_after_tool_call=True)
 def get_weather(city: str) -> str:
-    """Get the weather for a city."""
+    """Get the weather for the given city."""
+
     # In a real implementation, this would call a weather API
     weather_conditions = ["sunny", "cloudy", "rainy", "snowy", "windy"]
     random_weather = random.choice(weather_conditions)
 
     return f"The weather in {city} is {random_weather}."
 
-
+# To equipt our Agent with our tool, we simply pass it with the tools parameter
 agent = Agent(
     model=OpenAIChat(id="gpt-5-nano"),
     tools=[get_weather],
     markdown=True,
 )
+
+# Our Agent will now be able to use our tool, when it deems it relevant
 agent.print_response("What is the weather in San Francisco?", stream=True)
 ```
 
 <Tip>
-
-In the example above, the `get_weather` function is a tool. When it is called, the tool result will be shown in the output.
+In the example above, the `get_weather` function is a tool. When called, the tool result is shown in the output.
 
 Then, the Agent will stop after the tool call (without waiting for the model to respond) because we set `stop_after_tool_call=True`.
 
@@ -44,24 +49,28 @@ Then, the Agent will stop after the tool call (without waiting for the model to 
 
 ### Using the Toolkit Class
 
-The `Toolkit` class provides a way to manage multiple tools with additional control over their execution. You can specify which tools should stop the agent after execution and which should have their results shown.
+The `Toolkit` class provides a way to manage multiple tools with additional control over their execution.
+
+You can specify which tools should stop the agent after execution and which should have their results shown.
 
 ```python
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
+
+# Importing our GoogleSearchTools ToolKit, containing multiple web search tools
 from agno.tools.googlesearch import GoogleSearchTools
 
 agent = Agent(
     model=OpenAIChat(id="gpt-5-mini"),
     tools=[
-        GoogleSearchTools()
+        GoogleSearchTools(),
     ],
 )
 
 agent.print_response("What's the latest about OpenAIs GPT-5?", markdown=True)
 ```
 
-In this example, the `GoogleSearchTools` toolkit is added to the agent and it comes pre-configured with the `google_search` function.
+In this example, the `GoogleSearchTools` toolkit is added to the agent. This ToolKit comes pre-configured with the `google_search` function.
 
 ## Tool Built-in Parameters
 
@@ -70,6 +79,8 @@ Agno automatically provides special parameters to your tools that give access to
 ### Session State Parameter
 
 The built-in parameter `session_state` allows tools to access and modify persistent data across conversations.
+
+This is useful in cases where a tool result is relevant for the next steps of the conversation.
 
 Add `session_state` as a parameter in your tool function to access the agent's persistent state:
 
