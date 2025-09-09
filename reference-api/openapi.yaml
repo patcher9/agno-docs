@@ -4119,16 +4119,6 @@ paths:
                       - SemanticChunker
                       - AgenticChunker
                       - RecursiveChunker
-                  gcs:
-                    id: gcs
-                    name: GcsReader
-                    description: Reads gcs files
-                    chunkers:
-                      - FixedSizeChunker
-                      - AgenticChunker
-                      - DocumentChunker
-                      - RecursiveChunker
-                      - SemanticChunker
                   json:
                     id: json
                     name: JsonReader
