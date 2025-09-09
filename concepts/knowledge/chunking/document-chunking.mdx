@@ -28,7 +28,7 @@ asyncio.run(knowledge.add_content_async(
     ),
 ))
 
-agent = agentic_rag_with_reranking(
+agent = Agent(
     knowledge=knowledge,
     search_knowledge=True,
 )
