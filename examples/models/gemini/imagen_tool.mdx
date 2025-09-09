@@ -26,7 +26,7 @@ agent = Agent(
     tools=[GeminiTools()],
 )
 
-response = agent.print_response(
+response = agent.run(
     "Create an artistic portrait of a cyberpunk samurai in a rainy city",
 )
 if response and response.images:
