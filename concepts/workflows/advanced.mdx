@@ -212,7 +212,7 @@ if __name__ == "__main__":
 ```
 
 <Note>
-You can also use websockets for background workflows. See the [Workflow Websocket](https://github.com/agno-agi/agno/tree/v2.0/cookbook/workflows/_06_advanced_concepts/_05_background_execution/background_execution_using_websocket) example.
+You can also use websockets for background workflows. See the [Workflow Websocket](https://github.com/agno-agi/agno/tree/main/cookbook/workflows/_06_advanced_concepts/_05_background_execution/background_execution_using_websocket) example.
 </Note>
 
 ## Workflow Cancellation
@@ -282,7 +282,16 @@ When a workflow in streaming mode is cancelled, a specific event is triggered: `
 
 Workflows support early termination when specific conditions are met, preventing unnecessary processing and implementing safety gates. Any step can trigger early termination by returning `StepOutput(stop=True)`, immediately halting the entire workflow execution.
 
-![Early Stop Workflows](/images/early_stop.png)
+<img 
+  className="block dark:hidden" 
+  src="/images/workflows-early-stop-light.png" 
+  alt="Workflows early stop diagram"
+/>
+<img 
+  className="hidden dark:block" 
+  src="/images/workflows-early-stop.png" 
+  alt="Workflows early stop diagram"
+/>
 
 ```python
 from agno.workflow import Step, Workflow, StepInput, StepOutput
