@@ -41,7 +41,7 @@ The `reasoning_model` must be able to handle structured outputs, this includes m
 
 ### Using a Reasoning Model that supports native Reasoning
 
-If you set `reasoning_model` to a model that supports native Reasoning like gpt-5-mini or deepseek-r1, the reasoning model will be used to reason and the primary `Agent` model will be used to respond. See [Reasoning Models + Response Models](/concepts/reasoning/reasoning-models#reasoning-model-response-model) for more information.
+If you set `reasoning_model` to a model that supports native Reasoning like gpt-5-mini or deepseek-r1, the reasoning model will be used to reason and the primary `Agent` model will be used to respond. See [Reasoning Models + Response Models](/concepts/reasoning/reasoning-models#reasoning-model-%2B-response-model) for more information.
 
 ## Reasoning with tools
 
@@ -165,5 +165,7 @@ reasoning_agent.print_response(task, stream=True, show_full_reasoning=True)
 
 ## Developer Resources
 
-- View [Examples](/examples/concepts/reasoning/agents)
-- View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/reasoning/agents)
+- View [Reasoning Agent Examples](/examples/concepts/reasoning/agents/basic-cot)
+- View [Reasoning Agent Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/reasoning/agents)
+- View [Reasoning Team Examples](/examples/concepts/reasoning/teams/finance_team_chain_of_thought)
+- View [Reasoning Team Cookbook](https://github.com/agno-agi/agno/blob/main/cookbook/reasoning/teams/finance_team_chain_of_thought.py)
