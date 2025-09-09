@@ -68,9 +68,8 @@
             "group": "Introduction",
             "pages": [
               "introduction",
-              "introduction/first-agent",
-              "introduction/why-agno",
-              "introduction/community"
+              "introduction/quickstart",
+              "introduction/getting-help"
             ]
           },
           {
@@ -1043,9 +1042,7 @@
                   },
                   {
                     "group": "Events",
-                    "pages": [
-                      "examples/concepts/teams/events/custom_events"
-                    ]
+                    "pages": ["examples/concepts/teams/events/custom_events"]
                   },
                   {
                     "group": "Knowledge",
