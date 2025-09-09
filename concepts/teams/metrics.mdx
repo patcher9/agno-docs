@@ -28,7 +28,7 @@ from rich.pretty import pprint
 # Create team members
 web_searcher = Agent(
     name="Stock Searcher",
-    model=OpenAIChat("gpt-5-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     role="Searches the web for information.",
     tools=[DuckDuckGoTools()],
 )
@@ -36,14 +36,14 @@ web_searcher = Agent(
 # Create the team
 team = Team(
     name="Web Research Team",
-    model=OpenAIChat("gpt-5-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     members=[web_searcher],
     markdown=True,
     store_member_responses=True,
 )
 
 # Run the team
-run_response: RunOutput = team.run(
+run_response: TeamRunOutput = team.run(
     "What is going on in the world?"
 )
 pprint_run_response(run_response, markdown=True)

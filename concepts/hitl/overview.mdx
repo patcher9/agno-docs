@@ -1,18 +1,18 @@
 ---
-title: User Control Flows in Agents
-description: Learn how to control the flow of an agent's execution in Agno. We call this "User Control Flows".
+title: Human-in-the-Loop in Agents
+description: Learn how to control the flow of an agent's execution in Agno.
 ---
 
-User control flows (Human-in-the-Loop) in Agno enable you to implement patterns where human oversight and input are required during agent execution. This is crucial for:
+Human-in-the-Loop (HITL) in Agno enable you to implement patterns where human oversight and input are required during agent execution. This is crucial for:
 
 - Validating sensitive operations
 - Reviewing tool calls before execution
 - Gathering user input for decision-making
 - Managing external tool execution
 
-## Types of User Control Flows
+## Types of Human-in-the-Loop
 
-Agno supports four main types of user control flows:
+Agno supports four main types of human-in-the-loop flows:
 
 1. **User Confirmation**: Require explicit user approval before executing tool calls
 2. **User Input**: Gather specific information from users during execution
@@ -27,7 +27,7 @@ Currently Agno only supports user control flows for `Agent`. `Team` and `Workflo
 
 ## Pausing Agent Execution
 
-User control flows interrupt the agent's execution and require human oversight. The run can then be continued by calling the `continue_run` method.
+Human-in-the-loop flows interrupt the agent's execution and require human oversight. The run can then be continued by calling the `continue_run` method.
 
 For example:
 
@@ -43,7 +43,7 @@ if run_response.is_paused:
     # or response = await agent.acontinue_run(run_id=run_response.run_id, updated_tools=run_response.tools)
 ```
 
-The `continue_run` method continues with the state of the agent at the time of the pause.  You can also pass the `RunOutput` of a specific run to the `continue_run` method, or the `run_id` and list of updated tools.
+The `continue_run` method continues with the state of the agent at the time of the pause.  You can also pass the `RunOutput` of a specific run to the `continue_run` method, or pass the `run_id` and list of updated tools in the `updated_tools` parameter.
 
 
 ## User Confirmation
@@ -107,7 +107,7 @@ if run_response.is_paused:
         print(f"Tool {tool.tool_name}({tool.tool_args}) requires confirmation")
         confirmed = input(f"Confirm? (y/n): ").lower() == "y"
 
-        if message == "n":
+        if confirmed == False:
             tool.confirmed = False
         else:
             # We update the tools in place
@@ -171,7 +171,7 @@ if run_response.is_paused:
     )
 ```
 
-The `RunOutput` object has a list of tools and in the case of `requires_user_input`, the tools that require input will have `user_input_schema` populated.
+The `RunOutput` object has a list of tools. In the case of `requires_user_input`, the tools that require input will have `user_input_schema` populated.
 This is a list of `UserInputField` objects.
 
 ```python
@@ -185,7 +185,7 @@ class UserInputField:
 You can also specify which fields should be filled by the user while the agent will provide the rest of the fields.
 
 ```python
-# You can either specify the user_input_fields leave empty for all fields to be provided by the user
+# You can either specify the user_input_fields or leave empty for all fields to be provided by the user
 @tool(requires_user_input=True, user_input_fields=["to_address"])
 def send_email(subject: str, body: str, to_address: str) -> str:
     """
@@ -226,9 +226,9 @@ if run_response.is_paused:
 
 ## Dynamic User Input
 
-This pattern provides the agent with tools to indicate when it needs user input. It's ideal for:
+This pattern provides the agent with tools to indicate when it needs user input. It's ideal for cases:
 
-- Cases where it is unknown how the user will interact with the agent
+- Where it is unknown how the user will interact with the agent
 - When you want a form-like interaction with the user
 
 In the following example, we use a specialized tool to allow the agent to collect user feedback when it needs it.
@@ -369,8 +369,8 @@ if run_response.is_paused:
 
 ## Best Practices
 
-1. **Sanitise user input**: Always validate and sanitize user input to prevent security vulnerabilities.
-2. **Error Handling**: Always implement proper error handling for user input and external calls
+1. **Sanitise user input**: Validate and sanitize user input to prevent security vulnerabilities
+2. **Error Handling**: Implement proper error handling for user input and external calls
 3. **Input Validation**: Validate user input before processing
 
 ## Developer Resources

@@ -102,12 +102,10 @@ agent = Agent(
         text_to_speech_voice="alloy",
         text_to_speech_format="mp3"
     )],
-        markdown=True,
+    markdown=True,
 )
 
-agent.print_response("Generate audio for the text: 'Hello, this is a synthesized voice example.'")
-
-response = agent.run_response
+response = agent.run("Generate audio for the text: 'Hello, this is a synthesized voice example.'")
 if response and response.audio:
     save_base64_data(response.audio[0].base64_audio, "tmp/hello.mp3")
 ```

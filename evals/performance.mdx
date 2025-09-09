@@ -231,7 +231,7 @@ Test team instantiation performance:
 from agno.agent import Agent
 from agno.eval.performance import PerformanceEval
 from agno.models.openai import OpenAIChat
-from agno.team.team import Team
+from agno.team import Team
 
 team_member = Agent(model=OpenAIChat(id="gpt-5-mini"))
 
@@ -263,7 +263,7 @@ from agno.agent import Agent
 from agno.db.postgres import PostgresDb
 from agno.eval.performance import PerformanceEval
 from agno.models.openai import OpenAIChat
-from agno.team.team import Team
+from agno.team import Team
 
 cities = [
     "New York",

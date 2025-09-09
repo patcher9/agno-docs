@@ -7,9 +7,9 @@ description: "Create a basic AI agent that integrates with Slack for conversatio
 
 ```python cookbook/os/interfaces/slack/basic.py
 from agno.agent import Agent
-from agno.db.sqlite.sqlite import SqliteDb
+from agno.db.sqlite import SqliteDb
 from agno.models.openai import OpenAIChat
-from agno.os.app import AgentOS
+from agno.os import AgentOS
 from agno.os.interfaces.slack import Slack
 
 agent_db = SqliteDb(session_table="agent_sessions", db_file="tmp/persistent_memory.db")

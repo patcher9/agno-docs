@@ -185,10 +185,10 @@ You can adjust it to personalize how summaries are created and updated:
 from agno.agent import Agent
 from agno.session import SessionSummaryManager
 from agno.models.openai import OpenAIChat
-from agno.db.sqlite import SQLiteDb
+from agno.db.sqlite import SqliteDb
 
 # Setup your database
-db = SQLiteDb(db_file="agno.db")
+db = SqliteDb(db_file="agno.db")
 
 # Setup your Session Summary Manager, to adjust how summaries are created
 session_summary_manager = SessionSummaryManager(

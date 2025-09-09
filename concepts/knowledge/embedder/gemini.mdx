@@ -10,7 +10,7 @@ The `GeminiEmbedder` class is used to embed text data into vectors using the Gem
 ```python cookbook/embedders/gemini_embedder.py
 from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector
-from agno.embedder.google import GeminiEmbedder
+from agno.knowledge.embedder.google import GeminiEmbedder
 
 # Embed sentence in database
 embeddings = GeminiEmbedder().get_embedding("The quick brown fox jumps over the lazy dog.")
@@ -44,4 +44,4 @@ knowledge = Knowledge(
 | `gemini_client`  | `Optional[Client]`         | -                           | Optional pre-configured Gemini client instance              |
 
 ## Developer Resources
-- View [Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/agent_concepts/knowledge/embedders/gemini_embedder.py)
+- View [Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/knowledge/embedders/gemini_embedder.py)

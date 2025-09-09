@@ -10,7 +10,7 @@ The `TogetherEmbedder` can be used to embed text data into vectors using the Tog
 ```python cookbook/embedders/together_embedder.py
 from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector
-from agno.embedder.together import TogetherEmbedder
+from agno.knowledge.embedder.together import TogetherEmbedder
 
 # Embed sentence in database
 embeddings = TogetherEmbedder().get_embedding("The quick brown fox jumps over the lazy dog.")
@@ -40,4 +40,4 @@ knowledge = Knowledge(
 | `base_url`   | `str` | `"https://api.Together.ai/inference/v1"` | The base URL for the API endpoint.                           |
 
 ## Developer Resources
-- View [Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/agent_concepts/knowledge/embedders/together_embedder.py)
+- View [Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/knowledge/embedders/together_embedder.py)

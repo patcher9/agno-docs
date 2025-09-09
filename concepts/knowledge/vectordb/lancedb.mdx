@@ -34,26 +34,16 @@ knowledge_base = Knowledge(
 )
 
 def lancedb_agent(user: str = "user"):
-    run_id: Optional[str] = None
-
     agent = Agent(
-        run_id=run_id,
-        user_id=user,
         knowledge=knowledge_base,
         debug_mode=True,
     )
-
-    if run_id is None:
-        run_id = agent.run_id
-        print(f"Started Run: {run_id}\n")
-    else:
-        print(f"Continuing Run: {run_id}\n")
 
     while True:
         message = Prompt.ask(f"[bold] :sunglasses: {user} [/bold]")
         if message in ("exit", "bye"):
             break
-        agent.print_response(message)
+        agent.print_response(message, session_id=f"{user}_session")
 
 if __name__ == "__main__":
     # Comment out after first run
@@ -113,5 +103,4 @@ if __name__ == "__main__":
 
 ## Developer Resources
 
-- View [Cookbook (Sync)](https://github.com/agno-agi/agno/tree/v2.0/cookbook/agent_concepts/knowledge/vector_dbs/lance_db/lance_db.py)
-- View [Cookbook (Async)](https://github.com/agno-agi/agno/tree/v2.0/cookbook/agent_concepts/knowledge/vector_dbs/lance_db/async_lance_db.py)
+- View [Cookbook (Sync)](https://github.com/agno-agi/agno/tree/v2.0/cookbook/knowledge/vector_db/lance_db/lance_db.py)

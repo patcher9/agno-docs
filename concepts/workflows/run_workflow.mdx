@@ -85,10 +85,10 @@ Here is an example of how to use it:
 from typing import AsyncIterator
 import asyncio
 
-from agno.agent.agent import Agent
+from agno.agent import Agent
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.workflow import Condition, Step, Workflow, StepInput
-from agno.run.workflow import WorkflowRunOutput, WorkflowRunOutputEvent
+from agno.run.workflow import WorkflowRunOutput, WorkflowRunOutputEvent, WorkflowRunEvent
 
 # === BASIC AGENTS ===
 researcher = Agent(
@@ -188,6 +188,8 @@ async def main():
             message="Recent breakthroughs in quantum computing",
         )
         pprint_run_response(response, markdown=True)
+    except Exception as e:
+        print(f"❌ Error: {e}")
 
 if __name__ == "__main__":
     asyncio.run(main())
@@ -232,10 +234,10 @@ For even more detailed streaming, you can enable intermediate steps by setting `
 ```python
 from typing import Iterator
 
-from agno.agent.agent import Agent
+from agno.agent import Agent
 from agno.tools.duckduckgo import DuckDuckGoTools
 from agno.workflow import Condition, Step, Workflow, StepInput
-from agno.run.workflow import WorkflowRunOutput, WorkflowRunOutputEvent
+from agno.run.workflow import WorkflowRunOutput, WorkflowRunOutputEvent, WorkflowRunEvent
 
 # === BASIC AGENTS ===
 researcher = Agent(
