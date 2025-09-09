@@ -33,10 +33,10 @@ docker run -d \
 ```python cookbook/embedders/azure_embedder.py
 from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector
-from agno.embedder.azure_openai import AzureOpenAIEmbedder
+from agno.knowledge.embedder.azure_openai import AzureOpenAIEmbedder
 
 # Embed sentence in database
-embeddings = AzureOpenAIEmbedder().get_embedding("The quick brown fox jumps over the lazy dog.")
+embeddings = AzureOpenAIEmbedder(id="text-embedding-3-small").get_embedding("The quick brown fox jumps over the lazy dog.")
 
 # Print the embeddings and their dimensions
 print(f"Embeddings: {embeddings[:5]}")
@@ -47,7 +47,7 @@ knowledge_base = Knowledge(
     vector_db=PgVector(
         db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
         table_name="azure_openai_embeddings",
-        embedder=AzureOpenAIEmbedder(),
+        embedder=AzureOpenAIEmbedder(id="text-embedding-3-small"),
     ),
     max_results=2,
 )
@@ -74,4 +74,4 @@ knowledge_base = Knowledge(
 | `openai_client`           | `Optional[AzureOpenAIClient]` | -                          | An instance of the AzureOpenAIClient to use for making API requests. Optional.   |
 
 ## Developer Resources
-- View [Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/agent_concepts/knowledge/embedders/azure_embedder.py)
+- View [Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/knowledge/embedders/azure_embedder.py)

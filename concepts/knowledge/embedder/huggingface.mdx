@@ -10,7 +10,7 @@ The `HuggingfaceCustomEmbedder` class is used to embed text data into vectors us
 ```python cookbook/embedders/huggingface_embedder.py
 from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector
-from agno.embedder.huggingface import HuggingfaceCustomEmbedder
+from agno.knowledge.embedder.huggingface import HuggingfaceCustomEmbedder
 
 # Embed sentence in database
 embeddings = HuggingfaceCustomEmbedder().get_embedding("The quick brown fox jumps over the lazy dog.")
@@ -41,4 +41,4 @@ knowledge = Knowledge(
 | `huggingface_client` | `Any`                      | -                  | Optional pre-configured HuggingFace client instance          |
 
 ## Developer Resources
-- View [Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/agent_concepts/knowledge/embedders/huggingface_embedder.py)
+- View [Cookbook](https://github.com/agno-agi/agno/tree/v2.0/cookbook/knowledge/embedders/huggingface_embedder.py)

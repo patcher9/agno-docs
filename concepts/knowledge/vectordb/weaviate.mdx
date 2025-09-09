@@ -17,10 +17,10 @@ Run weaviate
 
 ```shell
 docker run -d \
--p 8080:8080 \
--p 50051:50051 \
---name weaviate \
-cr.weaviate.io/semitechnologies/weaviate:1.28.4 
+  -p 8080:8080 \
+  -p 50051:50051 \
+  --name weaviate \
+  cr.weaviate.io/semitechnologies/weaviate:1.28.4 
 ```
 
 or 
@@ -118,5 +118,5 @@ if __name__ == "__main__":
 
 ## Developer Resources
 
-- View [Cookbook (Sync)](https://github.com/agno-agi/agno/tree/v2.0/cookbook/agent_concepts/knowledge/vector_dbs/weaviate_db/weaviate_db.py)
-- View [Cookbook (Async)](https://github.com/agno-agi/agno/tree/v2.0/cookbook/agent_concepts/knowledge/vector_dbs/weaviate_db/async_weaviate_db.py)
+- View [Cookbook (Sync)](https://github.com/agno-agi/agno/tree/v2.0/cookbook/knowledge/vector_db/weaviate_db/weaviate_db.py)
+- View [Cookbook (Async)](https://github.com/agno-agi/agno/tree/v2.0/cookbook/knowledge/vector_db/weaviate_db/async_weaviate_db.py)
