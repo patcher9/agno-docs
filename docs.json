@@ -2679,15 +2679,16 @@
               {
                 "group": "Storage",
                 "pages": [
-                  "reference/storage/json",
-                  "reference/storage/mongodb",
-                  "reference/storage/mysql",
                   "reference/storage/postgres",
                   "reference/storage/sqlite",
+                  "reference/storage/mongodb",
+                  "reference/storage/in_memory",
+                  "reference/storage/mysql",
+                  "reference/storage/redis",
                   "reference/storage/dynamodb",
                   "reference/storage/singlestore",
                   "reference/storage/firestore",
-                  "reference/storage/redis",
+                  "reference/storage/json",
                   "reference/storage/gcs"
                 ]
               }
