@@ -930,6 +930,8 @@
                       "examples/concepts/agent/multimodal/image_to_structured_output",
                       "examples/concepts/agent/multimodal/image_input_high_fidelity",
                       "examples/concepts/agent/multimodal/image_to_image_agent",
+                      "examples/concepts/agent/multimodal/file_input_for_tool",
+                      "examples/concepts/agent/multimodal/image_input_for_tool",
                       "examples/concepts/agent/multimodal/image_to_audio",
                       "examples/concepts/agent/multimodal/audio_to_text",
                       "examples/concepts/agent/multimodal/audio_input_output",
