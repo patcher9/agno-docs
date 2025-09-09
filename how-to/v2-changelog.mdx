@@ -267,6 +267,9 @@ Some of the major changes are:
   - Added `additional_input` (works the same as for `Agent`)
   - Added `store_member_responses: bool` to optionally store the member responses on the team run output object.
   - Added `acli_app` to `Team` to enable the CLI app for the team in async mode.
+  - Added `send_media_to_model` -> `True` by default. Set to False if you don't want to send media (image, audio, video, files) to the model.  This is useful if you only want media for tools.
+  - Added `store_media` -> `True` by default. Set to False if you don't want to store any media in the `RunOutput` that is persisted with sessions.
+  - `num_history_responses` -> `num_history_runs`
   - Removed `success_criteria`
   - Removed `team_session_id` and `workflow_session_id`.
   - Removed `enable_team_history`
