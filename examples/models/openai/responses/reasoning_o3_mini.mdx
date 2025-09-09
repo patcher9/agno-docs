@@ -11,7 +11,7 @@ from agno.tools.yfinance import YFinanceTools
 
 agent = Agent(
     model=OpenAIResponses(id="gpt-5-mini"),
-    tools=[YFinanceTools(enable_all=True)],
+    tools=[YFinanceTools()],
     markdown=True,
 )
 

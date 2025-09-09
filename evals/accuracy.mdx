@@ -25,7 +25,7 @@ evaluation = AccuracyEval(
     model=OpenAIChat(id="o4-mini"),
     agent=Agent(
         model=OpenAIChat(id="gpt-5-mini"),
-        tools=[CalculatorTools(enable_all=True)],
+        tools=[CalculatorTools()],
     ),
     input="What is 10*5 then to the power of 2? do it step by step",
     expected_output="2500",
@@ -58,7 +58,7 @@ evaluator_agent = Agent(
 
 evaluation = AccuracyEval(
     model=OpenAIChat(id="o4-mini"),
-    agent=Agent(model=OpenAIChat(id="gpt-5-mini"), tools=[CalculatorTools(enable_all=True)]),
+    agent=Agent(model=OpenAIChat(id="gpt-5-mini"), tools=[CalculatorTools()]),
     input="What is 10*5 then to the power of 2? do it step by step",
     expected_output="2500",
     # Use your evaluator Agent
@@ -96,7 +96,7 @@ evaluation = AccuracyEval(
     model=OpenAIChat(id="o4-mini"),
     agent=Agent(
         model=OpenAIChat(id="gpt-5-mini"),
-        tools=[CalculatorTools(factorial=True)],
+        tools=[CalculatorTools()],
     ),
     input="What is 10!?",
     expected_output="3628800",
@@ -147,7 +147,7 @@ evaluation = AccuracyEval(
     model=OpenAIChat(id="o4-mini"),
     agent=Agent(
         model=OpenAIChat(id="gpt-5-mini"),
-        tools=[CalculatorTools(enable_all=True)],
+        tools=[CalculatorTools()],
     ),
     input="What is 10*5 then to the power of 2? do it step by step",
     expected_output="2500",
@@ -230,7 +230,7 @@ evaluation = AccuracyEval(
     model=OpenAIChat(id="o4-mini"),
     agent=Agent(
         model=OpenAIChat(id="gpt-5-mini"),
-        tools=[CalculatorTools(enable_all=True)],
+        tools=[CalculatorTools()],
         instructions="You must use the calculator tools for comparisons.",
     ),
     input="9.11 and 9.9 -- which is bigger?",
