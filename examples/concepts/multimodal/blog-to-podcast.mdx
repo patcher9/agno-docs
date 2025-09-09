@@ -55,7 +55,7 @@ if podcast.audio is not None and len(podcast.audio) > 0:
         os.makedirs(save_dir, exist_ok=True)
         filename = f"{save_dir}/sample_podcast{uuid4()}.wav"
         write_audio_to_file(
-            audio=podcast.audio[0].base64_audio,
+            audio=podcast.audio[0].content,
             filename=filename
         )
         print(f"Audio saved successfully to: {filename}")

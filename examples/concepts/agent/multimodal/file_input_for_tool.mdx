@@ -21,7 +21,6 @@ from typing import Optional, Sequence
 from agno.agent import Agent
 from agno.media import File
 from agno.models.google import Gemini
-from agno.models.openai import OpenAIChat  # noqa: F401
 from agno.tools import Toolkit
 
 
@@ -93,7 +92,6 @@ def create_sample_pdf_content() -> bytes:
 def main():
     # Create an agent with document processing tools
     agent = Agent(
-        # model=OpenAIChat(id="gpt-4o"),
         model=Gemini(id="gemini-2.5-pro"),
         tools=[DocumentProcessingTools()],
         name="Document Processing Agent",
