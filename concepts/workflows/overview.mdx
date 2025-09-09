@@ -6,7 +6,19 @@ description: Learn how Agno Workflows enable deterministic, controlled automatio
 
 Agno Workflows enable you to build deterministic, controlled agentic flows by orchestrating agents, teams, and functions through a series of defined steps. Unlike free-form agent interactions, workflows provide structured automation with predictable execution patterns, making them ideal for production systems that require reliable, repeatable processes.
 
-![Workflows](/images/workflows-flow.png)
+
+<img 
+  className="block dark:hidden" 
+  src="/images/workflows-flow-light.png" 
+  alt="Workflows flow diagram"
+/>
+
+
+<img 
+  className="hidden dark:block" 
+  src="/images/workflows-flow.png" 
+  alt="Workflows flow diagram"
+/>
 
 ## Why should you use Workflows?
 
@@ -75,8 +87,18 @@ See more on Pydantic as input in the [Advanced Workflows](/concepts/workflows/ad
 <Note>
   When using a custom Python function as an executor for a step, `StepInput` and
   `StepOutput` provides standardized interfaces for data flow between steps:
-  ![Workflows Step IO](/images/workflows-step-io-flow.png)
 </Note>
+<img 
+  className="block dark:hidden" 
+  src="/images/workflows-step-io-flow-light.png" 
+  alt="Workflows step IO flow diagram"
+/>
+
+<img 
+  className="hidden dark:block" 
+  src="/images/workflows-step-io-flow.png" 
+  alt="Workflows step IO flow diagram"
+/>
 
 ## How to make your first workflow?
 
