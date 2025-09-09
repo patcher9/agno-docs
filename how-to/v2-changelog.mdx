@@ -139,6 +139,32 @@ Some of the major changes are:
 - `show_results` is now `True` by default for all tools. If you just set `stop_after_tool_call=True` then `show_results` will be automatically set to `True`.
 - `images`, `videos`, `audio` and `files` are now available as parameters to tools. See the [documentation](/concepts/tools/introduction) for more details.
 
+## Media
+
+#### Breaking Changes
+
+- **Removed legacy artifact classes**: `ImageArtifact`, `VideoArtifact`, `AudioArtifact`, and `AudioResponse` classes have been completely removed in favor of unified media classes.
+
+#### New Unified Media Architecture
+
+- **Unified `Image` class**: Now serves all use cases (input, output, artifacts) with standardized `content: Optional[bytes]` field for raw image data
+- **Unified `Audio` class**: Replaces both `AudioArtifact` and `AudioResponse` with consistent byte-based content storage and additional fields like `transcript`, `expires_at`, `sample_rate`, and `channels`
+- **Unified `Video` class**: Updated to handle all video use cases with standardized content handling and metadata fields
+- **Enhanced `File` class**: Updated to work seamlessly across agent, team, workflow, and toolkit contexts
+
+#### New Methods and Features
+
+- **`from_base64()` class method**: Added to `Image`, `Audio`, and `Video` classes for creating instances from base64-encoded content (automatically converts to raw bytes)
+- **`get_content_bytes()` method**: Retrieves content as raw bytes, handling loading from URLs or file paths
+- **`to_base64()` method**: Converts content to base64 string for transmission/storage
+- **`to_dict()` method**: Enhanced serialization with optional base64 content inclusion
+
+#### Content Standardization
+
+- **Byte-based storage**: All media content is now stored as raw bytes (`Optional[bytes]`) instead of mixed string/bytes formats
+- **Automatic validation**: Model validators ensure exactly one content source (`url`, `filepath`, or `content`) is provided
+- **Auto-generated IDs**: Media objects automatically generate UUIDs when not provided
+
 ## Logging
 
 - Added support for custom loggers. See the [documentation](/concepts/agents/custom-logger) for more details.
