@@ -146,7 +146,7 @@ from PIL import Image
 agent = Agent(
     model=Gemini(
         id="gemini-2.0-flash-exp-image-generation",
-        response_modalities=["Text", "Image"],
+        response_modalities=["Text", "Image"], # This means to generate both images and text
     )
 )
 
