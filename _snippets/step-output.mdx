@@ -7,9 +7,9 @@
 | `executor_name` | `Optional[str]` | `None` | Name of the executor |
 | `content` | `Optional[Union[str, Dict[str, Any], List[Any], BaseModel, Any]]` | `None` | Primary output (can be any format) |
 | `step_run_id` | `Optional[str]` | `None` | Link to the run ID of the step execution |
-| `images` | `Optional[List[ImageArtifact]]` | `None` | Media outputs - images (new or passed-through) |
-| `videos` | `Optional[List[VideoArtifact]]` | `None` | Media outputs - videos (new or passed-through) |
-| `audio` | `Optional[List[AudioArtifact]]` | `None` | Media outputs - audio (new or passed-through) |
+| `images` | `Optional[List[Image]]` | `None` | Media outputs - images (new or passed-through) |
+| `videos` | `Optional[List[Video]]` | `None` | Media outputs - videos (new or passed-through) |
+| `audio` | `Optional[List[Audio]]` | `None` | Media outputs - audio (new or passed-through) |
 | `files` | `Optional[List[File]]` | `None` | File outputs (new or passed-through) |
 | `metrics` | `Optional[Metrics]` | `None` | Execution metrics and metadata |
 | `success` | `bool` | `True` | Execution success status |

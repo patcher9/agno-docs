@@ -115,6 +115,17 @@ print(f"Final session state: {agent.get_session_state()}")
 
 See more in [Agent State](/concepts/agents/state).
 
+### Media Parameters (images, videos, audio, files)
+
+The built-in parameter `images`, `videos`, `audio`, and `files` allows tools to access and modify the input media to an agent.
+
+<Note>
+Using the `send_media_to_model` parameter, you can control whether the media is sent to the model or not and using `store_media` parameter, you can control whether the 
+media is stored in the `RunOutput` or not.
+</Note>
+
+See the [image input example](/examples/concepts/agent/multimodal/image_input_for_tool) and [file input example](/examples/concepts/agent/multimodal/file_input_for_tool) for an advanced example using media.
+
 ## Tool Results
 
 Tools can return different types of results depending on their complexity and what they need to communicate back to the agent.
@@ -161,14 +172,14 @@ When your tool needs to return media artifacts (images, videos, audio), you **mu
 
 ```python
 from agno.tools.function import ToolResult
-from agno.media import ImageArtifact
+from agno.media import Image
 
 @tool
 def generate_image(prompt: str) -> ToolResult:
     """Generate an image from a prompt."""
 
     # Create your image (example)
-    image_artifact = ImageArtifact(
+    image_artifact = Image(
         id="img_123",
         url="https://example.com/generated-image.jpg",
         original_prompt=prompt
@@ -176,7 +187,7 @@ def generate_image(prompt: str) -> ToolResult:
 
     return ToolResult(
         content=f"Generated image for: {prompt}",
-        images=[image_artifact]
+        images=[image]
     )
 ```
 

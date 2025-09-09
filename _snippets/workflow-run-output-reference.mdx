@@ -6,10 +6,10 @@
 | `workflow_name` | `Optional[str]` | `None` | Name of the executed workflow |
 | `run_id` | `Optional[str]` | `None` | Unique identifier for this specific run |
 | `session_id` | `Optional[str]` | `None` | Session UUID associated with this run |
-| `images` | `Optional[List[ImageArtifact]]` | `None` | List of image artifacts generated |
-| `videos` | `Optional[List[VideoArtifact]]` | `None` | List of video artifacts generated |
-| `audio` | `Optional[List[AudioArtifact]]` | `None` | List of audio artifacts generated |
-| `response_audio` | `Optional[AudioResponse]` | `None` | Audio response from the workflow |
+| `images` | `Optional[List[Image]]` | `None` | List of image artifacts generated |
+| `videos` | `Optional[List[Video]]` | `None` | List of video artifacts generated |
+| `audio` | `Optional[List[Audio]]` | `None` | List of audio artifacts generated |
+| `response_audio` | `Optional[Audio]` | `None` | Audio response from the workflow |
 | `step_results` | `List[Union[StepOutput, List[StepOutput]]]` | `[]` | Actual step execution results as StepOutput objects |
 | `step_executor_runs` | `Optional[List[Union[RunOutput, TeamRunOutput]]]` | `None` | Store agent/team responses separately with parent_run_id references |
 | `events` | `Optional[List[WorkflowRunOutputEvent]]` | `None` | Events captured during workflow execution |

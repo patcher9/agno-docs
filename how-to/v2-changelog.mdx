@@ -137,6 +137,33 @@ Some of the major changes are:
 - All tools that handle media (e.g. image generation tools) now correctly add this generated media to the `RunOutput`, but also make it available for subsequent model calls.
 - The interface of almost all the toolkits have been updated for a more consistent experience around switching specific tools on and off. The list of changes is too long to list here. We suggest you take a look at the toolkits you use specifically and how they have been updated.
 - `show_results` is now `True` by default for all tools. If you just set `stop_after_tool_call=True` then `show_results` will be automatically set to `True`.
+- `images`, `videos`, `audio` and `files` are now available as parameters to tools. See the [documentation](/concepts/tools/introduction) for more details.
+
+## Media
+
+#### Removals
+
+- **Removed legacy artifact classes**: `ImageArtifact`, `VideoArtifact`, `AudioArtifact`, and `AudioResponse` classes have been completely removed in favor of unified media classes.
+
+#### New Unified Media Architecture
+
+- **Unified `Image` class**: Now serves all use cases (input, output, artifacts) with standardized `content: Optional[bytes]` field for raw image data
+- **Unified `Audio` class**: Replaces both `AudioArtifact` and `AudioResponse` with consistent byte-based content storage and additional fields like `transcript`, `expires_at`, `sample_rate`, and `channels`
+- **Unified `Video` class**: Updated to handle all video use cases with standardized content handling and metadata fields
+- **Enhanced `File` class**: Updated to work seamlessly across agent, team, workflow, and toolkit contexts
+
+#### New Methods and Features
+
+- **`from_base64()` class method**: Added to `Image`, `Audio`, and `Video` classes for creating instances from base64-encoded content (automatically converts to raw bytes)
+- **`get_content_bytes()` method**: Retrieves content as raw bytes, handling loading from URLs or file paths
+- **`to_base64()` method**: Converts content to base64 string for transmission/storage
+- **`to_dict()` method**: Enhanced serialization with optional base64 content inclusion
+
+#### Content Standardization
+
+- **Byte-based storage**: All media content is now stored as raw bytes (`Optional[bytes]`) instead of mixed string/bytes formats
+- **Automatic validation**: Model validators ensure exactly one content source (`url`, `filepath`, or `content`) is provided
+- **Auto-generated IDs**: Media objects automatically generate UUIDs when not provided
 
 ## Logging
 
@@ -158,6 +185,8 @@ Some of the major changes are:
   - `extra_data` -> `metadata`
   - `create_default_system_message` -> `build_context`
   - `create_default_user_message` -> `build_user_context`
+  - Added `send_media_to_model` -> `True` by default. Set to False if you don't want to send media (image, audio, video, files) to the model.  This is useful if you only want media for tools.
+  - Added `store_media` -> `True` by default. Set to False if you don't want to store any media in the `RunOutput` that is persisted with sessions.
   - `num_history_responses` -> `num_history_runs`
   - Removed `success_criteria` and `goal`
   - Removed `team_session_id` and `workflow_session_id`.
@@ -238,6 +267,9 @@ Some of the major changes are:
   - Added `additional_input` (works the same as for `Agent`)
   - Added `store_member_responses: bool` to optionally store the member responses on the team run output object.
   - Added `acli_app` to `Team` to enable the CLI app for the team in async mode.
+  - Added `send_media_to_model` -> `True` by default. Set to False if you don't want to send media (image, audio, video, files) to the model.  This is useful if you only want media for tools.
+  - Added `store_media` -> `True` by default. Set to False if you don't want to store any media in the `RunOutput` that is persisted with sessions.
+  - `num_history_responses` -> `num_history_runs`
   - Removed `success_criteria`
   - Removed `team_session_id` and `workflow_session_id`.
   - Removed `enable_team_history`

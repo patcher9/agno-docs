@@ -22,10 +22,10 @@ The `TeamRunOutput` class represents the response from a team run, containing bo
 | `session_id` | `str` | `None` | Session Id for the run |
 | `parent_run_id` | `str` | `None` | Parent run ID if this is a nested run |
 | `tools` | `List[ToolExecution]` | `None` | List of tools provided to the model |
-| `images` | `List[ImageArtifact]` | `None` | List of images from member runs |
-| `videos` | `List[VideoArtifact]` | `None` | List of videos from member runs |
-| `audio` | `List[AudioArtifact]` | `None` | List of audio snippets from member runs |
-| `response_audio` | `AudioResponse` | `None` | The model's raw response in audio |
+| `images` | `List[Image]` | `None` | List of images from member runs |
+| `videos` | `List[Video]` | `None` | List of videos from member runs |
+| `audio` | `List[Audio]` | `None` | List of audio snippets from member runs |
+| `response_audio` | `Audio` | `None` | The model's raw response in audio |
 | `input` | `TeamRunInput` | `None` | Input media and messages from user |
 | `reasoning_content` | `str` | `None` | Any reasoning content the model produced |
 | `citations` | `Citations` | `None` | Any citations used in the response |
@@ -122,8 +122,8 @@ All events inherit from `BaseTeamRunEvent` which provides these common attribute
 | `content_type` | `str` | `"str"` | Type of the content |
 | `reasoning_content` | `Optional[str]` | `None` | Reasoning content produced |
 | `citations` | `Optional[Citations]` | `None` | Citations used in the response |
-| `response_audio` | `Optional[AudioResponse]` | `None` | Model's audio response |
-| `image` | `Optional[ImageArtifact]` | `None` | Image attached to the response |
+| `response_audio` | `Optional[Audio]` | `None` | Model's audio response |
+| `image` | `Optional[Image]` | `None` | Image attached to the response |
 | `references` | `Optional[List[MessageReferences]]` | `None` | Message references |
 | `additional_input` | `Optional[List[Message]]` | `None` | Additional input messages |
 | `reasoning_steps` | `Optional[List[ReasoningStep]]` | `None` | Reasoning steps |
@@ -138,10 +138,10 @@ All events inherit from `BaseTeamRunEvent` which provides these common attribute
 | `content_type` | `str` | `"str"` | Type of the content |
 | `reasoning_content` | `Optional[str]` | `None` | Reasoning content produced |
 | `citations` | `Optional[Citations]` | `None` | Citations used in the response |
-| `images` | `Optional[List[ImageArtifact]]` | `None` | Images attached to the response |
-| `videos` | `Optional[List[VideoArtifact]]` | `None` | Videos attached to the response |
-| `audio` | `Optional[List[AudioArtifact]]` | `None` | Audio snippets attached to the response |
-| `response_audio` | `Optional[AudioResponse]` | `None` | Model's audio response |
+| `images` | `Optional[List[Image]]` | `None` | Images attached to the response |
+| `videos` | `Optional[List[Video]]` | `None` | Videos attached to the response |
+| `audio` | `Optional[List[Audio]]` | `None` | Audio snippets attached to the response |
+| `response_audio` | `Optional[Audio]` | `None` | Model's audio response |
 | `references` | `Optional[List[MessageReferences]]` | `None` | Message references |
 | `additional_input` | `Optional[List[Message]]` | `None` | Additional input messages |
 | `reasoning_steps` | `Optional[List[ReasoningStep]]` | `None` | Reasoning steps |
@@ -179,9 +179,9 @@ All events inherit from `BaseTeamRunEvent` which provides these common attribute
 | `event` | `str` | `"TeamToolCallCompleted"` | Event type |
 | `tool` | `Optional[ToolExecution]` | `None` | The tool that was called |
 | `content` | `Optional[Any]` | `None` | Result of the tool call |
-| `images` | `Optional[List[ImageArtifact]]` | `None` | Images produced by the tool |
-| `videos` | `Optional[List[VideoArtifact]]` | `None` | Videos produced by the tool |
-| `audio` | `Optional[List[AudioArtifact]]` | `None` | Audio produced by the tool |
+| `images` | `Optional[List[Image]]` | `None` | Images produced by the tool |
+| `videos` | `Optional[List[Video]]` | `None` | Videos produced by the tool |
+| `audio` | `Optional[List[Audio]]` | `None` | Audio produced by the tool |
 
 ### ReasoningStartedEvent
 
