@@ -57,7 +57,7 @@ agent = Agent(
 agent.print_response(
     "Create an artistic portrait of a cyberpunk samurai in a rainy city",
 )
-response = agent.run_response
+response = agent.run("Create an artistic portrait of a cyberpunk samurai in a rainy city")
 if response.images:
     save_base64_data(response.images[0].content, "tmp/cyberpunk_samurai.png")
 ```
@@ -83,7 +83,7 @@ agent = Agent(
 agent.print_response(
     "Generate a 5-second video of a kitten playing a piano",
 )
-response = agent.run_response
+response = agent.run("Generate a 5-second video of a kitten playing a piano")
 if response.videos:
     for video in response.videos:
         save_base64_data(video.content, f"tmp/kitten_piano_{video.id}.mp4")

@@ -90,9 +90,7 @@ instruction = (
     f"Translate the audio file at '{local_audio_path}' to English. "
     f"Then, generate a new audio file using the translated English text."
 )
-agent.print_response(instruction)
-
-response = agent.run_response
+response = agent.run(instruction)
 if response and response.audio:
     save_base64_data(response.audio[0].base64_audio, output_path)
 ```

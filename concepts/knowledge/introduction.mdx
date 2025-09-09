@@ -20,6 +20,7 @@ The pseudo steps for adding knowledge to an Agent are:
 ```python
 from agno.agent import Agent
 from agno.knowledge.knowledge import Knowledge
+import asyncio
 
 # Create a knowledge instance for the Agent
 knowledge = Knowledge(vector_db=...)
@@ -42,7 +43,7 @@ If you need complete control over the knowledge base search, you can pass your o
 
 ```python
 def knowledge_retriever(
-    query: str, agent: Optional[Agent] = None, num_documents: int = 5, **kwargs
+    agent: Agent, query: str, num_documents: Optional[int] = 5, **kwargs
 ) -> Optional[list[dict]]:
   ...
 

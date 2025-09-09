@@ -35,9 +35,7 @@ knowledge_base = Knowledge(
 asyncio.run(
         knowledge_base.add_content_async(
             path="data/pdf",
-            reader = PDFReader(
-                chunk_size=1000,
-            )
+            reader=reader
         )
     )
 ```
