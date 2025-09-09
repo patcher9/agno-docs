@@ -7,16 +7,16 @@ title: Reasoning O3 Mini
 ```python cookbook/models/openai/responses/reasoning_o3_mini.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIResponses
-from agno.tools.yfinance import YFinanceTools
+from agno.tools.duckduckgo import DuckDuckGoTools
 
 agent = Agent(
     model=OpenAIResponses(id="gpt-5-mini"),
-    tools=[YFinanceTools(enable_all=True)],
+    tools=[DuckDuckGoTools()],
     markdown=True,
 )
 
 # Print the response in the terminal
-agent.print_response("Write a report on the NVDA, is it a good buy?", stream=True)
+agent.print_response("Write a report on the latest news on AI?", stream=True)
 
 ```
 
