@@ -7,15 +7,15 @@ title: Agent with Reasoning Effort
 ```python cookbook/reasoning/models/openai/reasoning_effort.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
-from agno.tools.yfinance import YFinanceTools
+from agno.tools.duckduckgo import DuckDuckGoTools
 
 agent = Agent(
     model=OpenAIChat(id="gpt-5-mini", reasoning_effort="high"),
-    tools=[YFinanceTools(enable_all=True)],
+    tools=[DuckDuckGoTools()],
         markdown=True,
 )
 
-agent.print_response("Write a report on the NVDA, is it a good buy?", stream=True)
+agent.print_response("Write a report on the latest news on AI?", stream=True)
 ```
 
 ## Usage
@@ -31,7 +31,7 @@ agent.print_response("Write a report on the NVDA, is it a good buy?", stream=Tru
 
   <Step title="Install libraries">
     ```bash
-    pip install -U openai yfinance agno
+    pip install -U openai agno
     ```
   </Step>
 
