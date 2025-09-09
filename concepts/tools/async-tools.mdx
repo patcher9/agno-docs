@@ -1,8 +1,16 @@
 ---
 title: Async Tools
+description: Learn how to use async tools in Agno.
+hideToc: true
 ---
 
 Agno Agents can execute multiple tools concurrently, allowing you to process function calls that the model makes efficiently. This is especially valuable when the functions involve time-consuming operations. It improves responsiveness and reduces overall execution time.
+
+<Check>
+When you call `arun` or `aprint_response`, your tools will execute concurrently. If you provide synchronous functions as tools, they will execute concurrently on separate threads.
+</Check>
+
+## Example
 
 Here is an example:
 

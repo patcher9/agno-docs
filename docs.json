@@ -279,10 +279,8 @@
                 "group": "Tools",
                 "pages": [
                   "concepts/tools/introduction",
-                  "concepts/tools/tool-decorator",
-                  "concepts/tools/exceptions",
+                  "concepts/tools/custom-tools",
                   "concepts/tools/hooks",
-                  "concepts/tools/hitl",
                   {
                     "group": "Toolkits",
                     "pages": [
@@ -455,12 +453,12 @@
                       "concepts/tools/reasoning_tools/knowledge-tools"
                     ]
                   },
-                  "concepts/tools/custom-toolkits",
-                  "concepts/tools/selecting-tools",
-                  "concepts/tools/attaching-tools",
                   "concepts/tools/async-tools",
+                  "concepts/tools/tool-call-limit",
+                  "concepts/tools/exceptions",
+                  "concepts/tools/selecting-tools",
                   "concepts/tools/caching",
-                  "concepts/tools/tool_call_limit"
+                  "concepts/tools/attaching-tools"
                 ]
               },
               {

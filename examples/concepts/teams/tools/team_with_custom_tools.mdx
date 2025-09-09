@@ -65,8 +65,9 @@ team.print_response("What is the capital of France?", stream=True)
 
 # Check if team has session state and display information
 print("\n📊 Team Session Info:")
-print(f"   Session ID: {team.session_id}")
-print(f"   Session State: {team.session_state}")
+session = team.get_session()
+print(f"   Session ID: {session.session_id}")
+print(f"   Session State: {session.session_data['session_state']}")
 
 # Show team capabilities
 print("\n🔧 Team Tools Available:")
