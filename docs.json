@@ -621,6 +621,13 @@
             ]
           },
           {
+            "group": "Templates",
+            "pages": [
+              "templates/agent-infra-aws/introduction",
+              "templates/agent-infra-docker/introduction"
+            ]
+          },
+          {
             "group": "AgentOS API",
             "pages": [
               "reference-api/overview",
