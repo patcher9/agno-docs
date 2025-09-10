@@ -1094,7 +1094,6 @@
                   {
                     "group": "Session",
                     "pages": [
-                      "examples/concepts/teams/session/in_memory_session",
                       "examples/concepts/teams/session/persistent_session",
                       "examples/concepts/teams/session/persistent_session_history",
                       "examples/concepts/teams/session/session_summary",
