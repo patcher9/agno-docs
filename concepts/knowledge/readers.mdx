@@ -84,6 +84,24 @@ reader = PDFReader(
 )
 ```
 
+### Encoding Control
+
+For text-based readers, you can override the file encoding:
+
+```python
+reader = TextReader(
+    encoding="utf-8"              # Override default encoding
+)
+
+reader = CSVReader(
+    encoding="latin-1"            # Handle files with specific encodings
+)
+
+reader = MarkdownReader(
+    encoding="cp1252"             # Windows-specific encoding
+)
+```
+
 ### Metadata and Naming
 
 ```python
