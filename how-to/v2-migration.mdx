@@ -80,6 +80,7 @@ run_output: RunOutput = agent.run(...)
 1.5. The `add_state_in_messages` parameter has been deprecated. Variables in instructions are now resolved automatically by default.
 1.6. The `context` parameter has been renamed to `dependencies`.
 
+This is how it looked like on v1:
 ```python v1_context.py
 from agno.agent import Agent
 
@@ -89,6 +90,8 @@ agent = Agent(
     add_state_in_messages=True,
 )
 ```
+
+This is how it looks like now, on v2:
 
 ```python v2_dependencies.py
 from agno.agent import Agent
