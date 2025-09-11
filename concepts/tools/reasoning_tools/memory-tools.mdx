@@ -1,0 +1,60 @@
+---
+title: Memory Tools
+sidebarTitle: Memory Tools
+---
+
+The `MemoryTools` toolkit enables Agents to manage user memories through create, update, and delete operations. This toolkit integrates with a provided database where memories are stored.
+
+The toolkit implements a "Think → Operate → Analyze" cycle that allows an Agent to:
+1. Think through memory management requirements and plan operations
+2. Execute memory operations (add, update, delete) on the database
+3. Analyze the results to ensure operations completed successfully and meet requirements
+
+This approach gives Agents the ability to persistently store, retrieve, and manage user information, preferences, and context across conversations.
+
+The toolkit includes the following tools:
+
+- `think`: A scratchpad for planning memory operations, brainstorming content, and refining approaches. These thoughts remain internal to the Agent and are not shown to users.
+- `add_memory`: Creates new memories in the database with specified content and optional topics.
+- `update_memory`: Modifies existing memories by memory ID, allowing updates to content and topics.
+- `delete_memory`: Removes memories from the database by memory ID.
+- `analyze`: Evaluates whether memory operations completed successfully and produced the expected results.
+
+## Example
+
+Here's an example of how to use the `MemoryTools` toolkit:
+
+```python
+from agno.agent import Agent
+from agno.db.postgres import PostgresDb
+from agno.models.openai import OpenAIChat
+from agno.tools.memory import MemoryTools
+
+# Create a database connection
+db = PostgresDb(
+    table_name="user_memories",
+    db_url="postgresql://user:password@localhost:5432/agno_db"
+)
+
+memory_tools = MemoryTools(
+    db=db,
+    enable_add_memory=True,
+    enable_update_memory=True,
+    enable_delete_memory=True,
+    enable_think=True,
+    enable_analyze=True,
+    add_few_shot=True,
+)
+
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    tools=[memory_tools],
+    markdown=True,
+)
+
+if __name__ == "__main__":
+    agent.print_response(
+        "Remember that I prefer vegetarian recipes and I'm allergic to nuts", 
+        stream=True
+    )
+```
