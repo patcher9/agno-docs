@@ -4,6 +4,31 @@ sidebarTitle: Advanced
 description: Master advanced workflow features including custom functions, background execution, cancellation, early stopping, event management, and structured data handling for production-ready automation.
 ---
 
+## Executing a Workflow with Tools
+
+You can give a workflow to an Agent/Team to execute using `WorkflowTools`.
+
+```python
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.tools.workflow import WorkflowTools
+
+# Create your workflows...
+
+workflow_tools = WorkflowTools(
+    workflow=blog_post_workflow,
+)
+
+agent = Agent(
+    model=OpenAIChat(id="gpt-5-mini"),
+    tools=[workflow_tools],
+)
+
+agent.print_response("Create a blog post on the topic: AI trends in 2024", stream=True)
+```
+
+See the [Workflow Tools](/concepts/tools/reasoning_tools/workflow-tools) documentation for more details.
+
 ## Custom Functions in Workflows
 
 Custom functions provide maximum flexibility by allowing you to define specific logic for step execution. Use them to preprocess inputs, orchestrate agents and teams, and postprocess outputs with complete programmatic control.
