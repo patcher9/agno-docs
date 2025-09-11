@@ -6,7 +6,7 @@ description: Learn how to use input and output schemas with Agents.
 
 **Agents can use input and output schemas to validate data and ensure structured responses**.
 
-You can define Pydantic models as schemas to validate input data and guarantee that Agent outputs follow a specific structure. You can also use a separate `parser_model` to handle output formatting.
+You can define Pydantic models as schemas to validate input data and guarantee that Agent outputs follow a specific structure. Typesafe agents return structured data instead of unstructured text. This makes them reliable for production systems that need consistent output formats. You can also use a separate `parser_model` to handle output formatting.
 
 The general syntax is:
 
