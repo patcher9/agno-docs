@@ -450,7 +450,9 @@
                     "group": "Reasoning Tools",
                     "pages": [
                       "concepts/tools/reasoning_tools/reasoning-tools",
-                      "concepts/tools/reasoning_tools/knowledge-tools"
+                      "concepts/tools/reasoning_tools/workflow-tools",
+                      "concepts/tools/reasoning_tools/knowledge-tools",
+                      "concepts/tools/reasoning_tools/memory-tools"
                     ]
                   },
                   "concepts/tools/async-tools",
@@ -524,11 +526,6 @@
             ]
           },
           {
-            "group": "Agent UI",
-            "hidden": true,
-            "pages": ["agent-ui/introduction"]
-          },
-          {
             "group": "Help",
             "pages": [
               "how-to/install",
@@ -570,7 +567,8 @@
                   "agent-os/interfaces/ag-ui/introduction",
                   "agent-os/interfaces/slack/introduction"
                 ]
-              }
+              },
+              "agent-os/agent-ui"
             ]
           },
           {
@@ -2638,7 +2636,6 @@
                       "reference/knowledge/reader/base",
                       "reference/knowledge/reader/arxiv",
                       "reference/knowledge/reader/csv",
-                      "reference/knowledge/reader/csv_url",
                       "reference/knowledge/reader/docx",
                       "reference/knowledge/reader/json",
                       "reference/knowledge/reader/pdf",
