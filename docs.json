@@ -624,27 +624,27 @@
             "group": "Templates",
             "pages": [
               "templates/agent-infra-aws/introduction",
-              "templates/agent-infra-docker/introduction"
-            ]
-          },
-          {
-            "group": "Template Management",
-            "pages": [
-              "infra/infra-management/introduction",
-              "infra/infra-management/development-app",
-              "infra/infra-management/production-app",
-              "infra/infra-management/install",
-              "infra/infra-management/python-packages",
-              "infra/infra-management/secrets",
-              "infra/infra-management/env-vars",
-              "infra/infra-management/database-tables",
-              "infra/infra-management/ci-cd",
-              "infra/infra-management/domain-https",
-              "infra/infra-management/ssh-access",
-              "infra/infra-management/infra-settings",
-              "infra/infra-management/git-repo",
-              "infra/infra-management/new-users",
-              "infra/infra-management/format-and-validate"
+              "templates/agent-infra-docker/introduction",
+              {
+                "group": "Template Management",
+                "pages": [
+                  "templates/infra-management/introduction",
+                  "templates/infra-management/development-app",
+                  "templates/infra-management/production-app",
+                  "templates/infra-management/install",
+                  "templates/infra-management/python-packages",
+                  "templates/infra-management/secrets",
+                  "templates/infra-management/env-vars",
+                  "templates/infra-management/database-tables",
+                  "templates/infra-management/ci-cd",
+                  "templates/infra-management/domain-https",
+                  "templates/infra-management/ssh-access",
+                  "templates/infra-management/infra-settings",
+                  "templates/infra-management/git-repo",
+                  "templates/infra-management/new-users",
+                  "templates/infra-management/format-and-validate"
+                ]
+              }
             ]
           },
           {
