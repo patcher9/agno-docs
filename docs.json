@@ -213,7 +213,8 @@
                       "concepts/knowledge/chunking/recursive-chunking",
                       "concepts/knowledge/chunking/document-chunking",
                       "concepts/knowledge/chunking/csv-row-chunking",
-                      "concepts/knowledge/chunking/markdown-chunking"
+                      "concepts/knowledge/chunking/markdown-chunking",
+                      "concepts/knowledge/chunking/custom-chunking"
                     ]
                   },
                   {
