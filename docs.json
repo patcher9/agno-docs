@@ -526,11 +526,6 @@
             ]
           },
           {
-            "group": "Agent UI",
-            "hidden": true,
-            "pages": ["agent-ui/introduction"]
-          },
-          {
             "group": "Help",
             "pages": [
               "how-to/install",
@@ -571,6 +566,12 @@
                   "agent-os/interfaces/whatsapp/introduction",
                   "agent-os/interfaces/ag-ui/introduction",
                   "agent-os/interfaces/slack/introduction"
+                ]
+              },
+              {
+                "group": "AgentUI",
+                "pages": [
+                  "agent-ui/introduction"
                 ]
               }
             ]
