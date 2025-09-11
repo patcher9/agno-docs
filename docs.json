@@ -618,12 +618,6 @@
                     ]
                   }
                 ]
-              },
-              {
-                "group": "AgentUI",
-                "pages": [
-                  "agent-ui/introduction"
-                ]
               }
             ]
           },
