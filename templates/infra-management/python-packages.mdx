@@ -66,11 +66,11 @@ After updating the `requirements.txt` file, rebuild your images.
 <CodeGroup>
 
 ```bash terminal
-ag ws up --env dev --infra docker --type image
+ag infra up --env dev --infra docker --type image
 ```
 
 ```bash short options
-ag ws up -e dev -i docker -t image
+ag infra up -e dev -i docker -t image
 ```
 
 </CodeGroup>
@@ -79,18 +79,18 @@ ag ws up -e dev -i docker -t image
 
 <Note>
 
-Remember to [authenticate with ECR](workspaces/workspace-management/production-app#ecr-images) if needed.
+Remember to [authenticate with ECR](infra/infra-management/production-app#ecr-images) if needed.
 
 </Note>
 
 <CodeGroup>
 
 ```bash terminal
-ag ws up --env prd --infra aws --type image
+ag infra up --env prd --infra aws --type image
 ```
 
 ```bash short options
-ag ws up -e prd -i aws -t image
+ag infra up -e prd -i aws -t image
 ```
 
 </CodeGroup>
@@ -104,11 +104,11 @@ After rebuilding images, recreate the resources.
 <CodeGroup>
 
 ```bash terminal
-ag ws restart --env dev --infra docker --type container
+ag infra restart --env dev --infra docker --type container
 ```
 
 ```bash short options
-ag ws restart -e dev -c docker -t container
+ag infra restart -e dev -c docker -t container
 ```
 
 </CodeGroup>
@@ -118,11 +118,11 @@ ag ws restart -e dev -c docker -t container
 <CodeGroup>
 
 ```bash terminal
-ag ws patch --env prd --infra aws --name service
+ag infra patch --env prd --infra aws --name service
 ```
 
 ```bash short options
-ag ws patch -e prd -i aws -n service
+ag infra patch -e prd -i aws -n service
 ```
 
 </CodeGroup>

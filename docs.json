@@ -628,6 +628,26 @@
             ]
           },
           {
+            "group": "Template Management",
+            "pages": [
+              "infra/infra-management/introduction",
+              "infra/infra-management/development-app",
+              "infra/infra-management/production-app",
+              "infra/infra-management/install",
+              "infra/infra-management/python-packages",
+              "infra/infra-management/secrets",
+              "infra/infra-management/env-vars",
+              "infra/infra-management/database-tables",
+              "infra/infra-management/ci-cd",
+              "infra/infra-management/domain-https",
+              "infra/infra-management/ssh-access",
+              "infra/infra-management/infra-settings",
+              "infra/infra-management/git-repo",
+              "infra/infra-management/new-users",
+              "infra/infra-management/format-and-validate"
+            ]
+          },
+          {
             "group": "AgentOS API",
             "pages": [
               "reference-api/overview",
