@@ -450,7 +450,9 @@
                     "group": "Reasoning Tools",
                     "pages": [
                       "concepts/tools/reasoning_tools/reasoning-tools",
-                      "concepts/tools/reasoning_tools/knowledge-tools"
+                      "concepts/tools/reasoning_tools/workflow-tools",
+                      "concepts/tools/reasoning_tools/knowledge-tools",
+                      "concepts/tools/reasoning_tools/memory-tools"
                     ]
                   },
                   "concepts/tools/async-tools",
