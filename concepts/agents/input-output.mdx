@@ -430,7 +430,7 @@ regular_agent = Agent(
 response = regular_agent.run("analyze this text")  # What format will we get back?
 sentiment = response.content  # String? Dict? Unknown structure?
 
-# With type safety - guaranteed to work
+# With type safety - Better assurance of getting the right response
 typesafe_agent = Agent(
     model=OpenAIChat(id="gpt-5-mini"),
     description="Analyze sentiment",
