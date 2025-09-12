@@ -911,6 +911,7 @@
                       "examples/concepts/agent/input_and_output/input_as_message",
                       "examples/concepts/agent/input_and_output/input_as_messages_list",
                       "examples/concepts/agent/input_and_output/input_schema_on_agent",
+                      "examples/concepts/agent/input_and_output/input_schema_on_agent_as_typed_dict",
                       "examples/concepts/agent/input_and_output/output_model",
                       "examples/concepts/agent/input_and_output/parser_model",
                       "examples/concepts/agent/input_and_output/parser_model_ollama",
