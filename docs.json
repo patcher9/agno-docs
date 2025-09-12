@@ -82,7 +82,6 @@
                   "concepts/agents/run",
                   "concepts/agents/sessions",
                   "concepts/agents/input-output",
-                  "concepts/agents/typesafe-agents",
                   "concepts/agents/dependencies",
                   "concepts/agents/state",
                   "concepts/agents/storage",
