@@ -423,6 +423,154 @@ You can set `input_schema` on the Team to validate the input.  If you then pass 
   </Step>
 </Steps>
 
+## Typesafe Teams
+
+A **typesafe team** is one that uses both `input_schema` and `output_schema` to ensure complete type safety throughout the entire data pipeline. This creates a fully validated interface where both inputs and outputs are guaranteed to follow specific structures.
+
+Typesafe teams provide:
+
+- Input validation using `input_schema` 
+- Output structure guarantee using `output_schema`
+- Runtime type checking for both directions
+- Production reliability with predictable interfaces
+
+### Complete Typesafe Research Team
+
+Here's a comprehensive example showing a fully typesafe team for research tasks:
+
+<Steps>
+  <Step title="Create the typesafe research team">
+    ```python typesafe_research_team.py
+    from typing import List
+
+    from agno.agent import Agent
+    from agno.models.anthropic import Claude
+    from agno.models.openai import OpenAIChat
+    from agno.team import Team
+    from agno.tools.hackernews import HackerNewsTools
+    from agno.tools.duckduckgo import DuckDuckGoTools
+    from pydantic import BaseModel, Field
+    from rich.pretty import pprint
+
+
+    # Define your input schema
+    class ResearchTopic(BaseModel):
+        topic: str
+        sources_required: int = Field(description="Number of sources", default=5)
+
+
+    # Define your output schema
+    class ResearchOutput(BaseModel):
+        summary: str = Field(..., description="Executive summary of the research")
+        insights: List[str] = Field(..., description="Key insights from posts")
+        top_stories: List[str] = Field(
+            ..., description="Most relevant and popular stories found"
+        )
+        technologies: List[str] = Field(
+            ..., description="Technologies mentioned"
+        )
+        sources: List[str] = Field(..., description="Links to the most relevant posts")
+
+
+    # Define your agents
+    hn_researcher_agent = Agent(
+        name="HackerNews Researcher",
+        model=Claude(id="claude-sonnet-4-0"),
+        tools=[HackerNewsTools()],
+        role="Research hackernews posts for a given topic",
+    )
+
+    web_researcher_agent = Agent(
+        name="Web Researcher",
+        model=Claude(id="claude-sonnet-4-0"),
+        tools=[DuckDuckGoTools()],
+        role="Research web content for additional context",
+    )
+
+    # Define your team
+    hn_researcher_team = Team(
+        # Model to use
+        model=Claude(id="claude-sonnet-4-0"),
+        # Team members
+        members=[hn_researcher_agent, web_researcher_agent],
+        instructions="Research topics by coordinating between HackerNews and web research",
+        # Add your input schema
+        input_schema=ResearchTopic,
+        # Add your output schema
+        output_schema=ResearchOutput,
+        # Model to use convert the output to the JSON schema
+        parser_model=OpenAIChat(id="gpt-5-nano"),
+    )
+
+    # Run the Team
+    response = hn_researcher_team.run(
+        input=ResearchTopic(topic="AI", sources_required=5)
+    )
+
+    # Print the response
+    pprint(response.content)
+    ```
+  </Step>
+  <Step title="Run the team">
+    Install libraries
+
+    ```shell
+    pip install agno openai anthropic ddgs
+    ```
+
+    Set your API keys
+    ```shell
+    export ANTHROPIC_API_KEY=xxx
+    export OPENAI_API_KEY=xxx
+    ```
+
+    Run the team
+    ```shell
+    python typesafe_research_team.py
+    ```
+  </Step>
+</Steps>
+
+The output is a structured `ResearchOutput` object:
+
+```python
+ResearchOutput(
+    summary='AI development is accelerating with new breakthroughs in...',
+    insights=['LLMs are becoming more efficient', 'Open source models gaining traction'],
+    top_stories=['GPT-5 rumors surface', 'New Claude model released'],
+    technologies=['GPT-4', 'Claude', 'Transformers'],
+    sources=['https://news.ycombinator.com/item?id=123', '...']
+)
+```
+
+### Production Benefits
+
+With both input and output schemas defined, you eliminate common integration issues:
+
+```python
+# Without type safety - prone to errors
+regular_team = Team(
+    model=OpenAIChat(id="gpt-5-mini"),
+    members=[...],
+    description="Analyze sentiment"
+)
+response = regular_team.run("analyze this text")  # What format will we get back?
+sentiment = response.content  # String? Dict? Unknown structure?
+
+# With type safety - Better assurance of getting the right response
+typesafe_team = Team(
+    model=OpenAIChat(id="gpt-5-mini"),
+    members=[...],
+    description="Analyze sentiment",
+    input_schema=ResearchTopic,
+    output_schema=ResearchOutput,
+)
+response = typesafe_team.run(input=ResearchTopic(topic="AI", sources_required=5))
+summary = response.content.summary  # Guaranteed to be a string
+```
+
+Typesafe teams are especially valuable in production systems where you need guaranteed data contracts between your application and AI teams.
+
 ## Using a Parser Model
 
 You can use a different model to parse and structure the output from your primary model. 

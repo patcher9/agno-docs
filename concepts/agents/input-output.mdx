@@ -403,20 +403,6 @@ ResearchOutput(
 )
 ```
 
-### Input Validation
-
-When you set `input_schema` on an Agent, it automatically validates the input against the Pydantic model.
-
-```python
-# This input will be validated against ResearchTopic
-response = agent.run(input={"topic": "AI", "sources_required": 5})
-
-# You can also pass a Pydantic object directly
-response = agent.run(input=ResearchTopic(topic="AI", sources_required=5))
-```
-
-If the input doesn't match the schema, you'll get a validation error.
-
 ### Production Benefits
 
 With both input and output schemas defined, you eliminate common integration issues:
