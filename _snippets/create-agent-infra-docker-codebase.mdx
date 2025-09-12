@@ -5,11 +5,11 @@ Create your codebase using the `agent-infra-docker` template, give it any name y
 <CodeGroup>
 
 ```bash Mac
-ag ws create --template agent-infra-docker --name agent-infra-docker
+ag infra create --template agent-infra-docker --name agent-infra-docker
 ```
 
 ```bash Windows
-ag ws create --template agent-infra-docker --name agent-infra-docker
+ag infra create --template agent-infra-docker --name agent-infra-docker
 ```
 
 </CodeGroup>
@@ -21,7 +21,7 @@ agent-infra-docker          # Root directory
 ├── agents                  # Sample Agents
 ├── teams                   # Sample Teams
 ├── workflows               # Sample Workflows
-├── app                     # AgentOS instance
+├── app                     # AgentOS directory
 ├── db                      # database tables
 ├── compose.yml             # docker compose file (With AgentOS instance and PostgreSQL database)
 ├── Dockerfile              # Dockerfile for the application
