@@ -179,7 +179,7 @@ Streaming can be used in combination with `output_schema`. This returns the stru
 
 ## Structured Input
 
-An agent can be provided with structured input (i.e a pydantic model) by passing it in the `Agent.run()` or `Agent.print_response()` as the `input` parameter.
+An agent can be provided with structured input (i.e a pydantic model or a `TypedDict`) by passing it in the `Agent.run()` or `Agent.print_response()` as the `input` parameter.
 
 <Steps>
   <Step title="Structured Input example">
@@ -300,6 +300,8 @@ You can set `input_schema` on the Agent to validate the input.  If you then pass
     ```
   </Step>
 </Steps>
+
+See this [example](/examples/concepts/agent/input_and_output/input_schema_on_agent_as_typed_dict) to see how to use structured input with `TypedDict`.
 
 ## Using a Parser Model
 
