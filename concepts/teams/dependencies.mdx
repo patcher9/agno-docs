@@ -15,22 +15,20 @@ from agno.models.openai import OpenAIChat
 from agno.team import Team
 
 
-def get_user_profile(user_id: str = "john_doe") -> dict:
+def get_user_profile() -> dict:
     """Get user profile information that can be referenced in responses."""
-    profiles = {
-        "john_doe": {
-            "name": "John Doe",
-            "preferences": {
-                "communication_style": "professional",
-                "topics_of_interest": ["AI/ML", "Software Engineering", "Finance"],
-                "experience_level": "senior",
-            },
-            "location": "San Francisco, CA",
-            "role": "Senior Software Engineer",
-        }
+    profile = {
+        "name": "John Doe",
+        "preferences": {
+            "communication_style": "professional",
+            "topics_of_interest": ["AI/ML", "Software Engineering", "Finance"],
+            "experience_level": "senior",
+        },
+        "location": "San Francisco, CA",
+        "role": "Senior Software Engineer",
     }
 
-    return profiles.get(user_id, {"name": "Unknown User"})
+    return profile
 
 
 def get_current_context() -> dict:
@@ -73,12 +71,15 @@ team = Team(
     markdown=True,
 )
 
-response = team.run(
+team.print_response(
     "Please provide me with a personalized summary of today's priorities based on my profile and interests.",
 )
-
-print(response.content)
 ```
+
+<Check>
+Dependencies are automatically resolved when the team is run.
+</Check>
+
 
 ## Adding the entire context to the user message
 
@@ -90,22 +91,20 @@ from agno.models.openai import OpenAIChat
 from agno.team import Team
 
 
-def get_user_profile(user_id: str = "john_doe") -> dict:
+def get_user_profile() -> dict:
     """Get user profile information that can be referenced in responses."""
-    profiles = {
-        "john_doe": {
-            "name": "John Doe",
-            "preferences": {
-                "communication_style": "professional",
-                "topics_of_interest": ["AI/ML", "Software Engineering", "Finance"],
-                "experience_level": "senior",
-            },
-            "location": "San Francisco, CA",
-            "role": "Senior Software Engineer",
-        }
+    profile = {
+        "name": "John Doe",
+        "preferences": {
+            "communication_style": "professional",
+            "topics_of_interest": ["AI/ML", "Software Engineering", "Finance"],
+            "experience_level": "senior",
+        },
+        "location": "San Francisco, CA",
+        "role": "Senior Software Engineer",
     }
 
-    return profiles.get(user_id, {"name": "Unknown User"})
+    return profile
 
 
 def get_current_context() -> dict:
@@ -138,7 +137,7 @@ team = Team(
     markdown=True,
 )
 
-response = team.run(
+team.print_response(
     "Please provide me with a personalized summary of today's priorities based on my profile and interests.",
     dependencies={
         "user_profile": get_user_profile,
@@ -146,9 +145,11 @@ response = team.run(
     },
     add_dependencies_to_context=True,
 )
-
-print(response.content)
 ```
+
+<Tip>
+You can pass `dependencies` and `add_dependencies_to_context` to the `run`, `arun`, `print_response` and `aprint_response` methods.
+</Tip>
 
 ## Developer Resources
 
