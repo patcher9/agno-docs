@@ -176,6 +176,20 @@ if __name__ == "__main__":
     print("Final workflow session state:", shopping_workflow.get_session_state())
 ```
 
+### 3. `session_state` as a parameter for custom python functions step in workflow
+
+You can use the `session_state` as a parameter for custom python functions step in workflow to access and modify the session state.
+
+<Note>
+On the function of the custom python function step for a workflow
+```python
+def custom_function_step(step_input: StepInput, session_state):
+    session_state["test"] = test_1 # updates the workflow session state
+```
+</Note>
+
+See [examples](/examples/concepts/workflows/06_workflows_advanced_concepts/access_session_state_in_custom_python_function_step) for more details.
+
 ## Key Benefits
 
 **Persistent State Management**
