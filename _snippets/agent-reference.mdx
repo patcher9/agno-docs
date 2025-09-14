@@ -31,7 +31,7 @@
 | `add_knowledge_to_context`         | `bool`                                                | `False`    | Enable RAG by adding references from Knowledge to the user prompt                                                                                                                                                                |
 | `knowledge_retriever`              | `Optional[Callable[..., Optional[List[Union[Dict, str]]]]]` | `None`     | Function to get references to add to the user_message                                                                                                                                                                            |
 | `references_format`                | `Literal["json", "yaml"]`                             | `"json"`   | Format of the references                                                                                                                                                                                                         |
-| `metadata`                         | `Optional[Dict[str, Any]]`                            | `None`     | Metadata stored with this agent                                                                                                                                                                                                  |
+| `metadata`                         | `Optional[Dict[str, Any]]`                            | `None`          | Metadata stored with this agent                                                                                                                                                                                                  |
 | `tools`                            | `Optional[List[Union[Toolkit, Callable, Function, Dict]]]` | `None`     | A list of tools provided to the Model                                                                                                                                                                                            |
 | `tool_call_limit`                  | `Optional[int]`                                       | `None`     | Maximum number of tool calls allowed for a single run                                                                                                                                                                            |
 | `tool_choice`                      | `Optional[Union[str, Dict[str, Any]]]`                | `None`     | Controls which (if any) tool is called by the model                                                                                                                                                                              |
@@ -130,6 +130,11 @@ Run the agent asynchronously.
 - `stream_intermediate_steps` (Optional[bool]): Whether to stream intermediate steps
 - `retries` (Optional[int]): Number of retries to attempt
 - `knowledge_filters` (Optional[Dict[str, Any]]): Knowledge filters to apply
+- `add_history_to_context` (Optional[bool]): Whether to add history to context
+- `add_dependencies_to_context` (Optional[bool]): Whether to add dependencies to context
+- `add_session_state_to_context` (Optional[bool]): Whether to add session state to context
+- `dependencies` (Optional[Dict[str, Any]]): Dependencies to use for this run
+- `metadata` (Optional[Dict[str, Any]]): Metadata to use for this run
 - `debug_mode` (Optional[bool]): Whether to enable debug mode
 
 **Returns:**
@@ -209,10 +214,6 @@ Run the agent and print the response.
 - `metadata` (Optional[Dict[str, Any]]): Metadata to use for this run
 - `debug_mode` (Optional[bool]): Whether to enable debug mode
 
-**Returns:**
-
-- `Union[RunOutput, Iterator[Union[RunOutputEvent, RunOutput]]]`: Either a RunOutput or an iterator of RunOutputEvents, depending on the `stream` parameter
-
 ### `aprint_response`
 
 Run the agent and print the response asynchronously.
@@ -273,59 +274,6 @@ Run an interactive command-line interface to interact with the agent asynchronou
 - `exit_on` (Optional[List[str]]): List of commands to exit the CLI
 - `**kwargs`: Additional keyword arguments
 
-
-### get_session_summary
-
-Get the session summary for the given session ID.
-
-**Parameters:**
-
-- `session_id` (Optional[str]): Session ID to use (if not provided, the current session is used)
-
-**Returns:**
-
-- Session summary for the given session
-
-### get_user_memories
-
-Get the user memories for the given user ID.
-
-**Parameters:**
-
-- `user_id` (Optional[str]): User ID to use (if not provided, the current user is used)
-
-**Returns:**
-
-- `Optional[List[UserMemory]]`: The user memories
-
-### add_tool
-
-Add a tool to the agent.
-
-**Parameters:**
-
-- `tool` (Union[Toolkit, Callable, Function, Dict]): The tool to add
-
-### set_tools
-
-Replace the tools of the agent.
-
-**Parameters:**
-
-- `tools` (List[Union[Toolkit, Callable, Function, Dict]]): The tools to set
-
-### get_session
-
-Get the session for the given session ID.
-
-**Parameters:**
-
-- `session_id` (Optional[str]): Session ID to use (if not provided, the current session is used)
-
-**Returns:**
-
-- `Optional[AgentSession]`: The agent session
-
 ### cancel_run
 
 Cancel a run by run ID.
@@ -345,7 +293,7 @@ Get the run output for the given run ID.
 **Parameters:**
 
 - `run_id` (str): The run ID
-- `session_id` (Optional[str]): Session ID to use
+- `session_id` (str): Session ID to use
 
 **Returns:**
 
@@ -357,11 +305,47 @@ Get the last run output for the session.
 
 **Parameters:**
 
-- `session_id` (Optional[str]): Session ID to use (if not provided, the current session is used)
+- `session_id` (str): Session ID to use
 
 **Returns:**
 
 - `Optional[RunOutput]`: The last run output
+
+### get_session
+
+Get the session for the given session ID.
+
+**Parameters:**
+
+- `session_id` (str): Session ID to use
+
+**Returns:**
+
+- `Optional[AgentSession]`: The agent session
+
+### get_session_summary
+
+Get the session summary for the given session ID.
+
+**Parameters:**
+
+- `session_id` (str): Session ID to use
+
+**Returns:**
+
+- Session summary for the given session
+
+### get_user_memories
+
+Get the user memories for the given user ID.
+
+**Parameters:**
+
+- `user_id` (str): User ID to use
+
+**Returns:**
+
+- `List[UserMemory]`: The user memories
 
 ### get_session_state
 
@@ -369,7 +353,7 @@ Get the session state for the given session ID.
 
 **Parameters:**
 
-- `session_id` (Optional[str]): Session ID to use (if not provided, the current session is used)
+- `session_id` (str): Session ID to use
 
 **Returns:**
 
@@ -381,7 +365,7 @@ Get the session metrics for the given session ID.
 
 **Parameters:**
 
-- `session_id` (Optional[str]): Session ID to use (if not provided, the current session is used)
+- `session_id` (str): Session ID to use
 
 **Returns:**
 
@@ -410,7 +394,7 @@ Rename the agent and update the session.
 **Parameters:**
 
 - `name` (str): The new name for the agent
-- `session_id` (Optional[str]): Session ID to use (if not provided, the current session is used)
+- `session_id` (str): Session ID to use
 
 ### get_session_name
 
@@ -418,7 +402,7 @@ Get the session name for the given session ID.
 
 **Parameters:**
 
-- `session_id` (Optional[str]): Session ID to use (if not provided, the current session is used)
+- `session_id` (str): Session ID to use
 
 **Returns:**
 
@@ -430,7 +414,7 @@ Set the session name.
 
 **Parameters:**
 
-- `session_id` (Optional[str]): Session ID to use (if not provided, the current session is used)
+- `session_id` (str): Session ID to use
 - `autogenerate` (bool): Whether to autogenerate the name
 - `session_name` (Optional[str]): The name to set
 
@@ -444,7 +428,7 @@ Get the messages for the given session ID.
 
 **Parameters:**
 
-- `session_id` (Optional[str]): Session ID to use (if not provided, the current session is used)
+- `session_id` (str): Session ID to use
 
 **Returns:**
 
@@ -456,8 +440,24 @@ Get the chat history for the given session ID.
 
 **Parameters:**
 
-- `session_id` (Optional[str]): Session ID to use (if not provided, the current session is used)
+- `session_id` (str): Session ID to use
 
 **Returns:**
 
 - `List[Message]`: The chat history
+
+### add_tool
+
+Add a tool to the agent.
+
+**Parameters:**
+
+- `tool` (Union[Toolkit, Callable, Function, Dict]): The tool to add
+
+### set_tools
+
+Replace the tools of the agent.
+
+**Parameters:**
+
+- `tools` (List[Union[Toolkit, Callable, Function, Dict]]): The tools to set
