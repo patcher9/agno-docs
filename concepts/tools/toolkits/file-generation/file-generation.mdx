@@ -1,0 +1,63 @@
+---
+title: File Generation
+---
+
+**FileGenerationTools** enable an Agent to generate files in multiple formats (JSON, CSV, PDF, TXT) from agent responses and structured data.
+
+## Example
+
+The following agent will generate files in different formats based on user requests.
+
+```python cookbook/tools/file_generation_tools.py
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.tools.file_generation import FileGenerationTools
+
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    tools=[FileGenerationTools()],
+    description="You are a helpful assistant that can generate files in various formats.",
+    instructions=[
+        "When asked to create files, use the appropriate file generation tools.",
+        "Always provide meaningful content and appropriate filenames.",
+        "Explain what you've created and how it can be used.",
+    ],
+    markdown=True,
+)
+
+response = agent.run("Create a JSON file containing information about 3 fictional employees with name, position, department, and salary.")
+```
+
+## Toolkit Params
+
+| Parameter                 | Type   | Default | Description                                     |
+| ------------------------- | ------ | ------- | ----------------------------------------------- |
+| `enable_json_generation`  | `bool` | `True`  | Enables JSON file generation                    |
+| `enable_csv_generation`   | `bool` | `True`  | Enables CSV file generation                     |
+| `enable_pdf_generation`   | `bool` | `True`  | Enables PDF file generation (requires reportlab)|
+| `enable_txt_generation`   | `bool` | `True`  | Enables text file generation                    |
+| `save_to_tmp`            | `bool` | `True`  | Save files to temporary directory              |
+| `tmp_dir`                | `str`  | `None`  | Custom temporary directory path                 |
+| `all`                    | `bool` | `False` | Enables all file generation types when True    |
+
+## Toolkit Functions
+
+| Name                  | Description                                                    |
+| --------------------- | -------------------------------------------------------------- |
+| `generate_json_file`  | Generates a JSON file from data (dict, list, or JSON string)  |
+| `generate_csv_file`   | Generates a CSV file from tabular data                        |
+| `generate_pdf_file`   | Generates a PDF document from text content                    |
+| `generate_text_file`  | Generates a plain text file from string content              |
+
+## Installation
+
+For PDF generation, install the optional dependency:
+
+```bash
+pip install reportlab
+```
+
+## Developer Resources
+
+- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/file_generation.py)
+- View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/tools/file_generation_tools.py)
