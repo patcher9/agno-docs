@@ -1,0 +1,29 @@
+---
+title: "AgentOS API"
+sidebarTitle: "AgentOS API"
+description: "Learn how to use the AgentOS API to interact with your agentic system"
+hideToc: true
+---
+
+The AgentOS is a RESTful API that provides access to your agentic system.
+
+It allows you to:
+
+- **Run Agents / Teams / Workflows**: Create new runs for your agents, teams and workflows, either with a new session or a existing one.
+- **Manage Sessions**: Retrieve, update and delete sessions.
+- **Manage Memories**: Retrieve, update and delete memories.
+- **Manage Knowledge**: Manage the content of your knowledge base.
+- **Manage Evals**: Retrieve, create, delete and update evals.
+
+<Note>
+This same API is what powers the AgentOS Control Plane. However, these endpoints can be very useful for other applications!
+</Note>
+
+See the full [API reference](/reference-api/overview) for more details.
+
+## Authentication
+
+AgentOS supports bearer-token authentication to secure your instance. 
+When a Security Key is configured, all API routes require an `Authorization: Bearer <token>` header for access. Without a key configured, authentication is disabled.
+
+For more details, see the [AgentOS Security](/agent-os/security) guide.

@@ -8,7 +8,9 @@ description: "Generate, configure, and use Security Keys to protect your AgentOS
 
 AgentOS supports bearer-token authentication to secure your instance. When a Security Key is configured, all API routes require an `Authorization: Bearer <token>` header for access. Without a key configured, authentication is disabled.
 
-Generate keys through the AgentOS UI, configure them on your server, and use them across development environments, CI/CD pipelines, and production services.
+<Tip>
+You can generate a security key from the AgentOS Control Plane, which also enables secure communication between your AgentOS and the Control Plane.
+</Tip>
 
 ## Generate a Security Key
 
@@ -61,7 +63,7 @@ services:
 
 ## Key Rotation
 
-1. In the UI, click the **Rotate** icon next to "Security Key" to generate a new value
+1. In the UI, click the **Generate** icon next to "Security Key" to generate a new value
 2. Update the server's `OS_SECURITY_KEY` environment variable and reload/redeploy AgentOS
 3. Update all clients, workers, and CI/CD systems that call the AgentOS API
 
@@ -69,7 +71,6 @@ services:
 
 - **Environment Isolation**: Use different keys per environment with least-privilege distribution
 - **Code Safety**: Never commit keys to version control or print them in logs
-- **Regular Rotation**: Automate key rotation on a schedule (quarterly recommended) and after any suspected exposure
 
 ## Troubleshooting
 
