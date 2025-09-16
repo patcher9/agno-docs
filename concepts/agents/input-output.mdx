@@ -302,14 +302,7 @@ You can set `input_schema` on the Agent to validate the input. If you then pass 
 
 ## Typesafe Agents
 
-A **typesafe agent** is one that uses both `input_schema` and `output_schema` to ensure complete type safety throughout the entire data pipeline. This creates a fully validated interface where both inputs and outputs are guaranteed to follow specific structures.
-
-Typesafe agents provide:
-
-- Input validation using `input_schema` 
-- Output structure guarantee using `output_schema`
-- Runtime type checking for both directions
-- Production reliability with predictable interfaces
+When you combine both `input_schema` and `output_schema`, you create a **typesafe agent** with end-to-end type safety - a fully validated data pipeline from input to output.
 
 ### Complete Typesafe Research Agent
 
@@ -322,7 +315,6 @@ Here's a comprehensive example showing a fully typesafe agent for research tasks
 
     from agno.agent import Agent
     from agno.models.anthropic import Claude
-    from agno.models.openai import OpenAIChat
     from agno.tools.hackernews import HackerNewsTools
     from pydantic import BaseModel, Field
     from rich.pretty import pprint
@@ -358,8 +350,6 @@ Here's a comprehensive example showing a fully typesafe agent for research tasks
         input_schema=ResearchTopic,
         # Add your output schema
         output_schema=ResearchOutput,
-        # Model to use convert the output to the JSON schema
-        parser_model=OpenAIChat(id="gpt-5-nano"),
     )
 
     # Run the Agent
@@ -375,13 +365,12 @@ Here's a comprehensive example showing a fully typesafe agent for research tasks
     Install libraries
 
     ```shell
-    pip install agno openai anthropic
+    pip install agno anthropic
     ```
 
-    Set your API keys
+    Set your API key
     ```shell
     export ANTHROPIC_API_KEY=xxx
-    export OPENAI_API_KEY=xxx
     ```
 
     Run the agent
@@ -402,32 +391,6 @@ ResearchOutput(
     sources=['https://news.ycombinator.com/item?id=123', '...']
 )
 ```
-
-### Production Benefits
-
-With both input and output schemas defined, you eliminate common integration issues:
-
-```python
-# Without type safety - prone to errors
-regular_agent = Agent(
-    model=OpenAIChat(id="gpt-5-mini"),
-    description="Analyze sentiment"
-)
-response = regular_agent.run("analyze this text")  # What format will we get back?
-sentiment = response.content  # String? Dict? Unknown structure?
-
-# With type safety - Better assurance of getting the right response
-typesafe_agent = Agent(
-    model=OpenAIChat(id="gpt-5-mini"),
-    description="Analyze sentiment",
-    input_schema=ResearchTopic,
-    output_schema=ResearchOutput,
-)
-response = typesafe_agent.run(input=ResearchTopic(topic="AI", sources_required=5))
-summary = response.content.summary  # Guaranteed to be a string
-```
-
-Typesafe agents are especially valuable in production systems where you need guaranteed data contracts between your application and AI agents.
 
 ## Using a Parser Model
 

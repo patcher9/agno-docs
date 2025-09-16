@@ -52,75 +52,7 @@ See the [Agent class reference](/reference/agents/agent) for more details.
 </Note>
 
 
-An agent can be provided with typed input (i.e a pydantic model or a `TypedDict`) by passing it in the `Agent.run()` or `Agent.print_response()` as the `input` parameter.
-
-```python
-from typing import List
-
-from agno.agent import Agent
-from agno.models.openai import OpenAIChat
-from agno.tools.hackernews import HackerNewsTools
-from pydantic import BaseModel, Field
-
-
-class ResearchTopic(BaseModel):
-    """Structured research topic with specific requirements"""
-
-    topic: str
-    focus_areas: List[str] = Field(description="Specific areas to focus on")
-    target_audience: str = Field(description="Who this research is for")
-    sources_required: int = Field(description="Number of sources needed", default=5)
-
-hackernews_agent = Agent(
-    name="Hackernews Agent",
-    model=OpenAIChat(id="gpt-5-mini"),
-    tools=[HackerNewsTools()],
-    role="Extract key insights and content from Hackernews posts",
-)
-
-hackernews_agent.print_response(
-    input=ResearchTopic(
-        topic="AI",
-        focus_areas=["AI", "Machine Learning"],
-        target_audience="Developers",
-        sources_required=5,
-    )
-)
-```
-
-<Tip>
-You can set the `input_schema` on the agent to validate the input. See more details in the [Input and Output](/concepts/agents/input-output) documentation.
-
-Along with `Pydantic` models, you can also use `TypedDict` as input for agent, team or workfllow, see the [Structured Input with TypedDict](https://github.com/agno-agi/agno/blob/main/cookbook/agents/input_and_output/input_schema_on_agent_as_typed_dict.py) cookbook for more details.
-</Tip>
-
-In addition, you can set the `output_schema` on the agent to specify typed output.
-
-```python hackernews_agent.py
-from pydantic import BaseModel, Field
-from agno.agent import Agent
-from agno.models.openai import OpenAIChat
-from agno.tools.hackernews import HackerNewsTools
-
-class HackernewsReport(BaseModel):
-    title: str = Field(..., description="Title of the Hackernews article.")
-    subtitle: str = Field(..., description="Subtitle of the Hackernews article.")
-    content: str = Field(..., description="Content of the Hackernews article.")
-
-hackernews_agent = Agent(
-    name="Hackernews Agent",
-    model=OpenAIChat(id="gpt-5-mini"),
-    tools=[HackerNewsTools()],
-    role="Extract key insights and content from Hackernews posts and write a report about it.",
-    output_schema=HackernewsReport,
-)
-
-hackernews_agent.print_response("Latest happening in the world of AI")
-```
-
-<Tip>
-See more details in the [Input and Output](/concepts/agents/input-output) documentation.
-</Tip>
+For information about using structured input and output with agents, including typesafe patterns, see the [Input and Output](/concepts/agents/input-output) documentation.
 
 ### RunOutput
 

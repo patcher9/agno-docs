@@ -435,9 +435,6 @@ You can use a different model to parse and structure the output from your primar
 This approach is particularly effective when the primary model is optimized for reasoning tasks, as such models may not consistently produce detailed structured responses.
 
 ```python
-from agno.models.anthropic import Claude
-from agno.models.openai import OpenAIChat
-
 team = Team(
     model=Claude(id="claude-sonnet-4-20250514"),  # The main processing model
     members=[...],
@@ -459,9 +456,6 @@ You can use a different model to produce the run output of the team.
 This is useful when the primary model is optimized for image analysis, for example, but you want a different model to produce a structured output response.
 
 ```python
-from agno.models.gemini import Gemini
-from agno.models.openai import OpenAIChat
-
 team = Team(
     model=Gemini(id="gemini-2.0-flash-001"),  # The main processing model
     description="You write movie scripts.",
