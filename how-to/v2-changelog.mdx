@@ -88,6 +88,17 @@ Some of the major changes are:
     - `get_chat_history` -> Get an aggregated view of all messages for all runs in the session.
 </Accordion>
 
+<Accordion title="Updates to Metrics">
+  - `SessionMetrics` and `MessageMetrics` have been unified as a single `Metrics` class.
+  - `audio_tokens` has been renamed to `audio_total_tokens`.
+  - `input_audio_tokens` has been renamed to `audio_input_tokens`.
+  - `output_audio_tokens` has been renamed to `audio_output_tokens`.
+  - `cached_tokens` has been renamed to `cache_read_tokens`.
+  - `prompt_tokens` and `completion_tokens` have been removed (only `input_tokens` and `output_tokens` should be used)
+  - `prompt_tokens_details` and `completion_tokens_details` have been removed. Instead `provider_metrics` captures any provider-specific metrics.
+  - `time` has been renamed to `duration`.
+</Accordion>
+
 <Accordion title="Cancelling Runs">
   - You can now cancel a run by calling `cancel_run` on the `Agent`, `Team` or `Workflow`.
   - This will cancel the run and return a `RunCancelledEvent` during streaming, or set the `RunOutput.status` to `"cancelled"`.
