@@ -1477,6 +1477,13 @@
                         ]
                       },
                       {
+                        "group": "Web Search Readers",
+                        "pages": [
+                          "examples/concepts/knowledge/readers/web-search/web-search-reader",
+                          "examples/concepts/knowledge/readers/web-search/web-search-reader-async"
+                        ]
+                      },
+                      {
                         "group": "Wikipedia Readers",
                         "pages": [
                           "examples/concepts/knowledge/readers/wikipedia/wikipedia-reader",
@@ -2585,7 +2592,8 @@
                       "reference/knowledge/reader/website",
                       "reference/knowledge/reader/youtube",
                       "reference/knowledge/reader/firecrawl",
-                      "reference/knowledge/reader/wikipedia"
+                      "reference/knowledge/reader/wikipedia",
+                      "reference/knowledge/reader/web-search"
                     ]
                   },
                   {
