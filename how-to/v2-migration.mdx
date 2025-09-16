@@ -282,31 +282,6 @@ These are the changes we have made for v2:
    - Provider-specific metrics fields are now inside the `provider_metrics` field
    - A new `additional_metrics` field has been added for custom metrics
 
-**v1 metrics example**:
-```json
-{
-  "time": 2.5,
-  "prompt_tokens": 100,
-  "completion_tokens": 50,
-  "cached_tokens": 25
-}
-```
-
-**v2 metrics example**:
-```json
-{
-  "duration": 2.5,
-  "input_tokens": 100,
-  "output_tokens": 50,
-  "cache_read_tokens": 25,
-  "provider_metrics": {
-    "model_name": "gpt-4",
-    "provider_specific_field": "value"
-  },
-  "additional_metrics": {}
-}
-```
-
 <Tip>
   The migration script automatically converts all metrics from v1 to v2 format, including nested metrics in session data.
 </Tip>
