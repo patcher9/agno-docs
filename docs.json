@@ -181,6 +181,7 @@
                   "concepts/models/perplexity",
                   "concepts/models/portkey",
                   "concepts/models/sambanova",
+                  "concepts/models/siliconflow",
                   "concepts/models/together",
                   "concepts/models/vercel",
                   "concepts/models/vllm",
@@ -2411,6 +2412,17 @@
                 ]
               },
               {
+                "group": "Siliconflow",
+                "pages": [
+                  "examples/models/siliconflow/async_basic_stream",
+                  "examples/models/siliconflow/async_basic",
+                  "examples/models/siliconflow/async_tool_use",
+                  "examples/models/siliconflow/basic",
+                  "examples/models/siliconflow/basic_stream",
+                  "examples/models/siliconflow/tool_use"
+                ]
+              },
+              {
                 "group": "Together",
                 "pages": [
                   "examples/models/together/basic",
@@ -2452,7 +2464,7 @@
                 ]
               },
               {
-                "group": "vLLM",
+                "group": "VLLM",
                 "pages": [
                   "examples/models/vllm/basic",
                   "examples/models/vllm/basic_stream",
