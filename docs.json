@@ -206,6 +206,7 @@
                   {
                     "group": "Chunking",
                     "pages": [
+                      "concepts/knowledge/chunking/introduction",
                       "concepts/knowledge/chunking/fixed-size-chunking",
                       "concepts/knowledge/chunking/agentic-chunking",
                       "concepts/knowledge/chunking/semantic-chunking",
