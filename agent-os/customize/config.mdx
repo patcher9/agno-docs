@@ -3,37 +3,22 @@ title: AgentOS Configuration
 description: Learn how to check and adjust your AgentOS configuration
 ---
 
-Your AgentOS is configured with a default set of settings in the basic case.
-You can check your AgentOS configuration at any time using the `/config` endpoint.
-
-This is the information you will find there:
-
-- **OS ID**: The ID of your AgentOS (automatically generated if not set)
-- **Description**: The description of your AgentOS
-- **Databases**: The list of IDs of the databases present in your AgentOS
-- **Agents**: The list of Agents available in your AgentOS
-- **Teams**: The list of Teams available in your AgentOS
-- **Workflows**: The list of Workflows available in your AgentOS
-- **Interfaces**: The list of Interfaces available in your AgentOS. E.g. WhatsApp, Slack, etc.
-- **Chat**: The configuration for the Chat page, which includes the list of quick prompts for each Agent, Team and Workflow in your AgentOS
-- **Session**: The configuration for the Session page of your AgentOS
-- **Metrics**: The configuration for the Metrics page of your AgentOS
-- **Memory**: The configuration for the Memory page of your AgentOS
-- **Knowledge**: The configuration for the Knowledge page of your AgentOS
-- **Evals**: The configuration for the Evals page of your AgentOS
+For most cases, your AgentOS is configured with a default set of settings. However, you can configure your AgentOS to your liking.
 
 ## Configuring your AgentOS
 
-When setting up your AgentOS, you may want to set some extra configuration to personalize some aspects.
-
 What can be configured?
 
-- **Quick prompts**: You can provide one to three quick prompts for each one of your agents, teams and workflows. These are the prompts that display on the Chat Page when you create a new session.
 - **Display names**: You can specify the display name for your AgentOS pages (Sessions, Memory, etc). This is very useful when using multiple databases, to clearly communicate to users which data is being displayed.
+- **Quick prompts**: You can provide one to three quick prompts for each one of your agents, teams and workflows. These are the prompts that display on the Chat Page when you create a new session.
 
 ### Setting your configuration
 
 You can provide your AgentOS configuration in two different ways: with a configuration YAML file, or using the `AgentOSConfig` class.
+
+<Tip>
+See the full reference for the `AgentOSConfig` class [here](/reference/agent-os/configuration).
+</Tip>
 
 ### Configuration YAML File
 
@@ -113,10 +98,25 @@ agent_os = AgentOS(
 )
 ```
 
-
 ## The /config endpoint
 
-You will use the `/config` endpoint to check your AgentOS configuration.
+You can use the `/config` endpoint to inspect your AgentOS configuration that is served to the AgentOS Control Plane.
+
+This is the information you will find there:
+
+- **OS ID**: The ID of your AgentOS (automatically generated if not set)
+- **Description**: The description of your AgentOS
+- **Databases**: The list of IDs of the databases present in your AgentOS
+- **Agents**: The list of Agents available in your AgentOS
+- **Teams**: The list of Teams available in your AgentOS
+- **Workflows**: The list of Workflows available in your AgentOS
+- **Interfaces**: The list of Interfaces available in your AgentOS. E.g. WhatsApp, Slack, etc.
+- **Chat**: The configuration for the Chat page, which includes the list of quick prompts for each Agent, Team and Workflow in your AgentOS
+- **Session**: The configuration for the Session page of your AgentOS
+- **Metrics**: The configuration for the Metrics page of your AgentOS
+- **Memory**: The configuration for the Memory page of your AgentOS
+- **Knowledge**: The configuration for the Knowledge page of your AgentOS
+- **Evals**: The configuration for the Evals page of your AgentOS
 
 You will receive a JSON response with your configuration. Using the previous examples, you will receive:
 
@@ -125,7 +125,8 @@ You will receive a JSON response with your configuration. Using the previous exa
 	"os_id": "0001",
 	"description": "Your AgentOS",
 	"databases": [
-		"db-0001"
+		"db-0001",
+		"db-0002"
 	],
 	"chat": {
 		"quick_prompts": {

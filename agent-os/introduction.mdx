@@ -6,8 +6,12 @@ description: "The production runtime and control plane for your agentic systems"
 
 ## Overview
 
-AgentOS is Agno's production-ready runtime and control plane that runs entirely within your own infrastructure, ensuring complete data privacy and control.
-This secure-by-default platform provides a beautiful web interface for managing, monitoring, and interacting with your agentic systems without any data ever leaving your environment.
+AgentOS is Agno's production-ready runtime that runs entirely within your own infrastructure, ensuring complete data privacy and control of your agentic system.
+Agno also provides a beautiful web interface for managing, monitoring, and interacting with your AgentOS, with no data ever being persisted outside of your environment.
+
+<Note>
+Behind the scenes, AgentOS is a FastAPI app that you can run locally or in your cloud. It is designed to be easy to deploy and scale.
+</Note>
 
 ## Getting Started
 
@@ -15,18 +19,18 @@ Ready to get started with AgentOS? Here's what you need to do:
 
 <CardGroup cols={2}>
   <Card
-    title="Connect Your AgentOS"
-    icon="link"
-    href="/agent-os/connecting-your-os"
-  >
-    Learn how to connect your local development environment to the platform
-  </Card>
-  <Card
     title="Create Your First OS"
     icon="plus"
     href="/agent-os/creating-your-first-os"
   >
     Set up a new AgentOS instance from scratch using our templates
+  </Card>
+  <Card
+    title="Connect Your AgentOS"
+    icon="link"
+    href="/agent-os/connecting-your-os"
+  >
+    Learn how to connect your local development environment to the platform
   </Card>
 </CardGroup>
 
@@ -48,53 +52,7 @@ AgentOS is designed with enterprise security and data privacy as foundational pr
 - **Zero Data Transmission**: No conversations, logs, or metrics are sent to external services
 - **Private by Default**: All processing, storage, and analytics happen locally
 
-## Key Features
-
-<CardGroup cols={2}>
-  <Card
-    title="Control Plane"
-    icon="desktop"
-    href="/agent-os/control-plane"
-  >
-    Centralized management interface for controlling and administering your
-    AgentOS deployment
-  </Card>
-  <Card
-    title="Chat Interface"
-    icon="comment"
-    href="/agent-os/features/chat-interface"
-  >
-    Interactive chat interface for engaging with your agents in secure,
-    multi-agent conversations
-  </Card>
-  <Card
-    title="Knowledge Management"
-    icon="book"
-    href="/agent-os/features/knowledge-management"
-  >
-    Upload and manage knowledge bases with complete data control and private
-    processing
-  </Card>
-  <Card
-    title="Session Tracking"
-    icon="clock"
-    href="/agent-os/features/session-tracking"
-  >
-    Monitor and analyze agent interactions with comprehensive session analytics
-  </Card>
-</CardGroup>
-
-## Architecture
-
-AgentOS is built as a modern, containerized system designed for easy deployment and scalability.
-
-### Core Components
-
-- **Control Plane**: React-based frontend securely calling your OS APIs
-- **API Layer**: RESTful APIs with authentication and authorization
-- **Database**: Persistent storage for sessions, memories, and analytics
-- **Real-time Communication**: WebSocket support for live agent interactions
-- **Agent Runtime**: Direct integration with your Agno agents
+To learn more about AgentOS Security, check out the [AgentOS Security](/agent-os/security) page.
 
 ## Next Steps
 
@@ -115,6 +73,3 @@ AgentOS is built as a modern, containerized system designed for easy deployment 
   </Card>
 </CardGroup>
 
----
-
-**Ready to build with AgentOS?** The combination of Agno's powerful framework with AgentOS's intuitive interface makes building production agentic systems easier than ever.
