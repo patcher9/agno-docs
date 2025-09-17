@@ -6,16 +6,13 @@ description: Chunking is the process of breaking down large documents into small
 
 Chunking is the process of dividing content into manageable pieces before converting to embeddings and storing in vector databases. The chunking strategy you choose directly impacts search quality and retrieval accuracy.
 
-Different chunking strategies serve different purposes:
+Different chunking strategies serve different purposes. For example, when processing a recipe book, different strategies produce different results:
 
-<Accordion title="Example: Processing a Recipe Book" icon="book-open">
-Different strategies produce different results:
 - **Fixed Size**: Splits every 500 characters (may break recipes mid-instruction)
 - **Semantic**: Keeps complete recipes together based on meaning
 - **Document**: Each page becomes a chunk
 
 The strategy affects whether you get complete, relevant results or fragmented pieces.
-</Accordion>
 
 ## Available Chunking Strategies
 
@@ -55,6 +52,7 @@ from agno.knowledge.chunking.semantic import SemanticChunking
 from agno.knowledge.reader.pdf_reader import PDFReader
 from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector
+from agno.storage.document.postgres import PgDocumentDb
 
 # Configure chunking strategy with a reader
 reader = PDFReader(
@@ -64,6 +62,7 @@ reader = PDFReader(
 # Use with knowledge base
 knowledge = Knowledge(
     vector_db=PgVector(table_name="documents", db_url="postgresql://..."),
+    document_db=PgDocumentDb(table_name="document_store", db_url="postgresql://..."),
 )
 
 # Add content with chunking applied
@@ -83,6 +82,8 @@ The choice of chunking strategy depends on your content type and use case:
 - **Mixed content**: Recursive chunking provides flexibility with multiple separators
 - **Uniform processing**: Fixed Size chunking ensures consistent chunk dimensions
 
-<Tip>
-Semantic chunking is recommended for most text-based content as it balances performance with context preservation.
-</Tip>
+Each reader has a default chunking strategy that works well for its content type, but you can override it by specifying a `chunking_strategy` parameter when configuring the reader.
+
+<Note>
+Consider your specific use case and performance requirements when choosing a chunking strategy, as different strategies have varying processing times and memory usage.
+</Note>
