@@ -5,6 +5,14 @@ description: "Complete AgentOS setup with custom lifespan"
 
 Customize the lifespan context manager of the AgentOS.
 
+This allows you to run code before and after the AgentOS is started and stopped.
+
+For example, you can use this to:
+
+- Connect to a database
+- Log information
+- Setup a monitoring system
+
 ## Code
 
 ```python cookbook/agent_os/custom_lifespan.py
