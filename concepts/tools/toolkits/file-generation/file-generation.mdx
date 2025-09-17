@@ -2,7 +2,28 @@
 title: File Generation
 ---
 
-**FileGenerationTools** enable an Agent to generate files in multiple formats (JSON, CSV, PDF, TXT) from agent responses and structured data.
+**FileGenerationTools** enable an Agent or Team to generate files in multiple formats.
+
+<Tip>
+Supported file types: 
+- JSON 
+- CSV 
+- PDF
+- TXT
+</Tip>
+
+## Prerequisites
+
+1. **Install the libraries:**
+   ```bash
+   pip install reportlab openai
+   ```
+
+2. **Set your credentials:**
+    For OpenAI API:
+    ```bash
+    export OPENAI_API_KEY="your-openai-api-key"
+    ```
 
 ## Example
 
@@ -15,7 +36,8 @@ from agno.tools.file_generation import FileGenerationTools
 
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
-    tools=[FileGenerationTools()],
+    db=SqliteDb(db_file="tmp/test.db"),
+    tools=[FileGenerationTools(output_directory="tmp")],  
     description="You are a helpful assistant that can generate files in various formats.",
     instructions=[
         "When asked to create files, use the appropriate file generation tools.",
@@ -25,8 +47,22 @@ agent = Agent(
     markdown=True,
 )
 
-response = agent.run("Create a JSON file containing information about 3 fictional employees with name, position, department, and salary.")
+response =agent.run(
+        "Create a PDF report about renewable energy trends in 2024. Include sections on solar, wind, and hydroelectric power."
+    )
+print(response.content)
+    if response.files:
+        for file in response.files:
+            print(f"Generated file: {file.filename} ({file.size} bytes)")
+            if file.url:
+                print(f"File location: {file.url}")
+    print()
 ```
+
+<Note>
+You can use the `output_directory` parameter to specify a custom output directory for the generated files. 
+If not specified, the files will be available in the `RunOutput` object.
+</Note>
 
 ## Toolkit Params
 
@@ -36,9 +72,8 @@ response = agent.run("Create a JSON file containing information about 3 fictiona
 | `enable_csv_generation`   | `bool` | `True`  | Enables CSV file generation                     |
 | `enable_pdf_generation`   | `bool` | `True`  | Enables PDF file generation (requires reportlab)|
 | `enable_txt_generation`   | `bool` | `True`  | Enables text file generation                    |
-| `save_to_tmp`            | `bool` | `True`  | Save files to temporary directory              |
-| `tmp_dir`                | `str`  | `None`  | Custom temporary directory path                 |
-| `all`                    | `bool` | `False` | Enables all file generation types when True    |
+| `output_directory`        | `str`  | `None`  | Custom output directory path                    |
+| `all`                     | `bool` | `False` | Enables all file generation types when True     |
 
 ## Toolkit Functions
 
@@ -48,14 +83,6 @@ response = agent.run("Create a JSON file containing information about 3 fictiona
 | `generate_csv_file`   | Generates a CSV file from tabular data                        |
 | `generate_pdf_file`   | Generates a PDF document from text content                    |
 | `generate_text_file`  | Generates a plain text file from string content              |
-
-## Installation
-
-For PDF generation, install the optional dependency:
-
-```bash
-pip install reportlab
-```
 
 ## Developer Resources
 
