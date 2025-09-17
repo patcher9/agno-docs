@@ -367,6 +367,12 @@
                         ]
                       },
                       {
+                        "group": "File Generation",
+                        "pages": [
+                          "concepts/tools/toolkits/file-generation/file-generation"
+                        ]
+                      },
+                      {
                         "group": "Models",
                         "pages": [
                           "concepts/tools/toolkits/models/azure_openai",
@@ -1728,6 +1734,12 @@
                       "examples/concepts/tools/local/python",
                       "examples/concepts/tools/local/shell",
                       "examples/concepts/tools/local/sleep"
+                    ]
+                  },
+                  {
+                    "group": "File Generation",
+                    "pages": [
+                      "examples/concepts/tools/file-generation"
                     ]
                   },
                   {
