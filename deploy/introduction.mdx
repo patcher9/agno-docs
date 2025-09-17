@@ -1,0 +1,70 @@
+---
+title: "Deploy your AgentOS"
+sidebarTitle: "Introduction"
+description: "How to take your AgentOS to production"
+---
+
+## Overview
+
+After tinkering with your AgentOS locally, you'll want to take it to production. This section will walk you through the process of deploying your AgentOS to your own infrastructure.
+
+<Note>
+  Behind the scenes, AgentOS is a FastAPI app that you can run locally or in
+  your cloud. It is designed to be easy to deploy and scale.
+</Note>
+
+## Getting Started
+
+Ready to get started with AgentOS? Here's what you need to do:
+
+<CardGroup cols={2}>
+  <Card
+    title="Create Your First OS"
+    icon="plus"
+    href="/agent-os/creating-your-first-os"
+  >
+    Set up a new AgentOS instance from scratch using our templates
+  </Card>
+  <Card
+    title="Connect Your AgentOS"
+    icon="link"
+    href="/agent-os/connecting-your-os"
+  >
+    Learn how to connect your local development environment to the platform
+  </Card>
+</CardGroup>
+
+## Security & Privacy First
+
+AgentOS is designed with enterprise security and data privacy as foundational principles, not afterthoughts.
+
+<Frame>
+  <img
+    src="/images/agentos-secure-infra-illustration.png"
+    alt="AgentOS Security and Privacy Architecture"
+    style={{ borderRadius: "0.5rem" }}
+  />
+</Frame>
+
+### Complete Data Ownership
+
+- **Your Infrastructure, Your Data**: AgentOS runs entirely within your cloud environment
+- **Zero Data Transmission**: No conversations, logs, or metrics are sent to external services
+- **Private by Default**: All processing, storage, and analytics happen locally
+
+To learn more about AgentOS Security, check out the [AgentOS Security](/agent-os/security) page.
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Control Plane" icon="desktop" href="/agent-os/control-plane">
+    Learn how to use the AgentOS control plane to manage and monitor your OSs
+  </Card>
+  <Card
+    title="Create Your First OS"
+    icon="rocket"
+    href="/agent-os/creating-your-first-os"
+  >
+    Get started by creating your first AgentOS instance
+  </Card>
+</CardGroup>
