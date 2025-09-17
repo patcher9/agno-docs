@@ -546,20 +546,33 @@
             "group": "AgentOS",
             "pages": [
               "agent-os/introduction",
-              "agent-os/control-plane",
               "agent-os/creating-your-first-os",
               "agent-os/connecting-your-os",
-              "agent-os/security",
-              "agent-os/configuration",
-              "agent-os/mcp",
-              "agent-os/custom-fastapi",
               {
-                "group": "Features",
+                "group": "Control Plane",
                 "pages": [
+                  "agent-os/control-plane",
                   "agent-os/features/chat-interface",
                   "agent-os/features/knowledge-management",
                   "agent-os/features/session-tracking",
                   "agent-os/features/memories"
+                ]
+              },
+              "agent-os/security",
+              "agent-os/api",
+              {
+                "group": "MCP",
+                "pages": [
+                  "agent-os/mcp/mcp",
+                  "agent-os/mcp/tools"
+                ]
+              },
+              {
+                "group": "Configure your AgentOS",
+                "pages": [
+                  "agent-os/customize/agent-os",
+                  "agent-os/customize/config",
+                  "agent-os/customize/custom-fastapi"
                 ]
               },
               {
@@ -579,13 +592,20 @@
               "examples/agent-os/demo",
               "examples/agent-os/extra_configuration",
               {
+                "group": "Customize",
+                "pages": [
+                  "examples/agent-os/custom/custom-fastapi",
+                  "examples/agent-os/custom/override-routes",
+                  "examples/agent-os/custom/custom-lifespan"
+                ]
+              },
+              {
                 "group": "MCP",
                 "pages": [
                   "examples/agent-os/mcp/enable_mcp_example",
                   "examples/agent-os/mcp/mcp_tools_example"
                 ]
               },
-              "examples/agent-os/custom-fastapi",
               {
                 "group": "Interfaces",
                 "pages": [

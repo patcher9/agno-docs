@@ -33,6 +33,52 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 ```
 
+
+### Running with FastAPI CLI
+
+AgentOS applications are compatible with the [FastAPI CLI](https://fastapi.tiangolo.com/deployment/manually/) for development.
+
+First, install the FastAPI CLI:
+
+```bash Install FastAPI CLI
+pip install "fastapi[standard]"
+```
+
+Then run the app:
+<CodeGroup>
+
+```bash Run with FastAPI CLI
+fastapi run your_app.py
+```
+
+```bash Run with auto-reload
+fastapi run your_app.py --reload
+```
+
+```bash Custom host and port
+fastapi run your_app.py --host 0.0.0.0 --port 8000
+```
+</CodeGroup>
+
+### Running in Production
+
+For production deployments, you can use any ASGI server:
+
+<CodeGroup>
+```bash Uvicorn
+uvicorn main:app --host 0.0.0.0 --port 8000 --workers 4
+```
+
+```bash Gunicorn with Uvicorn workers
+gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
+```
+
+```bash FastAPI CLI (Production)
+fastapi run main.py --host 0.0.0.0 --port 8000
+```
+</CodeGroup>
+
+
 ## Adding Custom Routers
 
 For better organization, use FastAPI routers to group related endpoints:
@@ -127,53 +173,8 @@ for route in routes:
         print(f"Methods: {route.methods}")
 ```
 
-
-## Running with FastAPI CLI
-
-AgentOS applications are compatible with the [FastAPI CLI](https://fastapi.tiangolo.com/deployment/manually/) for development.
-
-First, install the FastAPI CLI:
-
-```bash Install FastAPI CLI
-pip install "fastapi[standard]"
-```
-
-Then run the app:
-<CodeGroup>
-
-```bash Run with FastAPI CLI
-fastapi run your_app.py
-```
-
-```bash Run with auto-reload
-fastapi run your_app.py --reload
-```
-
-```bash Custom host and port
-fastapi run your_app.py --host 0.0.0.0 --port 8000
-```
-</CodeGroup>
-
-## Running in Production
-
-For production deployments, you can use any ASGI server:
-
-<CodeGroup>
-```bash Uvicorn
-uvicorn main:app --host 0.0.0.0 --port 8000 --workers 4
-```
-
-```bash Gunicorn with Uvicorn workers
-gunicorn main:app -w 4 -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
-```
-
-```bash FastAPI CLI (Production)
-fastapi run main.py --host 0.0.0.0 --port 8000
-```
-</CodeGroup>
-
 ## Developer Resources
 
 - [AgentOS Reference](/reference/agent-os/agent-os)
-- [Full Example](/examples/agent-os/custom-fastapi)
+- [Full Example](/examples/agent-os/custom/custom-fastapi)
 - [FastAPI Documentation](https://fastapi.tiangolo.com/)
