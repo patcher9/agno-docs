@@ -52,7 +52,7 @@ from agno.knowledge.chunking.semantic import SemanticChunking
 from agno.knowledge.reader.pdf_reader import PDFReader
 from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector
-from agno.storage.document.postgres import PgDocumentDb
+from agno.storage.contents.postgres import PgContentsDb
 
 # Configure chunking strategy with a reader
 reader = PDFReader(
@@ -62,7 +62,7 @@ reader = PDFReader(
 # Use with knowledge base
 knowledge = Knowledge(
     vector_db=PgVector(table_name="documents", db_url="postgresql://..."),
-    document_db=PgDocumentDb(table_name="document_store", db_url="postgresql://..."),
+    contents_db=PgContentsDb(table_name="contents", db_url="postgresql://..."),
 )
 
 # Add content with chunking applied
