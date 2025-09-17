@@ -52,17 +52,30 @@ from agno.knowledge.chunking.semantic import SemanticChunking
 from agno.knowledge.reader.pdf_reader import PDFReader
 from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector
-from agno.storage.contents.postgres import PgContentsDb
+from agno.db.postgres import PostgresDb
 
 # Configure chunking strategy with a reader
 reader = PDFReader(
     chunking_strategy=SemanticChunking(similarity_threshold=0.7)
 )
 
-# Use with knowledge base
+# Set up ContentsDB - tracks content metadata
+contents_db = PostgresDb(
+    db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
+    knowledge_table="knowledge_contents"
+)
+
+# Set up vector database - stores embeddings
+vector_db = PgVector(
+    table_name="documents",
+    db_url="postgresql+psycopg://ai:ai@localhost:5532/ai"
+)
+
+# Create Knowledge with both databases
 knowledge = Knowledge(
-    vector_db=PgVector(table_name="documents", db_url="postgresql://..."),
-    contents_db=PgContentsDb(table_name="contents", db_url="postgresql://..."),
+    name="Chunking Knowledge Base",
+    vector_db=vector_db,
+    contents_db=contents_db
 )
 
 # Add content with chunking applied
