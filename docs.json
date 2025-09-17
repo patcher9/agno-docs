@@ -2525,8 +2525,8 @@
           {
             "group": "Templates",
             "pages": [
-              "templates/agent-infra-aws/introduction",
-              "templates/agent-infra-docker/introduction"
+              "templates/agent-infra-docker/introduction",
+              "templates/agent-infra-aws/introduction"
             ]
           },
           {
