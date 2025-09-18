@@ -173,6 +173,7 @@
                   "concepts/models/meta",
                   "concepts/models/mistral",
                   "concepts/models/nvidia",
+                  "concepts/models/nexus",
                   "concepts/models/nebius",
                   "concepts/models/ollama",
                   "concepts/models/openai",
@@ -2351,6 +2352,17 @@
                   "examples/models/nvidia/async_basic_stream",
                   "examples/models/nvidia/tool_use",
                   "examples/models/nvidia/async_tool_use"
+                ]
+              },
+              {
+                "group": "Nexus",
+                "pages": [
+                  "examples/models/nexus/basic",
+                  "examples/models/nexus/basic_stream",
+                  "examples/models/nexus/async_basic",
+                  "examples/models/nexus/async_basic_stream",
+                  "examples/models/nexus/tool_use",
+                  "examples/models/nexus/async_tool_use"
                 ]
               },
               {
