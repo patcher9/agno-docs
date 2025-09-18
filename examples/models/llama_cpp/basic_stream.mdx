@@ -1,0 +1,89 @@
+---
+title: Streaming LlamaCpp Agent
+description: Example of using LlamaCpp with streaming responses
+---
+
+This example shows how to create an agent using LlamaCpp with streaming enabled.
+
+## Prerequisites
+
+1. Install and set up LlamaCpp following the [setup guide](/concepts/models/llama_cpp#set-up-llamacpp)
+2. Start the LlamaCpp server:
+
+```bash
+llama-server -hf ggml-org/gpt-oss-20b-GGUF --ctx-size 0 --jinja -ub 2048 -b 2048
+```
+
+## Example
+
+<CodeGroup>
+
+```python cookbook/models/llama_cpp/basic_stream.py
+from typing import Iterator  # noqa
+from agno.agent import Agent, RunOutputEvent  # noqa
+from agno.models.llama_cpp import LlamaCpp
+
+agent = Agent(model=LlamaCpp(id="ggml-org/gpt-oss-20b-GGUF"), markdown=True)
+
+# Get the response in a variable
+# run_response: Iterator[RunOutputEvent] = agent.run("Share a 2 sentence horror story", stream=True)
+# for chunk in run_response:
+#     print(chunk.content)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story", stream=True)
+```
+
+</CodeGroup>
+
+## Key Features
+
+- **Streaming Responses**: Receive tokens as they're generated
+- **Real-time Output**: See responses appear progressively
+- **Interactive Experience**: Better user experience for longer responses
+- **Local Processing**: All streaming happens locally
+
+## Running the Example
+
+1. Ensure your LlamaCpp server is running
+2. Run the streaming example:
+
+```bash
+python cookbook/models/llama_cpp/basic_stream.py
+```
+
+You'll see the horror story appear token by token as it's generated.
+
+## Manual Streaming Handling
+
+For more control over streaming responses:
+
+<CodeGroup>
+
+```python custom_streaming.py
+from typing import Iterator
+from agno.agent import Agent, RunOutputEvent
+from agno.models.llama_cpp import LlamaCpp
+
+agent = Agent(model=LlamaCpp(id="ggml-org/gpt-oss-20b-GGUF"))
+
+# Handle streaming manually
+run_response: Iterator[RunOutputEvent] = agent.run(
+    "Write a short story about space exploration", 
+    stream=True
+)
+
+print("Story:", end=" ")
+for chunk in run_response:
+    print(chunk.content, end="", flush=True)
+print()  # New line at the end
+```
+
+</CodeGroup>
+
+## Benefits of Streaming
+
+- **Immediate Feedback**: Users see responses start immediately
+- **Better UX**: Especially important for longer responses
+- **Resource Efficiency**: Can process responses as they arrive
+- **Real-time Interaction**: Enables more interactive applications

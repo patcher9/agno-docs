@@ -1,0 +1,139 @@
+---
+title: Streaming LlamaCpp Agent with Tools
+description: Use LlamaCpp with tools and streaming for real-time enhanced responses
+---
+
+This example shows how to create an agent using LlamaCpp with tool integration and streaming enabled for real-time responses.
+
+## Prerequisites
+
+1. Install and set up LlamaCpp following the [setup guide](/concepts/models/llama_cpp#set-up-llamacpp)
+2. Start the LlamaCpp server:
+
+```bash
+llama-server -hf ggml-org/gpt-oss-20b-GGUF --ctx-size 0 --jinja -ub 2048 -b 2048
+```
+
+3. Install required dependencies:
+
+```bash
+pip install ddgs agno
+```
+
+## Example
+
+<CodeGroup>
+
+```python cookbook/models/llama_cpp/tool_use_stream.py
+"""Run `pip install ddgs` to install dependencies."""
+
+from agno.agent import Agent
+from agno.models.llama_cpp import LlamaCpp
+from agno.tools.duckduckgo import DuckDuckGoTools
+
+agent = Agent(
+    model=LlamaCpp(id="ggml-org/gpt-oss-20b-GGUF"),
+    tools=[DuckDuckGoTools()],
+    markdown=True,
+)
+agent.print_response("Whats happening in France?", stream=True)
+```
+
+</CodeGroup>
+
+## Key Features
+
+- **Real-time Tool Usage**: See tool calls execute in real-time
+- **Streaming Responses**: Receive response tokens as they're generated
+- **Interactive Experience**: Watch the agent think and act progressively
+- **Tool Integration**: Full access to external data sources
+
+## Running the Example
+
+1. Ensure your LlamaCpp server is running
+2. Run the streaming tool usage example:
+
+```bash
+python cookbook/models/llama_cpp/tool_use_stream.py
+```
+
+You'll see the agent:
+1. Execute the DuckDuckGo search in real-time
+2. Process the search results 
+3. Stream the final response token by token
+
+## Manual Streaming with Tools
+
+For more control over the streaming process:
+
+<CodeGroup>
+
+```python custom_streaming_tools.py
+from typing import Iterator
+from agno.agent import Agent, RunOutputEvent
+from agno.models.llama_cpp import LlamaCpp
+from agno.tools.duckduckgo import DuckDuckGoTools
+
+agent = Agent(
+    model=LlamaCpp(id="ggml-org/gpt-oss-20b-GGUF"),
+    tools=[DuckDuckGoTools()],
+)
+
+# Handle streaming manually with tool calls
+run_response: Iterator[RunOutputEvent] = agent.run(
+    "Find recent developments in AI and provide a summary", 
+    stream=True
+)
+
+print("AI News Summary:")
+for chunk in run_response:
+    if chunk.content:
+        print(chunk.content, end="", flush=True)
+        
+    # You can also inspect tool calls
+    if hasattr(chunk, 'tool_calls') and chunk.tool_calls:
+        for tool_call in chunk.tool_calls:
+            print(f"\n[Tool: {tool_call.function.name}]", flush=True)
+
+print()  # New line at the end
+```
+
+</CodeGroup>
+
+## Streaming Behavior with Tools
+
+When using tools with streaming:
+
+1. **Tool Execution Phase**: Tools execute first (not streamed)
+2. **Response Generation**: Model response streams after tool completion  
+3. **Real-time Feedback**: Users see tool activity and then streaming response
+4. **Progressive Display**: Builds complete answer progressively
+
+## Advanced Tool Streaming
+
+Monitor tool execution during streaming:
+
+<CodeGroup>
+
+```python advanced_streaming.py
+from agno.agent import Agent
+from agno.models.llama_cpp import LlamaCpp
+from agno.tools.duckduckgo import DuckDuckGoTools
+
+agent = Agent(
+    model=LlamaCpp(id="ggml-org/gpt-oss-20b-GGUF"),
+    tools=[DuckDuckGoTools()],
+    show_tool_calls=True,  # Show tool calls in output
+    markdown=True,
+)
+
+# Stream with visible tool calls
+agent.print_response(
+    "Research the latest developments in renewable energy and provide key insights", 
+    stream=True
+)
+```
+
+</CodeGroup>
+
+This will show both the tool execution steps and stream the final response.

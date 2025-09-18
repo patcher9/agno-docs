@@ -1,0 +1,123 @@
+---
+title: LlamaCpp Agent with Tools
+description: Use LlamaCpp with tools for enhanced functionality
+---
+
+This example shows how to create an agent using LlamaCpp with tool integration, enabling the model to perform web searches and access external data.
+
+## Prerequisites
+
+1. Install and set up LlamaCpp following the [setup guide](/concepts/models/llama_cpp#set-up-llamacpp)
+2. Start the LlamaCpp server:
+
+```bash
+llama-server -hf ggml-org/gpt-oss-20b-GGUF --ctx-size 0 --jinja -ub 2048 -b 2048
+```
+
+3. Install required dependencies:
+
+```bash
+pip install ddgs agno
+```
+
+## Example
+
+<CodeGroup>
+
+```python cookbook/models/llama_cpp/tool_use.py
+"""Run `pip install ddgs` to install dependencies."""
+
+from agno.agent import Agent
+from agno.models.llama_cpp import LlamaCpp
+from agno.tools.duckduckgo import DuckDuckGoTools
+
+agent = Agent(
+    model=LlamaCpp(id="ggml-org/gpt-oss-20b-GGUF"),
+    tools=[DuckDuckGoTools()],
+    markdown=True,
+)
+agent.print_response("Whats happening in France?")
+```
+
+</CodeGroup>
+
+## Key Features
+
+- **Tool Integration**: Seamlessly integrates with Agno's tool ecosystem
+- **Web Search**: Uses DuckDuckGo for real-time information retrieval
+- **Local Processing**: Model runs locally while accessing external data
+- **Automatic Function Calling**: Model decides when and how to use tools
+
+## Running the Example
+
+1. Ensure your LlamaCpp server is running
+2. Run the tool usage example:
+
+```bash
+python cookbook/models/llama_cpp/tool_use.py
+```
+
+The agent will search for current information about France and provide a comprehensive response.
+
+## Available Tools
+
+You can use various tools with LlamaCpp:
+
+<CodeGroup>
+
+```python multiple_tools.py
+from agno.agent import Agent
+from agno.models.llama_cpp import LlamaCpp
+from agno.tools.duckduckgo import DuckDuckGoTools
+from agno.tools.website import WebsiteTools
+
+agent = Agent(
+    model=LlamaCpp(id="ggml-org/gpt-oss-20b-GGUF"),
+    tools=[
+        DuckDuckGoTools(),
+        WebsiteTools()
+    ],
+    markdown=True,
+)
+
+agent.print_response("Search for recent AI news and summarize the top findings")
+```
+
+</CodeGroup>
+
+## Tool Response Flow
+
+The agent will:
+
+1. **Analyze the query** to determine if tools are needed
+2. **Execute tool calls** to gather required information
+3. **Process results** and integrate them into the response
+4. **Generate response** combining tool data with model knowledge
+
+## Custom Tools
+
+You can also create custom tools:
+
+<CodeGroup>
+
+```python custom_tool.py
+from agno.agent import Agent
+from agno.models.llama_cpp import LlamaCpp
+from agno.tools import tool
+
+@tool
+def get_weather(city: str) -> str:
+    """Get weather information for a city."""
+    # Implement your weather API call here
+    return f"Weather in {city}: Sunny, 25°C"
+
+agent = Agent(
+    model=LlamaCpp(id="ggml-org/gpt-oss-20b-GGUF"),
+    tools=[get_weather],
+    markdown=True,
+)
+
+agent.print_response("What's the weather like in Paris?")
+```
+
+</CodeGroup>
