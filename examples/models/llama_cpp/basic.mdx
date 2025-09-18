@@ -1,22 +1,8 @@
 ---
-title: Basic LlamaCpp Agent
-description: Basic example of using LlamaCpp with Agno
+title: Basic
 ---
 
-This example shows how to create a basic agent using LlamaCpp.
-
-## Prerequisites
-
-1. Install and set up LlamaCpp following the [setup guide](/concepts/models/llama_cpp#set-up-llamacpp)
-2. Start the LlamaCpp server:
-
-```bash
-llama-server -hf ggml-org/gpt-oss-20b-GGUF --ctx-size 0 --jinja -ub 2048 -b 2048
-```
-
-## Example
-
-<CodeGroup>
+## Code
 
 ```python cookbook/models/llama_cpp/basic.py
 from agno.agent import Agent, RunOutput  # noqa
@@ -32,48 +18,33 @@ agent = Agent(model=LlamaCpp(id="ggml-org/gpt-oss-20b-GGUF"), markdown=True)
 agent.print_response("Share a 2 sentence horror story")
 ```
 
-</CodeGroup>
+## Usage
 
-## Key Features
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
 
-- **Simple Setup**: Uses the default LlamaCpp server configuration
-- **Markdown Support**: Enables markdown formatting in responses
-- **Local Inference**: Runs entirely on your local machine
-- **OpenAI-Compatible**: Uses the same interface as OpenAI models
+  <Step title="Install LlamaCpp">
+    Follow the [LlamaCpp installation guide](https://github.com/ggerganov/llama.cpp) and start the server:
+    ```bash
+    llama-server -hf ggml-org/gpt-oss-20b-GGUF --ctx-size 0 --jinja -ub 2048 -b 2048
+    ```
+  </Step>
 
-## Running the Example
+  <Step title="Install libraries">
+    ```bash
+    pip install -U agno
+    ```
+  </Step>
 
-1. Ensure your LlamaCpp server is running
-2. Run the example:
+  <Step title="Run Agent">
+    <CodeGroup>
+    ```bash Mac
+    python cookbook/models/llama_cpp/basic.py
+    ```
 
-```bash
-python cookbook/models/llama_cpp/basic.py
-```
-
-The agent will generate a creative 2-sentence horror story using your local model.
-
-## Configuration
-
-You can customize the model configuration:
-
-<CodeGroup>
-
-```python custom_basic.py
-from agno.agent import Agent
-from agno.models.llama_cpp import LlamaCpp
-
-# Custom configuration
-agent = Agent(
-    model=LlamaCpp(
-        id="your-custom-model",
-        base_url="http://localhost:8080/v1",
-        temperature=0.7,
-        max_tokens=150
-    ),
-    markdown=True
-)
-
-agent.print_response("Tell me a joke")
-```
-
-</CodeGroup>
+    ```bash Windows
+    python cookbook/models/llama_cpp/basic.py
+    ```
+    </CodeGroup>
+  </Step>
+</Steps>

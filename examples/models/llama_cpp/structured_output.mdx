@@ -1,28 +1,8 @@
 ---
-title: LlamaCpp with Structured Output
-description: Generate structured data using LlamaCpp with Agno
+title: Structured Output
 ---
 
-This example shows how to generate structured output using LlamaCpp with Pydantic models.
-
-## Prerequisites
-
-1. Install and set up LlamaCpp following the [setup guide](/concepts/models/llama_cpp#set-up-llamacpp)
-2. Start the LlamaCpp server:
-
-```bash
-llama-server -hf ggml-org/gpt-oss-20b-GGUF --ctx-size 0 --jinja -ub 2048 -b 2048
-```
-
-3. Install required dependencies:
-
-```bash
-pip install pydantic rich
-```
-
-## Example
-
-<CodeGroup>
+## Code
 
 ```python cookbook/models/llama_cpp/structured_output.py
 from typing import List
@@ -65,22 +45,33 @@ structured_output_response: RunOutput = structured_output_agent.run("New York")
 pprint(structured_output_response.content)
 ```
 
-</CodeGroup>
+## Usage
 
-## Key Features
+<Steps>
+  <Snippet file="create-venv-step.mdx" />
 
-- **Type Safety**: Uses Pydantic for data validation
-- **Structured Data**: Ensures consistent output format
-- **Field Validation**: Automatic validation of generated data
-- **Rich Output**: Pretty-printed results using Rich library
+  <Step title="Install LlamaCpp">
+    Follow the [LlamaCpp installation guide](https://github.com/ggerganov/llama.cpp) and start the server:
+    ```bash
+    llama-server -hf ggml-org/gpt-oss-20b-GGUF --ctx-size 0 --jinja -ub 2048 -b 2048
+    ```
+  </Step>
 
-## Running the Example
+  <Step title="Install libraries">
+    ```bash
+    pip install -U pydantic rich agno
+    ```
+  </Step>
 
-1. Ensure your LlamaCpp server is running
-2. Run the structured output example:
+  <Step title="Run Agent">
+    <CodeGroup>
+    ```bash Mac
+    python cookbook/models/llama_cpp/structured_output.py
+    ```
 
-```bash
-python cookbook/models/llama_cpp/structured_output.py
-```
-
-The agent will generate a complete movie script structure based on "New York" as input.
+    ```bash Windows
+    python cookbook/models/llama_cpp/structured_output.py
+    ```
+    </CodeGroup>
+  </Step>
+</Steps>
