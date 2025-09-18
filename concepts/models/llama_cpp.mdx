@@ -9,7 +9,21 @@ Run Large Language Models locally with LLaMA CPP
 
 LlamaCpp supports a wide variety of models in GGML format. You can find models on HuggingFace, including the default `ggml-org/gpt-oss-20b-GGUF` used in the examples below.
 
-We recommend experimenting to find the best model for your use case. Here are some general recommendations:
+We recommend experimenting to find the best model for your use case. Here are some popular model recommendations:
+
+### Google Gemma Models
+
+- `google/gemma-2b-it-GGUF` - Lightweight 2B parameter model, great for resource-constrained environments
+- `google/gemma-7b-it-GGUF` - Balanced 7B model with strong performance for general tasks
+- `ggml-org/gemma-3-1b-it-GGUF` - Latest Gemma 3 series, efficient for everyday use
+
+### Meta Llama Models
+
+- `Meta-Llama-3-8B-Instruct` - Popular 8B parameter model with excellent instruction following
+- `Meta-Llama-3.1-8B-Instruct` - Enhanced version with improved capabilities and 128K context
+- `Meta-Llama-3.2-3B-Instruct` - Compact 3B model for faster inference
+
+### Default Options
 
 - `ggml-org/gpt-oss-20b-GGUF` - Default model for general use cases
 - Models with different quantizations (Q4_K_M, Q8_0, etc.) for different speed/quality tradeoffs
@@ -36,12 +50,7 @@ brew install llama.cpp
 
 ### Download a Model
 
-Download a model in GGML format. For the examples below, we use `ggml-org/gpt-oss-20b-GGUF`:
-
-```bash download model
-# Using huggingface-cli
-huggingface-cli download ggml-org/gpt-oss-20b-GGUF --local-dir ./models/gpt-oss-20b
-```
+Download a model in GGUF format following the [llama.cpp model download guide](https://github.com/ggerganov/llama.cpp#obtaining-and-using-the-facebook-llama-2-model). For the examples below, we use `ggml-org/gpt-oss-20b-GGUF`.
 
 ### Start the Server
 
