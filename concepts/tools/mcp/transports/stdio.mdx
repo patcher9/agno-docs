@@ -3,14 +3,9 @@ title: Stdio Transport
 sidebarTitle: stdio
 ---
 
-Transports in the Model Context Protocol (MCP) define how messages are sent and received. The Agno integration supports the three existing types:
-[stdio](https://modelcontextprotocol.io/docs/concepts/transports#standard-input%2Foutput-stdio),
-[SSE](https://modelcontextprotocol.io/docs/concepts/transports#server-sent-events-sse) and
-[Streamable HTTP](https://modelcontextprotocol.io/specification/draft/basic/transports#streamable-http).
-
 The stdio (standard input/output) transport is the default one in Agno's integration. It works best for local integrations.
 
-To use it, simply initialize the `MCPTools` class with its `command` argument.
+To use it, simply initialize the `MCPTools` class with the `command` argument.
 The command you want to pass is the one used to run the MCP server the agent will have access to.
 
 For example `uvx mcp-server-git`, which runs a [git MCP server](https://github.com/modelcontextprotocol/servers/tree/main/src/git):
@@ -20,9 +15,16 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.mcp import MCPTools
 
-async with MCPTools(command=f"uvx mcp-server-git") as mcp_tools:
+# Initialize and connect to the MCP server
+mcp_tools = MCPTools(command="uvx mcp-server-git")
+await mcp_tools.connect()
+
+try:
     agent = Agent(model=OpenAIChat(id="gpt-5-mini"), tools=[mcp_tools])
     await agent.aprint_response("What is the license for this project?", stream=True)
+finally:
+    # Always close the connection when done
+    await mcp_tools.close()
 ```
 
 
@@ -45,19 +47,26 @@ async def run_agent(message: str) -> None:
         "GOOGLE_MAPS_API_KEY": os.getenv("GOOGLE_MAPS_API_KEY"),
     }
 
-    async with MultiMCPTools(
-        [
+    # Initialize and connect to multiple MCP servers
+    mcp_tools = MultiMCPTools(
+        commands=[
             "npx -y @openbnb/mcp-server-airbnb --ignore-robots-txt",
             "npx -y @modelcontextprotocol/server-google-maps",
         ],
         env=env,
-    ) as mcp_tools:
+    )
+    await mcp_tools.connect()
+
+    try:
         agent = Agent(
             tools=[mcp_tools],
             markdown=True,
         )
 
         await agent.aprint_response(message, stream=True)
+    finally:
+        # Always close the connection when done
+        await mcp_tools.close()
 
 
 # Example usage

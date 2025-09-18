@@ -444,15 +444,16 @@
                     "group": "MCP",
                     "pages": [
                       "concepts/tools/mcp/mcp",
+                      "concepts/tools/mcp/multiple-servers",
                       {
                         "group": "Transports",
                         "pages": [
                           "concepts/tools/mcp/transports/stdio",
-                          "concepts/tools/mcp/transports/sse",
-                          "concepts/tools/mcp/transports/streamable_http"
+                          "concepts/tools/mcp/transports/streamable_http",
+                          "concepts/tools/mcp/transports/sse"
                         ]
                       },
-                      "concepts/tools/mcp/advanced_usage"
+                      "concepts/tools/mcp/server-params"
                     ]
                   },
                   {

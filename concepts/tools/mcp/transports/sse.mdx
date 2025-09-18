@@ -5,6 +5,10 @@ sidebarTitle: SSE
 
 Agno's MCP integration supports the [SSE transport](https://modelcontextprotocol.io/docs/concepts/transports#server-sent-events-sse). This transport enables server-to-client streaming, and can prove more useful than [stdio](https://modelcontextprotocol.io/docs/concepts/transports#standard-input%2Foutput-stdio) when working with restricted networks.
 
+<Note>
+This transport is not recommended anymore by the MCP protocol. Use the [Streamable HTTP transport](/concepts/tools/mcp/transports/streamable_http) instead.
+</Note>
+
 To use it, initialize the `MCPTools` passing the URL of the MCP server and setting the transport to `sse`:
 
 
@@ -15,9 +19,16 @@ from agno.tools.mcp import MCPTools
 
 server_url = "http://localhost:8000/sse"
 
-async with MCPTools(url=server_url, transport="sse") as mcp_tools:
+# Initialize and connect to the SSE MCP server
+mcp_tools = MCPTools(url=server_url, transport="sse")
+await mcp_tools.connect()
+
+try:
     agent = Agent(model=OpenAIChat(id="gpt-5-mini"), tools=[mcp_tools])
     await agent.aprint_response("What is the license for this project?", stream=True)
+finally:
+    # Always close the connection when done
+    await mcp_tools.close()
 ```
 
 
@@ -33,8 +44,15 @@ server_params = SSEClientParams(
     sse_read_timeout=...,
 )
 
-async with MCPTools(server_params=server_params) as mcp_tools:
-    ...
+# Initialize and connect using server parameters
+mcp_tools = MCPTools(server_params=server_params, transport="sse")
+await mcp_tools.connect()
+
+try:
+    # Use mcp_tools with your agent
+    pass
+finally:
+    await mcp_tools.close()
 ```
 
 
@@ -78,28 +96,41 @@ Let's set up a simple local server and connect to it using the SSE transport:
 
 
         async def run_agent(message: str) -> None:
-            async with MCPTools(transport="sse", url=server_url) as mcp_tools:
+            # Initialize and connect to the SSE MCP server
+            mcp_tools = MCPTools(transport="sse", url=server_url)
+            await mcp_tools.connect()
+
+            try:
                 agent = Agent(
                     model=OpenAIChat(id="gpt-5-mini"),
                     tools=[mcp_tools],
                     markdown=True,
                 )
                 await agent.aprint_response(message=message, stream=True, markdown=True)
+            finally:
+                await mcp_tools.close()
 
 
         # Using MultiMCPTools, we can connect to multiple MCP servers at once, even if they use different transports.
         # In this example we connect to both our example server (SSE transport), and a different server (stdio transport).
         async def run_agent_with_multimcp(message: str) -> None:
-            async with MultiMCPTools(
+            # Initialize and connect to multiple MCP servers with different transports
+            mcp_tools = MultiMCPTools(
                 commands=["npx -y @openbnb/mcp-server-airbnb --ignore-robots-txt"],
                 urls=[server_url],
-            ) as mcp_tools:
+                urls_transports=["sse"],
+            )
+            await mcp_tools.connect()
+
+            try:
                 agent = Agent(
                     model=OpenAIChat(id="gpt-5-mini"),
                     tools=[mcp_tools],
                     markdown=True,
                 )
                 await agent.aprint_response(message=message, stream=True, markdown=True)
+            finally:
+                await mcp_tools.close()
 
 
         if __name__ == "__main__":
