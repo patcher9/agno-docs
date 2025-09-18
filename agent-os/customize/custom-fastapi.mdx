@@ -33,6 +33,13 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 ```
 
+<Tip>
+Your custom FastAPI app can have its own middleware and dependencies.
+
+If you have your own CORS middleware, it will be updated to include the AgentOS allowed origins, to make the AgentOS instance compatible with the Control Plane.
+If not then the appropriate CORS middleware will be added to the app.
+</Tip>
+
 
 ### Running with FastAPI CLI
 
