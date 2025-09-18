@@ -169,6 +169,7 @@
                       "concepts/models/litellm_openai"
                     ]
                   },
+                  "concepts/models/llama_cpp",
                   "concepts/models/lmstudio",
                   "concepts/models/meta",
                   "concepts/models/mistral",
@@ -2261,6 +2262,16 @@
                   "examples/models/langdb/data_analyst",
                   "examples/models/langdb/structured_output",
                   "examples/models/langdb/tool_use"
+                ]
+              },
+              {
+                "group": "LlamaCpp",
+                "pages": [
+                  "examples/models/llama_cpp/basic",
+                  "examples/models/llama_cpp/basic_stream",
+                  "examples/models/llama_cpp/structured_output",
+                  "examples/models/llama_cpp/tool_use",
+                  "examples/models/llama_cpp/tool_use_stream"
                 ]
               },
               {
