@@ -8,15 +8,15 @@ description: "Complete AgentOS setup with MCP support enabled"
 ```python cookbook/agent_os/mcp/enable_mcp_example.py
 
 from agno.agent import Agent
-from agno.db.postgres import PostgresDb
+from agno.db.sqlite import SqliteDb
 from agno.models.anthropic import Claude
 from agno.os import AgentOS
 from agno.tools.duckduckgo import DuckDuckGoTools
 
 # Setup the database
-db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
+db = SqliteDb(db_file="tmp/agentos.db")
 
-# Setup basic agents, teams and workflows
+# Setup basic research agent
 web_research_agent = Agent(
     id="web-research-agent",
     name="Web Research Agent",
@@ -26,9 +26,9 @@ web_research_agent = Agent(
     add_history_to_context=True,
     num_history_runs=3,
     add_datetime_to_context=True,
+    enable_session_summaries=True,
     markdown=True,
 )
-
 
 # Setup our AgentOS with MCP enabled
 agent_os = AgentOS(
@@ -40,13 +40,13 @@ agent_os = AgentOS(
 app = agent_os.get_app()
 
 if __name__ == "__main__":
-    """Run our AgentOS.
+    """Run your AgentOS.
 
     You can see view your LLM-friendly MCP server at:
     http://localhost:7777/mcp
 
     """
-    agent_os.serve(app="enable_mcp_example:app", reload=True)
+    agent_os.serve(app="enable_mcp_example:app")
 ```
 
 ## Define a local test client
