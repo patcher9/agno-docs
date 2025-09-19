@@ -606,7 +606,8 @@
                 "pages": [
                   "examples/agent-os/custom/custom-fastapi",
                   "examples/agent-os/custom/override-routes",
-                  "examples/agent-os/custom/custom-lifespan"
+                  "examples/agent-os/custom/custom-lifespan",
+                  "examples/agent-os/custom/custom-middleware"
                 ]
               },
               {
