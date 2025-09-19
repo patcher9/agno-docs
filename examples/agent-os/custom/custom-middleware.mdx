@@ -29,7 +29,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 # === Rate Limiting Middleware ===
 class RateLimitMiddleware(BaseHTTPMiddleware):
     """
-    Rate limiting middleware that limits requests per IP address.
+    Middleware that enforces request limits per IP address.
     """
 
     def __init__(self, app, requests_per_minute: int = 60, window_size: int = 60):
