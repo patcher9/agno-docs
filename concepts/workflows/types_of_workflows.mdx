@@ -159,7 +159,12 @@ Conditional workflows provide predictable branching logic while maintaining dete
 
 #### Parameters
 
-<Snippet file="condition-step-reference.mdx" />
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `evaluator` | `Union[Callable[[StepInput], bool], Callable[[StepInput], Awaitable[bool]], bool]` | Required | Function or boolean to evaluate the condition |
+| `steps` | `WorkflowSteps` | Required | Steps to execute if the condition is met |
+| `name` | `Optional[str]` | `None` | Name of the condition step |
+| `description` | `Optional[str]` | `None` | Description of the condition step |
 
 #### Example
 
@@ -211,7 +216,11 @@ Parallel workflows maintain deterministic results while dramatically reducing ex
 
 #### Parameters
 
-<Snippet file="parallel-step-reference.mdx" />
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `*steps` | `*WorkflowSteps` | Required | Variable number of steps to execute in parallel |
+| `name` | `Optional[str]` | `None` | Name of the parallel execution block |
+| `description` | `Optional[str]` | `None` | Description of the parallel execution |
 
 #### Example
 
@@ -259,7 +268,13 @@ Iterative workflows provide controlled repetition with deterministic exit condit
 
 #### Parameters
 
-<Snippet file="loop-step-reference.mdx" />
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `steps` | `WorkflowSteps` | Required | Steps to execute in each loop iteration |
+| `name` | `Optional[str]` | `None` | Name of the loop step |
+| `description` | `Optional[str]` | `None` | Description of the loop step |
+| `max_iterations` | `int` | `3` | Maximum number of iterations for the loop |
+| `end_condition` | `Optional[Union[Callable[[List[StepOutput]], bool], Callable[[List[StepOutput]], Awaitable[bool]]]]` | `None` | Function to evaluate if the loop should end |
 
 #### Example
 
@@ -311,7 +326,12 @@ Dynamic routing workflows provide intelligent path selection while maintaining p
 
 #### Parameters
 
-<Snippet file="router-step-reference.mdx" />
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `selector` | `Union[Callable[[StepInput], Union[WorkflowSteps, List[WorkflowSteps]]], Callable[[StepInput], Awaitable[Union[WorkflowSteps, List[WorkflowSteps]]]]]` | Required | Function to select steps dynamically (supports both sync and async functions) |
+| `choices` | `WorkflowSteps` | Required | Available steps for selection |
+| `name` | `Optional[str]` | `None` | Name of the router step |
+| `description` | `Optional[str]` | `None` | Description of the router step |
 
 #### Example
 
@@ -357,7 +377,11 @@ Grouped steps enable modular workflow architecture with reusable components and 
 
 #### Parameters
 
-<Snippet file="steps-reference.mdx" />
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `name` | `Optional[str]` | `None` | Name of the steps group for identification |
+| `description` | `Optional[str]` | `None` | Description of the steps group's purpose |
+| `steps` | `Optional[List[Any]]` | `[]` | List of steps to execute sequentially (empty list if not provided) |
 
 #### Basic Example
 
