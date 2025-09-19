@@ -270,6 +270,20 @@ agent.cli_app(input="Tell me a 5 second short story about a robot", stream=True)
 
 See the [Agent class reference](/reference/agents/agent) for more details.
 
+## Agno Telemetry
+
+Agno logs which model an agent used so we can prioritize updates to the most popular providers. You can disable this by setting `AGNO_TELEMETRY=false` in your environment or by setting `telemetry=False` on the agent.
+
+```bash
+export AGNO_TELEMETRY=false
+```
+or:
+```python
+agent = Agent(model=OpenAIChat(id="gpt-5-mini"), telemetry=False)
+```
+
+See the [Agent class reference](/reference/agents/agent) for more details.
+
 ## Developer Resources
 
 - View the [Agent reference](/reference/agents/agent)
