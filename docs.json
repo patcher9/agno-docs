@@ -897,7 +897,8 @@
                     "group": "Dependencies",
                     "pages": [
                       "examples/concepts/agent/dependencies/add_dependencies_run",
-                      "examples/concepts/agent/dependencies/add_dependencies_to_context"
+                      "examples/concepts/agent/dependencies/add_dependencies_to_context",
+                      "examples/concepts/agent/dependencies/access_dependencies_in_tool"
                     ]
                   },
                   {
@@ -1061,7 +1062,8 @@
                     "pages": [
                       "examples/concepts/teams/dependencies/add_dependencies_run",
                       "examples/concepts/teams/dependencies/add_dependencies_to_context",
-                      "examples/concepts/teams/dependencies/reference_dependencies"
+                      "examples/concepts/teams/dependencies/reference_dependencies",
+                      "examples/concepts/teams/dependencies/access_dependencies_in_tool"
                     ]
                   },
                   {
