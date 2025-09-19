@@ -275,6 +275,20 @@ team.cli_app(input="What is the weather in Tokyo?", stream=True)
 
 See the [Team class reference](/reference/teams/team) for more details.
 
+## Agno Telemetry
+
+Agno logs which model an team used so we can prioritize updates to the most popular providers. You can disable this by setting `AGNO_TELEMETRY=false` in your environment or by setting `telemetry=False` on the team.
+
+```bash
+export AGNO_TELEMETRY=false
+```
+or:
+```python
+team = Team(model=OpenAIChat(id="gpt-5-mini"), members=[], telemetry=False)
+```
+
+See the [Team class reference](/reference/teams/team) for more details.
+
 ## Developer Resources
 
 - View the [Team reference](/reference/teams/team)
