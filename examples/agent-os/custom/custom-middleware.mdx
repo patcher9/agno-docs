@@ -77,7 +77,7 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
 # === Request/Response Logging Middleware ===
 class RequestLoggingMiddleware(BaseHTTPMiddleware):
     """
-    Request/response logging middleware with timing and basic info.
+    Middleware that logs requests and responses with timing and metadata.
     """
 
     def __init__(self, app, log_body: bool = False, log_headers: bool = False):
