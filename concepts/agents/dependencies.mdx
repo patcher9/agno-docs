@@ -9,6 +9,32 @@ description: Learn how to use dependencies in your agents.
 You can use dependencies to inject memories, dynamic few-shot examples, "retrieved" documents, etc.
 </Note>
 
+## Basic usage
+
+You can reference the dependencies in your agent instructions or user message.
+
+```python dependencies.py
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+
+agent = Agent(
+    model=OpenAIChat(id="gpt-5-mini"),
+    dependencies={"name": "John Doe"},
+    instructions="You are a story writer. The current user is {name}."
+)
+
+agent.print_response("Write a 5 second short story about {name}")
+```
+
+<Tip>
+You can set `dependencies` on `Agent` initialization, or pass it to the `run()` and `arun()` methods.
+</Tip>
+
+
+## Using functions as dependencies
+
+You can specify a callable function as a dependency. The dependency will be automatically resolved by the agent at runtime.
+
 ```python dependencies.py
 import json
 from textwrap import dedent
@@ -70,7 +96,7 @@ agent.print_response(
 Dependencies are automatically resolved when the agent is run.
 </Check>
 
-## Adding the entire context to the user message
+## Adding dependencies to context
 
 Set `add_dependencies_to_context=True` to add the entire list of dependencies to the user message. This way you don't have to manually add the dependencies to the instructions.
 

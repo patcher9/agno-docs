@@ -10,20 +10,23 @@ A simple yet common use case for Agents is to manage lists, items and other "inf
 
 This can be easily managed using the `session_state`. The Agent updates the `session_state` in tool calls and exposes them to the Model via the system message.
 
+The session state is then persisted in a database and made available across runs and sessions.
 </Check>
 
+## State Management
 Agno provides a powerful and elegant state management system, here's how it works:
 
 - You can set the `Agent`'s `session_state` parameter with a dictionary of state variables.
 - You update the `session_state` dictionary in tool calls or other functions.
 - You share the current `session_state` with the LLM via the system message by referencing the state variables in `description` and `instructions`.
-- You can also pass `session_state` to the agent on `agent.run()`, effectively overriding any state that was set on Agent initialization.
+- You can also pass `session_state` to the agent on `agent.run()`, overriding any state that was set on Agent initialization.
 - The `session_state` is stored with Agent sessions and is persisted in your database. Meaning, it is available across execution cycles. This also means when switching sessions between calls to `agent.run()`, the state is loaded and available.
 
 Here's an example of an Agent managing a shopping list:
 
 ```python session_state.py
 from agno.agent import Agent
+from agno.db.sqlite import SqliteDb
 from agno.models.openai import OpenAIChat
 
 # Define a tool that adds an item to the shopping list
@@ -36,6 +39,8 @@ def add_item(session_state, item: str) -> str:
 # Create an Agent that maintains state
 agent = Agent(
     model=OpenAIChat(id="gpt-5-mini"),
+    # Database to store the session and session state
+    db=SqliteDb(db_file="tmp/agents.db"),
     # Initialize the session state with an empty shopping list
     session_state={"shopping_list": []},
     tools=[add_item],
@@ -62,6 +67,11 @@ print(f"Final session state: {agent.get_session_state()}")
 ## Maintaining state across multiple runs
 
 A big advantage of **sessions** is the ability to maintain state across multiple runs. For example, let's say the agent is helping a user keep track of their shopping list.
+
+<Tip>
+  You have to configure your storage via the `db` parameter for state to be persisted across runs.
+</Tip>
+
 
 ```python shopping_list.py
 from textwrap import dedent
@@ -143,11 +153,6 @@ print(f"Session state: {agent.get_session_state()}")
 
 ```
 
-<Tip>
-  You have to configure your storage via the `db` parameter for state to be
-  persisted across runs.
-</Tip>
-
 ## Agentic Session State
 
 Agno provides a way to allow the agent to automatically update the session state.
@@ -157,10 +162,10 @@ Simply set the `enable_agentic_state` parameter to `True`.
 ```python agentic_session_state.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
-from agno.db.in_memory import InMemoryDb
+from agno.db.sqlite import SqliteDb
 
 agent = Agent(
-    db=InMemoryDb(),
+    db=SqliteDb(db_file="tmp/agents.db"),
     model=OpenAIChat(id="gpt-5-mini"),
     session_state={"shopping_list": []},
     add_session_state_to_context=True,  # Required so the agent is aware of the session state
@@ -190,11 +195,11 @@ from textwrap import dedent
 
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
-from agno.db.in_memory import InMemoryDb
+from agno.db.sqlite import SqliteDb
 
 
 agent = Agent(
-    db=InMemoryDb(),
+    db=SqliteDb(db_file="tmp/agents.db"),
     model=OpenAIChat(id="gpt-5-mini"),
     # Initialize the session state with a variable
     session_state={"user_name": "John"},
@@ -215,10 +220,10 @@ This is useful when you want to continue a session for a specific user.
 ```python changing_state_on_run.py
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
-from agno.db.in_memory import InMemoryDb
+from agno.db.sqlite import SqliteDb
 
 agent = Agent(
-    db=InMemoryDb(),
+    db=SqliteDb(db_file="tmp/agents.db"),
     model=OpenAIChat(id="gpt-5-mini"),
     instructions="Users name is {user_name} and age is {age}",
 )

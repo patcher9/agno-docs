@@ -8,8 +8,9 @@ This example demonstrates how to provide input to an agent using the Message obj
 
 ```python cookbook/agents/input_and_output/input_as_message.py
 from agno.agent import Agent, Message
+from agno.models.openai import OpenAIChat
 
-Agent().print_response(
+Agent(model=OpenAIChat(id="gpt-5-mini")).print_response(
     Message(
         role="user",
         content=[
@@ -24,6 +25,7 @@ Agent().print_response(
     ),
     stream=True,
     markdown=True,
+    show_message=False
 )
 ```
 
@@ -34,7 +36,7 @@ Agent().print_response(
 
   <Step title="Install libraries">
     ```bash
-    pip install -U agno
+    pip install -U agno openai
     ```
   </Step>
 

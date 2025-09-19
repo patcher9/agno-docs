@@ -54,7 +54,6 @@ You are a pilot on a plane flying from Hawaii to Japan.
 </additional_information>
 ```
 
-
 ### Additional Context
 
 You can add additional context to the end of the system message using the `additional_context` parameter.
@@ -136,6 +135,22 @@ agent.print_response("Love in the year 12000.")
 The `input` sent to the `Agent.run()` or `Agent.print_response()` is used as the user message.
 
 See [dependencies](/concepts/agents/dependencies) for how to do dependency injection for your user message.
+
+## Context Caching
+
+Various model providers support caching of system and user messages. The implementation of caching differs between providers.
+
+Generally the approach is to cache repetitive content and common instructions and on subsequent requests to use cached content from the prefix for your system message.
+In other words, if the model supports it, you can reduce the number of tokens sent to the model by putting static content at the start of your system message.
+
+Agno's context construction is designed to put the most probable static content at the start of your system message.  
+If you wish to fine-tune this, the recommended approach is to manually set the system message.
+
+Some examples of prompt caching:
+- [OpenAI's prompt caching](https://platform.openai.com/docs/guides/prompt-caching)
+- [Anthropic prompt caching](https://docs.claude.com/en/docs/build-with-claude/prompt-caching) -> See an [Agno example](/examples/models/anthropic/prompt_caching) of this
+- [OpenRouter prompt caching](https://openrouter.ai/docs/features/prompt-caching)
+
 
 ## Chat history
 

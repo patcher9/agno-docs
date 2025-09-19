@@ -8,8 +8,9 @@ This example demonstrates how to provide input to an agent as a dictionary forma
 
 ```python cookbook/agents/input_and_output/input_as_dict.py
 from agno.agent import Agent
+from agno.models.openai import OpenAIChat
 
-Agent().print_response(
+Agent(model=OpenAIChat(id="gpt-5-mini")).print_response(
     {
         "role": "user",
         "content": [
@@ -34,7 +35,7 @@ Agent().print_response(
 
   <Step title="Install libraries">
     ```bash
-    pip install -U agno
+    pip install -U agno openai
     ```
   </Step>
 

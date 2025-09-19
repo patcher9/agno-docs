@@ -8,8 +8,9 @@ This example demonstrates how to provide input to an agent as a list format for 
 
 ```python cookbook/agents/input_and_output/input_as_list.py
 from agno.agent import Agent
+from agno.models.openai import OpenAIChat
 
-Agent().print_response(
+Agent(model=OpenAIChat(id="gpt-5-mini")).print_response(
     [
         {"type": "text", "text": "What's in this image?"},
         {
@@ -31,7 +32,7 @@ Agent().print_response(
 
   <Step title="Install libraries">
     ```bash
-    pip install -U agno
+    pip install -U agno openai
     ```
   </Step>
 
