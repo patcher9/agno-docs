@@ -580,7 +580,15 @@
               {
                 "group": "Configure your AgentOS",
                 "pages": [
-                  "agent-os/customize/agent-os",
+                  {
+                    "group": "Customize AgentOS",
+                    "pages": [
+                      "agent-os/customize/os/attributes",
+                      "agent-os/customize/os/custom_middleware",
+                      "agent-os/customize/os/override_routes",
+                      "agent-os/customize/os/lifespan"
+                    ]
+                  },
                   "agent-os/customize/config",
                   "agent-os/customize/custom-fastapi"
                 ]
@@ -601,15 +609,6 @@
             "pages": [
               "examples/agent-os/demo",
               "examples/agent-os/extra_configuration",
-              {
-                "group": "Customize",
-                "pages": [
-                  "examples/agent-os/custom/custom-fastapi",
-                  "examples/agent-os/custom/override-routes",
-                  "examples/agent-os/custom/custom-lifespan",
-                  "examples/agent-os/custom/custom-middleware"
-                ]
-              },
               {
                 "group": "MCP",
                 "pages": [
