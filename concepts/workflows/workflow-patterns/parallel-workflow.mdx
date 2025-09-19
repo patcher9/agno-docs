@@ -1,0 +1,52 @@
+---
+title: Parallel Workflow
+description: Independent, concurrent tasks that can execute simultaneously for improved efficiency
+---
+
+**Example Use-Cases**: Multi-source research, parallel analysis, concurrent data processing
+
+Parallel workflows maintain deterministic results while dramatically reducing execution time for independent operations.
+
+<img 
+  className="block dark:hidden" 
+  src="/images/workflows-parallel-steps-light.png" 
+  alt="Workflows parallel steps diagram"
+/>
+<img 
+  className="hidden dark:block" 
+  src="/images/workflows-parallel-steps.png" 
+  alt="Workflows parallel steps diagram"
+/>
+
+#### Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `*steps` | `*WorkflowSteps` | Required | Variable number of steps to execute in parallel |
+| `name` | `Optional[str]` | `None` | Name of the parallel execution block |
+| `description` | `Optional[str]` | `None` | Description of the parallel execution |
+
+#### Example
+
+```python parallel_workflow.py
+from agno.workflow import Parallel, Step, Workflow
+
+workflow = Workflow(
+    name="Parallel Research Pipeline",
+    steps=[
+        Parallel(
+            Step(name="HackerNews Research", agent=hn_researcher),
+            Step(name="Web Research", agent=web_researcher),
+            Step(name="Academic Research", agent=academic_researcher),
+            name="Research Step"
+        ),
+        Step(name="Synthesis", agent=synthesizer),  # Combines the results and produces a report
+    ]
+)
+
+workflow.print_response("Write about the latest AI developments", markdown=True)
+```
+
+**More Examples**:
+
+- [Parallel Steps Workflow](/examples/concepts/workflows/04-workflows-parallel-execution/parallel_steps_workflow)
