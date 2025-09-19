@@ -92,15 +92,14 @@ For better organization, use FastAPI routers to group related endpoints:
 
 ```python custom_fastapi_app.py
 from agno.agent import Agent
-from agno.db.postgres import PostgresDb
+from agno.db.sqlite import SqliteDb
 from agno.models.anthropic import Claude
 from agno.os import AgentOS
 from agno.tools.duckduckgo import DuckDuckGoTools
 from fastapi import FastAPI
-from starlette.middleware.cors import CORSMiddleware
 
 # Setup the database
-db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai")
+db = SqliteDb(db_file="tmp/agentos.db")
 
 # Setup basic agents, teams and workflows
 web_research_agent = Agent(
@@ -119,16 +118,6 @@ app: FastAPI = FastAPI(
     title="Custom FastAPI App",
     version="1.0.0",
 )
-
-# Add Middlewares
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 
 # Add your own routes
 @app.post("/customers")
