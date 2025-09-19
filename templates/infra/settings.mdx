@@ -1,30 +1,30 @@
 ---
-title: Workspace Settings
+title: Infra Settings
 sidebarTitle: Settings
 ---
 
-The `WorkspaceSettings` object, usually defined in the `workspace/settings.py` file is used to defines common settings used by your workspace apps and resources.
+The `InfraSettings` object, usually defined in the `infra/settings.py` file is used to defines common settings used by your apps and resources.
 
-Its not mandatory and doesn't serve any other purpose except to hold configuration used by workspace apps and resources. The values in the `WorkspaceSettings` object can also be set using Environment variables or a `.env` file.
+Its not mandatory and doesn't serve any other purpose except to hold configuration used by workspace apps and resources. The values in the `InfraSettings` object can also be set using Environment variables or a `.env` file.
 
 ## Example
 
-An example `WorkspaceSettings` used by the `llm-app` template. View this file on [github](https://github.com/agno-agi/llm-app/blob/main/workspace/settings.py)
+An example `InfraSettings` used by the `agent-infra-aws` template. View this file on [github](https://github.com/agno-agi/agent-infra-aws/blob/main/infra/settings.py)
 
-```python workspace/settings.py
+```python infra/settings.py
 from pathlib import Path
 
-from agno.workspace.settings import WorkspaceSettings
+from agno.infra.settings import InfraSettings
 
 #
-# -*- Define workspace settings using a WorkspaceSettings object
+# -*- Define infra settings using a InfraSettings object
 # these values can also be set using environment variables or a .env file
 #
-ws_settings = WorkspaceSettings(
-    # Workspace name: used for naming resources
-    ws_name="ai",
-    # Path to the workspace root
-    ws_root=Path(__file__).parent.parent.resolve(),
+infra_settings = InfraSettings(
+    # Infra name: used for naming resources
+    infra_name="ai",
+    # Path to the infra root
+    infra_root=Path(__file__).parent.parent.resolve(),
     # -*- Dev settings
     dev_env="dev",
     # -*- Dev Apps
@@ -64,20 +64,20 @@ ws_settings = WorkspaceSettings(
 
 ## Usage
 
-Use the workspace settings to
+Use the infra settings to
 
 - Name resources
-- Get the workspace root path using `ws_settings.ws_root`
+- Get the infra root path using `infra_settings.infra_root`
 
 ```python dev_resources.py
 ...
 # -*- Streamlit running on port 8501:8501
 dev_streamlit = Streamlit(
-    name=f"{ws_settings.dev_key}-app",
-    enabled=ws_settings.dev_app_enabled,
+    name=f"{infra_settings.dev_key}-app",
+    enabled=infra_settings.dev_app_enabled,
     ...
     # Read secrets from secrets/dev_app_secrets.yml
-    secrets_file=ws_settings.ws_root.joinpath("workspace/secrets/dev_app_secrets.yml")
+    secrets_file=infra_settings.infra_root.joinpath("infra/secrets/dev_app_secrets.yml")
 )
 ```
 
@@ -86,19 +86,19 @@ dev_streamlit = Streamlit(
 ```python prd_resources.py
 # -*- FastAPI running on ECS
 prd_fastapi = FastApi(
-    name=f"{ws_settings.prd_key}-api",
-    enabled=ws_settings.prd_api_enabled,
+    name=f"{infra_settings.prd_key}-api",
+    enabled=infra_settings.prd_api_enabled,
     ...
-    subnets=ws_settings.subnet_ids,
+    subnets=infra_settings.subnet_ids,
     ...
 )
 
 # -*- RDS Database Instance
 prd_db = DbInstance(
-    name=f"{ws_settings.prd_key}-db",
-    enabled=ws_settings.prd_db_enabled,
+    name=f"{infra_settings.prd_key}-db",
+    enabled=infra_settings.prd_db_enabled,
     ...
-    availability_zone=ws_settings.aws_az1,
+    availability_zone=infra_settings.aws_az1,
     ...
 )
 ```

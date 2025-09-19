@@ -2,7 +2,7 @@
 title: Production Application
 ---
 
-Your production application runs on AWS and its resources are defined in the `workspace/prd_resources.py` file. This guide shows how to:
+Your production application runs on AWS and its resources are defined in the `infra/prd_resources.py` file. This guide shows how to:
 
 1. [Build a production image](#build-your-production-image)
 2. [Update ECS Task Definitions](#ecs-task-definition)
@@ -10,14 +10,14 @@ Your production application runs on AWS and its resources are defined in the `wo
 
 ## Workspace Settings
 
-The `WorkspaceSettings` object in the `workspace/settings.py` file defines common settings used by your workspace apps and resources.
+The `InfraSettings` object in the `infra/settings.py` file defines common settings used by your workspace apps and resources.
 
 ## Build your production image
 
 Your application uses the `agno` images by default. To use your own image:
 
 - Create a Repository in `ECR` and authenticate or use `Dockerhub`.
-- Open `workspace/settings.py` file
+- Open `infra/settings.py` file
 - Update the `image_repo` to your image repository
 - Set `build_images=True` and `push_images=True`
 - Optional - Set `build_images=False` and `push_images=False` to use an existing image in the repository
@@ -28,7 +28,7 @@ To use ECR, **create the image repo and authenticate with ECR** before pushing i
 
 **1. Create the image repository in ECR**
 
-The repo name should match the `ws_name`. Meaning if you're using the default workspace name, the repo name would be `ai`.
+The repo name should match the `infra_name`. Meaning if you're using the default infra name, the repo name would be `ai`.
 
 <img src="/images/create-ecr-image.png" alt="create-ecr-image" />
 
@@ -54,10 +54,10 @@ Update the script with your ECR repo before running.
 
 </CodeGroup>
 
-### Update the `WorkspaceSettings`
+### Update the `InfraSettings`
 
-```python workspace/settings.py
-ws_settings = WorkspaceSettings(
+```python infra/settings.py
+infra_settings = InfraSettings(
     ...
     # Subnet IDs in the aws_region
     subnet_ids=["subnet-xyz", "subnet-xyz"],
@@ -87,11 +87,11 @@ Build the production image using:
 <CodeGroup>
 
 ```bash terminal
-ag ws up --env prd --infra docker --type image
+ag infra up --env prd --infra docker --type image
 ```
 
 ```bash shorthand
-ag ws up -e prd -i docker -t image
+ag infra up -e prd -i docker -t image
 ```
 
 </CodeGroup>
@@ -101,11 +101,11 @@ To `force` rebuild images, use the `--force` or `-f` flag
 <CodeGroup>
 
 ```bash terminal
-ag ws up --env prd --infra docker --type image --force
+ag infra up --env prd --infra docker --type image --force
 ```
 
 ```bash shorthand
-ag ws up -e prd -i docker -t image -f
+ag infra up -e prd -i docker -t image -f
 ```
 
 </CodeGroup>
@@ -115,11 +115,11 @@ Because the only docker resources in the production env are docker images, you c
 <CodeGroup>
 
 ```bash Build Images
-ag ws up prd:docker
+ag infra up prd:docker
 ```
 
 ```bash Force Build Images
-ag ws up prd:docker -f
+ag infra up prd:docker -f
 ```
 
 </CodeGroup>
@@ -131,11 +131,11 @@ If you updated the Image, CPU, Memory or Environment Variables, update the Task 
 <CodeGroup>
 
 ```bash terminal
-ag ws patch --env prd --infra aws --name td
+ag infra patch --env prd --infra aws --name td
 ```
 
 ```bash shorthand
-ag ws patch -e prd -i aws -n td
+ag infra patch -e prd -i aws -n td
 ```
 
 </CodeGroup>
@@ -147,11 +147,11 @@ To redeploy the production application, update the ECS Service using:
 <CodeGroup>
 
 ```bash terminal
-ag ws patch --env prd --infra aws --name service
+ag infra patch --env prd --infra aws --name service
 ```
 
 ```bash shorthand
-ag ws patch -e prd -i aws -n service
+ag infra patch -e prd -i aws -n service
 ```
 
 </CodeGroup>
