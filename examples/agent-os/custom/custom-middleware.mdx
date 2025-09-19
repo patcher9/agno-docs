@@ -1,8 +1,8 @@
 ---
 title: "Custom Middleware in AgentOS"
-description: "Learn how to add custom middleware to AgentOS"
+description: "Learn how to add your own middleware to AgentOS"
 ---
-Add custom middleware to your AgentOS application for enhanced functionality like rate limiting, logging, monitoring, etc.
+Add custom middleware to your AgentOS application for enhanced functionality like rate limiting, logging, monitoring etc.
 
 This example demonstrates two essential middleware components:
 - **Rate Limiting**: Prevents API abuse by limiting requests per IP address
@@ -29,7 +29,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 # === Rate Limiting Middleware ===
 class RateLimitMiddleware(BaseHTTPMiddleware):
     """
-    Middleware that enforces request limits per IP address.
+    Rate limiting middleware that limits requests per IP address.
     """
 
     def __init__(self, app, requests_per_minute: int = 60, window_size: int = 60):
@@ -77,7 +77,7 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
 # === Request/Response Logging Middleware ===
 class RequestLoggingMiddleware(BaseHTTPMiddleware):
     """
-    Middleware that logs requests and responses with timing and metadata.
+    Request/response logging middleware with timing and basic info.
     """
 
     def __init__(self, app, log_body: bool = False, log_headers: bool = False):
@@ -164,13 +164,10 @@ if __name__ == "__main__":
     
     Test commands:
     
-    1. Basic request:
-       curl http://localhost:7777/test
-    
-    2. Test rate limiting:
+    1. Test rate limiting:
        for i in {1..15}; do curl http://localhost:7777/config; done
     
-    3. Check rate limit headers:
+    2. Check rate limit headers:
        curl -v http://localhost:7777/config
     
     Look for:
