@@ -169,10 +169,12 @@
                       "concepts/models/litellm_openai"
                     ]
                   },
+                  "concepts/models/llama_cpp",
                   "concepts/models/lmstudio",
                   "concepts/models/meta",
                   "concepts/models/mistral",
                   "concepts/models/nvidia",
+                  "concepts/models/nexus",
                   "concepts/models/nebius",
                   "concepts/models/ollama",
                   "concepts/models/openai",
@@ -2263,6 +2265,16 @@
                 ]
               },
               {
+                "group": "LlamaCpp",
+                "pages": [
+                  "examples/models/llama_cpp/basic",
+                  "examples/models/llama_cpp/basic_stream",
+                  "examples/models/llama_cpp/structured_output",
+                  "examples/models/llama_cpp/tool_use",
+                  "examples/models/llama_cpp/tool_use_stream"
+                ]
+              },
+              {
                 "group": "LM Studio",
                 "pages": [
                   "examples/models/lmstudio/basic",
@@ -2353,6 +2365,17 @@
                   "examples/models/nvidia/async_basic_stream",
                   "examples/models/nvidia/tool_use",
                   "examples/models/nvidia/async_tool_use"
+                ]
+              },
+              {
+                "group": "Nexus",
+                "pages": [
+                  "examples/models/nexus/basic",
+                  "examples/models/nexus/basic_stream",
+                  "examples/models/nexus/async_basic",
+                  "examples/models/nexus/async_basic_stream",
+                  "examples/models/nexus/tool_use",
+                  "examples/models/nexus/async_tool_use"
                 ]
               },
               {
