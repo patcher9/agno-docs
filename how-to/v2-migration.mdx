@@ -306,7 +306,35 @@ We have heavily updated our Workflows, aiming to provide top-of-the-line tooling
   Workflows](/how-to/workflows-migration).
 </Tip>
 
-### 7. Playground -> AgentOS
+### 7. Apps -> Interfaces
+
+The old "apps" system (`AGUIApp`, `SlackApi`, `WhatsappApi`) has been replaced with a unified interfaces system within AgentOS.
+
+#### Before - Standalone Apps
+```python
+from agno.app.agui.app import AGUIApp
+
+agui_app = AGUIApp(agent=agent)
+app = agui_app.get_app()
+agui_app.serve(port=8000)
+```
+
+#### After - Unified Interfaces
+```python
+from agno.os import AgentOS
+from agno.os.interfaces.agui import AGUI
+
+agent_os = AgentOS(agents=[agent], interfaces=[AGUI(agent=agent)])
+app = agent_os.get_app()
+agent_os.serve(port=8000)
+```
+
+#### Migration Steps
+1. **Update imports**: Replace app imports with interface imports
+2. **Use AgentOS**: Wrap agents with `AgentOS` and specify interfaces
+3. **Update serving**: Use `agent_os.serve()` instead of `app.serve()`
+
+### 8. Playground -> AgentOS
 
 Our `Playground` has been deprecated. Our new [AgentOS](/agent-os/introduction) offering will substitute all usecases.
 

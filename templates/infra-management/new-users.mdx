@@ -1,33 +1,33 @@
 ---
-title: Setup workspace for new users
+title: Setup infra for new users
 sidebarTitle: "Add New Users"
 ---
 
-Follow these steps to setup an existing workspace:
+Follow these steps to setup an existing infra:
 
 <Steps>
 
 <Step title="Clone git repository">
-Clone the git repo and `cd` into the workspace directory
+Clone the git repo and `cd` into the infra directory
 
 <CodeGroup>
 
 ```bash Mac
 git clone https://github.com/[YOUR_GIT_REPO].git
 
-cd your_workspace_directory
+cd your_infra_directory
 ```
 
 ```bash Windows
 git clone https://github.com/[YOUR_GIT_REPO].git
 
-cd your_workspace_directory
+cd your_infra_directory
 ```
 
 </CodeGroup>
 
 </Step>
-<Step title="Create and activate a virtual env">
+<Step title="Create and activate a virtual environment">
 
 <CodeGroup>
 
@@ -59,16 +59,17 @@ pip install -U agno
 </CodeGroup>
 
 </Step>
-<Step title="Setup workspace">
+#TODO: Look into this step
+<Step title="Setup infra">
 
 <CodeGroup>
 
 ```bash Mac
-ag ws setup
+ag infra setup
 ```
 
 ```bash Windows
-ag ws setup
+ag infra setup
 ```
 
 </CodeGroup>
@@ -76,22 +77,22 @@ ag ws setup
 </Step>
 <Step title="Copy secrets">
 
-Copy `workspace/example_secrets` to `workspace/secrets`
+Copy `infra/example_secrets` to `infra/secrets`
 
 <CodeGroup>
 
 ```bash Mac
-cp -r workspace/example_secrets workspace/secrets
+cp -r infra/example_secrets infra/secrets
 ```
 
 ```bash Windows
-cp -r workspace/example_secrets workspace/secrets
+cp -r infra/example_secrets infra/secrets
 ```
 
 </CodeGroup>
 
 </Step>
-<Step title="Start workspace">
+<Step title="Start infra">
 
 <Note>
 
@@ -102,34 +103,34 @@ Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) i
 <CodeGroup>
 
 ```bash terminal
-ag ws up
+ag infra up
 ```
 
 ```bash full options
-ag ws up --env dev --infra docker
+ag infra up --env dev --infra docker
 ```
 
 ```bash shorthand
-ag ws up dev:docker
+ag infra up dev:docker
 ```
 
 </CodeGroup>
 
 </Step>
-<Step title="Stop workspace">
+<Step title="Stop infra">
 
 <CodeGroup>
 
 ```bash terminal
-ag ws down
+ag infra down
 ```
 
 ```bash full options
-ag ws down --env dev --infra docker
+ag infra down --env dev --infra docker
 ```
 
 ```bash shorthand
-ag ws down dev:docker
+ag infra down dev:docker
 ```
 
 </CodeGroup>

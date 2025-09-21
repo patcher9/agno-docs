@@ -574,15 +574,20 @@
               "agent-os/api",
               {
                 "group": "MCP",
-                "pages": [
-                  "agent-os/mcp/mcp",
-                  "agent-os/mcp/tools"
-                ]
+                "pages": ["agent-os/mcp/mcp", "agent-os/mcp/tools"]
               },
               {
                 "group": "Configure your AgentOS",
                 "pages": [
-                  "agent-os/customize/agent-os",
+                  {
+                    "group": "Customize AgentOS",
+                    "pages": [
+                      "agent-os/customize/os/attributes",
+                      "agent-os/customize/os/custom_middleware",
+                      "agent-os/customize/os/override_routes",
+                      "agent-os/customize/os/lifespan"
+                    ]
+                  },
                   "agent-os/customize/config",
                   "agent-os/customize/custom-fastapi"
                 ]
@@ -603,14 +608,6 @@
             "pages": [
               "examples/agent-os/demo",
               "examples/agent-os/extra_configuration",
-              {
-                "group": "Customize",
-                "pages": [
-                  "examples/agent-os/custom/custom-fastapi",
-                  "examples/agent-os/custom/override-routes",
-                  "examples/agent-os/custom/custom-lifespan"
-                ]
-              },
               {
                 "group": "MCP",
                 "pages": [
@@ -855,7 +852,6 @@
               }
             ]
           },
-
           {
             "group": "Concepts",
             "pages": [
@@ -899,7 +895,8 @@
                     "group": "Dependencies",
                     "pages": [
                       "examples/concepts/agent/dependencies/add_dependencies_run",
-                      "examples/concepts/agent/dependencies/add_dependencies_to_context"
+                      "examples/concepts/agent/dependencies/add_dependencies_to_context",
+                      "examples/concepts/agent/dependencies/access_dependencies_in_tool"
                     ]
                   },
                   {
@@ -1063,7 +1060,8 @@
                     "pages": [
                       "examples/concepts/teams/dependencies/add_dependencies_run",
                       "examples/concepts/teams/dependencies/add_dependencies_to_context",
-                      "examples/concepts/teams/dependencies/reference_dependencies"
+                      "examples/concepts/teams/dependencies/reference_dependencies",
+                      "examples/concepts/teams/dependencies/access_dependencies_in_tool"
                     ]
                   },
                   {
@@ -1744,9 +1742,7 @@
                   },
                   {
                     "group": "File Generation",
-                    "pages": [
-                      "examples/concepts/tools/file-generation"
-                    ]
+                    "pages": ["examples/concepts/tools/file-generation"]
                   },
                   {
                     "group": "Native Model Toolkit",
@@ -2544,6 +2540,42 @@
                   "examples/models/vllm/async_tool_use"
                 ]
               }
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Deploy",
+        "groups": [
+          {
+            "group": "Deploying your AgentOS",
+            "pages": ["deploy/introduction"]
+          },
+          {
+            "group": "Templates",
+            "pages": [
+              "templates/agent-infra-docker/introduction",
+              "templates/agent-infra-aws/introduction"
+            ]
+          },
+          {
+            "group": "Template Management",
+            "pages": [
+              "templates/infra-management/introduction",
+              "templates/infra-management/development-app",
+              "templates/infra-management/production-app",
+              "templates/infra-management/install",
+              "templates/infra-management/python-packages",
+              "templates/infra-management/secrets",
+              "templates/infra-management/env-vars",
+              "templates/infra-management/database-tables",
+              "templates/infra-management/ci-cd",
+              "templates/infra-management/domain-https",
+              "templates/infra-management/ssh-access",
+              "templates/infra-management/infra-settings",
+              "templates/infra-management/git-repo",
+              "templates/infra-management/new-users",
+              "templates/infra-management/format-and-validate"
             ]
           }
         ]
