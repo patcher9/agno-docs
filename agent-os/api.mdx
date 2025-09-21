@@ -83,6 +83,7 @@ if __name__ == "__main__":
     agent_os.serve(app="dependencies_to_agent:app", reload=True)
 ```
 
+Then to test it, you can run the following command:
 
 ```bash
 curl --location 'http://localhost:7777/agents/story-writer-agent/runs' \
@@ -90,3 +91,17 @@ curl --location 'http://localhost:7777/agents/story-writer-agent/runs' \
     --data-urlencode 'message=Write me a 5 line story.' \
     --data-urlencode 'dependencies={"robot_name": "Anna"}'
 ```
+
+### Cancelling a Run
+
+You can cancel a running agent, team or workflow by using the appropriate endpoint.
+
+For example, to cancel an agent run:
+
+```bash
+curl --location 'http://localhost:7777/agents/story-writer-agent/runs/123/cancel'
+```
+
+- [Agent API reference](/reference-api/schema/agents/cancel-agent-run)
+- [Team API reference](/reference-api/schema/teams/cancel-team-run)
+- [Workflow API reference](/reference-api/schema/workflows/cancel-workflow-run)

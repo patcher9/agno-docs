@@ -3,10 +3,9 @@ title: Cancelling a Run
 description: Learn how to cancel an Agent run.
 ---
 
+You can cancel a running agent by using the `agent.cancel_run()` function on the agent.
 
-You can cancel a run by using the `cancel_run` function on the Agent.
-
-Below is a basic example that starts an agent run in a thread and cancels it from another thread, simulating how it can be done via an API. This is supported via [AgentOS](/agent-os/introduction) as well.
+Below is a basic example that starts an agent run in a thread and cancels it from another thread, simulating how it can be done via an API. This is supported via [AgentOS](/agent-os/api#cancelling-a-run) as well.
 
 ```python
 import threading

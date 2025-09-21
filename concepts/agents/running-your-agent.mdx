@@ -1,16 +1,14 @@
 ---
 title: Running Agents
+sidebarTitle: Running Your Agent
 description: Learn how to run an agent and get the response.
 ---
 
 The `Agent.run()` function runs the agent and generates a response, either as a `RunOutput` object or a stream of `RunOutputEvent` objects.
 
-<Note>
-  Many of our examples use `agent.print_response()` which is a helper utility to
-  print the response in the terminal. It uses `agent.run()` under the hood.
-</Note>
-
 ## Running Agents
+
+### Basic Execution
 
 Here's how to run your agent. The response is captured in the `response`.
 
@@ -33,28 +31,33 @@ You can also run the agent asynchronously using the `Agent.arun()` method.
 See the [Async Agent](/examples/concepts/agent/async/basic) example.
 </Tip>
 
-### Print Response
+### Run Input
 
-For development purposes, you can also print the response in the terminal using the `Agent.print_response()` method.
+The `input` parameter is the input to send to the agent. It can be a string, a list, a dictionary, a message, a pydantic model or a list of messages.
+
+For example:
 
 ```python
-agent.print_response("Tell me a 5 second short story about a robot")
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.utils.pprint import pprint_run_response
 
-# Or for streaming
-agent.print_response("Tell me a 5 second short story about a robot", stream=True)
+agent = Agent(
+    model=OpenAIChat(id="gpt-5-mini"),
+    description="You write movie scripts.",
+)
+
+response = agent.run("Write movie script about a girl living in New York")
+pprint_run_response(response, markdown=True)
 ```
 
-<Note>
-The `Agent.print_response()` method is a helper method that uses the `Agent.run()` method under the hood. 
-This is only for convenience during development and not recommended for production use.
+<Tip>
+The `pprint_run_response` utility is a helper function that prints the response on your terminal.
+</Tip>
 
-See the [Agent class reference](/reference/agents/agent) for more details.
-</Note>
+For more information, and to see how to use structured input and output with agents, see the [Input & Output](/concepts/agents/input-output) documentation.
 
-
-For information about using structured input and output with agents, including typesafe patterns, see the [Input and Output](/concepts/agents/input-output) documentation.
-
-### RunOutput
+### Run Output
 
 The `Agent.run()` function returns a `RunOutput` object when not streaming. Here are some of the core attributes:
 
@@ -260,15 +263,45 @@ async def get_customer_profile():
 
 See the [full example](/examples/concepts/agent/events/custom_events) for more details.
 
-## Interactive CLI 
+## Options When Running an Agent
 
-You can also interact with the agent via a CLI.
+### Specify the User and Session
+
+You can specify which user and session to use when running the agent by passing the `user_id` and `session_id` parameters.  This ensures the current run is associated with the correct user and session.
+
+For example:
 
 ```python
-agent.cli_app(input="Tell me a 5 second short story about a robot", stream=True)
+agent.run("Tell me a 5 second short story about a robot", user_id="john@example.com", session_id="session_123")
 ```
 
-See the [Agent class reference](/reference/agents/agent) for more details.
+For more information see the [Agent Sessions](/concepts/agents/sessions) documentation.
+
+
+### Passing Images / Audio / Video / Files
+
+You can pass images, audio, video, or files to the agent by passing the `images`, `audio`, `video`, or `files` parameters.
+
+For example:
+
+```python
+agent.run("Tell me a 5 second short story about this image", images=[Image(url="https://example.com/image.jpg")])
+```
+
+For more information see the [Multimodal Agents](/concepts/multimodal) documentation.
+
+### Pausing and Continuing a Run
+
+An agent run can be paused when a human-in-the-loop flow is initiated. You can then continue the execution of the agent by calling the `Agent.continue_run()` method.
+
+See more details in the [Human-in-the-Loop](/concepts/agents/human-in-the-loop) documentation.
+
+### Cancelling a Run
+
+A run can be cancelled by calling the `Agent.cancel_run()` method.
+
+See more details in the [Cancelling a Run](/concepts/agents/run-cancel) documentation.
+
 
 ## Agno Telemetry
 

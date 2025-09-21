@@ -79,7 +79,8 @@
                 "group": "Agents",
                 "pages": [
                   "concepts/agents/introduction",
-                  "concepts/agents/run",
+                  "concepts/agents/building-your-agent",
+                  "concepts/agents/running-your-agent",
                   "concepts/agents/sessions",
                   "concepts/agents/input-output",
                   "concepts/agents/context",
@@ -89,6 +90,7 @@
                   "concepts/agents/memory",
                   "concepts/agents/knowledge",
                   "concepts/agents/tools",
+                  "concepts/agents/multimodal",
                   "concepts/agents/metrics",
                   "concepts/agents/run-cancel",
                   "concepts/agents/custom-logger"

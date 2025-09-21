@@ -208,14 +208,16 @@ Run the agent and print the response.
 - `stream` (Optional[bool]): Whether to stream the response
 - `stream_intermediate_steps` (Optional[bool]): Whether to stream intermediate steps
 - `markdown` (Optional[bool]): Whether to format output as markdown
-- `show_message` (bool): Whether to show the message
-- `show_reasoning` (bool): Whether to show reasoning
-- `show_full_reasoning` (bool): Whether to show full reasoning
+- `show_message` (bool): Whether to show the input message
+- `show_reasoning` (bool): Whether to show reasoning steps
+- `show_full_reasoning` (bool): Whether to show full reasoning information
 - `console` (Optional[Any]): Console to use for output
 - `tags_to_include_in_markdown` (Optional[Set[str]]): Tags to include in markdown content
 - `knowledge_filters` (Optional[Dict[str, Any]]): Knowledge filters to apply
 - `add_history_to_context` (Optional[bool]): Whether to add history to context
 - `dependencies` (Optional[Dict[str, Any]]): Dependencies to use for this run
+- `add_dependencies_to_context` (Optional[bool]): Whether to add dependencies to context
+- `add_session_state_to_context` (Optional[bool]): Whether to add session state to context
 - `metadata` (Optional[Dict[str, Any]]): Metadata to use for this run
 - `debug_mode` (Optional[bool]): Whether to enable debug mode
 
@@ -243,6 +245,8 @@ Run the agent and print the response asynchronously.
 - `tags_to_include_in_markdown` (Optional[Set[str]]): Tags to include in markdown content
 - `knowledge_filters` (Optional[Dict[str, Any]]): Knowledge filters to apply
 - `add_history_to_context` (Optional[bool]): Whether to add history to context
+- `add_dependencies_to_context` (Optional[bool]): Whether to add dependencies to context
+- `add_session_state_to_context` (Optional[bool]): Whether to add session state to context
 - `dependencies` (Optional[Dict[str, Any]]): Dependencies to use for this run
 - `metadata` (Optional[Dict[str, Any]]): Metadata to use for this run
 - `debug_mode` (Optional[bool]): Whether to enable debug mode
