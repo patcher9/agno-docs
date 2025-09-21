@@ -536,7 +536,8 @@
                     "pages": ["integrations/testing/scenario-testing"]
                   }
                 ]
-              }
+              },
+              "concepts/telemetry"
             ]
           },
           {
