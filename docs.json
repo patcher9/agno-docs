@@ -2586,6 +2586,7 @@
                 "group": "Workflows",
                 "pages": [
                   "reference/workflows/workflow",
+                  "reference/workflows/step",
                   "reference/workflows/workflow_run_output",
                   "reference/workflows/step_input",
                   "reference/workflows/step_output",
