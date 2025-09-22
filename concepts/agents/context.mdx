@@ -111,6 +111,40 @@ The Agent creates a default system message that can be customized using the foll
 
 See the full [Agent reference](/reference/agents/agent) for more information.
 
+### How the system message is built
+
+Lets take the following example agent:
+
+```python
+
+from agno.agent import Agent
+
+agent = Agent(
+    name="Helpful Assistant",
+    description="You are a helpful assistant",
+    instructions=["Help the user with their question"],
+    additional_context="You have access to the following tools: [tool1, tool2, tool3]",
+    expected_output="You should return a string",
+    markdown=True,
+    add_datetime_to_context=True,
+    add_location_to_context=True,
+    add_name_to_context=True,
+    add_session_summary_to_context=True,
+    add_memories_to_context=True,
+    add_dependencies_to_context=True,
+    add_session_state_to_context=True,
+    add_knowledge_to_context=True,
+)
+```
+
+Below is the system message that will be built:
+```
+<instructions>
+  Help the user with their question
+</instructions>
+```
+
+
 ### Set the system message directly
 
 You can manually set the system message using the `system_message` parameter. This will ignore all other settings and use the system message you provide.
