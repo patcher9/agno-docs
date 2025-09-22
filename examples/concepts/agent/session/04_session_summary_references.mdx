@@ -74,16 +74,26 @@ agent.print_response("I also like to play basketball.")
     cookbook/scripts/run_pgvector.sh
     ```
   </Step>
+  <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch 04_session_summary_references.py
+    ```
+  </Step>
 
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/session/04_session_summary_references.py
+    python 04_session_summary_references.py
     ```
     
     ```bash Windows
-    python cookbook/agents/session/04_session_summary_references.py
+    python 04_session_summary_references.py
     ```
     </CodeGroup>
   </Step>
+
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

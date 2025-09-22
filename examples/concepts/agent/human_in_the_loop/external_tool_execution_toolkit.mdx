@@ -80,15 +80,26 @@ if run_response.is_paused:
     ```
   </Step>
 
+  <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch external_tool_execution_toolkit.py
+    ```
+  </Step>
+
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/human_in_the_loop/external_tool_execution_toolkit.py
+    python external_tool_execution_toolkit.py
     ```
     
     ```bash Windows  
-    python cookbook/agents/human_in_the_loop/external_tool_execution_toolkit.py
+    python external_tool_execution_toolkit.py
     ```
     </CodeGroup>
   </Step>
+
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

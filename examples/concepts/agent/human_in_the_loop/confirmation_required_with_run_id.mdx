@@ -111,15 +111,26 @@ pprint.pprint_run_response(run_response)
     ```
   </Step>
 
+  <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch confirmation_required_with_run_id.py
+    ```
+  </Step>
+
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/human_in_the_loop/confirmation_required_with_run_id.py
+    python confirmation_required_with_run_id.py
     ```
     
     ```bash Windows  
-    python cookbook/agents/human_in_the_loop/confirmation_required_with_run_id.py
+    python confirmation_required_with_run_id.py
     ```
     </CodeGroup>
   </Step>
+
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

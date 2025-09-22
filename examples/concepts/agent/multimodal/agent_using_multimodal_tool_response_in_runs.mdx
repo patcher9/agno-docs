@@ -35,11 +35,18 @@ agent.print_response(
   <Snippet file="create-venv-step.mdx" />
 
   <Step title="Install libraries">
-
     ```bash
     pip install -U openai agno
     ```
+  </Step>
 
+  <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch agent_using_multimodal_tool_response_in_runs.py
+    ```
   </Step>
 
   <Step title="Run Agent">
@@ -47,15 +54,16 @@ agent.print_response(
     <CodeGroup>
 
     ```bash Mac
-    python examples/concepts/agent/agents/multimodal/agent_using_multimodal_tool_response_in_runs.py
+    python agent_using_multimodal_tool_response_in_runs.py
     ```
 
     ```bash Windows
-    python examples/concepts/agent/agents/multimodal/agent_using_multimodal_tool_response_in_runs.py
+    python agent_using_multimodal_tool_response_in_runs.py
     ```
 
     </CodeGroup>
 
   </Step>
 
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

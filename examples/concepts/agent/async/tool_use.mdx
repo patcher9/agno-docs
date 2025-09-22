@@ -32,15 +32,26 @@ asyncio.run(agent.aprint_response("Whats happening in UK and in USA?"))
     ```
   </Step>
 
+  <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch tool_use.py
+    ```
+  </Step>
+
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/async/tool_use.py
+    python tool_use.py
     ```
     
     ```bash Windows
-    python cookbook/agents/async/tool_use.py
+    python tool_use.py
     ```
     </CodeGroup>
   </Step>
+
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

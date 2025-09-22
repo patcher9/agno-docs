@@ -105,15 +105,26 @@ for event in run_events:
     ```
   </Step>
 
+  <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch parser_model_stream.py
+    ```
+  </Step>
+
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/input_and_output/parser_model_stream.py
+    python parser_model_stream.py
     ```
     
     ```bash Windows  
-    python cookbook/agents/input_and_output/parser_model_stream.py
+    python parser_model_stream.py
     ```
     </CodeGroup>
   </Step>
+
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

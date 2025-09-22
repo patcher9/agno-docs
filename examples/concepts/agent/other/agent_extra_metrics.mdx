@@ -70,15 +70,26 @@ print(f"Cached tokens: {run_response.metrics.cache_read_tokens}")
     ```
   </Step>
 
+  <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch agent_extra_metrics.py
+    ```
+  </Step>
+
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/other/agent_extra_metrics.py
+    python agent_extra_metrics.py
     ```
     
     ```bash Windows  
-    python cookbook/agents/other/agent_extra_metrics.py
+    python agent_extra_metrics.py
     ```
     </CodeGroup>
   </Step>
+
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

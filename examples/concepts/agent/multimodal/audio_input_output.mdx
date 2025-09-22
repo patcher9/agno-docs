@@ -51,7 +51,15 @@ if run_response.response_audio is not None:
     ```bash
     pip install -U openai agno requests
     ```
+  </Step>
 
+  <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch audio_input_output.py
+    ```
   </Step>
 
   <Step title="Run Agent">
@@ -59,15 +67,16 @@ if run_response.response_audio is not None:
     <CodeGroup>
 
     ```bash Mac
-    python examples/concepts/agent/agents/multimodal/audio_input_output.py
+    python audio_input_output.py
     ```
 
     ```bash Windows
-    python examples/concepts/agent/agents/multimodal/audio_input_output.py
+    python audio_input_output.py
     ```
 
     </CodeGroup>
 
   </Step>
 
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

@@ -145,16 +145,26 @@ print(f"Final shopping lists: \n{json.dumps(shopping_list, indent=2)}")
     pip install -U agno openai
     ```
   </Step>
+  <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch session_state_multiple_users.py
+    ```
+  </Step>
 
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/state/session_state_multiple_users.py
+    python session_state_multiple_users.py
     ```
     
     ```bash Windows
-    python cookbook/agents/state/session_state_multiple_users.py
+    python session_state_multiple_users.py
     ```
     </CodeGroup>
   </Step>
+
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

@@ -88,16 +88,25 @@ class VegetarianRecipeAgent:
     pip install -U agno openai scenario pytest
     ```
   </Step>
+    <Snippet file="export-openai-api.mdx" />
 
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch scenario_testing.py
+    ```
+  </Step>
   <Step title="Run Test">
     <CodeGroup>
     ```bash Mac
-    pytest cookbook/agents/other/scenario_testing.py -v
+    pytest scenario_testing.py -v
     ```
     
     ```bash Windows  
-    pytest cookbook/agents/other/scenario_testing.py -v
+    pytest scenario_testing.py -v
     ```
     </CodeGroup>
   </Step>
+
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

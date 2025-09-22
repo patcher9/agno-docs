@@ -30,27 +30,30 @@ if response.images:
   <Snippet file="create-venv-step.mdx" />
 
   <Step title="Install libraries">
-
     ```bash
     pip install -U openai agno
     ```
+  </Step>
 
+  <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch agent_same_run_image_analysis.py
+    ```
   </Step>
 
   <Step title="Run Agent">
-
     <CodeGroup>
-
     ```bash Mac
-    python cookbook/agents/multimodal/agent_same_run_image_analysis.py
+    python agent_same_run_image_analysis.py
     ```
-
     ```bash Windows
-    python cookbook/agents/multimodal/agent_same_run_image_analysis.py
+    python agent_same_run_image_analysis.py
     ```
-
     </CodeGroup>
-
   </Step>
 
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

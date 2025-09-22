@@ -47,16 +47,26 @@ for chunk in run_stream:
     pip install -U agno openai rich
     ```
   </Step>
+  <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch generate_image_with_intermediate_steps.py
+    ```
+  </Step>
 
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/multimodal/generate_image_with_intermediate_steps.py
+    python generate_image_with_intermediate_steps.py
     ```
     
     ```bash Windows
-    python cookbook/agents/multimodal/generate_image_with_intermediate_steps.py
+    python generate_image_with_intermediate_steps.py
     ```
     </CodeGroup>
   </Step>
+
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

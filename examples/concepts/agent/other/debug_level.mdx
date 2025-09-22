@@ -53,16 +53,26 @@ agent.print_response("What is the current price of Apple?")
     pip install -U agno anthropic ddgs
     ```
   </Step>
+  <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch debug_level.py
+    ```
+  </Step>
 
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/other/debug_level.py
+    python debug_level.py
     ```
     
     ```bash Windows  
-    python cookbook/agents/other/debug_level.py
+    python debug_level.py
     ```
     </CodeGroup>
   </Step>
+
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

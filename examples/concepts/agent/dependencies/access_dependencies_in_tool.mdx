@@ -109,15 +109,26 @@ print(f"\nAgent Response: {response.content}")
     ```
   </Step>
 
+  <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch access_dependencies_in_tool.py
+    ```
+  </Step>
+
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/dependencies/access_dependencies_in_tool.py
+    python access_dependencies_in_tool.py
     ```
     
     ```bash Windows
-    python cookbook/agents/dependencies/access_dependencies_in_tool.py
+    python access_dependencies_in_tool.py
     ```
     </CodeGroup>
   </Step>
+
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

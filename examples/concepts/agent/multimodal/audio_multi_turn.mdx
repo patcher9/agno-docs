@@ -53,20 +53,30 @@ if run_response.response_audio is not None:
 
   </Step>
 
+  <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch audio_multi_turn.py
+    ```
+  </Step>
+
   <Step title="Run Agent">
 
     <CodeGroup>
 
     ```bash Mac
-    python examples/concepts/agent/agents/multimodal/audio_multi_turn.py
+    python audio_multi_turn.py
     ```
 
     ```bash Windows
-    python examples/concepts/agent/agents/multimodal/audio_multi_turn.py
+    python audio_multi_turn.py
     ```
 
     </CodeGroup>
 
   </Step>
 
+    <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

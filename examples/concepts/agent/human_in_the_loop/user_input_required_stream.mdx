@@ -90,15 +90,26 @@ for run_event in agent.run(
     ```
   </Step>
 
+  <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch user_input_required_stream.py
+    ```
+  </Step>
+
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/human_in_the_loop/user_input_required_stream.py
+    python user_input_required_stream.py
     ```
     
     ```bash Windows  
-    python cookbook/agents/human_in_the_loop/user_input_required_stream.py
+    python user_input_required_stream.py
     ```
     </CodeGroup>
   </Step>
+
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

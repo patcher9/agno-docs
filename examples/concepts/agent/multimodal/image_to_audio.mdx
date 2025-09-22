@@ -57,16 +57,26 @@ if audio_story.response_audio is not None:
     pip install -U agno rich
     ```
   </Step>
+  <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch image_to_audio.py
+    ```
+  </Step>
 
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/multimodal/image_to_audio.py
+    python image_to_audio.py
     ```
     
     ```bash Windows  
-    python cookbook/agents/multimodal/image_to_audio.py
+    python image_to_audio.py
     ```
     </CodeGroup>
   </Step>
+
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

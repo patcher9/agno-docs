@@ -53,16 +53,26 @@ for event in response:
     pip install -U agno openai pydantic rich
     ```
   </Step>
+    <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch image_to_structured_output.py
+    ```
+  </Step>
 
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/multimodal/image_to_structured_output.py
+    python image_to_structured_output.py
     ```
     
     ```bash Windows
-    python cookbook/agents/multimodal/image_to_structured_output.py
+    python image_to_structured_output.py
     ```
     </CodeGroup>
   </Step>
+
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

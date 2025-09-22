@@ -33,15 +33,26 @@ agent.print_response("What is my name?", stream=True)
     ```
   </Step>
 
+  <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch session_state_in_instructions.py
+    ```
+  </Step>
+
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/state/session_state_in_instructions.py
+    python session_state_in_instructions.py
     ```
     
     ```bash Windows  
-    python cookbook/agents/state/session_state_in_instructions.py
+    python session_state_in_instructions.py
     ```
     </CodeGroup>
   </Step>
+
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

@@ -72,15 +72,26 @@ asyncio.run(json_mode_agent.aprint_response("New York"))
     ```
   </Step>
 
+  <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch structured_output.py
+    ```
+  </Step>
+
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/async/structured_output.py
+    python structured_output.py
     ```
     
     ```bash Windows
-    python cookbook/agents/async/structured_output.py
+    python structured_output.py
     ```
     </CodeGroup>
   </Step>
+
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

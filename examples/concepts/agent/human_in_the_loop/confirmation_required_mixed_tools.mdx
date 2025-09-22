@@ -118,16 +118,26 @@ if run_response.is_paused:
     pip install -U agno openai httpx rich
     ```
   </Step>
+  <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch confirmation_required_mixed_tools.py
+    ```
+  </Step>
 
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/human_in_the_loop/confirmation_required_mixed_tools.py
+    python confirmation_required_mixed_tools.py
     ```
     
     ```bash Windows  
-    python cookbook/agents/human_in_the_loop/confirmation_required_mixed_tools.py
+    python confirmation_required_mixed_tools.py
     ```
     </CodeGroup>
   </Step>
+
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

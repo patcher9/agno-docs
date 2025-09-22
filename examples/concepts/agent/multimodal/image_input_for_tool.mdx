@@ -127,11 +127,7 @@ if __name__ == "__main__":
 <Steps>
   <Snippet file="create-venv-step.mdx" />
 
-  <Step title="Set your API key">
-    ```bash
-    export OPENAI_API_KEY=xxx
-    ```
-  </Step>
+  <Snippet file="export-openai-api.mdx" />
 
   <Step title="Set up PostgreSQL">
     ```bash
@@ -152,15 +148,25 @@ if __name__ == "__main__":
     ```
   </Step>
 
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch image_input_for_tool.py
+    ```
+  </Step>
+
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/multimodal/image_input_for_tool.py
+    python image_input_for_tool.py
     ```
     
     ```bash Windows
-    python cookbook/agents/multimodal/image_input_for_tool.py
+    python image_input_for_tool.py
     ```
     </CodeGroup>
   </Step>
+
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

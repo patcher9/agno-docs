@@ -47,15 +47,26 @@ asyncio.run(agent.aprint_response("What is the average rating of movies?"))
     ```
   </Step>
 
+  <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch data_analyst.py
+    ```
+  </Step>
+
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/async/data_analyst.py
+    python data_analyst.py
     ```
     
     ```bash Windows
-    python cookbook/agents/async/data_analyst.py
+    python data_analyst.py
     ```
     </CodeGroup>
   </Step>
+
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

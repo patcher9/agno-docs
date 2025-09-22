@@ -39,15 +39,26 @@ Agent(model=OpenAIChat(id="gpt-5-mini")).print_response(
     ```
   </Step>
 
+  <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch input_as_dict.py
+    ```
+  </Step>
+
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/input_and_output/input_as_dict.py
+    python input_as_dict.py
     ```
     
     ```bash Windows
-    python cookbook/agents/input_and_output/input_as_dict.py
+    python input_as_dict.py
     ```
     </CodeGroup>
   </Step>
+
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

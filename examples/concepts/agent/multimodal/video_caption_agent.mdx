@@ -56,16 +56,26 @@ video_caption_agent.print_response(
     pip install -U agno openai moviepy ffmpeg
     ```
   </Step>
+  <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch video_caption_agent.py
+    ```
+  </Step>
 
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/multimodal/video_caption_agent.py
+    python video_caption_agent.py
     ```
     
     ```bash Windows
-    python cookbook/agents/multimodal/video_caption_agent.py
+    python video_caption_agent.py
     ```
     </CodeGroup>
   </Step>
+
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

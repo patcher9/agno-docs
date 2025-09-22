@@ -73,15 +73,26 @@ if run_response.is_paused:  # Or agent.run_response.is_paused
     ```
   </Step>
 
+  <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch confirmation_required_toolkit.py
+    ```
+  </Step>
+
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/human_in_the_loop/confirmation_required_toolkit.py
+    python confirmation_required_toolkit.py
     ```
     
     ```bash Windows  
-    python cookbook/agents/human_in_the_loop/confirmation_required_toolkit.py
+    python confirmation_required_toolkit.py
     ```
     </CodeGroup>
   </Step>
+
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>

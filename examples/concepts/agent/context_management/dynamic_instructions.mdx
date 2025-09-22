@@ -31,15 +31,25 @@ agent.print_response("Write a 2 sentence story", user_id="john.doe")
     ```
   </Step>
 
+  <Snippet file="export-openai-api.mdx" />
+
+  <Step title="Create a Python file">
+    Create a Python file and add the above code.
+    ```bash
+    touch dynamic_instructions.py
+    ```
+  </Step>
+
   <Step title="Run Agent">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/context_management/dynamic_instructions.py
+    python dynamic_instructions.py
     ```
     
     ```bash Windows
-    python cookbook/agents/context_management/dynamic_instructions.py
+    python dynamic_instructions.py
     ```
     </CodeGroup>
   </Step>
+  <Snippet file="find-all-cookbooks.mdx" />
 </Steps>
