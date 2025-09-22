@@ -134,6 +134,20 @@
                   },
                   "concepts/workflows/run_workflow",
                   "concepts/workflows/workflow_session_state",
+                  {
+                    "group": "Advanced",
+                    "pages": [
+                      "concepts/workflows/advanced/workflow-tools",
+                      "concepts/workflows/advanced/custom-functions",
+                      "concepts/workflows/advanced/background-execution",
+                      "concepts/workflows/advanced/cancel-workflow",
+                      "concepts/workflows/advanced/early-stop",
+                      "concepts/workflows/advanced/access-previous-steps",
+                      "concepts/workflows/advanced/store-events",
+                      "concepts/workflows/advanced/additional-data",
+                      "concepts/workflows/advanced/input-and-output"
+                    ]
+                  },
                   "concepts/workflows/advanced"
                 ]
               },
