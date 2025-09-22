@@ -8,7 +8,17 @@ This also changes the name of a step when accessing that step's output inside a 
 
 #### Parameters
 
-<Snippet file="step-reference.mdx" />
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `name` | `Optional[str]` | `None` | Name of the step for identification |
+| `agent` | `Optional[Agent]` | `None` | Agent to execute for this step |
+| `team` | `Optional[Team]` | `None` | Team to execute for this step |
+| `executor` | `Optional[StepExecutor]` | `None` | Custom function to execute for this step |
+| `step_id` | `Optional[str]` | `None` | Unique identifier for the step (auto-generated if not provided) |
+| `description` | `Optional[str]` | `None` | Description of the step's purpose |
+| `max_retries` | `int` | `3` | Maximum number of retry attempts on failure |
+| `timeout_seconds` | `Optional[int]` | `None` | Timeout for step execution in seconds |
+| `skip_on_failure` | `bool` | `False` | Whether to skip this step if it fails after all retries |
 
 ## Example
 
