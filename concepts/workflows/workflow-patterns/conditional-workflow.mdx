@@ -18,16 +18,7 @@ Conditional workflows provide predictable branching logic while maintaining dete
   alt="Workflows condition steps diagram"
 />
 
-#### Parameters
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `evaluator` | `Union[Callable[[StepInput], bool], Callable[[StepInput], Awaitable[bool]], bool]` | Required | Function or boolean to evaluate the condition |
-| `steps` | `WorkflowSteps` | Required | Steps to execute if the condition is met |
-| `name` | `Optional[str]` | `None` | Name of the condition step |
-| `description` | `Optional[str]` | `None` | Description of the condition step |
-
-#### Example
+## Example
 
 ```python conditional_workflow.py
 from agno.workflow import Condition, Step, Workflow
@@ -51,7 +42,11 @@ workflow = Workflow(
 workflow.print_response("Comprehensive analysis of AI and machine learning trends", markdown=True)
 ```
 
-**More Examples**:
+## Developer Resources:
 
 - [Condition Steps Workflow](/examples/concepts/workflows/02-workflows-conditional-execution/condition_steps_workflow_stream)
 - [Condition with List of Steps](/examples/concepts/workflows/02-workflows-conditional-execution/condition_with_list_of_steps)
+
+## Reference
+
+For complete API documentation, see [Condition Steps Reference](/reference/workflows/conditional-steps).

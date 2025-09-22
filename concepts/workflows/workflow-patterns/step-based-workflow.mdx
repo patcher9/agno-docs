@@ -6,20 +6,6 @@ description: Named steps for better logging and support on the AgentOS chat page
 **You can name your steps** for better logging and future support on the Agno platform.
 This also changes the name of a step when accessing that step's output inside a `StepInput` object.
 
-#### Parameters
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `name` | `Optional[str]` | `None` | Name of the step for identification |
-| `agent` | `Optional[Agent]` | `None` | Agent to execute for this step |
-| `team` | `Optional[Team]` | `None` | Team to execute for this step |
-| `executor` | `Optional[StepExecutor]` | `None` | Custom function to execute for this step |
-| `step_id` | `Optional[str]` | `None` | Unique identifier for the step (auto-generated if not provided) |
-| `description` | `Optional[str]` | `None` | Description of the step's purpose |
-| `max_retries` | `int` | `3` | Maximum number of retry attempts on failure |
-| `timeout_seconds` | `Optional[int]` | `None` | Timeout for step execution in seconds |
-| `skip_on_failure` | `bool` | `False` | Whether to skip this step if it fails after all retries |
-
 ## Example
 
 ```python
@@ -45,3 +31,7 @@ workflow.print_response(
 
 - [Sequence of Steps](/examples/concepts/workflows/01-basic-workflows/sequence_of_steps)
 - [Step with a Custom Function](/examples/concepts/workflows/01-basic-workflows/step_with_function)
+
+## Reference
+
+For complete API documentation, see [Step Reference](/reference/workflows/step).

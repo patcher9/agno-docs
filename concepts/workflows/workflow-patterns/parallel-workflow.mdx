@@ -18,15 +18,7 @@ Parallel workflows maintain deterministic results while dramatically reducing ex
   alt="Workflows parallel steps diagram"
 />
 
-#### Parameters
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `*steps` | `*WorkflowSteps` | Required | Variable number of steps to execute in parallel |
-| `name` | `Optional[str]` | `None` | Name of the parallel execution block |
-| `description` | `Optional[str]` | `None` | Description of the parallel execution |
-
-#### Example
+## Example
 
 ```python parallel_workflow.py
 from agno.workflow import Parallel, Step, Workflow
@@ -47,6 +39,10 @@ workflow = Workflow(
 workflow.print_response("Write about the latest AI developments", markdown=True)
 ```
 
-**More Examples**:
+## Developer Resources:
 
 - [Parallel Steps Workflow](/examples/concepts/workflows/04-workflows-parallel-execution/parallel_steps_workflow)
+
+## Reference
+
+For complete API documentation, see [Parallel Steps Reference](/reference/workflows/parallel-steps).

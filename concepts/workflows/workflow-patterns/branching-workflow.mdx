@@ -18,16 +18,7 @@ Dynamic routing workflows provide intelligent path selection while maintaining p
   alt="Workflows router steps diagram"
 />
 
-#### Parameters
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `selector` | `Union[Callable[[StepInput], Union[WorkflowSteps, List[WorkflowSteps]]], Callable[[StepInput], Awaitable[Union[WorkflowSteps, List[WorkflowSteps]]]]]` | Required | Function to select steps dynamically (supports both sync and async functions) |
-| `choices` | `WorkflowSteps` | Required | Available steps for selection |
-| `name` | `Optional[str]` | `None` | Name of the router step |
-| `description` | `Optional[str]` | `None` | Description of the router step |
-
-#### Example
+## Example
 
 ```python branching_workflow.py
 from agno.workflow import Router, Step, Workflow
@@ -57,6 +48,10 @@ workflow = Workflow(
 workflow.print_response("Latest developments in artificial intelligence and machine learning", markdown=True)
 ```
 
-**More Examples**:
+## Developer Resources:
 
 - [Router Steps Workflow](/examples/concepts/workflows/05_workflows_conditional_branching/router_steps_workflow)
+
+## Reference
+
+For complete API documentation, see [Router Steps Reference](/reference/workflows/router-steps).

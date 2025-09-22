@@ -18,17 +18,7 @@ Iterative workflows provide controlled repetition with deterministic exit condit
   alt="Workflows loop steps diagram"
 />
 
-#### Parameters
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `steps` | `WorkflowSteps` | Required | Steps to execute in each loop iteration |
-| `name` | `Optional[str]` | `None` | Name of the loop step |
-| `description` | `Optional[str]` | `None` | Description of the loop step |
-| `max_iterations` | `int` | `3` | Maximum number of iterations for the loop |
-| `end_condition` | `Optional[Union[Callable[[List[StepOutput]], bool], Callable[[List[StepOutput]], Awaitable[bool]]]]` | `None` | Function to evaluate if the loop should end |
-
-#### Example
+## Example
 
 ```python iterative_workflow.py
 from agno.workflow import Loop, Step, Workflow
@@ -53,6 +43,10 @@ workflow = Workflow(
 workflow.print_response("Research the impact of renewable energy on global markets", markdown=True)
 ```
 
-**More Examples**:
+## Developer Resources:
 
 - [Loop Steps Workflow](/examples/concepts/workflows/03_workflows_loop_execution/loop_steps_workflow)
+
+## Reference
+
+For complete API documentation, see [Loop Steps Reference](/reference/workflows/loop-steps).

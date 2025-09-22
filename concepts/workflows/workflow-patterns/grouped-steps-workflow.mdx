@@ -7,15 +7,7 @@ description: Organize multiple steps into reusable, logical sequences for comple
 
 Grouped steps enable modular workflow architecture with reusable components and clear logical boundaries.
 
-#### Parameters
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `name` | `Optional[str]` | `None` | Name of the steps group for identification |
-| `description` | `Optional[str]` | `None` | Description of the steps group's purpose |
-| `steps` | `Optional[List[Any]]` | `[]` | List of steps to execute sequentially (empty list if not provided) |
-
-#### Basic Example
+## Basic Example
 
 ```python grouped_steps_workflow.py
 from agno.workflow import Steps, Step, Workflow
@@ -40,7 +32,7 @@ workflow = Workflow(
 workflow.print_response("Write an article about renewable energy", markdown=True)
 ```
 
-#### Steps with Router
+## Steps with Router
 
 This is where `Steps` really shines - creating distinct sequences for different content types or workflows:
 
@@ -99,8 +91,12 @@ media_workflow.print_response("Create an image of a magical forest", markdown=Tr
 media_workflow.print_response("Create a cinematic video of city timelapse", markdown=True)
 ```
 
-**More Examples**:
+## Developer Resources:
 
 - [`workflow_using_steps.py`](/examples/concepts/workflows/01-basic-workflows/workflow_using_steps)
 - [`workflow_using_steps_nested.py`](/examples/concepts/workflows/01-basic-workflows/workflow_using_steps_nested)
 - [`selector_for_image_video_generation_pipelines.py`](/examples/concepts/workflows/05_workflows_conditional_branching/selector_for_image_video_generation_pipelines)
+
+## Reference
+
+For complete API documentation, see [Steps Reference](/reference/workflows/steps-step).
