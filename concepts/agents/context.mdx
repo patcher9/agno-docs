@@ -54,7 +54,6 @@ You are a pilot on a plane flying from Hawaii to Japan.
 </additional_information>
 ```
 
-
 ### Additional Context
 
 You can add additional context to the end of the system message using the `additional_context` parameter.
@@ -105,6 +104,7 @@ The Agent creates a default system message that can be customized using the foll
 | `add_session_summary_to_context` | `bool`      | `False` | If True, add the session summary to the context. See [sessions](/concepts/agents/sessions) for more information.                                                           |
 | `add_memories_to_context`        | `bool`      | `False` | If True, add the user memories to the context. See [memory](/concepts/agents/memory) for more information.                                                                 |
 | `add_dependencies_to_context`    | `bool`      | `False` | If True, add the dependencies to the context. See [dependencies](/concepts/agents/dependencies) for more information.                                                      |
+| `add_session_state_to_context`   | `bool`      | `False` | If True, add the session state to the context. See [state](/concepts/agents/state) for more information.                                                                   |
 | `add_knowledge_to_context`       | `bool`      | `False` | If True, add retrieved knowledge to the context, to enable RAG. See [knowledge](/concepts/agents/knowledge) for more information.                                          |
 | `system_message`                 | `str`       | `None`  | Override the default system message.                                                                                                                                       |
 | `build_context`                  | `bool`      | `True`  | Optionally disable the building of the context.                                                                                                                            |
@@ -135,6 +135,22 @@ agent.print_response("Love in the year 12000.")
 The `input` sent to the `Agent.run()` or `Agent.print_response()` is used as the user message.
 
 See [dependencies](/concepts/agents/dependencies) for how to do dependency injection for your user message.
+
+## Context Caching
+
+Various model providers support caching of system and user messages. The implementation of caching differs between providers.
+
+Generally the approach is to cache repetitive content and common instructions and on subsequent requests to use cached content from the prefix for your system message.
+In other words, if the model supports it, you can reduce the number of tokens sent to the model by putting static content at the start of your system message.
+
+Agno's context construction is designed to put the most probable static content at the start of your system message.  
+If you wish to fine-tune this, the recommended approach is to manually set the system message.
+
+Some examples of prompt caching:
+- [OpenAI's prompt caching](https://platform.openai.com/docs/guides/prompt-caching)
+- [Anthropic prompt caching](https://docs.claude.com/en/docs/build-with-claude/prompt-caching) -> See an [Agno example](/examples/models/anthropic/prompt_caching) of this
+- [OpenRouter prompt caching](https://openrouter.ai/docs/features/prompt-caching)
+
 
 ## Chat history
 

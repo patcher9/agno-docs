@@ -38,6 +38,7 @@ agent.print_response("My name is John Doe and I like to play basketball on the w
 
 agent.print_response("What's do I do in weekends?")
 ```
+
 ## Memories and Context
 
 When using Memory with your Agents, memories about the current user will be added to the agent's context by default.
@@ -58,6 +59,50 @@ agent = Agent(
     add_memories_to_context=False, # This disables adding memories to the context
 )
 ```
+
+## Accessing Memories with tools
+
+You can give your Agents access to memories via `MemoryTools`.
+
+This is useful when you:
+- Want your agent to reason about memory operations and analyze the results
+- Want to have more control over the operations your agent can perform on the memories
+
+```python
+from agno.agent import Agent
+from agno.db.sqlite import SqliteDb
+from agno.models.openai import OpenAIChat
+from agno.tools.memory import MemoryTools
+
+# Create a database connection
+db = SqliteDb(
+    db_file="tmp/memory.db"
+)
+
+memory_tools = MemoryTools(
+    db=db,
+)
+
+agent = Agent(
+    model=OpenAIChat(id="gpt-5-mini"),
+    tools=[memory_tools],
+    markdown=True,
+)
+
+if __name__ == "__main__":
+    agent.print_response(
+        "My name is John Doe and I like to hike in the mountains on weekends. "
+        "I like to travel to new places and experience different cultures. "
+        "I am planning to travel to Africa in December. ",
+        user_id="john_doe@example.com",
+        stream=True
+    )
+
+    # This won't use the session history, but instead will use the memory tools to get the memories
+    agent.print_response("What have you remembered about me?", stream=True, user_id="john_doe@example.com")
+```
+
+See the [Memory Tools](/concepts/tools/reasoning_tools/memory-tools) documentation for more details.
 
 ## Sharing Memory Between Agents
 
@@ -82,4 +127,3 @@ agent_1.print_response("Hi! My name is John Doe")
 # The second Agent will be able to retrieve the Memory about the user name here:
 agent_2.print_response("What is my name?")
 ```
-

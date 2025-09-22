@@ -36,7 +36,7 @@ Some of the major changes are:
   - Removed `Playground`. Its functionality has been replaced by `AgentOS`.
   - Removed `AGUIApp` and replace with `AGUI` interface on `AgentOS`.
   - Removed `SlackApi` and replace with `Slack` interface on `AgentOS`.
-  - Removed `WhatsappApi` and replace with `Slack` interface on `AgentOS`.
+  - Removed `WhatsappApi` and replace with `Whatsapp` interface on `AgentOS`.
   - Removed `FastAPIApp`. Its functionality has been replaced by `AgentOS`.
   - `DiscordClient` has been moved to `/integrations/discord`.
 </Accordion>
@@ -86,6 +86,17 @@ Some of the major changes are:
     - `get_run` -> Get a specific run by ID.
     - `get_session_summary` -> Get the session summary.
     - `get_chat_history` -> Get an aggregated view of all messages for all runs in the session.
+</Accordion>
+
+<Accordion title="Updates to Metrics">
+  - `SessionMetrics` and `MessageMetrics` have been unified as a single `Metrics` class.
+  - `audio_tokens` has been renamed to `audio_total_tokens`.
+  - `input_audio_tokens` has been renamed to `audio_input_tokens`.
+  - `output_audio_tokens` has been renamed to `audio_output_tokens`.
+  - `cached_tokens` has been renamed to `cache_read_tokens`.
+  - `prompt_tokens` and `completion_tokens` have been removed (only `input_tokens` and `output_tokens` should be used)
+  - `prompt_tokens_details` and `completion_tokens_details` have been removed. Instead `provider_metrics` captures any provider-specific metrics.
+  - `time` has been renamed to `duration`.
 </Accordion>
 
 <Accordion title="Cancelling Runs">

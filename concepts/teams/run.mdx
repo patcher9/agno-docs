@@ -56,157 +56,12 @@ See the [Team class reference](/reference/teams/team) for more details.
 
 ### Typed inputs and outputs
 
-A team can be provided with typed input (i.e a pydantic model) by passing it in the `Team.run()` or `Team.print_response()` as the `input` parameter.
+Teams support the same typesafe input and output patterns as individual agents, allowing you to define structured data schemas for validation and consistent response formats.
 
-```python structured_input_team.py
-from typing import List
-
-from agno.agent import Agent
-from agno.models.openai import OpenAIChat
-from agno.team.team import Team
-from agno.tools.duckduckgo import DuckDuckGoTools
-from agno.tools.hackernews import HackerNewsTools
-from pydantic import BaseModel, Field
-
-
-class ResearchProject(BaseModel):
-    """Structured research project with validation requirements."""
-
-    project_name: str = Field(description="Name of the research project")
-    research_topics: List[str] = Field(
-        description="List of topics to research", min_items=1
-    )
-    target_audience: str = Field(description="Intended audience for the research")
-    depth_level: str = Field(
-        description="Research depth level", pattern="^(basic|intermediate|advanced)$"
-    )
-    max_sources: int = Field(
-        description="Maximum number of sources to use", ge=3, le=20, default=10
-    )
-    include_recent_only: bool = Field(
-        description="Whether to focus only on recent sources", default=True
-    )
-
-
-# Create research agents
-hackernews_agent = Agent(
-    name="HackerNews Researcher",
-    model=OpenAIChat(id="gpt-5-mini"),
-    tools=[HackerNewsTools()],
-    role="Research trending topics and discussions on HackerNews",
-    instructions=[
-        "Search for relevant discussions and articles",
-        "Focus on high-quality posts with good engagement",
-        "Extract key insights and technical details",
-    ],
-)
-
-web_researcher = Agent(
-    name="Web Researcher",
-    model=OpenAIChat(id="gpt-5-mini"),
-    tools=[DuckDuckGoTools()],
-    role="Conduct comprehensive web research",
-    instructions=[
-        "Search for authoritative sources and documentation",
-        "Find recent articles and blog posts",
-        "Gather diverse perspectives on the topics",
-    ],
-)
-
-# Create team with input_schema for automatic validation
-research_team = Team(
-    name="Research Team with Input Validation",
-    model=OpenAIChat(id="gpt-5-mini"),
-    members=[hackernews_agent, web_researcher],
-    instructions=[
-        "Conduct thorough research based on the validated input",
-        "Coordinate between team members to avoid duplicate work",
-        "Ensure research depth matches the specified level",
-        "Respect the maximum sources limit",
-        "Focus on recent sources if requested",
-    ],
-)
-
-research_request = ResearchProject(
-    project_name="Blockchain Development Tools",
-    research_topics=["Ethereum", "Solana", "Web3 Libraries"],
-    target_audience="Blockchain Developers",
-    depth_level="advanced",
-    max_sources=12,
-    include_recent_only=False,
-)
-
-research_team.print_response(input=research_request)
-```
+For comprehensive information about using Pydantic models for input validation and output schema definition, see the [Input and Output](/concepts/agents/input-output) documentation. All patterns shown there apply to teams as well.
 
 <Tip>
-You can set the `input_schema` on the team to validate the input. See more details in the [Input and Output](/concepts/teams/input-output) documentation.
-</Tip>
-
-In addition, you can set the `output_schema` on the team to specify typed output.
-
-```python structured_output_team.py
-from agno.agent import Agent
-from agno.models.openai import OpenAIChat
-from agno.team.team import Team
-from agno.tools.duckduckgo import DuckDuckGoTools
-from agno.tools.hackernews import HackerNewsTools
-from pydantic import BaseModel, Field
-
-
-# Create research agents
-hackernews_agent = Agent(
-    name="HackerNews Researcher",
-    model=OpenAIChat(id="gpt-5-mini"),
-    tools=[HackerNewsTools()],
-    role="Research trending topics and discussions on HackerNews",
-    instructions=[
-        "Search for relevant discussions and articles",
-        "Focus on high-quality posts with good engagement",
-        "Extract key insights and technical details",
-    ],
-)
-
-web_researcher = Agent(
-    name="Web Researcher",
-    model=OpenAIChat(id="gpt-5-mini"),
-    tools=[DuckDuckGoTools()],
-    role="Conduct comprehensive web research",
-    instructions=[
-        "Search for authoritative sources and documentation",
-        "Find recent articles and blog posts",
-        "Gather diverse perspectives on the topics",
-    ],
-)
-
-
-class ResearchReport(BaseModel):
-    """Structured research project with validation requirements."""
-
-    title: str = Field(description="Title of the research report")
-    subtitle: str = Field(description="Subtitle of the research report")
-    content: str = Field(description="Content of the research report")
-
-# Create team with input_schema for automatic validation
-research_team = Team(
-    name="Research Team with Input Validation",
-    model=OpenAIChat(id="gpt-5-mini"),
-    members=[hackernews_agent, web_researcher],
-    output_schema=ResearchReport,
-    instructions=[
-        "Conduct thorough research based on the validated input",
-        "Coordinate between team members to avoid duplicate work",
-        "Ensure research depth matches the specified level",
-        "Respect the maximum sources limit",
-        "Focus on recent sources if requested",
-    ],
-)
-
-research_team.print_response("Latest happening in the world of AI")
-```
-
-<Tip>
-See more details in the [Input and Output](/concepts/agents/input-output) documentation.
+You can set the `input_schema` on the team to validate the input and `output_schema` to ensure structured outputs. See more details in the [Input and Output](/concepts/teams/input-output) documentation.
 </Tip>
 
 
@@ -416,6 +271,20 @@ You can also interact with the team via a CLI.
 
 ```python
 team.cli_app(input="What is the weather in Tokyo?", stream=True)
+```
+
+See the [Team class reference](/reference/teams/team) for more details.
+
+## Agno Telemetry
+
+Agno logs which model an team used so we can prioritize updates to the most popular providers. You can disable this by setting `AGNO_TELEMETRY=false` in your environment or by setting `telemetry=False` on the team.
+
+```bash
+export AGNO_TELEMETRY=false
+```
+or:
+```python
+team = Team(model=OpenAIChat(id="gpt-5-mini"), members=[], telemetry=False)
 ```
 
 See the [Team class reference](/reference/teams/team) for more details.

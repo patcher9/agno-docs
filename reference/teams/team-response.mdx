@@ -29,6 +29,7 @@ The `TeamRunOutput` class represents the response from a team run, containing bo
 | `input` | `TeamRunInput` | `None` | Input media and messages from user |
 | `reasoning_content` | `str` | `None` | Any reasoning content the model produced |
 | `citations` | `Citations` | `None` | Any citations used in the response |
+| `model_provider_data` | `Any` | `None` | Model provider specific metadata|
 | `metadata` | `Dict[str, Any]` | `None` | Additional metadata for the run |
 | `references` | `List[MessageReferences]` | `None` | Message references |
 | `additional_input` | `List[Message]` | `None` | Additional input messages |
@@ -122,6 +123,7 @@ All events inherit from `BaseTeamRunEvent` which provides these common attribute
 | `content_type` | `str` | `"str"` | Type of the content |
 | `reasoning_content` | `Optional[str]` | `None` | Reasoning content produced |
 | `citations` | `Optional[Citations]` | `None` | Citations used in the response |
+| `model_provider_data` | `Optional[Any]` | `None` | Model provider specific metadata|
 | `response_audio` | `Optional[Audio]` | `None` | Model's audio response |
 | `image` | `Optional[Image]` | `None` | Image attached to the response |
 | `references` | `Optional[List[MessageReferences]]` | `None` | Message references |
@@ -138,6 +140,7 @@ All events inherit from `BaseTeamRunEvent` which provides these common attribute
 | `content_type` | `str` | `"str"` | Type of the content |
 | `reasoning_content` | `Optional[str]` | `None` | Reasoning content produced |
 | `citations` | `Optional[Citations]` | `None` | Citations used in the response |
+| `model_provider_data` | `Optional[Any]` | `None` | Model provider specific metadata|
 | `images` | `Optional[List[Image]]` | `None` | Images attached to the response |
 | `videos` | `Optional[List[Video]]` | `None` | Videos attached to the response |
 | `audio` | `Optional[List[Audio]]` | `None` | Audio snippets attached to the response |

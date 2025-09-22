@@ -8,8 +8,7 @@ description: Understanding knowledge and how to use it with Agno agents
 <Note>
 Agno has a generic knowledge solution that supports many forms of content.
 
-See more details on [the knowledge page](/concepts/knowledge/introduction).
-
+See more details in the [knowledge](/concepts/knowledge/introduction) documentation.
 </Note>
 
 The Agent can **search** this knowledge at runtime to make better decisions and provide more accurate responses. This **searching on demand** pattern is called Agentic RAG.
@@ -34,6 +33,7 @@ import asyncio
 
 from agno.agent import Agent
 from agno.db.postgres.postgres import PostgresDb
+from agno.knowledge.embedder.openai import OpenAIEmbedder
 from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector
 
@@ -48,7 +48,9 @@ knowledge = Knowledge(
     description="Agno 2.0 Knowledge Implementation",
     contents_db=db,
     vector_db=PgVector(
-        table_name="vectors", db_url="postgresql+psycopg://ai:ai@localhost:5532/ai"
+        table_name="vectors",
+        db_url="postgresql+psycopg://ai:ai@localhost:5532/ai",
+        embedder=OpenAIEmbedder(),
     ),
 )
 # Add from URL to the knowledge base
@@ -78,7 +80,7 @@ We can give our agent access to the knowledge base in the following ways:
 - We can set `search_knowledge=True` to add a `search_knowledge_base()` tool to the Agent. `search_knowledge` is `True` **by default** if you add `knowledge` to an Agent.
 - We can set `add_knowledge_to_context=True` to automatically add references from the knowledge base to the Agent's context, based in your user message. This is the traditional RAG approach.
 
-### Custom Retriever
+## Custom knowledge retrieval
 
 If you need complete control over the knowledge base search, you can pass your own `knowledge_retriever` function with the following signature:
 
@@ -106,11 +108,11 @@ This function is called during `search_knowledge_base()` and is used by the Agen
   the `knowledge_retriever` parameter.
 </Tip>
 
-## Knowledge Storage
+## Knowledge storage
 
 Knowledge content is tracked in a "Contents DB" and vectorized and stored in a "Vector DB".
 
-### Contents Database
+### Contents database
 
 The Contents DB is a database that stores the name, description, metadata and other information for any content you add to the knowledge base.
 
@@ -134,7 +136,7 @@ Below is the schema for the Contents DB:
 
 This data is best displayed on the [knowledge page of the AgentOS UI](https://os.agno.com/knowledge).
 
-### Vector Databases
+### Vector databases
 
 Vector databases offer the best solution for retrieving relevant results from dense information quickly.
 

@@ -473,3 +473,24 @@ The following events are yielded by the `Workflow.run()` and `Workflow.arun()` f
 | `StepsExecutionCompleted` | Signals successful completion of `Steps` execution |
 
 See detailed documentation in the [WorkflowRunOutputEvent](/reference/workflows/workflow_run_output) documentation.
+
+
+## Agno Telemetry
+
+Agno logs which model an workflow used so we can prioritize updates to the most popular providers. You can disable this by setting `AGNO_TELEMETRY=false` in your environment or by setting `telemetry=False` on the workflow.
+
+```bash
+export AGNO_TELEMETRY=false
+```
+or:
+```python
+workflow = Workflow(..., telemetry=False)
+```
+
+See the [Workflow class reference](/reference/workflows/workflow) for more details.
+
+## Developer Resources
+
+- View the [Workflow reference](/reference/workflows/workflow)
+- View the [WorkflowRunOutput schema](/reference/workflows/workflow_run_output)
+- View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/workflows/README.md)

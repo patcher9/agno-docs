@@ -5,9 +5,7 @@ description: Use Storage to persist Agent sessions and state to a database or fi
 
 **Why do we need Session Storage?**
 
-Agents are ephemeral and stateless. When you run an Agent, no state is persisted automatically.
-
-In production environments, we serve (or trigger) Agents via an API and need to continue the same session across multiple requests.
+Agents are ephemeral and stateless. When you run an Agent, no state is persisted automatically. In production environments, we serve (or trigger) Agents via an API and need to continue the same session across multiple requests.
 
 Storage persists the session history and state in a database and allows us to pick up where we left off.
 
@@ -28,6 +26,7 @@ agent = Agent(
     # Fix the session id to continue the same session across execution cycles
     session_id="fixed_id_for_demo",
     db=SqliteDb(db_file="tmp/data.db"),
+    # Make the agent aware of the session history
     add_history_to_context=True,
     num_history_runs=3,
 )
@@ -59,95 +58,6 @@ But there is so much more:
 Storage is such a critical part of your Agentic infrastructure that it should never be offloaded to a third party. You should almost always use your own storage layer for your Agents.
 </Warning>
 
-## Example: Use Postgres for storage
-
-<Steps>
-  <Step title="Run Postgres">
-
-    Install [docker desktop](https://docs.docker.com/desktop/install/mac-install/) and run **Postgres** on port **5532** using:
-
-    ```bash
-    docker run -d \
-      -e POSTGRES_DB=ai \
-      -e POSTGRES_USER=ai \
-      -e POSTGRES_PASSWORD=ai \
-      -e PGDATA=/var/lib/postgresql/data/pgdata \
-      -v pgvolume:/var/lib/postgresql/data \
-      -p 5532:5432 \
-      --name pgvector \
-      agno/pgvector:16
-    ```
-
-  </Step>
-  <Step title="Create an Agent with Session Storage">
-    Create a file `agent_with_db.py` with the following contents
-
-    ```python
-    from agno.agent import Agent
-    from agno.db.postgres import PostgresDb
-
-    db_url = "postgresql+psycopg://ai:ai@localhost:5532/ai"
-    db = PostgresDb(db_url=db_url)
-
-    session_id = "test-session"
-    user = "john@gmail.com"
-
-    agent = Agent(
-        session_id=session_id,
-        user_id=user,
-        db=db,
-        add_history_to_context=True,
-        # Alternatively, enable the agent to read the chat history using a tool
-        # read_chat_history=True,
-    )
-
-    agent.cli_app(markdown=True)
-    ```
-
-  </Step>
-  <Step title="Run the agent">
-    Install libraries
-
-    <CodeGroup>
-
-    ```bash Mac
-    pip install -U agno openai pgvector pypdf psycopg sqlalchemy
-    ```
-
-    ```bash Windows
-    pip install -U agno openai pgvector pypdf psycopg sqlalchemy
-    ```
-
-    </CodeGroup>
-
-    Run the agent
-
-    ```bash
-    python agent_with_db.py
-    ```
-
-    Now tell the agent anything, and refer to previous messages in the conversation to see the benefits of storage:
-
-    ```
-    Hi, my name is John!
-    ```
-
-    Then message `bye` to exit, start the app again and ask:
-
-    ```
-    What did I tell you last time?
-    ```
-
-  </Step>
-  <Step title="Start a new run">
-    Run the `agent_with_db.py` file.
-
-    ```bash
-    python agent_with_db.py 
-    ```
-
-  </Step>
-</Steps>
 
 ## Session table schema
 
@@ -178,4 +88,5 @@ This data is best displayed on the [sessions page of the AgentOS UI](https://os.
 ## Developer Resources
 
 - View the [Agent schema](/reference/agents/agent)
+- View [Examples](/examples/concepts/db)
 - View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/db/)

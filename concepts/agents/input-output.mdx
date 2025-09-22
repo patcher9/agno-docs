@@ -1,12 +1,12 @@
 ---
 title: Input and Output
 sidebarTitle: Input and Output
-description: Learn how to use input and output with Agents.
+description: Learn how to use structured input and output with Agents for reliable, production-ready systems.
 ---
 
-Agno Agents supports various forms of input and output.
+Agno Agents supports various forms of input and output, from simple string-based interactions to structured data validation using Pydantic models.
 
-The most standard pattern is to use `str` input and `str` output.
+The most standard pattern is to use `str` input and `str` output:
 
 ```python
 from agno.agent import Agent
@@ -21,13 +21,20 @@ response = agent.run("Write movie script about a girl living in New York")
 print(response.content)
 ```
 
+<Note>
+For more advanced patterns, see:
+- [Images / Audio / Video / Files as Input](/examples/concepts/multimodal/overview)
+- [List as Input](/examples/concepts/agent/input_and_output/input_as_list)
+</Note>
+
+
 ## Structured Output
 
-One of our favorite features is using Agents to generate structured data (i.e. a pydantic model). This is generally called "Structured Output".
-Use this feature to extract features, classify data, produce fake data etc. The best part is that they work with function calls, knowledge bases and all other features.
+One of our favorite features is using Agents to generate structured data (i.e. a pydantic model). This is generally called "Structured Output". Use this feature to extract features, classify data, produce fake data etc. The best part is that they work with function calls, knowledge bases and all other features.
 
+Structured output makes agents reliable for production systems that need consistent, predictable response formats instead of unstructured text.
 
-Let's create an Movie Agent to write a `MovieScript` for us.
+Let's create a Movie Agent to write a `MovieScript` for us.
 
 <Steps>
   <Step title="Structured Output example">
@@ -106,7 +113,6 @@ MovieScript(
   ```
 </Tip>
 
-
 ### Streaming Structured Output
 
 Streaming can be used in combination with `output_schema`. This returns the structured output as a single `RunContent` event in the stream of events.
@@ -179,7 +185,7 @@ Streaming can be used in combination with `output_schema`. This returns the stru
 
 ## Structured Input
 
-An agent can be provided with structured input (i.e a pydantic model) by passing it in the `Agent.run()` or `Agent.print_response()` as the `input` parameter.
+An agent can be provided with structured input (i.e a pydantic model or a `TypedDict`) by passing it in the `Agent.run()` or `Agent.print_response()` as the `input` parameter.
 
 <Steps>
   <Step title="Structured Input example">
@@ -239,7 +245,7 @@ An agent can be provided with structured input (i.e a pydantic model) by passing
 
 ### Validating the input
 
-You can set `input_schema` on the Agent to validate the input.  If you then pass the input as a dictionary, it will be automatically validated against the schema.
+You can set `input_schema` on the Agent to validate the input. If you then pass the input as a dictionary, it will be automatically validated against the schema.
 
 <Steps>
   <Step title="Validating the input example">
@@ -301,6 +307,98 @@ You can set `input_schema` on the Agent to validate the input.  If you then pass
   </Step>
 </Steps>
 
+## Typesafe Agents
+
+When you combine both `input_schema` and `output_schema`, you create a **typesafe agent** with end-to-end type safety - a fully validated data pipeline from input to output.
+
+### Complete Typesafe Research Agent
+
+Here's a comprehensive example showing a fully typesafe agent for research tasks:
+
+<Steps>
+  <Step title="Create the typesafe research agent">
+    ```python typesafe_research_agent.py
+    from typing import List
+
+    from agno.agent import Agent
+    from agno.models.anthropic import Claude
+    from agno.tools.hackernews import HackerNewsTools
+    from pydantic import BaseModel, Field
+    from rich.pretty import pprint
+
+
+    # Define your input schema
+    class ResearchTopic(BaseModel):
+        topic: str
+        sources_required: int = Field(description="Number of sources", default=5)
+
+
+    # Define your output schema
+    class ResearchOutput(BaseModel):
+        summary: str = Field(..., description="Executive summary of the research")
+        insights: List[str] = Field(..., description="Key insights from posts")
+        top_stories: List[str] = Field(
+            ..., description="Most relevant and popular stories found"
+        )
+        technologies: List[str] = Field(
+            ..., description="Technologies mentioned"
+        )
+        sources: List[str] = Field(..., description="Links to the most relevant posts")
+
+
+    # Define your agent
+    hn_researcher_agent = Agent(
+        # Model to use
+        model=Claude(id="claude-sonnet-4-0"),
+        # Tools to use
+        tools=[HackerNewsTools()],
+        instructions="Research hackernews posts for a given topic",
+        # Add your input schema
+        input_schema=ResearchTopic,
+        # Add your output schema
+        output_schema=ResearchOutput,
+    )
+
+    # Run the Agent
+    response = hn_researcher_agent.run(
+        input=ResearchTopic(topic="AI", sources_required=5)
+    )
+
+    # Print the response
+    pprint(response.content)
+    ```
+  </Step>
+  <Step title="Run the agent">
+    Install libraries
+
+    ```shell
+    pip install agno anthropic
+    ```
+
+    Set your API key
+    ```shell
+    export ANTHROPIC_API_KEY=xxx
+    ```
+
+    Run the agent
+    ```shell
+    python typesafe_research_agent.py
+    ```
+  </Step>
+</Steps>
+
+The output is a structured `ResearchOutput` object:
+
+```python
+ResearchOutput(
+    summary='AI development is accelerating with new breakthroughs in...',
+    insights=['LLMs are becoming more efficient', 'Open source models gaining traction'],
+    top_stories=['GPT-5 rumors surface', 'New Claude model released'],
+    technologies=['GPT-4', 'Claude', 'Transformers'],
+    sources=['https://news.ycombinator.com/item?id=123', '...']
+)
+```
+
 ## Using a Parser Model
 
 You can use a different model to parse and structure the output from your primary model. 
@@ -315,8 +413,11 @@ agent = Agent(
 )
 ```
 
-You can also provide a custom `parser_model_prompt` to your Parser Model to customize the model's instructions.
+<Tip>
+  Using a parser model can improve output reliability and reduce costs since you can use a smaller, faster model for formatting while keeping a powerful model for the actual response.
+</Tip>
 
+You can also provide a custom `parser_model_prompt` to your Parser Model to customize the model's instructions.
 
 ## Using an Output Model
 
@@ -338,7 +439,6 @@ You can also provide a custom `output_model_prompt` to your Output Model to cust
   Gemini models often reject requests to use tools and produce structured output
   at the same time. Using an Output Model is an effective workaround for this.
 </Tip>
-
 
 ## Developer Resources
 

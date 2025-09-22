@@ -1,13 +1,12 @@
 ---
 title: Input and Output
 sidebarTitle: Input and Output
-description: Learn how to use input and output with Teams.
+description: Learn how to use structured input and output with Teams for reliable, production-ready systems.
 ---
 
-Agno Teams support various forms of input and output.
+Agno Teams support various forms of input and output, from simple string-based interactions to structured data validation using Pydantic models.
 
-
-The most standard pattern is to use `str` input and `str` output.
+The most standard pattern is to use `str` input and `str` output:
 
 ```python
 from agno.models.openai import OpenAIChat
@@ -25,10 +24,11 @@ print(response.content)
 
 ## Structured Output
 
-Teams can be used to generate structured data (i.e. a pydantic model). This is generally called "Structured Output".
-Use this feature to extract features, classify data, produce fake data etc. The best part is that they work with function calls, knowledge bases and all other features.
+One of our favorite features is using Teams to generate structured data (i.e. a pydantic model). This is generally called "Structured Output". Use this feature to extract features, classify data, produce fake data etc. The best part is that they work with function calls, knowledge bases and all other features.
 
-Let's create an Movie Agent to write a `MovieScript` for us.
+Structured output makes teams reliable for production systems that need consistent, predictable response formats instead of unstructured text.
+
+Let's create a Stock Research Team to generate a structured `StockReport` for us.
 
 <Steps>
   <Step title="Structured Output example">
@@ -423,6 +423,12 @@ You can set `input_schema` on the Team to validate the input.  If you then pass 
   </Step>
 </Steps>
 
+## Typesafe Teams
+
+For complete type safety with both input and output validation, Teams work similarly to Agents. You can combine `input_schema` and `output_schema` to create fully typesafe teams that validate inputs and guarantee structured outputs.
+
+For detailed examples and patterns of typesafe implementations, see the [Agent Input and Output documentation](/concepts/agents/input-output#typesafe-agents), which demonstrates the same concepts that apply to Teams.
+
 ## Using a Parser Model
 
 You can use a different model to parse and structure the output from your primary model. 
@@ -438,9 +444,13 @@ team = Team(
 )
 ```
 
+<Tip>
+  Using a parser model can improve output reliability and reduce costs since you can use a smaller, faster model for formatting while keeping a powerful model for the actual response.
+</Tip>
+
 You can also provide a custom `parser_model_prompt` to your Parser Model to customize the model's instructions.
 
-### Using an Output Model
+## Using an Output Model
 
 You can use a different model to produce the run output of the team.
 This is useful when the primary model is optimized for image analysis, for example, but you want a different model to produce a structured output response.

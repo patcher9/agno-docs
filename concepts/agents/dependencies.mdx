@@ -9,6 +9,32 @@ description: Learn how to use dependencies in your agents.
 You can use dependencies to inject memories, dynamic few-shot examples, "retrieved" documents, etc.
 </Note>
 
+## Basic usage
+
+You can reference the dependencies in your agent instructions or user message.
+
+```python dependencies.py
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+
+agent = Agent(
+    model=OpenAIChat(id="gpt-5-mini"),
+    dependencies={"name": "John Doe"},
+    instructions="You are a story writer. The current user is {name}."
+)
+
+agent.print_response("Write a 5 second short story about {name}")
+```
+
+<Tip>
+You can set `dependencies` on `Agent` initialization, or pass it to the `run()` and `arun()` methods.
+</Tip>
+
+
+## Using functions as dependencies
+
+You can specify a callable function as a dependency. The dependency will be automatically resolved by the agent at runtime.
+
 ```python dependencies.py
 import json
 from textwrap import dedent
@@ -18,7 +44,7 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
 
-def get_top_hackernews_stories(num_stories: int = 5) -> str:
+def get_top_hackernews_stories() -> str:
     """Fetch and return the top stories from HackerNews.
 
     Args:
@@ -66,7 +92,11 @@ agent.print_response(
 )
 ```
 
-## Adding the entire context to the user message
+<Check>
+Dependencies are automatically resolved when the agent is run.
+</Check>
+
+## Adding dependencies to context
 
 Set `add_dependencies_to_context=True` to add the entire list of dependencies to the user message. This way you don't have to manually add the dependencies to the instructions.
 
@@ -79,7 +109,7 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 
 
-def get_user_profile(user_id: str) -> str:
+def get_user_profile() -> str:
     """Fetch and return the user profile for a given user ID.
 
     Args:
@@ -87,26 +117,50 @@ def get_user_profile(user_id: str) -> str:
     """
 
     # Get the user profile from the database (this is a placeholder)
-    user_profile = get_user_profile(user_id)
+    user_profile = {
+      "name": "John Doe",
+      "experience_level": "senior",
+    }
 
     return json.dumps(user_profile, indent=4)
 
 agent = Agent(
     model=OpenAIChat(id="gpt-5-mini"),
-    # Each function in the context is resolved when the agent is run,
-    # think of it as dependency injection for Agents
     dependencies={"user_profile": get_user_profile},
-    # We can add the entire dependencies dictionary to the instructions
+    # We can add the entire dependencies dictionary to the user message
     add_dependencies_to_context=True,
     markdown=True,
 )
 
-# Example usage
 agent.print_response(
-    "Get the user profile for the user with ID 123 and tell me about their preferences.",
+    "Get the user profile for the user with ID 123 and tell me about their experience level.",
     stream=True,
 )
+# Optionally pass the dependencies to the print_response method
+# agent.print_response(
+#     "Get the user profile for the user with ID 123 and tell me about their experience level.",
+#     dependencies={"user_profile": get_user_profile},
+#     stream=True,
+# )
 ```
+
+<Note>
+This adds the entire dependencies dictionary to the user message between `<additional context>` tags.
+The new user message looks like this:
+```
+Get the user profile for the user with ID 123 and tell me about their experience level.                                                       
+                                                                                                                                               
+<additional context>                                                                                                                     
+{                                                                                                                                        
+"user_profile": "{\n    \"name\": \"John Doe\",\n    \"experience_level\": \"senior\"\n}"                                              
+}                                                                                                                                        
+</additional context> 
+```
+</Note>
+
+<Tip>
+You can pass `dependencies` and `add_dependencies_to_context` to the `run`, `arun`, `print_response` and `aprint_response` methods.
+</Tip>
 
 ## Developer Resources
 

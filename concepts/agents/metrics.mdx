@@ -19,20 +19,18 @@ You run the following code to create an agent and run it with the following conf
 from agno.agent import Agent
 from agno.models.google import Gemini
 from agno.tools.duckduckgo import DuckDuckGoTools
-from agno.db.in_memory import InMemoryDb
+from agno.db.sqlite import SqliteDb
 from rich.pretty import pprint
 
-db = InMemoryDb()
-
 agent = Agent(
-    model=Gemini(id="gemini-2.0-flash-001"),
+    model=Gemini(id="gemini-2.5-flash"),
     tools=[DuckDuckGoTools()],
-    db=db,
+    db=SqliteDb(db_file="tmp/agents.db"),
     markdown=True,
 )
 
 run_response = agent.run(
-    "What is currently happening in the world?"
+    "What is current news in the world?"
 )
 
 # Print metrics per message
