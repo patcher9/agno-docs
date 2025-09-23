@@ -2791,6 +2791,7 @@
           {
             "group": "FAQs",
             "pages": [
+              "faq/switching-models",
               "faq/environment-variables",
               "faq/tpm-issues",
               "faq/agentos-connection",
