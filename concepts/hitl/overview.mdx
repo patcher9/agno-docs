@@ -151,7 +151,7 @@ agent = Agent(
     tools=[send_email],
 )
 
-run_response = agent.run("Send an email please")
+run_response = agent.run("Send an email please to my friend John, make up the subject and body")
 if run_response.is_paused:
     for tool in run_response.tools_requiring_user_input:
         input_schema: List[UserInputField] = tool.user_input_schema
