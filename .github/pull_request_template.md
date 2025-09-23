@@ -5,7 +5,6 @@ Brief summary of what you changed and why.
 - [ ] Bug fix (errors, broken links, outdated info)
 - [ ] New content
 - [ ] Content improvement
-- [ ] Breaking change
 - [ ] Other: ____
 
 ## Related Issues/PRs (if applicable)
