@@ -506,7 +506,10 @@
               },
               {
                 "group": "Multimodal",
-                "pages": ["concepts/multimodal/overview"]
+                "pages": [
+                  "concepts/multimodal/overview",
+                  "concepts/multimodal/speech-to-text"
+                ]
               },
               {
                 "group": "Human-in-the-Loop",
