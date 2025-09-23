@@ -119,10 +119,37 @@
                 "group": "Workflows",
                 "pages": [
                   "concepts/workflows/overview",
-                  "concepts/workflows/types_of_workflows",
+                  {
+                    "group": "Workflow Patterns",
+                    "pages": [
+                      "concepts/workflows/workflow-patterns/overview",
+                      "concepts/workflows/workflow-patterns/sequential",
+                      "concepts/workflows/workflow-patterns/fully-python-workflow",
+                      "concepts/workflows/workflow-patterns/step-based-workflow",
+                      "concepts/workflows/workflow-patterns/conditional-workflow",
+                      "concepts/workflows/workflow-patterns/parallel-workflow",
+                      "concepts/workflows/workflow-patterns/iterative-workflow",
+                      "concepts/workflows/workflow-patterns/branching-workflow",
+                      "concepts/workflows/workflow-patterns/grouped-steps-workflow",
+                      "concepts/workflows/workflow-patterns/advanced-workflow-patterns"
+                    ]
+                  },
                   "concepts/workflows/run_workflow",
                   "concepts/workflows/workflow_session_state",
-                  "concepts/workflows/advanced"
+                  {
+                    "group": "Advanced",
+                    "pages": [
+                      "concepts/workflows/advanced/workflow-tools",
+                      "concepts/workflows/advanced/custom-functions",
+                      "concepts/workflows/advanced/background-execution",
+                      "concepts/workflows/advanced/cancel-workflow",
+                      "concepts/workflows/advanced/early-stop",
+                      "concepts/workflows/advanced/access-previous-steps",
+                      "concepts/workflows/advanced/store-events",
+                      "concepts/workflows/advanced/additional-data",
+                      "concepts/workflows/advanced/input-and-output"
+                    ]
+                  }
                 ]
               },
               {
@@ -155,6 +182,7 @@
                     ]
                   },
                   "concepts/models/cohere",
+                  "concepts/models/cometapi",
                   "concepts/models/dashscope",
                   "concepts/models/deepinfra",
                   "concepts/models/deepseek",
@@ -2607,6 +2635,7 @@
                 "group": "Workflows",
                 "pages": [
                   "reference/workflows/workflow",
+                  "reference/workflows/step",
                   "reference/workflows/workflow_run_output",
                   "reference/workflows/step_input",
                   "reference/workflows/step_output",
