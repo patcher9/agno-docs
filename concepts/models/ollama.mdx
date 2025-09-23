@@ -3,9 +3,13 @@ title: Ollama
 description: Learn how to use Ollama with Agno.
 ---
 
-Run Large Language Models locally with Ollama
+Run Large Language Models locally or via Ollama Cloud
 
-[Ollama](https://ollama.com) is a fantastic tool for running models locally.
+[Ollama](https://ollama.com) is a fantastic tool for running models both locally and in the cloud.
+
+**Local Usage**: Run models on your own hardware using the Ollama client.
+
+**Cloud Usage**: Access cloud-hosted models via [Ollama Cloud](https://ollama.com) with an API key for scalable, production-ready deployments.
 
 Ollama supports multiple open-source models. See the library [here](https://ollama.com/library).
 
@@ -16,7 +20,27 @@ We recommend experimenting to find the best-suited model for your use-case. Here
 - `deepseek-r1` models have strong reasoning capabilities.
 - `phi4` models are powerful, while being really small in size.
 
+## Authentication (Ollama Cloud Only)
+
+To use Ollama Cloud, set your `OLLAMA_API_KEY` environment variable. You can get an API key from [Ollama Cloud](https://ollama.com).
+
+<CodeGroup>
+
+```bash Mac
+export OLLAMA_API_KEY=***
+```
+
+```bash Windows
+setx OLLAMA_API_KEY ***
+```
+
+</CodeGroup>
+
+When using Ollama Cloud, the host is automatically set to `https://ollama.com`. For local usage, no API key is required.
+
 ## Set up a model
+
+### Local Usage
 
 Install [ollama](https://ollama.com) and run a model using
 
@@ -32,7 +56,13 @@ Alternatively, to download the model to be used in an Agno agent
 ollama pull llama3.1
 ```
 
-## Example
+### Cloud Usage
+
+For Ollama Cloud, no local installation is required. Simply set up your API key as described in the Authentication section above, and you can access cloud-hosted models directly.
+
+## Examples
+
+### Local Usage
 
 After you have the model locally, use the `Ollama` model class to access it
 
@@ -52,6 +82,32 @@ agent.print_response("Share a 2 sentence horror story.")
 ```
 
 </CodeGroup>
+
+### Cloud Usage
+
+Use Ollama Cloud by setting your API key and specifying the cloud host
+
+<CodeGroup>
+
+```python agent.py
+from agno.agent import Agent
+from agno.models.ollama import Ollama
+
+agent = Agent(
+    model=Ollama(
+        id="deepseek-v3.1:671b", 
+        host="https://ollama.com"
+    ),
+    markdown=True
+)
+
+# Print the response in the terminal
+agent.print_response("Share a 2 sentence horror story.")
+```
+
+</CodeGroup>
+
+<Note>When using Ollama Cloud with an API key, the host is automatically set to `https://ollama.com`, so you can omit the `host` parameter.</Note>
 
 <Note> View more examples [here](/examples/models/ollama/basic). </Note>
 
