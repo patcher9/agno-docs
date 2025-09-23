@@ -182,6 +182,7 @@
                     ]
                   },
                   "concepts/models/cohere",
+                  "concepts/models/cometapi",
                   "concepts/models/dashscope",
                   "concepts/models/deepinfra",
                   "concepts/models/deepseek",
