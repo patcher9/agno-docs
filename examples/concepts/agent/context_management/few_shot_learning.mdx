@@ -6,7 +6,7 @@ This example demonstrates how to use additional_input with an Agent to teach pro
 
 ## Code
 
-```python cookbook/agents/context_management/few_shot_learning.py
+```python few_shot_learning.py
 """
 This example demonstrates how to use additional_input with an Agent
 to teach proper response patterns through few-shot learning.
@@ -114,7 +114,20 @@ if __name__ == "__main__":
     ```
   </Step>
 
-  <Snippet file="export-openai-api.mdx" />
+  <Step title="Export your OpenAI API key">
+    Set your `OPENAI_API_KEY` as an environment variable. For most examples this is sufficient; some examples may require additional provider keys.
+
+    <CodeGroup>
+
+    ```bash Mac/Linux
+      export OPENAI_API_KEY="your_openai_api_key_here"
+    ```
+
+    ```bash Windows
+      $Env:OPENAI_API_KEY="your_openai_api_key_here"
+    ```
+    </CodeGroup> 
+  </Step>
 
   <Step title="Create a Python file">
     Create a Python file and add the above code.
@@ -135,5 +148,11 @@ if __name__ == "__main__":
     </CodeGroup>
   </Step>
 
-  <Snippet file="find-all-cookbooks.mdx" />
+  <Step title="Find All Cookbooks">
+    Explore all the available cookbooks in the Agno repository. Click the link below to view the code on GitHub:
+
+    <Link href="https://github.com/agno-agi/agno/tree/main/cookbook" target="_blank">
+      Agno Cookbooks on GitHub
+    </Link>
+  </Step>
 </Steps>

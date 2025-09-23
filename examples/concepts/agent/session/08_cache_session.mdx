@@ -6,7 +6,7 @@ This example demonstrates how to enable session caching in memory for faster acc
 
 ## Code
 
-```python cookbook/agents/session/08_cache_session.py
+```python 08_cache_session.py
 """Example of how to cache the session in memory for faster access."""
 
 from agno.agent.agent import Agent
@@ -52,7 +52,20 @@ session = agent.get_session()
     ```
   </Step>
 
-  <Snippet file="export-openai-api.mdx" />
+  <Step title="Export your OpenAI API key">
+    Set your `OPENAI_API_KEY` as an environment variable. For most examples this is sufficient; some examples may require additional provider keys.
+
+    <CodeGroup>
+
+    ```bash Mac/Linux
+      export OPENAI_API_KEY="your_openai_api_key_here"
+    ```
+
+    ```bash Windows
+      $Env:OPENAI_API_KEY="your_openai_api_key_here"
+    ```
+    </CodeGroup> 
+  </Step>
 
   <Step title="Create a Python file">
     Create a Python file and add the above code.
@@ -73,5 +86,11 @@ session = agent.get_session()
     </CodeGroup>
   </Step>
 
-  <Snippet file="find-all-cookbooks.mdx" />
+  <Step title="Find All Cookbooks">
+  Explore all the available cookbooks in the Agno repository. Click the link below to view the code on GitHub:
+
+  <Link href="https://github.com/agno-agi/agno/tree/main/cookbook" target="_blank">
+    Agno Cookbooks on GitHub
+  </Link>
+</Step>
 </Steps>

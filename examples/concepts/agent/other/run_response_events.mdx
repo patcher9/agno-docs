@@ -6,7 +6,7 @@ This example demonstrates how to handle different types of events during agent r
 
 ## Code
 
-```python cookbook/agents/other/run_response_events.py
+```python run_response_events.py
 from typing import Iterator, List
 
 from agno.agent import (
@@ -54,7 +54,20 @@ print("\n".join(response))
     pip install -U agno anthropic ddgs
     ```
   </Step>
-  <Snippet file="export-openai-api.mdx" />
+  <Step title="Export your OpenAI API key">
+    Set your `OPENAI_API_KEY` as an environment variable. For most examples this is sufficient; some examples may require additional provider keys.
+
+    <CodeGroup>
+
+    ```bash Mac/Linux
+      export OPENAI_API_KEY="your_openai_api_key_here"
+    ```
+
+    ```bash Windows
+      $Env:OPENAI_API_KEY="your_openai_api_key_here"
+    ```
+    </CodeGroup> 
+  </Step>
 
   <Step title="Create a Python file">
     Create a Python file and add the above code.
@@ -75,5 +88,11 @@ print("\n".join(response))
     </CodeGroup>
   </Step>
 
-  <Snippet file="find-all-cookbooks.mdx" />
+  <Step title="Find All Cookbooks">
+  Explore all the available cookbooks in the Agno repository. Click the link below to view the code on GitHub:
+
+  <Link href="https://github.com/agno-agi/agno/tree/main/cookbook" target="_blank">
+    Agno Cookbooks on GitHub
+  </Link>
+</Step>
 </Steps>

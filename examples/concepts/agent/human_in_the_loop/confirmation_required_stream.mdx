@@ -6,7 +6,7 @@ This example demonstrates human-in-the-loop functionality with streaming respons
 
 ## Code
 
-```python cookbook/agents/human_in_the_loop/confirmation_required_stream.py
+```python confirmation_required_stream.py
 """🤝 Human-in-the-Loop: Adding User Confirmation to Tool Calls
 
 This example shows how to implement human-in-the-loop functionality in your Agno tools.
@@ -111,7 +111,20 @@ for run_event in agent.run("Fetch the top 2 hackernews stories", stream=True):
     ```
   </Step>
 
-    <Snippet file="export-openai-api.mdx" />
+   <Step title="Export your OpenAI API key">
+    Set your `OPENAI_API_KEY` as an environment variable. For most examples this is sufficient; some examples may require additional provider keys.
+
+    <CodeGroup>
+
+    ```bash Mac/Linux
+      export OPENAI_API_KEY="your_openai_api_key_here"
+    ```
+
+    ```bash Windows
+      $Env:OPENAI_API_KEY="your_openai_api_key_here"
+    ```
+    </CodeGroup> 
+  </Step>
 
   <Step title="Create a Python file">
     Create a Python file and add the above code.
@@ -132,5 +145,11 @@ for run_event in agent.run("Fetch the top 2 hackernews stories", stream=True):
     </CodeGroup>
   </Step>
 
-  <Snippet file="find-all-cookbooks.mdx" />
+  <Step title="Find All Cookbooks">
+    Explore all the available cookbooks in the Agno repository. Click the link below to view the code on GitHub:
+
+    <Link href="https://github.com/agno-agi/agno/tree/main/cookbook" target="_blank">
+      Agno Cookbooks on GitHub
+    </Link>
+  </Step>
 </Steps>

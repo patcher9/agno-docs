@@ -6,7 +6,7 @@ This example demonstrates how to create an agent that generates an image using D
 
 ## Code
 
-```python cookbook/agents/multimodal/agent_same_run_image_analysis.py
+```python agent_same_run_image_analysis.py
 from agno.agent import Agent
 from agno.tools.dalle import DalleTools
 
@@ -35,7 +35,20 @@ if response.images:
     ```
   </Step>
 
-  <Snippet file="export-openai-api.mdx" />
+  <Step title="Export your OpenAI API key">
+    Set your `OPENAI_API_KEY` as an environment variable. For most examples this is sufficient; some examples may require additional provider keys.
+
+    <CodeGroup>
+
+    ```bash Mac/Linux
+      export OPENAI_API_KEY="your_openai_api_key_here"
+    ```
+
+    ```bash Windows
+      $Env:OPENAI_API_KEY="your_openai_api_key_here"
+    ```
+    </CodeGroup> 
+  </Step>
 
   <Step title="Create a Python file">
     Create a Python file and add the above code.
@@ -55,5 +68,11 @@ if response.images:
     </CodeGroup>
   </Step>
 
-  <Snippet file="find-all-cookbooks.mdx" />
+  <Step title="Find All Cookbooks">
+  Explore all the available cookbooks in the Agno repository. Click the link below to view the code on GitHub:
+
+  <Link href="https://github.com/agno-agi/agno/tree/main/cookbook" target="_blank">
+    Agno Cookbooks on GitHub
+  </Link>
+</Step>
 </Steps>

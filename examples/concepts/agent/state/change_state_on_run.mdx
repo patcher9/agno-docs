@@ -6,7 +6,7 @@ This example demonstrates how to manage session state across different runs for 
 
 ## Code
 
-```python cookbook/agents/state/change_state_on_run.py
+```python change_state_on_run.py
 from agno.agent import Agent
 from agno.db.in_memory import InMemoryDb
 from agno.models.openai import OpenAIChat
@@ -52,7 +52,20 @@ agent.print_response("How old am I?", session_id="user_2_session_1", user_id="us
     ```
   </Step>
 
-  <Snippet file="export-openai-api.mdx" />
+  <Step title="Export your OpenAI API key">
+    Set your `OPENAI_API_KEY` as an environment variable. For most examples this is sufficient; some examples may require additional provider keys.
+
+    <CodeGroup>
+
+    ```bash Mac/Linux
+      export OPENAI_API_KEY="your_openai_api_key_here"
+    ```
+
+    ```bash Windows
+      $Env:OPENAI_API_KEY="your_openai_api_key_here"
+    ```
+    </CodeGroup> 
+  </Step>
 
   <Step title="Create a Python file">
     Create a Python file and add the above code.

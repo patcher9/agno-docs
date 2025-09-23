@@ -6,7 +6,7 @@ This example demonstrates how to use an async agent with DuckDuckGo search tools
 
 ## Code
 
-```python cookbook/agents/async/tool_use.py
+```python tool_use.py
 import asyncio
 
 from agno.agent import Agent
@@ -32,7 +32,20 @@ asyncio.run(agent.aprint_response("Whats happening in UK and in USA?"))
     ```
   </Step>
 
-  <Snippet file="export-openai-api.mdx" />
+  <Step title="Export your OpenAI API key">
+    Set your `OPENAI_API_KEY` as an environment variable. For most examples this is sufficient; some examples may require additional provider keys.
+
+    <CodeGroup>
+
+    ```bash Mac/Linux
+      export OPENAI_API_KEY="your_openai_api_key_here"
+    ```
+
+    ```bash Windows
+      $Env:OPENAI_API_KEY="your_openai_api_key_here"
+    ```
+    </CodeGroup> 
+  </Step>
 
   <Step title="Create a Python file">
     Create a Python file and add the above code.
@@ -53,5 +66,11 @@ asyncio.run(agent.aprint_response("Whats happening in UK and in USA?"))
     </CodeGroup>
   </Step>
 
-  <Snippet file="find-all-cookbooks.mdx" />
+  <Step title="Find All Cookbooks">
+    Explore all the available cookbooks in the Agno repository. Click the link below to view the code on GitHub:
+
+    <Link href="https://github.com/agno-agi/agno/tree/main/cookbook" target="_blank">
+      Agno Cookbooks on GitHub
+    </Link>
+  </Step>
 </Steps>
