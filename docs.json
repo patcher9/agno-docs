@@ -2410,6 +2410,7 @@
                 "pages": [
                   "examples/models/ollama/basic",
                   "examples/models/ollama/basic_stream",
+                  "examples/models/ollama/cloud",
                   "examples/models/ollama/async_basic",
                   "examples/models/ollama/async_basic_stream",
                   "examples/models/ollama/tool_use",
