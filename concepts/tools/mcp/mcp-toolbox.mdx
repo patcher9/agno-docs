@@ -4,26 +4,98 @@ sidebarTitle: MCP Toolbox
 description: Learn how to use MCPToolbox with Agno to connect to MCP Toolbox for Databases with tool filtering capabilities.
 ---
 
-The `MCPToolbox` class extends Agno's `MCPTools` functionality to provide integration with [MCP Toolbox for Databases](https://googleapis.github.io/genai-toolbox/getting-started/introduction/). It combines MCP server connectivity with the toolbox-core client to filter tools by toolset or tool name.
+**MCPToolbox** enables Agents to connect to [MCP Toolbox for Databases](https://googleapis.github.io/genai-toolbox/getting-started/introduction/) with advanced filtering capabilities. It extends Agno's `MCPTools` functionality to filter tools by toolset or tool name, allowing agents to load only the specific database tools they need.
 
-## Key Features
+## Prerequisites
 
-- **Tool Filtering**: Load specific toolsets or individual tools instead of all available tools
-- **Database Integration**: Works with MCP Toolbox for Databases server
-- **Authentication Support**: Built-in support for authentication tokens via `auth_token_getters`
-- **Parameter Binding**: Pre-configure tool parameters with `bound_params`
-
-## Installation
+You'll need the following to use MCPToolbox:
 
 ```bash
 pip install toolbox-core
 ```
 
-## Basic Usage
+You'll also need Docker to run the MCP Toolbox server and database for the examples.
 
-### Loading Specific Toolsets
+## Quick Start
+
+The fastest way to try MCPToolbox is with our complete working demo:
+
+```bash
+# Clone the repo and navigate to demo
+git clone https://github.com/agno-agi/agno.git
+cd agno/cookbook/tools/mcp/mcp_toolbox_demo
+
+# Start database and MCP Toolbox server
+docker-compose up -d
+
+# Install dependencies
+uv sync
+
+# Set your API key and run the basic agent
+export OPENAI_API_KEY="your_openai_api_key"
+uv run agent.py
+```
+
+This starts a PostgreSQL database with sample hotel data and an MCP Toolbox server that exposes database operations as filtered tools.
+
+## Basic Example
+
+Here's the simplest way to use MCPToolbox (after running the Quick Start setup):
 
 ```python
+import asyncio
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.tools.mcp_toolbox import MCPToolbox
+
+async def main():
+    # Connect to the running MCP Toolbox server and filter to hotel tools only
+    async with MCPToolbox(
+        url="http://127.0.0.1:5001",
+        toolsets=["hotel-management"]  # Only load hotel search tools
+    ) as toolbox:
+        agent = Agent(
+            model=OpenAIChat(),
+            tools=[toolbox],
+            instructions="You help users find hotels. Always mention hotel ID, name, location, and price tier."
+        )
+        
+        # Ask the agent to find hotels
+        await agent.aprint_response("Find luxury hotels in Zurich")
+
+# Run the example
+asyncio.run(main())
+```
+
+## How MCPToolbox Works
+
+MCPToolbox solves the **tool overload problem**. Without filtering, your agent gets overwhelmed with too many database tools:
+
+**Without MCPToolbox (50+ tools):**
+```python
+# Agent gets ALL database tools - overwhelming!
+tools = MCPTools(url="http://127.0.0.1:5001")  # 50+ tools
+```
+
+**With MCPToolbox (3 relevant tools):**  
+```python
+# Agent gets only hotel management tools - focused!
+tools = MCPToolbox(url="http://127.0.0.1:5001", toolsets=["hotel-management"])  # 3 tools
+```
+
+**The flow:**
+1. MCP Toolbox Server exposes 50+ database tools
+2. MCPToolbox connects and loads ALL tools internally  
+3. Filters to only the `hotel-management` toolset (3 tools)
+4. Agent sees only the 3 relevant tools and stays focused
+
+## Advanced Usage
+
+### Multiple Toolsets
+
+Load tools from multiple related toolsets:
+
+```python cookbook/tools/mcp/mcp_toolbox_for_db.py
 import asyncio
 from textwrap import dedent
 from agno.agent import Agent
@@ -32,14 +104,12 @@ from agno.tools.mcp_toolbox import MCPToolbox
 url = "http://127.0.0.1:5001"
 
 async def run_agent(message: str = None) -> None:
-    """Run an interactive CLI for the GitHub agent with the given message."""
+    """Run an interactive CLI for the Hotel agent with the given message."""
 
-    # Approach 1: Load specific toolset at initialization
     async with MCPToolbox(
         url=url, toolsets=["hotel-management", "booking-system"]
     ) as db_tools:
         print(db_tools.functions)  # Print available tools for debugging
-        # returns a list of tools from a toolset
         agent = Agent(
             tools=[db_tools],
             instructions=dedent(
@@ -59,22 +129,20 @@ async def run_agent(message: str = None) -> None:
             debug_mode=True,
         )
 
-        # Run an interactive command-line interface to interact with the agent.
         await agent.acli_app(message=message, stream=True)
 
 if __name__ == "__main__":
     asyncio.run(run_agent(message=None))
 ```
 
-### Manual Tool Loading
+### Custom Authentication and Parameters
+
+For production scenarios with authentication:
 
 ```python
-async def run_agent_manual_loading(message: str) -> None:
-    """Alternative approach: Manual loading with custom auth parameters."""
-
-    # Approach 2: Manual loading with custom auth parameters
-    async with MCPToolbox(url=url) as toolbox:  # No filter parameters
-        # Load specific toolsets with custom auth
+async def production_example():
+    async with MCPToolbox(url=url) as toolbox:
+        # Load with authentication and bound parameters
         hotel_tools = await toolbox.load_toolset(
             "hotel-management",
             auth_token_getters={"hotel_api": lambda: "your-hotel-api-key"},
@@ -87,185 +155,74 @@ async def run_agent_manual_loading(message: str) -> None:
             bound_params={"environment": "production"},
         )
 
-        # Combine tools as needed
-        selected_tools = []
-        selected_tools.extend(hotel_tools)
-        selected_tools.extend(booking_tools[:2])  # Only first 2 booking tools
-
-        agent = Agent(
-            tools=selected_tools,
-            instructions=dedent(
-                """ \
-                You're a helpful hotel assistant. You handle hotel searching, booking and
-                cancellations. When the user searches for a hotel, mention it's name, id,
-                location and price tier. Always mention hotel ids while performing any
-                searches. This is very important for any operations. For any bookings or
-                cancellations, please provide the appropriate confirmation. Be sure to
-                update checkin or checkout dates if mentioned by the user.
-                Don't ask for confirmations from the user.
-            """
-            ),
-            markdown=True,
-            show_tool_calls=True,
-            add_history_to_messages=True,
-            debug_mode=True,
-        )
-
-        await agent.acli_app(message=message, stream=True)
+        # Use individual tools instead of the toolbox
+        all_tools = hotel_tools + booking_tools[:2]  # First 2 booking tools only
+        
+        agent = Agent(tools=all_tools, instructions="Hotel management with auth.")
+        await agent.aprint_response("Book a hotel for tonight")
 ```
 
-### Without Context Manager
+### Manual Connection Management
+
+For explicit control over connections:
 
 ```python
-async def run_agent_no_ctx_manager(message: str = None) -> None:
-    """Run an interactive CLI for the GitHub agent with the given message."""
-
-    # Approach 1: Load specific toolset at initialization
-    toolbox = MCPToolbox(url=url, toolsets=["hotel-management", "booking-system"])
-
-    await toolbox.connect()
-
-    agent = Agent(
-        tools=[toolbox],
-        instructions=dedent(
-            """ \
-            You're a helpful hotel assistant. You handle hotel searching, booking and
-            cancellations. When the user searches for a hotel, mention it's name, id,
-                location and price tier. Always mention hotel ids while performing any
-                searches. This is very important for any operations. For any bookings or
-                cancellations, please provide the appropriate confirmation. Be sure to
-                update checkin or checkout dates if mentioned by the user.
-                Don't ask for confirmations from the user.
-            """
-        ),
-        markdown=True,
-        show_tool_calls=True,
-        add_history_to_messages=True,
-        debug_mode=True,
-    )
-
-    await agent.acli_app(message=message, stream=True)
+async def manual_connection_example():
+    # Initialize without auto-connection
+    toolbox = MCPToolbox(url=url, toolsets=["hotel-management"])
+    
+    try:
+        await toolbox.connect()
+        agent = Agent(
+            tools=[toolbox],
+            instructions="Hotel search assistant.",
+            markdown=True
+        )
+        await agent.aprint_response("Show me hotels in Basel")
+    finally:
+        await toolbox.close()  # Always clean up
 ```
 
-## Configuration Options
+## Toolkit Params
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `url` | `str` | Base URL for the toolbox service |
-| `toolsets` | `Optional[List[str]]` | List of toolset names to filter tools by |
-| `tool_name` | `Optional[str]` | Single tool name to load |
-| `headers` | `Optional[Dict[str, Any]]` | HTTP headers for requests |
-| `transport` | `str` | MCP transport protocol (default: "streamable-http") |
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `url` | `str` | - | Base URL for the toolbox service (automatically appends "/mcp" if missing) |
+| `toolsets` | `Optional[List[str]]` | `None` | List of toolset names to filter tools by. Cannot be used with `tool_name`. |
+| `tool_name` | `Optional[str]` | `None` | Single tool name to load. Cannot be used with `toolsets`. |
+| `headers` | `Optional[Dict[str, Any]]` | `None` | HTTP headers for toolbox client requests |
+| `transport` | `str` | `"streamable-http"` | MCP transport protocol. Options: `"stdio"`, `"sse"`, `"streamable-http"` |
 
 <Note>
-Only one of `toolsets` or `tool_name` can be specified.
+Only one of `toolsets` or `tool_name` can be specified. The implementation validates this and raises a `ValueError` if both are provided.
 </Note>
 
-## Key Methods
+## Toolkit Functions
 
-- `async connect()`: Connect to MCP server and toolbox client
-- `async load_tool(tool_name, auth_token_getters={}, bound_params={})`: Load single tool
-- `async load_toolset(toolset_name, auth_token_getters={}, bound_params={})`: Load toolset
-- `async load_multiple_toolsets(toolset_names, ...)`: Load multiple toolsets
-- `get_client()`: Get underlying ToolboxClient
-- `async close()`: Close connections
+| Function | Description |
+| -------- | ----------- |
+| `async connect()` | Initialize and connect to both MCP server and toolbox client |
+| `async load_tool(tool_name, auth_token_getters={}, bound_params={})` | Load a single tool by name with optional authentication |
+| `async load_toolset(toolset_name, auth_token_getters={}, bound_params={}, strict=False)` | Load all tools from a specific toolset |
+| `async load_multiple_toolsets(toolset_names, auth_token_getters={}, bound_params={}, strict=False)` | Load tools from multiple toolsets |
+| `async load_toolset_safe(toolset_name)` | Safely load a toolset and return tool names for error handling |
+| `get_client()` | Get the underlying ToolboxClient instance |
+| `async close()` | Close both toolbox client and MCP client connections |
 
-## Demo Setup
+## Demo Examples
 
-Complete demo available in `cookbook/tools/mcp/mcp_toolbox_demo/`:
+The complete demo includes multiple working patterns:
 
-### Docker Compose
+- **[Basic Agent](https://github.com/agno-agi/agno/blob/main/cookbook/tools/mcp/mcp_toolbox_demo/agent.py)**: Simple hotel assistant with toolset filtering
+- **[AgentOS Integration](https://github.com/agno-agi/agno/blob/main/cookbook/tools/mcp/mcp_toolbox_demo/agent_os.py)**: Integration with AgentOS control plane  
+- **[Workflow Integration](https://github.com/agno-agi/agno/blob/main/cookbook/tools/mcp/mcp_toolbox_demo/hotel_management_workflows.py)**: Using MCPToolbox in Agno workflows
+- **[Type-Safe Agent](https://github.com/agno-agi/agno/blob/main/cookbook/tools/mcp/mcp_toolbox_demo/hotel_management_typesafe.py)**: Implementation with Pydantic models
 
-```yaml
-services:
-  toolbox:
-    image: us-central1-docker.pkg.dev/database-toolbox/toolbox/toolbox:latest
-    ports:
-      - "5001:5000"
-    volumes:
-      - ./config:/config
-    command: ["toolbox", "--tools-file", "/config/tools.yaml", "--address", "0.0.0.0"]
-    depends_on:
-      db:
-        condition: service_healthy
+You can use `include_tools` or `exclude_tools` to modify the list of tools the agent has access to. Learn more about [selecting tools](/concepts/tools/selecting-tools).
 
-  db:
-    image: postgres:16
-    environment:
-      POSTGRES_USER: toolbox_user
-      POSTGRES_PASSWORD: my-password
-      POSTGRES_DB: toolbox_db
-    ports:
-      - "5432:5432"
-    volumes:
-      - ./config/init.sql:/docker-entrypoint-initdb.d/init.sql
-```
+## Developer Resources
 
-### Tool Configuration
+- View [Tools](https://github.com/agno-agi/agno/blob/main/libs/agno/agno/tools/mcp_toolbox.py)
+- View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/tools/mcp/mcp_toolbox_demo)
 
-```yaml
-sources:
-  my-pg-source:
-    kind: postgres
-    host: db
-    port: 5432
-    database: toolbox_db
-    user: toolbox_user
-    password: my-password
-
-tools:
-  search-hotels-by-name:
-    kind: postgres-sql
-    source: my-pg-source
-    description: Search for hotels based on name.
-    parameters:
-      - name: name
-        type: string
-        description: The name of the hotel.
-    statement: SELECT * FROM hotels WHERE name ILIKE '%' || $1 || '%';
-    
-  book-hotel:
-    kind: postgres-sql
-    source: my-pg-source
-    description: Book a hotel by its ID.
-    parameters:
-      - name: hotel_id
-        type: string
-        description: The ID of the hotel to book.
-    statement: UPDATE hotels SET booked = B'1' WHERE id = $1;
-
-toolsets:
-  hotel-management:
-    - search-hotels-by-name
-    - search-hotels-by-location
-    - find-hotels-by-tier-and-location
-  booking-system:
-    - book-hotel
-    - update-hotel
-    - cancel-hotel
-```
-
-## Running the Demo
-
-```bash
-cd cookbook/tools/mcp/mcp_toolbox_demo
-docker-compose up -d
-uv sync
-export OPENAI_API_KEY="your_openai_api_key"
-uv run agent.py
-```
-
-## Available Examples
-
-- **[Basic Agent](https://github.com/agno-agi/agno/blob/main/cookbook/tools/mcp/mcp_toolbox_demo/agent.py)** (`agent.py`): Simple hotel assistant
-- **[AgentOS Integration](https://github.com/agno-agi/agno/blob/main/cookbook/tools/mcp/mcp_toolbox_demo/agent_os.py)** (`agent_os.py`): With AgentOS control plane
-- **[Workflow Integration](https://github.com/agno-agi/agno/blob/main/cookbook/tools/mcp/mcp_toolbox_demo/hotel_management_workflows.py)** (`hotel_management_workflows.py`): Using in workflows
-- **[Type-Safe Agent](https://github.com/agno-agi/agno/blob/main/cookbook/tools/mcp/mcp_toolbox_demo/hotel_management_typesafe.py)** (`hotel_management_typesafe.py`): Pydantic models
-- **[Complete Demo](https://github.com/agno-agi/agno/tree/main/cookbook/tools/mcp/mcp_toolbox_demo)**: Full demo with Docker setup and README
-
-## Related Documentation
-
-- [MCP Overview](/concepts/tools/mcp/mcp)
-- [MCP Transports](/concepts/tools/mcp/transports/streamable_http)
-
-For more information, visit the [MCP Toolbox documentation](https://googleapis.github.io/genai-toolbox/getting-started/introduction/).
+For more information about MCP Toolbox for Databases, visit the [official documentation](https://googleapis.github.io/genai-toolbox/getting-started/introduction/).
