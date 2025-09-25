@@ -59,6 +59,6 @@ from agno.agent import Agent
 from agno.models.ollama import Ollama
 
 # No local setup required - just set OLLAMA_API_KEY
-agent = Agent(model=Ollama(id="llama3.1:8b", host="https://ollama.com"))
+agent = Agent(model=Ollama(id="gpt-oss:120b-cloud", host="https://ollama.com"))
 agent.print_response("Share a 2 sentence horror story")
 ```
