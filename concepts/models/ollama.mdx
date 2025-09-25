@@ -15,6 +15,7 @@ Ollama supports multiple open-source models. See the library [here](https://olla
 
 Experiment with different models to find the best fit for your use case. Here are some general recommendations:
 
+- `gpt-oss:120b-cloud` is an excellent general-purpose cloud model for most tasks.
 - `llama3.3` models are good for most basic use-cases.
 - `qwen` models perform specifically well with tool use.
 - `deepseek-r1` models have strong reasoning capabilities.
@@ -94,7 +95,7 @@ from agno.agent import Agent
 from agno.models.ollama import Ollama
 
 agent = Agent(
-    model=Ollama(id="deepseek-v3.1:671b"),
+    model=Ollama(id="gpt-oss:120b-cloud"),
     markdown=True
 )
 
