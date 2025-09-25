@@ -3,13 +3,38 @@ title: How to Switch Between Different Models
 sidebarTitle: Switching Models
 ---
 
-Agno supports 20+ model providers, making it easy to switch between different models based on your needs. Here's how to switch models and when you might want to.
+Agno supports 20+ model providers. While you can switch between different providers, doing so may cause compatibility issues. Switching models within the same provider is generally safer and more reliable.
 
-## Basic Model Switching
+## Recommended Approach
 
-To switch models, simply change the import and model instance in your agent:
+**Preferred:** Switch models within the same provider (OpenAI → OpenAI, Google → Google)  
+**Use with caution:** Switch between different providers (OpenAI ↔ Google ↔ Anthropic)
 
-### From OpenAI to Google Gemini
+If you need to switch providers, test thoroughly in a development environment first.
+
+## Safe Model Switching
+
+**Switching within the same provider**
+
+The safest way to switch models is to change the model ID while keeping the same provider:
+
+```python
+# Safe: Switching between OpenAI models
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+
+# From GPT-4o to GPT-4o-mini (same provider)
+expensive_agent = Agent(model=OpenAIChat(id="gpt-4o"))
+budget_agent = Agent(model=OpenAIChat(id="gpt-4o-mini"))
+```
+
+## Cross-Provider Model Switching
+
+**Switching between different providers**
+
+Switching between providers (OpenAI → Google, OpenAI → Anthropic, etc.) can cause compatibility issues. This approach is not recommended for production use without thorough testing.
+
+### OpenAI to Google Gemini
 
 ```python
 # Before: Using OpenAI GPT-4o
@@ -25,7 +50,7 @@ from agno.models.google import Gemini
 agent = Agent(model=Gemini(id="gemini-2.0-flash-001"))
 ```
 
-### From OpenAI to Anthropic Claude
+### OpenAI to Anthropic Claude
 
 ```python
 # Before: Using OpenAI
@@ -37,7 +62,7 @@ from agno.models.anthropic import Claude
 agent = Agent(model=Claude(id="claude-sonnet-4-20250514"))
 ```
 
-### From Cloud to Local Models
+### Cloud to Local Models
 
 ```python
 # Before: Using cloud OpenAI
@@ -49,45 +74,54 @@ from agno.models.ollama import Ollama
 agent = Agent(model=Ollama(id="llama3.1"))
 ```
 
-## Common Model Switching Scenarios
+## Common Switching Scenarios
+
+The following scenarios might require switching providers. Consider staying within your current provider when possible, or test thoroughly before implementing in production.
 
 ### 1. Cost Optimization
-Switch to cheaper models for simple tasks:
+**Within same provider (recommended):**
 
 ```python
-# Expensive: For complex reasoning
+# Switching within OpenAI for cost optimization
 expensive_agent = Agent(model=OpenAIChat(id="gpt-4o"))
-
-# Affordable: For simple tasks
 affordable_agent = Agent(model=OpenAIChat(id="gpt-4o-mini"))
 ```
 
 ### 2. Capability Requirements
-Switch based on specific capabilities:
+**May require provider switching:**
 
 ```python
-# For multimodal (image/audio/video)
-multimodal_agent = Agent(model=Gemini(id="gemini-2.0-flash-exp"))
+# Different providers for different capabilities
+multimodal_agent = Agent(model=Gemini(id="gemini-2.0-flash-exp"))  # Google
+reasoning_agent = Agent(model=OpenAIChat(id="o3-mini"))             # OpenAI  
+fast_agent = Agent(model=Gemini(id="gemini-1.5-flash"))            # Google
 
-# For reasoning tasks
-reasoning_agent = Agent(model=OpenAIChat(id="o3-mini"))
-
-# For fast responses
-fast_agent = Agent(model=Gemini(id="gemini-1.5-flash"))
+# Consider staying within one provider when possible
 ```
 
 ### 3. Privacy and Local Processing
-Switch to local models for sensitive data:
+**Requires provider switching:**
 
 ```python
-# Cloud processing
-cloud_agent = Agent(model=OpenAIChat(id="gpt-4o"))
+# Moving from cloud to local providers
+cloud_agent = Agent(model=OpenAIChat(id="gpt-4o"))    # Cloud provider
+local_agent = Agent(model=Ollama(id="llama3.1"))      # Local provider
 
-# Local processing
-local_agent = Agent(model=Ollama(id="llama3.1"))
+# Note: This switch may affect compatibility with existing tools and workflows
 ```
 
-## Important Considerations
+## Compatibility Considerations
+
+Switching between different providers can cause several issues:
+
+- **API compatibility differences**: Each provider has different authentication methods
+- **Parameter inconsistencies**: Different providers support different model parameters  
+- **Tool calling variations**: Function calling works differently across providers
+- **Response format differences**: Output structure may vary between providers
+- **Rate limiting conflicts**: Different providers have different rate limits
+- **Feature availability**: Not all providers support all agno features
+
+## Configuration Requirements
 
 ### API Keys and Environment Variables
 Each provider requires different API keys:
@@ -156,22 +190,28 @@ Be aware of model-specific capabilities:
 
 ## Dynamic Model Switching
 
-You can switch models dynamically based on conditions:
+Dynamic switching between providers should be used cautiously in production environments:
 
 ```python
 def get_model_for_task(task_type: str):
+    # Note: This pattern switches providers dynamically
+    if task_type == "reasoning":
+        return OpenAIChat(id="o3-mini")           # OpenAI
+    elif task_type == "multimodal": 
+        return Gemini(id="gemini-2.0-flash-exp")  # Google
+    elif task_type == "fast":
+        return Gemini(id="gemini-1.5-flash")      # Google
+    else:
+        return OpenAIChat(id="gpt-4o-mini")       # OpenAI
+
+# Alternative: Stay within one provider ecosystem
+def get_openai_model_for_task(task_type: str):
     if task_type == "reasoning":
         return OpenAIChat(id="o3-mini")
-    elif task_type == "multimodal":
-        return Gemini(id="gemini-2.0-flash-exp")
     elif task_type == "fast":
-        return Gemini(id="gemini-1.5-flash")
+        return OpenAIChat(id="gpt-4o-mini")
     else:
-        return OpenAIChat(id="gpt-4o-mini")  # Default
-
-# Use different models for different tasks
-reasoning_agent = Agent(model=get_model_for_task("reasoning"))
-vision_agent = Agent(model=get_model_for_task("multimodal"))
+        return OpenAIChat(id="gpt-4o")
 ```
 
 ## Model Compatibility
@@ -190,7 +230,9 @@ agent = Agent(
 agent.print_response("Hello, how are you?")
 ```
 
-## Troubleshooting
+## Common Issues When Switching Providers
+
+Most switching issues occur when moving between providers:
 
 ### "Model not found" errors
 Make sure you're using the correct model ID:
@@ -223,33 +265,34 @@ pip install anthropic
 pip install ollama
 ```
 
-### Tool calling issues when switching models
-If tools stop working after switching models:
+### Tool calling issues
+Tools that work with one provider may not work with another:
 
 ```python
-# Ollama: Use models that support tools
-agent = Agent(model=Ollama(id="llama3.1"), tools=[YourToolkit()])
+# Example: Tools may behave differently across providers
+openai_agent = Agent(model=OpenAIChat(id="gpt-4o"), tools=[YourToolkit()])  
+ollama_agent = Agent(model=Ollama(id="llama3.1"), tools=[YourToolkit()])   
 
-# OpenRouter: Set tool_choice explicitly  
-agent = Agent(
-    model=OpenRouter(id="mistralai/mistral-small-24b-instruct-2501"),
-    tools=[YourToolkit()],
-    tool_choice="auto",
-)
+# Ensure the target model supports the tools you need
+agent = Agent(model=Ollama(id="llama3.1"), tools=[YourToolkit()])  
 ```
 
-### Compatibility issues when switching
-If response_model, streaming, or teams break after switching:
+### Feature compatibility issues
+Features may work differently between providers:
 
 ```python
-# If response_model and tools conflict, use separately
-agent_with_tools = Agent(model=SomeModel(), tools=[YourToolkit()])
+# Different providers may have different feature support:
 
-# If streaming fails
-response = agent.run("Your query", stream=False)
+# response_model support varies
+openai_agent = Agent(model=OpenAIChat(id="gpt-4o"))      
+claude_agent = Agent(model=Claude(id="claude-sonnet-4")) 
 
-# If teams fail, use same model for all members
-team = Team(model=OpenAIChat(id="gpt-4o"), members=[agent1, agent2])
+# streaming behavior varies
+openai_response = openai_agent.run("Query", stream=True)   
+gemini_response = gemini_agent.run("Query", stream=True)   
+
+# teams feature compatibility varies
+team = Team(model=OpenAIChat(id="gpt-4o"), members=[agent1, agent2])  
 ```
 
 ### Version issues when switching
