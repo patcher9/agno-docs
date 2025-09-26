@@ -2789,6 +2789,23 @@
                 ]
               }
             ]
+          },
+          {
+            "group": "Agno Infra",
+            "pages": [
+              {
+                "group": "CLI",
+                "pages": [
+                  "reference/agno-infra/cli/ws/create",
+                  "reference/agno-infra/cli/ws/up",
+                  "reference/agno-infra/cli/ws/down",
+                  "reference/agno-infra/cli/ws/restart",
+                  "reference/agno-infra/cli/ws/patch",
+                  "reference/agno-infra/cli/ws/config",
+                  "reference/agno-infra/cli/ws/delete"
+                ]
+              }
+            ]
           }
         ]
       },
