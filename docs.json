@@ -2804,6 +2804,7 @@
               "faq/openai-key-request-for-other-models",
               "faq/structured-outputs",
               "faq/When-to-use-a-Workflow-vs-a-Team-in-Agno",
+              "faq/switching-models",
               "faq/connecting-to-tableplus",
               "faq/could-not-connect-to-docker"
             ]
