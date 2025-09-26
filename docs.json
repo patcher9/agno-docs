@@ -507,7 +507,10 @@
               },
               {
                 "group": "Multimodal",
-                "pages": ["concepts/multimodal/overview"]
+                "pages": [
+                  "concepts/multimodal/overview",
+                  "concepts/multimodal/speech-to-text"
+                ]
               },
               {
                 "group": "Human-in-the-Loop",
@@ -556,6 +559,7 @@
                       "integrations/observability/langfuse",
                       "integrations/observability/langsmith",
                       "integrations/observability/langtrace",
+                      "integrations/observability/maxim",
                       "integrations/observability/weave"
                     ]
                   },
@@ -2053,6 +2057,7 @@
                       "examples/concepts/integrations/observability/langsmith-via-openinference",
                       "examples/concepts/integrations/observability/langtrace-op",
                       "examples/concepts/integrations/observability/langwatch_op",
+                      "examples/concepts/integrations/observability/maxim",
                       "examples/concepts/integrations/observability/weave-op"
                     ]
                   },
@@ -2410,6 +2415,7 @@
                 "pages": [
                   "examples/models/ollama/basic",
                   "examples/models/ollama/basic_stream",
+                  "examples/models/ollama/cloud",
                   "examples/models/ollama/async_basic",
                   "examples/models/ollama/async_basic_stream",
                   "examples/models/ollama/tool_use",
@@ -2798,6 +2804,7 @@
               "faq/openai-key-request-for-other-models",
               "faq/structured-outputs",
               "faq/When-to-use-a-Workflow-vs-a-Team-in-Agno",
+              "faq/switching-models",
               "faq/connecting-to-tableplus",
               "faq/could-not-connect-to-docker"
             ]
