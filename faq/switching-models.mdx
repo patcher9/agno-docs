@@ -104,30 +104,6 @@ gemini_agent.print_response(
 # Note: Gemini may not properly interpret OpenAI's message history format
 ```
 
-## Common Issues
-
-When switching between providers, you may encounter:
-
-- **Message history incompatibility**: Different providers use different message formats and role structures, making conversation history transfer between providers unreliable
-- **response_model conflicts**: Some providers don't support tools + response_model together
-
-## Setup Requirements
-
-Each provider needs different API keys:
-
-```bash
-# OpenAI
-export OPENAI_API_KEY="your-openai-key"
-
-# Google Gemini  
-export GOOGLE_API_KEY="your-google-key"
-
-# Anthropic Claude
-export ANTHROPIC_API_KEY="your-anthropic-key"
-```
-
-If you need to switch providers, test thoroughly in a development environment first.
-
 ## Learn More
 
 - [All supported models](/concepts/models/introduction)
