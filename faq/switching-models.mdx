@@ -10,17 +10,51 @@ When working with Agno, you may need to switch between different models. While A
 **Safe:** Switch models within the same provider (OpenAI → OpenAI, Google → Google)  
 **Risky:** Switch between different providers (OpenAI ↔ Google ↔ Anthropic)
 
+Cross-provider switching is risky because message history between model providers are often not interchangeable, as some require messages that others don't. However, we are actively working to improve interoperability.
+
 ## Safe Model Switching
 
-The safest way to switch models is to change the model ID while keeping the same provider:
+The safest way to switch models is to change the model ID while keeping the same provider. Here's the exact pattern from the cookbook for sharing history between agents:
 
 ```python
+from uuid import uuid4
 from agno.agent import Agent
-from agno.models.openai import OpenAIChat
+from agno.db.sqlite import SqliteDb
+from agno.models.openai.chat import OpenAIChat
 
-# From GPT-4o to GPT-4o-mini (same provider)
-expensive_agent = Agent(model=OpenAIChat(id="gpt-4o"))
-budget_agent = Agent(model=OpenAIChat(id="gpt-4o-mini"))
+db = SqliteDb(db_file="tmp/agent_sessions.db")
+
+session_id = str(uuid4())
+user_id = "user@example.com"
+
+# Create initial agent with expensive model
+expensive_agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    instructions="You are a helpful assistant for technical discussions.",
+    db=db,
+    add_history_to_context=True,
+)
+
+# Have a conversation
+expensive_agent.print_response(
+    "Explain quantum computing basics", session_id=session_id, user_id=user_id
+)
+expensive_agent.print_response(
+    "What are the main applications?", session_id=session_id, user_id=user_id
+)
+
+# Switch to budget model within same provider (safe)
+budget_agent = Agent(
+    model=OpenAIChat(id="gpt-4o-mini"),
+    instructions="You are a helpful assistant for technical discussions.",
+    db=db,
+    add_history_to_context=True,
+)
+
+# Continue conversation - history shared via session_id
+budget_agent.print_response(
+    "Can you summarize our discussion so far?", session_id=session_id, user_id=user_id
+)
 ```
 
 ## Cross-Provider Switching
@@ -28,24 +62,54 @@ budget_agent = Agent(model=OpenAIChat(id="gpt-4o-mini"))
 Switching between providers can cause compatibility issues and is not recommended for production use without thorough testing:
 
 ```python
-# OpenAI to Google Gemini
-from agno.models.openai import OpenAIChat
+from uuid import uuid4
+from agno.agent import Agent
+from agno.db.sqlite import SqliteDb
+from agno.models.openai.chat import OpenAIChat
 from agno.models.google import Gemini
 
-openai_agent = Agent(model=OpenAIChat(id="gpt-4o"))
-gemini_agent = Agent(model=Gemini(id="gemini-2.0-flash-001"))
+db = SqliteDb(db_file="tmp/cross_provider_demo.db")
+
+session_id = str(uuid4())
+user_id = "user@example.com"
+
+# Create OpenAI agent
+openai_agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    instructions="You are a helpful assistant.",
+    db=db,
+    add_history_to_context=True,
+)
+
+# Have a conversation with OpenAI
+openai_agent.print_response(
+    "Explain machine learning basics", session_id=session_id, user_id=user_id
+)
+openai_agent.print_response(
+    "What about deep learning?", session_id=session_id, user_id=user_id
+)
+
+# Now switch to Google Gemini using same session
+gemini_agent = Agent(
+    model=Gemini(id="gemini-2.0-flash-exp"),
+    instructions="You are a helpful assistant.",
+    db=db,
+    add_history_to_context=True,
+)
+
+# This may work but with unpredictable results due to message format differences
+gemini_agent.print_response(
+    "Continue our discussion about machine learning", session_id=session_id, user_id=user_id
+)
+# Note: Gemini may not properly interpret OpenAI's message history format
 ```
 
 ## Common Issues
 
 When switching between providers, you may encounter:
 
-- **API key differences**: Each provider requires different environment variables
-- **Tool compatibility**: Tools may work differently across providers  
+- **Message history incompatibility**: Different providers use different message formats and role structures, making conversation history transfer between providers unreliable
 - **response_model conflicts**: Some providers don't support tools + response_model together
-- **Model reuse problems**: Sharing model instances between agents can cause state issues
-- **Feature variations**: Not all providers support all agno features
-- **Role mapping differences**: Message role names vary between providers
 
 ## Setup Requirements
 
@@ -63,42 +127,6 @@ export ANTHROPIC_API_KEY="your-anthropic-key"
 ```
 
 If you need to switch providers, test thoroughly in a development environment first.
-
-## Troubleshooting Common Switch Issues
-
-### Tools + response_model conflicts
-Some providers (Gemini, OpenRouter) don't support tools and response_model simultaneously:
-
-```python
-# This may fail with Gemini
-agent = Agent(
-    model=Gemini(id="gemini-2.0-flash-001"),
-    tools=[SomeTools()],
-    response_model=MyModel,  # Conflict!
-)
-
-# Solution: Use separately or try use_json_mode=True
-agent = Agent(
-    model=Gemini(id="gemini-2.0-flash-001"),
-    tools=[SomeTools()],
-    response_model=MyModel,
-    use_json_mode=True  # May resolve conflict
-)
-```
-
-### Model reuse issues
-Don't share model instances between agents with different response_models:
-
-```python
-# Problematic: model state can persist
-shared_model = OpenAIChat(id="gpt-4o")
-agent1 = Agent(model=shared_model, response_model=ModelA)
-agent2 = Agent(model=shared_model, response_model=ModelB)  # May use ModelA
-
-# Better: Create separate model instances
-agent1 = Agent(model=OpenAIChat(id="gpt-4o"), response_model=ModelA)
-agent2 = Agent(model=OpenAIChat(id="gpt-4o"), response_model=ModelB)
-```
 
 ## Learn More
 
