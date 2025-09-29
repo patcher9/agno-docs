@@ -25,8 +25,13 @@ Get started with MCPToolbox instantly using our fully functional demo.
 git clone https://github.com/agno-agi/agno.git
 cd agno/cookbook/tools/mcp/mcp_toolbox_demo
 
-# Start database and MCP Toolbox server
+# Start the database and MCP Toolbox servers
+
+# With Docker and Docker Compose
 docker-compose up -d
+
+# With Podman
+podman compose up -d
 
 # Install dependencies
 uv sync
