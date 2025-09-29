@@ -1,17 +1,13 @@
 ---
 title: "Custom Middleware"
-description: "Learn how to add your own middleware to AgentOS"
+description: "AgentOS with custom middleware for rate limiting, logging, and monitoring"
 ---
-Add custom middleware to your AgentOS application for enhanced functionality like rate limiting, logging, monitoring etc.
 
-See the following example where we add common middleware often used in production systems:
-- **Rate Limiting**: Prevents API abuse by limiting requests per IP address
-- **Request/Response Logging**: Tracks all incoming requests with timing and metadata
+This example demonstrates how to create and add custom middleware to your AgentOS application. We implement two common middleware types: rate limiting and request/response logging.
 
 ## Code
 
-```python cookbook/agent_os/customize/fastapi_app_with_custom_middleware.py
-
+```python custom_middleware.py
 import time
 from collections import defaultdict, deque
 from typing import Dict
@@ -161,26 +157,10 @@ if __name__ == "__main__":
     Features:
     1. Rate Limiting (10 requests/minute)
     2. Request/Response Logging
-    
-    Test commands:
-    
-    1. Test rate limiting:
-       for i in {1..15}; do curl http://localhost:7777/config; done
-    
-    2. Check rate limit headers:
-       curl -v http://localhost:7777/config
-    
-    Look for:
-    - Console logs showing request/response info
-    - Rate limit headers: X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset
-    - Request count header: X-Request-Count
-    - 429 errors when rate limit exceeded
     """
 
     agent_os.serve(
-        app="fastapi_app_with_custom_middleware:app",
-        host="localhost",
-        port=7777,
+        app="custom_middleware:app",
         reload=True,
     )
 ```
@@ -193,13 +173,12 @@ if __name__ == "__main__":
   <Step title="Set Environment Variables">
     ```bash
     export OPENAI_API_KEY=your_openai_api_key
-    export DATABASE_URL=postgresql+psycopg://ai:ai@localhost:5532/ai  # Optional
     ```
   </Step>
 
   <Step title="Install libraries">
     ```bash
-    pip install -U agno openai fastapi["standard"] uvicorn sqlalchemy pgvector psycopg
+    pip install -U agno openai ddgs fastapi["standard"] uvicorn sqlalchemy pgvector psycopg
     ```
   </Step>
 
@@ -218,18 +197,18 @@ if __name__ == "__main__":
 
   <Step title="Run Example">
     ```bash
-    python cookbook/agent_os/customize/fastapi_app_with_custom_middleware.py
+    python custom_middleware.py
     ```
   </Step>
 
   <Step title="Test the Middleware">
     
-    **Basic Request:**
+    **Basic Request (observe console logging):**
     ```bash
     curl http://localhost:7777/config
     ```
     
-    **Test Rate Limiting (trigger 429 errors):**
+    **Test Rate Limiting (trigger 429 errors after 10 requests):**
     ```bash
     for i in {1..15}; do curl http://localhost:7777/config; done
     ```
@@ -239,10 +218,64 @@ if __name__ == "__main__":
     curl -v http://localhost:7777/config
     ```
     
-    Look for these response headers:
-    - `X-RateLimit-Limit`: Maximum requests allowed
-    - `X-RateLimit-Remaining`: Remaining requests in window
-    - `X-RateLimit-Reset`: When the window resets
-    - `X-Request-Count`: Total requests processed
   </Step>
 </Steps>
+
+## Middleware Features
+
+<Tabs>
+  <Tab title="Rate Limiting">
+    **Prevents API abuse by limiting requests per IP:**
+    
+    - **Configurable Limits**: Set requests per minute and time window  
+    - **Per-IP Tracking**: Different limits for different IP addresses
+    - **Sliding Window**: Uses a sliding time window for accurate limiting
+    - **Rate Limit Headers**: Provides client information about limits
+    
+    **Headers Added:**
+    - `X-RateLimit-Limit`: Maximum requests allowed
+    - `X-RateLimit-Remaining`: Requests remaining in current window  
+    - `X-RateLimit-Reset`: Timestamp when the window resets
+    
+    **Customization:**
+    ```python
+    app.add_middleware(
+        RateLimitMiddleware,
+        requests_per_minute=100,  # Allow 100 requests per minute
+        window_size=60,           # 60-second sliding window
+    )
+    ```
+  </Tab>
+  
+  <Tab title="Request Logging">
+    **Comprehensive request and response logging:**
+    
+    - **Request Details**: Method, path, client IP, timing
+    - **Response Tracking**: Status codes, response time
+    - **Optional Body Logging**: Log request bodies for debugging  
+    - **Optional Header Logging**: Log request headers
+    - **Request Counter**: Track total requests processed
+    
+    **Console Output Example:**
+    ```
+    🔍 Request #1: GET /config from 127.0.0.1
+    ✅ Response: 200 in 45.2ms
+    🔍 Request #2: POST /agents/demo-agent/runs from 127.0.0.1  
+    ✅ Response: 200 in 1240.8ms
+    ```
+    
+    **Customization:**
+    ```python
+    app.add_middleware(
+        RequestLoggingMiddleware,
+        log_body=True,     # Log request bodies
+        log_headers=True,  # Log request headers
+    )
+    ```
+  </Tab>
+</Tabs>
+
+## Developer Resources
+
+- [Custom Middleware Documentation](/agent-os/customize/middleware/custom)
+- [FastAPI Middleware Documentation](https://fastapi.tiangolo.com/tutorial/middleware/)
