@@ -1,0 +1,293 @@
+---
+title: Pre-hooks and Post-hooks
+description: Learn about using pre-hooks and post-hooks with your teams.
+---
+
+Pre-hooks and post-hooks are a simple way to validate or modify the input and output of a Team run.
+
+
+## Pre-hooks
+
+You can use pre-hooks to check, validate or modify the **input** that is passed to a Team.
+
+Pre-hooks are executed at the beginning of a run, before the input is presented to the LLM.
+
+In the following example, we create a pre-hook that transforms the input to be more relevant to the team's purpose:
+
+```python
+from typing import Optional
+
+from agno.team import Team
+from agno.models.openai import OpenAIChat
+from agno.run.team import TeamRunInput
+from agno.session.team import TeamSession
+from agno.utils.log import log_debug
+
+
+def transform_input(
+    run_input: TeamRunInput,
+    session: TeamSession,
+    user_id: Optional[str] = None,
+    debug_mode: Optional[bool] = None,
+) -> None:
+    """
+    Pre-hook: Rewrite the input to be more relevant to the team's purpose.
+
+    This hook rewrites the input to be more relevant to the team's purpose.
+    """
+    log_debug(
+        f"Transforming input: {run_input.input_content} for user {user_id} and session {session.session_id}"
+    )
+
+    # Input transformation team
+    transformer_team = Team(
+        name="Input Transformer",
+        model=OpenAIChat(id="gpt-5-mini"),
+        instructions=[
+            "You are an input transformation specialist.",
+            "Rewrite the user request to be more relevant to the team's purpose.",
+            "Use known context engineering standards to rewrite the input.",
+            "Keep the input as concise as possible.",
+            "The team's purpose is to provide investment guidance and financial planning advice.",
+        ],
+        debug_mode=debug_mode,
+    )
+
+    transformation_result = transformer_team.run(
+        input=f"Transform this user request: '{run_input.input_content}'"
+    )
+
+    # Overwrite the input with the transformed input
+    run_input.input_content = transformation_result.content
+    log_debug(f"Transformed input: {run_input.input_content}")
+
+
+print("🚀 Input Transformation Pre-Hook Example")
+print("=" * 60)
+
+# Create a financial advisor team with comprehensive hooks
+team = Team(
+    name="Financial Advisor",
+    model=OpenAIChat(id="gpt-5-mini"),
+    pre_hooks=[transform_input],
+    description="A professional financial advisor providing investment guidance and financial planning advice.",
+    instructions=[
+        "You are a knowledgeable financial advisor with expertise in:",
+        "• Investment strategies and portfolio management",
+        "• Retirement planning and savings strategies",
+        "• Risk assessment and diversification",
+        "• Tax-efficient investing",
+        "",
+        "Provide clear, actionable advice while being mindful of individual circumstances.",
+        "Always remind users to consult with a licensed financial advisor for personalized advice.",
+    ],
+    debug_mode=True,
+)
+
+team.print_response(
+    input="I'm 35 years old and want to start investing for retirement. moderate risk tolerance. retirement savings in IRAs/401(k)s= $100,000. total savings is $200,000. my net worth is $300,000",
+    session_id="test_session",
+    user_id="test_user",
+    stream=True,
+)
+```
+
+## Post-hooks
+
+You can use post-hooks to check, validate or modify the **output** of a Team run.
+
+This is useful to get extra control over what is returned to the user, and filter out anything undesired.
+
+In the following example, we create a post-hook that validates the response quality and safety:
+
+```python
+import asyncio
+
+from agno.team import Team
+from agno.exceptions import CheckTrigger, OutputCheckError
+from agno.models.openai import OpenAIChat
+from agno.run.team import TeamRunOutput
+from pydantic import BaseModel
+
+
+class OutputValidationResult(BaseModel):
+    is_complete: bool
+    is_professional: bool
+    is_safe: bool
+    concerns: list[str]
+    confidence_score: float
+
+
+def validate_response_quality(run_output: TeamRunOutput) -> None:
+    """
+    Post-hook: Validate the team's response for quality and safety.
+
+    This hook checks:
+    - Response completeness (not too short or vague)
+    - Professional tone and language
+    - Safety and appropriateness of content
+
+    Raises OutputCheckError if validation fails.
+    """
+
+    # Skip validation for empty responses
+    if not run_output.content or len(run_output.content.strip()) < 10:
+        raise OutputCheckError(
+            "Response is too short or empty",
+            check_trigger=CheckTrigger.OUTPUT_NOT_ALLOWED,
+        )
+
+    # Create a validation team
+    validator_team = Team(
+        name="Output Validator",
+        model=OpenAIChat(id="gpt-4o-mini"),
+        instructions=[
+            "You are an output quality validator. Analyze responses for:",
+            "1. COMPLETENESS: Response addresses the question thoroughly",
+            "2. PROFESSIONALISM: Language is professional and appropriate",
+            "3. SAFETY: Content is safe and doesn't contain harmful advice",
+            "",
+            "Provide a confidence score (0.0-1.0) for overall quality.",
+            "List any specific concerns found.",
+            "",
+            "Be reasonable - don't reject good responses for minor issues.",
+        ],
+        output_schema=OutputValidationResult,
+    )
+
+    validation_result = validator_team.run(
+        input=f"Validate this response: '{run_output.content}'"
+    )
+
+    result = validation_result.content
+
+    # Check validation results and raise errors for failures
+    if not result.is_complete:
+        raise OutputCheckError(
+            f"Response is incomplete. Concerns: {', '.join(result.concerns)}",
+            check_trigger=CheckTrigger.OUTPUT_NOT_ALLOWED,
+        )
+
+    if not result.is_professional:
+        raise OutputCheckError(
+            f"Response lacks professional tone. Concerns: {', '.join(result.concerns)}",
+            check_trigger=CheckTrigger.OUTPUT_NOT_ALLOWED,
+        )
+
+    if not result.is_safe:
+        raise OutputCheckError(
+            f"Response contains potentially unsafe content. Concerns: {', '.join(result.concerns)}",
+            check_trigger=CheckTrigger.OUTPUT_NOT_ALLOWED,
+        )
+
+    if result.confidence_score < 0.6:
+        raise OutputCheckError(
+            f"Response quality score too low ({result.confidence_score:.2f}). Concerns: {', '.join(result.concerns)}",
+            check_trigger=CheckTrigger.OUTPUT_NOT_ALLOWED,
+        )
+
+
+def simple_length_validation(run_output: TeamRunOutput) -> None:
+    """
+    Simple post-hook: Basic validation for response length.
+
+    Ensures responses are neither too short nor excessively long.
+    """
+    content = run_output.content.strip()
+
+    if len(content) < 20:
+        raise OutputCheckError(
+            "Response is too brief to be helpful",
+            check_trigger=CheckTrigger.OUTPUT_NOT_ALLOWED,
+        )
+
+    if len(content) > 5000:
+        raise OutputCheckError(
+            "Response is too lengthy and may overwhelm the user",
+            check_trigger=CheckTrigger.OUTPUT_NOT_ALLOWED,
+        )
+
+
+async def main():
+    """Demonstrate output validation post-hooks."""
+    print("🔍 Output Validation Post-Hook Example")
+    print("=" * 60)
+
+    # Team with comprehensive output validation
+    team_with_validation = Team(
+        name="Customer Support Team",
+        model=OpenAIChat(id="gpt-4o-mini"),
+        post_hooks=[validate_response_quality],
+        instructions=[
+            "You are a helpful customer support team.",
+            "Provide clear, professional responses to customer inquiries.",
+            "Be concise but thorough in your explanations.",
+        ],
+    )
+
+    # Team with simple validation only
+    team_simple = Team(
+        name="Simple Team",
+        model=OpenAIChat(id="gpt-4o-mini"),
+        post_hooks=[simple_length_validation],
+        instructions=[
+            "You are a helpful assistant. Keep responses focused and appropriate length."
+        ],
+    )
+
+    # Test 1: Good response (should pass validation)
+    print("\n✅ Test 1: Well-formed response")
+    print("-" * 40)
+    try:
+        await team_with_validation.aprint_response(
+            input="How do I reset my password on my Microsoft account?"
+        )
+        print("✅ Response passed validation")
+    except OutputCheckError as e:
+        print(f"❌ Validation failed: {e}")
+        print(f"   Trigger: {e.check_trigger}")
+
+    # Test 2: Force a short response (should fail simple validation)
+    print("\n❌ Test 2: Too brief response")
+    print("-" * 40)
+    try:
+        # Use a more constrained instruction to get a brief response
+        brief_team = Team(
+            name="Brief Team",
+            model=OpenAIChat(id="gpt-4o-mini"),
+            post_hooks=[simple_length_validation],
+            instructions=["Answer in 1-2 words only."],
+        )
+        await brief_team.aprint_response(input="What is the capital of France?")
+    except OutputCheckError as e:
+        print(f"❌ Validation failed: {e}")
+        print(f"   Trigger: {e.check_trigger}")
+
+    # Test 3: Normal response with simple validation
+    print("\n✅ Test 3: Normal response with simple validation")
+    print("-" * 40)
+    try:
+        await team_simple.aprint_response(
+            input="Explain what a database is in simple terms."
+        )
+        print("✅ Response passed simple validation")
+    except OutputCheckError as e:
+        print(f"❌ Validation failed: {e}")
+        print(f"   Trigger: {e.check_trigger}")
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
+## Guardrails
+
+A popular use case for pre-hooks are Guardrails: built-in safeguards for your Teams.
+
+You can learn more about them in the [Guardrails](/concepts/teams/guardrails) section.
+
+
+## Developer Resources
+
+- View [Examples](/examples/concepts/teams/pre-hooks-and-post-hooks)
+- View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/teams/hooks)
