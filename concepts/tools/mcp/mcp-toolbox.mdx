@@ -43,6 +43,18 @@ uv run agent.py
 
 This starts a PostgreSQL database with sample hotel data and an MCP Toolbox server that exposes database operations as filtered tools.
 
+## Verification
+
+To verify that your docker/podman setup is working correctly, you can check the database connection:
+
+```bash
+# Using Docker Compose
+docker-compose exec db psql -U toolbox_user -d toolbox_db -c "SELECT COUNT(*) FROM hotels;"
+
+# Using Podman
+podman exec db psql -U toolbox_user -d toolbox_db -c "SELECT COUNT(*) FROM hotels;"
+```
+
 ## Basic Example
 
 Here's the simplest way to use MCPToolbox (after running the Quick Start setup):
