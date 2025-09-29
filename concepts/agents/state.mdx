@@ -5,22 +5,21 @@ description: Learn about state in agents.
 
 **State** is any kind of data that needs to be maintained throughout runs in a session.
 
-<Check>
 A simple yet common use case for Agents is to manage lists, items and other "information" for a user. For example, a shopping list, a todo list, a wishlist, etc.
+This can be easily managed using the `session_state`. The Agent can access or update the `session_state` in tool calls and exposes them to the Model via the system message.
 
-This can be easily managed using the `session_state`. The Agent updates the `session_state` in tool calls and exposes them to the Model via the system message.
+The session state is then persisted in the configured database and made available across runs within that session.
 
-The session state is then persisted in a database and made available across runs within that session.
-</Check>
+<Note>
+**Understanding Agent "Statelessness"**: Agents in Agno don't maintain working state between different sessions or runs, but they do provide state management capabilities:
+
+- The `session_state` parameter on `Agent` provides the default state template for new sessions
+- The `get_session_state()` method retrieves the session state of a particular session from the database  
+- Working state is managed per run and persisted to the database per session
+- The agent instance (or attributes thereof) itself is not modified during runs
+</Note>
 
 ## State Management
-
-**Understanding Agent "Statelessness"**: Agents in Agno v2 don't maintain working state between different sessions or runs, but they do provide state management capabilities:
-
-- Agent `session_state` parameter provides default state template for new sessions
-- `get_session_state()` retrieves current session state from the database  
-- Working state is managed per run and persisted to the database per session
-- The agent instance itself is not modified during runs
 
 Agno provides a powerful and elegant state management system. Here's how it works:
 
@@ -289,27 +288,6 @@ agent.print_response(
     stream=True,
 )
 print(f"Stored session state: {agent.get_session_state()}")
-```
-
-## Understanding `get_session_state()` and Race Conditions
-
-The `agent.get_session_state()` method retrieves session state from the database for a specific session. This explains why agents can have state methods without being stateful - they provide access to database-stored state.
-
-```python
-# This retrieves the current session's state from the database
-current_state = agent.get_session_state()
-```
-
-**Race condition considerations**: When using `agent.run()` with `session_state`:
-- Each session maintains isolated state in the database
-- Use different `session_id` values for different users/contexts  
-- For high-concurrency scenarios, consider using separate agent instances per session
-- The agent instance itself is not modified, only the working state for each run
-
-```python
-# Recommended: Different sessions with unique IDs
-agent.run("Add milk", session_id="user_1", session_state={"list": []})
-agent.run("Add bread", session_id="user_2", session_state={"list": []})
 ```
 
 ## Developer Resources
