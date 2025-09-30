@@ -58,14 +58,9 @@ You can see some complete examples of pre-hooks in the [Examples](/examples/conc
 
 ## Pre-hooks Parameters
 
-Pre-hooks can and will by default receive the following parameters:
+Pre-hooks run automatically during the Team run. Some parameters will be injected automatically.
 
-- `run_input`: The input provided to the Team when invoking the run.
-- `session`: The `TeamSession` object representing the contextual session.
-- `user_id`: The contextual user ID, if any.
-- `debug_mode`: Whether the debug mode is enabled.
-
-Using these parameters, you can update the input in your pre-hook logic, before it reaches the LLM. You can also update the session object as needed, before it is persisted to the database (if relevant).
+You can learn more about the parameters in the [Pre-hooks](/reference/hooks/pre-hooks) reference.
 
 ## Post-hooks
 
@@ -115,9 +110,9 @@ You can see some complete examples of post-hooks in the [Examples](/examples/con
 
 ## Post-hooks Parameters
 
-Post-hooks will receive the `run_output` parameter, of type `RunOutput`.
+Post-hooks run automatically during the Team run. Some parameters will be injected automatically.
 
-This is the effective output of the Team run, after the LLM has generated the response, that you will want to validate or transform inside your pos-hook logic.
+You can learn more about the parameters in the [Post-hooks](/reference/hooks/post-hooks) reference.
 
 <Note>
 Post-hooks are not available in streaming scenarios.

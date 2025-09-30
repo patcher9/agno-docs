@@ -49,13 +49,13 @@ For example, we can add a custom PII pattern for bank account numbers:
 
 ```python
 guardrail = PIIDetectionGuardrail(
-    pii_patterns={
+    custom_patterns={
         "bank_account_number": r"\b\d{10}\b",
     }
 )
 ```
 
-Notice that providing custom PII patterns via the `pii_patterns` parameter will override the default list of PII fields. Only the provided custom patterns will be used.
+Notice that providing custom PII patterns via the `custom_patterns` parameter will extend, not override, the default list of PII fields. You can stop checking for default PII fields by setting the `enable_ssn_check`, `enable_credit_card_check`, `enable_email_check`, and `enable_phone_check` parameters to `False`.
 
 ## Masking PII
 
@@ -74,4 +74,5 @@ This will mask all the PII in the input with asterisk characters. For example, i
 ## Developer Resources
 
 - View [Examples](/examples/concepts/agents/guardrails)
+- View [Reference](/reference/hooks/pii-guardrail)
 - View [Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/agents/guardrails)

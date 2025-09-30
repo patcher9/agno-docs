@@ -2833,6 +2833,17 @@
                   "reference/storage/json",
                   "reference/storage/gcs"
                 ]
+              },
+              {
+                "group": "Pre-hooks and Post-hooks",
+                "pages": [
+                  "reference/hooks/pre-hooks",
+                  "reference/hooks/post-hooks",
+                  "reference/hooks/base-guardrail",
+                  "reference/hooks/openai-moderation-guardrail",
+                  "reference/hooks/pii-guardrail",
+                  "reference/hooks/prompt-injection-guardrail"
+                ]
               }
             ]
           },
