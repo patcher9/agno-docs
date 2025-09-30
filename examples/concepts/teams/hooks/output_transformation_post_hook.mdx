@@ -80,7 +80,7 @@ def structure_financial_advice(run_output: RunOutput) -> None:
     # Create a formatting team
     formatter_team = Team(
         name="Response Formatter",
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAIChat(id="gpt-5-mini"),
         instructions=[
             "You are a response formatting specialist.",
             "Transform the given response into a well-structured format with:",
@@ -138,7 +138,7 @@ def main():
 
     markdown_team = Team(
         name="Documentation Assistant",
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAIChat(id="gpt-5-mini"),
         post_hooks=[add_markdown_formatting],
         instructions=["Provide clear, helpful explanations on technical topics."],
     )
@@ -154,7 +154,7 @@ def main():
 
     advice_team = Team(
         name="General Advisor",
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAIChat(id="gpt-5-mini"),
         post_hooks=[add_disclaimer_and_timestamp],
         instructions=["Provide helpful general advice and guidance."],
     )
@@ -170,7 +170,7 @@ def main():
 
     financial_team = Team(
         name="Financial Advisor",
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAIChat(id="gpt-5-mini"),
         post_hooks=[structure_financial_advice],
         instructions=[
             "You are a knowledgeable financial advisor.",

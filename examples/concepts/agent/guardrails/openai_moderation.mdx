@@ -6,7 +6,7 @@ This example demonstrates how to use Agno's built-in OpenAI moderation guardrail
 
 ## Code
 
-```python
+```python openai_moderation.py
 """
 Example demonstrating how to use OpenAI moderation guardrails with Agno Agent.
 
@@ -34,7 +34,7 @@ async def main():
 
     basic_agent = Agent(
         name="Basic Moderated Agent",
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAIChat(id="gpt-5-mini"),
         pre_hooks=[OpenAIModerationGuardrail()],
         description="An agent with basic OpenAI content moderation.",
         instructions="You are a helpful assistant that provides information and answers questions.",
@@ -82,7 +82,7 @@ async def main():
 
     custom_agent = Agent(
         name="Custom Moderated Agent",
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAIChat(id="gpt-5-mini"),
         pre_hooks=[
             OpenAIModerationGuardrail(
                 raise_for_categories=[
@@ -129,11 +129,11 @@ if __name__ == "__main__":
   <Step title="Run example">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/guardrails/openai_moderation.py
+    python openai_moderation.py
     ```
 
     ```bash Windows
-    python cookbook/agents/guardrails/openai_moderation.py
+    python openai_moderation.py
     ```
     </CodeGroup>
   </Step>

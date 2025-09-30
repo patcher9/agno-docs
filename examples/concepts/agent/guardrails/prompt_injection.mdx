@@ -6,7 +6,7 @@ This example demonstrates how to use Agno's built-in prompt injection guardrail 
 
 ## Code
 
-```python
+```python prompt_injection.py
 """
 Example demonstrating how to use checks with Agno Agent to implement guardrails.
 
@@ -28,7 +28,7 @@ def main():
     # Create an agent with prompt injection protection
     agent = Agent(
         name="Guardrails Demo Agent",
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAIChat(id="gpt-5-mini"),
         pre_hooks=[PromptInjectionGuardrail()],
         description="An agent that tells jokes and provides helpful information.",
         instructions="You are a friendly assistant that tells jokes and provides helpful information. Always maintain a positive and helpful tone.",
@@ -112,11 +112,11 @@ if __name__ == "__main__":
   <Step title="Run example">
     <CodeGroup>
     ```bash Mac
-    python cookbook/agents/guardrails/prompt_injection.py
+    python prompt_injection.py
     ```
 
     ```bash Windows
-    python cookbook/agents/guardrails/prompt_injection.py
+    python prompt_injection.py
     ```
     </CodeGroup>
   </Step>

@@ -1,5 +1,5 @@
 ---
-title: Guardrails
+title: Overview
 description: Learn about securing the input of your Teams using guardrails.
 ---
 
@@ -28,10 +28,12 @@ from agno.guardrails import PIIDetectionGuardrail
 from agno.team import Team
 from agno.models.openai import OpenAIChat
 
+pii_guardrail = PIIDetectionGuardrail()
+
 team = Team(
     name="Privacy-Protected Team",
-    model=OpenAIChat(id="gpt-4o-mini"),
-    pre_hooks=[PIIDetectionGuardrail()],
+    model=OpenAIChat(id="gpt-5-mini"),
+    pre_hooks=[pii_guardrail],
 )
 ```
 
@@ -39,18 +41,22 @@ You can some complete examples using the Agno Guardrails in the [examples](/exam
 
 ## Custom Guardrails
 
-You can also create your own custom guardrails by extending the `BaseGuardrail` class.
+You can create custom guardrails by extending the BaseGuardrail class.
 
-This is useful to extend the functionality of the Agno Guardrails and add any custom check you want to perform.
+This is useful if you need to perform any check or transformation not handled by the built-in guardrails, or just to implement your own validation logic.
 
-To create a custom guardrail, extend the `BaseGuardrail` and define the `check` and/or `async_check` methods. In these methods, perform your desired check and raise when you detect undesired content.
+You will need to implement the `check` and `async_check` methods to perform your validation and raise exceptions when detecting undesired content.
+
+<Check>
+Agno automatically uses the sync or async version of the guardrail based on whether you are running the team with `.run()` or `.arun()`.
+</Check>
 
 For example, let's create a simple custom guardrail that checks if the input contains any URLs:
 
 ```python
 import re
 
-from agno.exceptions import InputCheckError
+from agno.exceptions import CheckTrigger, InputCheckError
 from agno.guardrails import BaseGuardrail
 from agno.run.team import TeamRunInput
 
@@ -64,7 +70,21 @@ class URLGuardrail(BaseGuardrail):
             # Basic URL pattern
             url_pattern = r'https?://[^\s]+|www\.[^\s]+|[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}[^\s]*'
             if re.search(url_pattern, run_input.input_content):
-                raise InputCheckError("The input seems to contain URLs, which are not allowed.")
+                raise InputCheckError(
+                    "The input seems to contain URLs, which are not allowed.",
+                    check_trigger=CheckTrigger.INPUT_NOT_ALLOWED,
+                )
+
+    async def async_check(self, run_input: TeamRunInput) -> None:
+        """Raise InputCheckError if the input contains any URLs."""
+        if isinstance(run_input.input_content, str):
+            # Basic URL pattern
+            url_pattern = r'https?://[^\s]+|www\.[^\s]+|[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}[^\s]*'
+            if re.search(url_pattern, run_input.input_content):
+                raise InputCheckError(
+                    "The input seems to contain URLs, which are not allowed.",
+                    check_trigger=CheckTrigger.INPUT_NOT_ALLOWED,
+                )
 ```
 
 Now you can use your custom guardrail in your Team:
@@ -73,12 +93,11 @@ Now you can use your custom guardrail in your Team:
 ```python
 from agno.team import Team
 from agno.models.openai import OpenAIChat
-from agno.guardrails import URLGuardrail
 
 # Team using our URLGuardrail
 team = Team(
     name="URL-Protected Team",
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     # Provide the Guardrails to be used with the pre_hooks parameter
     pre_hooks=[URLGuardrail()],
 )

@@ -6,7 +6,7 @@ This example demonstrates how to use Agno's built-in PII detection guardrail wit
 
 ## Code
 
-```python
+```python pii_detection.py
 """
 Example demonstrating how to use PII detection guardrails with Agno Team.
 
@@ -32,7 +32,7 @@ async def main():
     # Create an team with PII detection protection
     team = Team(
         name="Privacy-Protected Team",
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAIChat(id="gpt-5-mini"),
         pre_hooks=[PIIDetectionGuardrail()],
         description="An team that helps with customer service while protecting privacy.",
         instructions="You are a helpful customer service assistant. Always protect user privacy and handle sensitive information appropriately.",
@@ -128,7 +128,7 @@ async def main():
     # Create an team with PII detection which masks the PII in the input
     team = Team(
         name="Privacy-Protected Team (Masked)",
-        model=OpenAIChat(id="gpt-4o-mini"),
+        model=OpenAIChat(id="gpt-5-mini"),
         pre_hooks=[PIIDetectionGuardrail(mask_pii=True)],
         description="An team that helps with customer service while protecting privacy.",
         instructions="You are a helpful customer service assistant. Always protect user privacy and handle sensitive information appropriately.",
@@ -160,11 +160,11 @@ if __name__ == "__main__":
   <Step title="Run example">
     <CodeGroup>
     ```bash Mac
-    python cookbook/teams/guardrails/pii_detection.py
+    python pii_detection.py
     ```
 
     ```bash Windows
-    python cookbook/teams/guardrails/pii_detection.py
+    python pii_detection.py
     ```
     </CodeGroup>
   </Step>
