@@ -224,6 +224,7 @@
                   "concepts/models/openrouter",
                   "concepts/models/perplexity",
                   "concepts/models/portkey",
+                  "concepts/models/requesty",
                   "concepts/models/sambanova",
                   "concepts/models/siliconflow",
                   "concepts/models/together",
@@ -2602,6 +2603,15 @@
                 ]
               },
               {
+                "group": "Requesty",
+                "pages": [
+                  "examples/models/requesty/basic",
+                  "examples/models/requesty/basic_stream",
+                  "examples/models/requesty/tool_use",
+                  "examples/models/requesty/structured_output"
+                ]
+              },
+              {
                 "group": "Siliconflow",
                 "pages": [
                   "examples/models/siliconflow/async_basic_stream",
@@ -2764,6 +2774,7 @@
                   "reference/models/nebius",
                   "reference/models/nvidia",
                   "reference/models/perplexity",
+                  "reference/models/requesty",
                   "reference/models/together",
                   "reference/models/xai",
                   "reference/models/vercel",
