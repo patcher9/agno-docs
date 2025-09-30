@@ -119,10 +119,37 @@
                 "group": "Workflows",
                 "pages": [
                   "concepts/workflows/overview",
-                  "concepts/workflows/types_of_workflows",
+                  {
+                    "group": "Workflow Patterns",
+                    "pages": [
+                      "concepts/workflows/workflow-patterns/overview",
+                      "concepts/workflows/workflow-patterns/sequential",
+                      "concepts/workflows/workflow-patterns/fully-python-workflow",
+                      "concepts/workflows/workflow-patterns/step-based-workflow",
+                      "concepts/workflows/workflow-patterns/conditional-workflow",
+                      "concepts/workflows/workflow-patterns/parallel-workflow",
+                      "concepts/workflows/workflow-patterns/iterative-workflow",
+                      "concepts/workflows/workflow-patterns/branching-workflow",
+                      "concepts/workflows/workflow-patterns/grouped-steps-workflow",
+                      "concepts/workflows/workflow-patterns/advanced-workflow-patterns"
+                    ]
+                  },
                   "concepts/workflows/run_workflow",
                   "concepts/workflows/workflow_session_state",
-                  "concepts/workflows/advanced"
+                  {
+                    "group": "Advanced",
+                    "pages": [
+                      "concepts/workflows/advanced/workflow-tools",
+                      "concepts/workflows/advanced/custom-functions",
+                      "concepts/workflows/advanced/background-execution",
+                      "concepts/workflows/advanced/cancel-workflow",
+                      "concepts/workflows/advanced/early-stop",
+                      "concepts/workflows/advanced/access-previous-steps",
+                      "concepts/workflows/advanced/store-events",
+                      "concepts/workflows/advanced/additional-data",
+                      "concepts/workflows/advanced/input-and-output"
+                    ]
+                  }
                 ]
               },
               {
@@ -155,6 +182,7 @@
                     ]
                   },
                   "concepts/models/cohere",
+                  "concepts/models/cometapi",
                   "concepts/models/dashscope",
                   "concepts/models/deepinfra",
                   "concepts/models/deepseek",
@@ -479,7 +507,10 @@
               },
               {
                 "group": "Multimodal",
-                "pages": ["concepts/multimodal/overview"]
+                "pages": [
+                  "concepts/multimodal/overview",
+                  "concepts/multimodal/speech-to-text"
+                ]
               },
               {
                 "group": "Human-in-the-Loop",
@@ -528,6 +559,7 @@
                       "integrations/observability/langfuse",
                       "integrations/observability/langsmith",
                       "integrations/observability/langtrace",
+                      "integrations/observability/maxim",
                       "integrations/observability/weave"
                     ]
                   },
@@ -2025,6 +2057,7 @@
                       "examples/concepts/integrations/observability/langsmith-via-openinference",
                       "examples/concepts/integrations/observability/langtrace-op",
                       "examples/concepts/integrations/observability/langwatch_op",
+                      "examples/concepts/integrations/observability/maxim",
                       "examples/concepts/integrations/observability/weave-op"
                     ]
                   },
@@ -2382,6 +2415,7 @@
                 "pages": [
                   "examples/models/ollama/basic",
                   "examples/models/ollama/basic_stream",
+                  "examples/models/ollama/cloud",
                   "examples/models/ollama/async_basic",
                   "examples/models/ollama/async_basic_stream",
                   "examples/models/ollama/tool_use",
@@ -2607,6 +2641,7 @@
                 "group": "Workflows",
                 "pages": [
                   "reference/workflows/workflow",
+                  "reference/workflows/step",
                   "reference/workflows/workflow_run_output",
                   "reference/workflows/step_input",
                   "reference/workflows/step_output",
@@ -2754,6 +2789,23 @@
                 ]
               }
             ]
+          },
+          {
+            "group": "Agno Infra",
+            "pages": [
+              {
+                "group": "CLI",
+                "pages": [
+                  "reference/agno-infra/cli/ws/create",
+                  "reference/agno-infra/cli/ws/up",
+                  "reference/agno-infra/cli/ws/down",
+                  "reference/agno-infra/cli/ws/restart",
+                  "reference/agno-infra/cli/ws/patch",
+                  "reference/agno-infra/cli/ws/config",
+                  "reference/agno-infra/cli/ws/delete"
+                ]
+              }
+            ]
           }
         ]
       },
@@ -2769,6 +2821,7 @@
               "faq/openai-key-request-for-other-models",
               "faq/structured-outputs",
               "faq/When-to-use-a-Workflow-vs-a-Team-in-Agno",
+              "faq/switching-models",
               "faq/connecting-to-tableplus",
               "faq/could-not-connect-to-docker"
             ]

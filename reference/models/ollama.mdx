@@ -3,6 +3,17 @@ title: Ollama
 sidebarTitle: Ollama
 ---
 
-The Ollama model provides access to locally-hosted open source models.
+The Ollama model provides access to open source models, both locally-hosted and via **Ollama Cloud**.
+
+**Local Usage**: Run models on your own hardware using the Ollama client. Perfect for development, privacy-sensitive workloads, and when you want full control over your infrastructure.
+
+**Cloud Usage**: Access cloud-hosted models via [Ollama Cloud](https://ollama.com) with an API key for scalable, production-ready deployments. No local setup required - simply set your `OLLAMA_API_KEY` and start using powerful models instantly.
+
+## Key Features
+
+- **Dual Deployment Options**: Choose between local hosting for privacy and control, or cloud hosting for scalability
+- **Seamless Switching**: Easy transition between local and cloud deployments with minimal code changes
+- **Auto-configuration**: When using an API key, the host automatically defaults to Ollama Cloud
+- **Wide Model Support**: Access to extensive library of open-source models including GPT-OSS, Llama, Qwen, DeepSeek, and Phi models
 
 <Snippet file="model-ollama-params.mdx" />
