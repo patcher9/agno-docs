@@ -96,8 +96,8 @@
                     "group": "Guardrails",
                     "pages": [
                       "concepts/agents/guardrails/overview",
-                      "concepts/agents/guardrails/pii",
                       "concepts/agents/guardrails/prompt-injection",
+                      "concepts/agents/guardrails/pii",
                       "concepts/agents/guardrails/openai-moderation"
                     ]
                   },
