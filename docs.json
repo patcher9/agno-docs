@@ -612,17 +612,24 @@
               {
                 "group": "Configure your AgentOS",
                 "pages": [
+                  "agent-os/customize/custom-fastapi",
                   {
-                    "group": "Customize AgentOS",
+                    "group": "Furth AgentOS",
                     "pages": [
-                      "agent-os/customize/os/attributes",
-                      "agent-os/customize/os/custom_middleware",
-                      "agent-os/customize/os/override_routes",
-                      "agent-os/customize/os/lifespan"
+                    ]
+                  },
+                  {
+                    "group": "Middleware",
+                    "pages": [
+                      "agent-os/customize/middleware/overview",
+                      "agent-os/customize/middleware/custom",
+                      "agent-os/customize/middleware/jwt"
                     ]
                   },
                   "agent-os/customize/config",
-                  "agent-os/customize/custom-fastapi"
+                  "agent-os/customize/os/attributes",
+                  "agent-os/customize/os/override_routes",
+                  "agent-os/customize/os/lifespan"
                 ]
               },
               {
@@ -646,6 +653,15 @@
                 "pages": [
                   "examples/agent-os/mcp/enable_mcp_example",
                   "examples/agent-os/mcp/mcp_tools_example"
+                ]
+              },
+              {
+                "group": "Middleware",
+                "pages": [
+                  "examples/agent-os/middleware/custom-middleware",
+                  "examples/agent-os/middleware/jwt-middleware",
+                  "examples/agent-os/middleware/jwt-cookies",
+                  "examples/agent-os/middleware/custom-fastapi-jwt"
                 ]
               },
               {
