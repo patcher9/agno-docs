@@ -623,6 +623,7 @@
               "how-to/v2-changelog",
               "how-to/v2-migration",
               "how-to/workflows-migration",
+              "how-to/cursor-rules",
               "how-to/contribute"
             ]
           }
