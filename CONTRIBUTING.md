@@ -2,12 +2,23 @@
 
 Agno is an open-source project and we welcome contributions to our documentation.
 
+## 🚀 Quick Start for Contributors
+
+1. Fork the repository and clone it locally
+2. Install Mintlify CLI: `npm i -g mintlify`
+3. Create a new branch: `git checkout -b [type]/short-description` (e.g., `docs/add-auth-guide`)
+4. Make your changes and test locally with `mint dev`
+5. Run `mint build` to check for errors
+6. Commit and push your changes
+7. Open a pull request with the proper title format (see below)
+
 ## 👩‍💻 How to contribute
 
 Please follow the [fork and pull request](https://docs.github.com/en/get-started/quickstart/contributing-to-projects) workflow:
 
 - Fork the repository.
 - Create a new branch for your feature.
+  - **Branch Naming:** Use the format `[type]/short-description` (e.g., `docs/add-quickstart-guide`, `fix/broken-links`, `style/format-code-examples`)
   - Add your documentation improvements or new content.
   - **Ensure your Pull Request follows our guidelines (see below).**
   - Send a pull request.
@@ -173,7 +184,8 @@ Before submitting a pull request, test your changes locally:
 
 1. Run `mint dev` in the root directory.
 2. Navigate through your changes in the browser.
-3. Verify all pages load correctly, code examples are properly formatted, links work as expected, and images display correctly.
+3. Run `mint build` to catch any build errors before submitting.
+4. Verify all pages load correctly, code examples are properly formatted, links work as expected, and images display correctly.
 
 ## Formatting and Validation
 
