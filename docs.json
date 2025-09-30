@@ -121,15 +121,7 @@
                   "concepts/teams/memory",
                   "concepts/teams/knowledge",
                   "concepts/teams/pre-hooks-and-post-hooks",
-                  {
-                    "group": "Guardrails",
-                    "pages": [
-                      "concepts/teams/guardrails/overview",
-                      "concepts/teams/guardrails/pii",
-                      "concepts/teams/guardrails/prompt-injection",
-                      "concepts/teams/guardrails/openai-moderation"
-                    ]
-                  },
+                  "concepts/teams/guardrails",
                   "concepts/teams/metrics",
                   "concepts/teams/run-cancel",
                   "concepts/teams/custom-logger"

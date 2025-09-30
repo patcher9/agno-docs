@@ -1,5 +1,5 @@
 ---
-title: Overview
+title: Guardrails
 description: Learn about securing the input of your Teams using guardrails.
 ---
 
@@ -17,9 +17,9 @@ Some of the most popular usages are:
 
 To simplify the usage of guardrails, Agno provides some built-in guardrails you can use out of the box:
 
-- PIIDetectionGuardrail: detect PII (Personally Identifiable Information).
-- PromptInjectionGuardrail: detect and stop prompt injection attemps.
-- OpenAIModerationGuardrail: detect content that violates OpenAI's content policy.
+- PIIDetectionGuardrail: detect PII (Personally Identifiable Information). See the [PII Detection Guardrail](/concepts/teams/guardrails/pii) for agents page for more information.
+- PromptInjectionGuardrail: detect and stop prompt injection attemps. See the [Prompt Injection Guardrail](/concepts/teams/guardrails/prompt-injection) for agents page for more information.
+- OpenAIModerationGuardrail: detect content that violates OpenAI's content policy. See the [OpenAI Moderation Guardrail](/concepts/teams/guardrails/openai-moderation) for agents page for more information.
 
 To use the Agno built-in guardrails, you just need to import them and pass them to the Team with the `pre_hooks` parameter:
 
