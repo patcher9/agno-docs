@@ -126,6 +126,7 @@
                       "concepts/workflows/workflow-patterns/sequential",
                       "concepts/workflows/workflow-patterns/fully-python-workflow",
                       "concepts/workflows/workflow-patterns/step-based-workflow",
+                      "concepts/workflows/workflow-patterns/custom-function-step-workflow",
                       "concepts/workflows/workflow-patterns/conditional-workflow",
                       "concepts/workflows/workflow-patterns/parallel-workflow",
                       "concepts/workflows/workflow-patterns/iterative-workflow",
@@ -140,7 +141,6 @@
                     "group": "Advanced",
                     "pages": [
                       "concepts/workflows/advanced/workflow-tools",
-                      "concepts/workflows/advanced/custom-functions",
                       "concepts/workflows/advanced/background-execution",
                       "concepts/workflows/advanced/cancel-workflow",
                       "concepts/workflows/advanced/early-stop",
