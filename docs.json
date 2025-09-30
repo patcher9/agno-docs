@@ -91,6 +91,16 @@
                   "concepts/agents/knowledge",
                   "concepts/agents/tools",
                   "concepts/agents/multimodal",
+                  "concepts/agents/pre-hooks-and-post-hooks",
+                  {
+                    "group": "Guardrails",
+                    "pages": [
+                      "concepts/agents/guardrails/overview",
+                      "concepts/agents/guardrails/pii",
+                      "concepts/agents/guardrails/prompt-injection",
+                      "concepts/agents/guardrails/openai-moderation"
+                    ]
+                  },
                   "concepts/agents/metrics",
                   "concepts/agents/run-cancel",
                   "concepts/agents/custom-logger"
@@ -110,6 +120,8 @@
                   "concepts/teams/storage",
                   "concepts/teams/memory",
                   "concepts/teams/knowledge",
+                  "concepts/teams/pre-hooks-and-post-hooks",
+                  "concepts/teams/guardrails",
                   "concepts/teams/metrics",
                   "concepts/teams/run-cancel",
                   "concepts/teams/custom-logger"
@@ -988,6 +1000,23 @@
                     ]
                   },
                   {
+                    "group": "Hooks",
+                    "pages": [
+                      "examples/concepts/agent/hooks/input_validation_pre_hook",
+                      "examples/concepts/agent/hooks/input_transformation_pre_hook",
+                      "examples/concepts/agent/hooks/output_validation_post_hook",
+                      "examples/concepts/agent/hooks/output_transformation_post_hook"
+                    ]
+                  },
+                  {
+                    "group": "Guardrails",
+                    "pages": [
+                      "examples/concepts/agent/guardrails/pii_detection",
+                      "examples/concepts/agent/guardrails/prompt_injection",
+                      "examples/concepts/agent/guardrails/openai_moderation"
+                    ]
+                  },
+                  {
                     "group": "Human-in-the-Loop",
                     "pages": [
                       "examples/concepts/agent/human_in_the_loop/agentic_user_input",
@@ -1155,6 +1184,23 @@
                   {
                     "group": "Events",
                     "pages": ["examples/concepts/teams/events/custom_events"]
+                  },
+                  {
+                    "group": "Hooks",
+                    "pages": [
+                      "examples/concepts/teams/hooks/input_validation_pre_hook",
+                      "examples/concepts/teams/hooks/input_transformation_pre_hook",
+                      "examples/concepts/teams/hooks/output_validation_post_hook",
+                      "examples/concepts/teams/hooks/output_transformation_post_hook"
+                    ]
+                  },
+                  {
+                    "group": "Guardrails",
+                    "pages": [
+                      "examples/concepts/teams/guardrails/pii_detection",
+                      "examples/concepts/teams/guardrails/prompt_injection",
+                      "examples/concepts/teams/guardrails/openai_moderation"
+                    ]
                   },
                   {
                     "group": "Knowledge",
@@ -2833,6 +2879,17 @@
                   "reference/storage/firestore",
                   "reference/storage/json",
                   "reference/storage/gcs"
+                ]
+              },
+              {
+                "group": "Pre-hooks and Post-hooks",
+                "pages": [
+                  "reference/hooks/pre-hooks",
+                  "reference/hooks/post-hooks",
+                  "reference/hooks/base-guardrail",
+                  "reference/hooks/openai-moderation-guardrail",
+                  "reference/hooks/pii-guardrail",
+                  "reference/hooks/prompt-injection-guardrail"
                 ]
               }
             ]
