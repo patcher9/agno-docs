@@ -107,6 +107,13 @@ async for chunk in team.arun("What is the weather in Tokyo?", stream=True, strea
     print(chunk.content, end="", flush=True)
 ```
 
+<Note>
+When your team is running asynchronously (using `arun`), the members will run concurrently if the team leader delegates to multiple members in one request.
+
+This means you will receive member events concurrently and the order of the events is not guaranteed.
+</Note>
+
+
 ### Streaming Intermediate Steps
 
 Throughout the execution of a team, multiple events take place, and we provide these events in real-time for enhanced team transparency.
