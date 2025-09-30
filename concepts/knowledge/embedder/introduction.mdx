@@ -32,8 +32,10 @@ knowledge.add_content(
 agent = Agent(knowledge=knowledge)
 ```
 
-Most embeddings providers support batch embedding of lists of texts. This reduces API load, prevents rate limits and greatly speeds up the embedding process.
-To enable this, simply set the `enable_batch` flag to `True` when defining your embedder.
+Many embedding providers support processing multiple texts in a single API call, known as batch embedding. This approach offers several advantages: it reduces the number of API requests, 
+helps avoid rate limits, and significantly improves performance when processing large amounts of text.
+
+To enable batch processing, set the `enable_batch` flag to `True` when configuring your embedder.
 
 ```python
 from agno.knowledge.embedder.openai import OpenAIEmbedder
