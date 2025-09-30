@@ -619,15 +619,13 @@ if __name__ == "__main__":
 
 ## Context Caching
 
-Various model providers support caching of system and user messages. The implementation of caching differs between providers.
+Most model providers support caching of system and user messages, though the implementation differs between providers.
 
-Generally the approach is to cache repetitive content and common instructions and on subsequent requests to use cached content from the prefix for your system message.
-In other words, if the model supports it, you can reduce the number of tokens sent to the model by putting static content at the start of your system message.
+The general approach is to cache repetitive content and common instructions, and then reuse that cached content in subsequent requests as the prefix of your system message. In other words, if the model supports caching, you can reduce the number of tokens sent by placing static content at the start of the system message.
 
-Agno's context construction is designed to put the most probable static content at the start of your system message.  
-If you wish to fine-tune this, the recommended approach is to manually set the system message.
+Agno’s context construction is designed to place the most likely static content at the beginning of the system message. If you want more control, you can fine-tune this by manually setting the system message.
 
-For teams, the member information, delegation instructions, and coordination guidelines are typically static and good candidates for caching.
+For teams, member information, delegation instructions, and coordination guidelines are usually static and therefore strong candidates for caching.
 
 Some examples of prompt caching:
 - [OpenAI's prompt caching](https://platform.openai.com/docs/guides/prompt-caching)
