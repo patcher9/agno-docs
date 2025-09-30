@@ -51,20 +51,11 @@ Cerebras currently supports the following models (see [docs](https://inference-d
 
 \* DeepSeek R1 Distill Llama 70B is available in private preview.
 
-## Configuration Options
+## Parameters
 
-The `Cerebras` class accepts the following parameters:
+<Snippet file="model-cerebras-params.mdx" />
 
-| Parameter        | Type                     | Description                                               | Default      |
-| ---------------- | ------------------------ | --------------------------------------------------------- | ------------ |
-| `id`             | str                      | Model identifier (e.g., "llama-4-scout-17b-16e-instruct") | **Required** |
-| `name`           | str                      | Display name for the model                                | "Cerebras"   |
-| `provider`       | str                      | Provider name                                             | "Cerebras"   |
-| `api_key`        | Optional[str]            | API key (falls back to `CEREBRAS_API_KEY` env var)        | None         |
-| `max_tokens`     | Optional[int]            | Maximum tokens in the response                            | None         |
-| `temperature`    | float                    | Sampling temperature                                      | 0.7          |
-| `top_p`          | float                    | Top-p sampling value                                      | 1.0          |
-| `request_params` | Optional[Dict[str, Any]] | Additional request parameters                             | None         |
+`Cerebras` is a subclass of the [Model](/reference/models/model) class and has access to the same params.
 
 ## Resources
 

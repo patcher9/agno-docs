@@ -1,18 +1,19 @@
-## Parameters
-
-| Parameter | Type | Default | Description |
-| --- | --- | --- | --- |
-| id | str | `"ibm/granite-20b-code-instruct"` | The model ID to use |
-| frequency_penalty | float | `None` | Penalty for using frequent tokens. Higher values discourage repetition |
-| presence_penalty | float | `None` | Penalty for using tokens already present in the text. Higher values encourage new topics |
-| max_tokens | int | `None` | Maximum number of tokens to generate in the response |
-| temperature | float | `None` | Controls randomness in responses. Higher values make output more random |
-| top_p | float | `None` | Controls diversity of responses via nucleus sampling |
-| logprobs | int | `None` | Number of log probabilities to return |
-| top_logprobs | int | `None` | Number of most likely tokens to return log probabilities for |
-| response_format | Any | `None` | Format specification for the response |
-| api_key | str | `None` | IBM WatsonX API key |
-| project_id | str | `None` | IBM WatsonX project ID |
-| url | str | `"https://eu-de.ml.cloud.ibm.com"` | IBM WatsonX API endpoint URL |
-| verify | bool | `True` | Whether to verify SSL certificates |
-| client_params | Dict[str, Any] | `None` | Additional parameters to pass to the client |
+| Parameter                | Type                       | Default                          | Description                                                     |
+| ------------------------ | -------------------------- | -------------------------------- | --------------------------------------------------------------- |
+| `id`                     | `str`                      | `"ibm/granite-20b-code-instruct"` | The model ID to use                                             |
+| `name`                   | `str`                      | `"WatsonX"`                      | The name of the model                                           |
+| `provider`               | `str`                      | `"IBM"`                          | The provider of the model                                       |
+| `frequency_penalty`      | `Optional[float]`          | `None`                           | Penalty for using frequent tokens. Higher values discourage repetition |
+| `presence_penalty`       | `Optional[float]`          | `None`                           | Penalty for using tokens already present in the text. Higher values encourage new topics |
+| `max_tokens`             | `Optional[int]`            | `None`                           | Maximum number of tokens to generate in the response           |
+| `temperature`            | `Optional[float]`          | `None`                           | Controls randomness in responses. Higher values make output more random |
+| `top_p`                  | `Optional[float]`          | `None`                           | Controls diversity of responses via nucleus sampling            |
+| `logprobs`               | `Optional[int]`            | `None`                           | Number of log probabilities to return                          |
+| `top_logprobs`           | `Optional[int]`            | `None`                           | Number of most likely tokens to return log probabilities for   |
+| `request_params`         | `Optional[Dict[str, Any]]` | `None`                           | Additional request parameters                                   |
+| `api_key`                | `Optional[str]`            | `None`                           | IBM WatsonX API key                                             |
+| `project_id`             | `Optional[str]`            | `None`                           | IBM WatsonX project ID                                          |
+| `url`                    | `Optional[str]`            | `"https://eu-de.ml.cloud.ibm.com"` | IBM WatsonX API endpoint URL                                 |
+| `verify`                 | `bool`                     | `True`                           | Whether to verify SSL certificates                              |
+| `client_params`          | `Optional[Dict[str, Any]]` | `None`                           | Additional parameters to pass to the client                     |
+| `model_client`           | `Optional[ModelInference]` | `None`                           | A pre-configured WatsonX model inference client                |
