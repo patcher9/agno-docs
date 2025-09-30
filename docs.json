@@ -510,7 +510,37 @@
                 "group": "Multimodal",
                 "pages": [
                   "concepts/multimodal/overview",
-                  "concepts/multimodal/speech-to-text"
+                  {
+                    "group": "Images",
+                    "pages": [
+                      "concepts/multimodal/images/image_input",
+                      "concepts/multimodal/images/image_output",
+                      "concepts/multimodal/images/image_generation"
+                    ]
+                  },
+                  {
+                    "group": "Audio",
+                    "pages": [
+                      "concepts/multimodal/audio/audio_input",
+                      "concepts/multimodal/audio/audio_generation",
+                      "concepts/multimodal/audio/audio_output",
+                      "concepts/multimodal/audio/speech-to-text"
+                    ]
+                  },
+                  {
+                    "group": "Video",
+                    "pages": [
+                      "concepts/multimodal/video/video_input",
+                      "concepts/multimodal/video/video_generation"
+                    ]
+                  },
+                  {
+                    "group": "Files",
+                    "pages": [
+                      "concepts/multimodal/files/file_input",
+                      "concepts/multimodal/files/file_generation"
+                    ]
+                  }
                 ]
               },
               {

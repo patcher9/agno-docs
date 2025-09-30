@@ -1,10 +1,16 @@
 ---
-title: Image Generation Agent
+title: Image Model Output
+description: Learn how to use images from models as output with Agno agents.
+hideToc: true
 ---
 
-## Code
+Similar to providing image inputs, you can also get image outputs from an agent. Take a look at the [compatibility matrix](/concepts/models/compatibility#multimodal-support) to see which models support image as output.
 
-```python image_generation.py
+## Image Output Modality
+
+The following example demonstrates how some models can directly generate images as part of their response.
+
+```python image_agent.py
 from io import BytesIO
 
 from agno.agent import Agent, RunOutput  # noqa
@@ -15,7 +21,7 @@ from PIL import Image
 agent = Agent(
     model=Gemini(
         id="gemini-2.0-flash-exp-image-generation",
-        response_modalities=["Text", "Image"],
+        response_modalities=["Text", "Image"], # This means to generate both images and text
     )
 )
 
@@ -34,32 +40,8 @@ else:
     print("No images found in run response")
 ```
 
-## Usage
+<Check>You can find all generated images in the `RunOutput.images` list.</Check>
 
-<Steps>
-  <Snippet file="create-venv-step.mdx" />
+## Developer Resources
 
-  <Step title="Set your API key">
-    ```bash
-    export GOOGLE_API_KEY=xxx
-    ```
-  </Step>
-
-  <Step title="Install libraries">
-    ```bash
-    pip install -U google-genai pillow agno
-    ```
-  </Step>
-
-  <Step title="Run Agent">
-    <CodeGroup>
-    ```bash Mac
-    python image_generation.py
-    ```
-
-    ```bash Windows
-    python image_generation.py
-    ```
-    </CodeGroup>
-  </Step>
-</Steps>
+- View more [Examples](/examples/models/gemini/image_generation)
