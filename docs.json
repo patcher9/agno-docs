@@ -91,9 +91,6 @@
                   "concepts/agents/knowledge",
                   "concepts/agents/tools",
                   "concepts/agents/multimodal",
-                  "concepts/agents/metrics",
-                  "concepts/agents/run-cancel",
-                  "concepts/agents/custom-logger",
                   "concepts/agents/pre-hooks-and-post-hooks",
                   {
                     "group": "Guardrails",
@@ -103,7 +100,10 @@
                       "concepts/agents/guardrails/prompt-injection",
                       "concepts/agents/guardrails/openai-moderation"
                     ]
-                  }
+                  },
+                  "concepts/agents/metrics",
+                  "concepts/agents/run-cancel",
+                  "concepts/agents/custom-logger"
                 ]
               },
               {
@@ -120,9 +120,6 @@
                   "concepts/teams/storage",
                   "concepts/teams/memory",
                   "concepts/teams/knowledge",
-                  "concepts/teams/metrics",
-                  "concepts/teams/run-cancel",
-                  "concepts/teams/custom-logger",
                   "concepts/teams/pre-hooks-and-post-hooks",
                   {
                     "group": "Guardrails",
@@ -132,7 +129,10 @@
                       "concepts/teams/guardrails/prompt-injection",
                       "concepts/teams/guardrails/openai-moderation"
                     ]
-                  }
+                  },
+                  "concepts/teams/metrics",
+                  "concepts/teams/run-cancel",
+                  "concepts/teams/custom-logger"
                 ]
               },
               {
@@ -961,20 +961,20 @@
                     ]
                   },
                   {
-                    "group": "Guardrails",
-                    "pages": [
-                      "examples/concepts/agent/guardrails/pii_detection",
-                      "examples/concepts/agent/guardrails/prompt_injection",
-                      "examples/concepts/agent/guardrails/openai_moderation"
-                    ]
-                  },
-                  {
                     "group": "Hooks",
                     "pages": [
                       "examples/concepts/agent/hooks/input_validation_pre_hook",
                       "examples/concepts/agent/hooks/input_transformation_pre_hook",
                       "examples/concepts/agent/hooks/output_validation_post_hook",
                       "examples/concepts/agent/hooks/output_transformation_post_hook"
+                    ]
+                  },
+                  {
+                    "group": "Guardrails",
+                    "pages": [
+                      "examples/concepts/agent/guardrails/pii_detection",
+                      "examples/concepts/agent/guardrails/prompt_injection",
+                      "examples/concepts/agent/guardrails/openai_moderation"
                     ]
                   },
                   {
@@ -1147,20 +1147,20 @@
                     "pages": ["examples/concepts/teams/events/custom_events"]
                   },
                   {
-                    "group": "Guardrails",
-                    "pages": [
-                      "examples/concepts/teams/guardrails/pii_detection",
-                      "examples/concepts/teams/guardrails/prompt_injection",
-                      "examples/concepts/teams/guardrails/openai_moderation"
-                    ]
-                  },
-                  {
                     "group": "Hooks",
                     "pages": [
                       "examples/concepts/teams/hooks/input_validation_pre_hook",
                       "examples/concepts/teams/hooks/input_transformation_pre_hook",
                       "examples/concepts/teams/hooks/output_validation_post_hook",
                       "examples/concepts/teams/hooks/output_transformation_post_hook"
+                    ]
+                  },
+                  {
+                    "group": "Guardrails",
+                    "pages": [
+                      "examples/concepts/teams/guardrails/pii_detection",
+                      "examples/concepts/teams/guardrails/prompt_injection",
+                      "examples/concepts/teams/guardrails/openai_moderation"
                     ]
                   },
                   {

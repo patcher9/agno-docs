@@ -4,20 +4,16 @@ title: OpenAI Moderation Guardrail
 
 This example demonstrates how to use Agno's built-in OpenAI moderation guardrail with an Agent.
 
-## Code
-
-```python openai_moderation.py
-"""
-Example demonstrating how to use OpenAI moderation guardrails with Agno Agent.
-
 This example shows how to:
 1. Detect and block content that violates OpenAI's content policy
 2. Handle both text and image content moderation
 3. Configure moderation for specific categories
 4. Use both sync and async moderation checks
 5. Customize moderation models and sensitivity settings
-"""
 
+## Code
+
+```python openai_moderation.py
 import asyncio
 
 from agno.agent import Agent
