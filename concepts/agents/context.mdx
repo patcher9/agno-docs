@@ -4,7 +4,7 @@ description: Learn how to write prompts and other context engineering techniques
 ---
 
 Context engineering is the process of designing and controlling the information (context) that is sent to language models to guide their behavior and outputs. 
-Building context has become about answering this question: "What set of information is most likely to achieve the desired outcome?"
+In practice, building context comes down to one question: "Which information is most likely to achieve the desired outcome?"
 
 In Agno, this means carefully crafting the system message, which includes the agent's description, instructions, and other relevant settings. By thoughtfully constructing this context, you can:
 
@@ -13,7 +13,7 @@ In Agno, this means carefully crafting the system message, which includes the ag
 - Ensure outputs are consistent, relevant, and aligned with your application's needs.
 - Enable advanced use cases such as multi-step reasoning, tool use, or structured output.
 
-Effective context engineering involves iteratively refining the system message, experimenting with different descriptions and instructions, and leveraging features like input/output schemas or tool integrations. 
+Effective context engineering is an iterative process: refining the system message, trying out different descriptions and instructions, and using features such as schemas, delegation, and tool integrations.
 
 The context of an Agno agent consists of the following:
 - **System message**: The system message is the main context that is sent to the agent, including all additional context
@@ -29,7 +29,7 @@ The following are some key parameters that are used to create the system message
 2. **Instructions**: A list of precise, task-specific instructions on how to achieve its goal.
 3. **Expected Output**: A description of the expected output from the Agent.
 
-The system message is created using `description`, `instructions` and a number of other settings. The `description` is added to the start of the system message and `instructions` are added as a list. For example:
+The system message is built from the agent’s description, instructions, and other settings. An agent’s system message additionally includes delegation rules and coordination guidelines. For example:
 
 ```python
 from agno.agent import Agent
@@ -157,14 +157,14 @@ Note: this information is from previous interactions and may be outdated. You sh
 ```
 
 <Tip>
-This example is exhaustive to illustrate what is possible with the system message, however in practice you would only use some of these settings.
+This example is exhaustive and illustrates what is possible with the system message, however in practice you would only use some of these settings.
 </Tip>
 
 #### Additional Context
 
 You can add additional context to the end of the system message using the `additional_context` parameter.
 
-In this example, we add additional context to the system message that the agent has access to specific tables in a database.
+Here, `additional_context` adds a note to the system message indicating that the agent can access specific database tables.
 
 ```python
 from textwrap import dedent
@@ -195,7 +195,7 @@ agent.print_response("What is the average rating of movies?", stream=True)
 
 #### Tool Instructions
 
-If you are using a [Toolkit](/concepts/tools/toolkits/toolkits) on your agent, you can add tool instructions to the system message using the `instructions` parameter.
+If you are using a [Toolkit](/concepts/tools/toolkits/toolkits) on your agent, you can add tool instructions to the system message using the `instructions` parameter:
 
 ```python
 from agno.agent import Agent
@@ -214,7 +214,7 @@ These instructions are injected into the system message after the `<additional_i
 
 #### Agentic Memories
 
-If you have `enable_agentic_memory` enabled on your agent, the agent gets the ability to create/update user memories using tools.
+If you have `enable_agentic_memory` set to `True` on your agent, the agent gets the ability to create/update user memories using tools.
 
 This adds the following to the system message:
 ```
@@ -441,12 +441,12 @@ if __name__ == "__main__":
 
 ## Context Caching
 
-Various model providers support caching of system and user messages. The implementation of caching differs between providers.
+Most model providers support caching of system and user messages, though the implementation differs between providers.
 
-Generally the approach is to cache repetitive content and common instructions and on subsequent requests to use cached content from the prefix for your system message.
+The general approach is to cache repetitive content and common instructions, and then reuse that cached content in subsequent requests as the prefix of your system message.
 In other words, if the model supports it, you can reduce the number of tokens sent to the model by putting static content at the start of your system message.
 
-Agno's context construction is designed to put the most probable static content at the start of your system message.  
+Agno's context construction is designed to place the most likely static content at the beginning of the system message.  
 If you wish to fine-tune this, the recommended approach is to manually set the system message.
 
 Some examples of prompt caching:
