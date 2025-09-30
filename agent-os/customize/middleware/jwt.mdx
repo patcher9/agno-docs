@@ -93,14 +93,13 @@ The middleware supports three token sources:
 
 ## Parameter Injection
 
-The middleware automatically injects JWT claims into request state for:
+The middleware automatically injects JWT claims into the request object flowing across your FastAPI state. This is a great way to resolve data from your token into parameters received by your endpoints.
+
+These are the parameters automatically injected by our JWT middleware into your endpoints:
 - `user_id`
 - `session_id`
 - `dependencies`
 - `session_state`
-
-These values are automatically used in applicable endpoints.
-
 For example, in `/agents/{agent_id}/runs`, the `user_id`, `session_id`, `dependencies` and `session_state` are automatically used if they were extracted from the JWT token.
 
 This is useful for:
