@@ -10,7 +10,7 @@ Agno uses the `OpenAIEmbedder` as the default embeder for the vector database. T
 ```python cookbook/embedders/openai_embedder.py
 from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector
-from agno.embedder.openai import OpenAIEmbedder
+from agno.knowledge.embedder.openai import OpenAIEmbedder
 
 # Embed sentence in database
 embeddings = OpenAIEmbedder().get_embedding("The quick brown fox jumps over the lazy dog.")

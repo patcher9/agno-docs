@@ -10,7 +10,7 @@ An Embedder converts complex information into vector representations, allowing i
 from agno.agent import Agent
 from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector
-from agno.embedder.openai import OpenAIEmbedder
+from agno.knowledge.embedder.openai import OpenAIEmbedder
 
 # Create knowledge
 knowledge = Knowledge(
@@ -32,15 +32,32 @@ knowledge.add_content(
 agent = Agent(knowledge=knowledge)
 ```
 
+Most embeddings providers support batch embedding of lists of texts. This reduces API load, prevents rate limits and greatly speeds up the embedding process.
+To enable this, simply set the `enable_batch` flag to `True` when defining your embedder.
+
+```python
+from agno.knowledge.embedder.openai import OpenAIEmbedder
+
+embedder=OpenAIEmbedder(
+    id="text-embedding-3-small",
+    dimensions=1536,
+    enable_batch=True
+)
+```
+
+
 The following embedders are supported:
 
 - [OpenAI](/concepts/knowledge/embedder/openai)
+- [Cohere](/concepts/knowledge/embedder/cohere)
 - [Gemini](/concepts/knowledge/embedder/gemini)
-- [Ollama](/concepts/knowledge/embedder/ollama)
-- [Voyage AI](/concepts/knowledge/embedder/voyageai)
+- [AWS Bedrock](/concepts/knowledge/embedder/aws_bedrock)
 - [Azure OpenAI](/concepts/knowledge/embedder/azure_openai)
-- [Mistral](/concepts/knowledge/embedder/mistral)
 - [Fireworks](/concepts/knowledge/embedder/fireworks)
-- [Together](/concepts/knowledge/embedder/together)
 - [HuggingFace](/concepts/knowledge/embedder/huggingface)
+- [Jina](/concepts/knowledge/embedder/jina)
+- [Mistral](/concepts/knowledge/embedder/mistral)
+- [Ollama](/concepts/knowledge/embedder/ollama)
 - [Qdrant FastEmbed](/concepts/knowledge/embedder/qdrant_fastembed)
+- [Together](/concepts/knowledge/embedder/together)
+- [Voyage AI](/concepts/knowledge/embedder/voyageai)
