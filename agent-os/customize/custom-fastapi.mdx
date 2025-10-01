@@ -26,7 +26,7 @@ async def status_check():
 # Pass your app to AgentOS
 agent_os = AgentOS(
     agents=[Agent(id="basic-agent", model=OpenAIChat(id="gpt-5-mini"))],
-    fastapi_app=app  # Your custom FastAPI app
+    base_app=app  # Your custom FastAPI app
 )
 
 # Get the combined app with both AgentOS and your routes
@@ -148,7 +148,7 @@ async def get_customers():
 agent_os = AgentOS(
     description="Example app with custom routers",
     agents=[web_research_agent],
-    fastapi_app=app,
+    base_app=app,
 )
 
 # Alternatively, add all routes from AgentOS app to the current app
@@ -205,7 +205,7 @@ async def protected_endpoint():
 # Integrate with AgentOS
 agent_os = AgentOS(
     agents=[Agent(id="basic-agent", model=OpenAIChat(id="gpt-5-mini"))], 
-    fastapi_app=app
+    base_app=app
 )
 
 app = agent_os.get_app()

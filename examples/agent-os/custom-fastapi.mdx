@@ -59,7 +59,7 @@ async def get_customers():
 agent_os = AgentOS(
     description="Example app with custom routers",
     agents=[web_research_agent],
-    fastapi_app=app,
+    base_app=app,
 )
 
 # Alternatively, add all routes from AgentOS app to the current app
