@@ -10,7 +10,7 @@ An Embedder converts complex information into vector representations, allowing i
 from agno.agent import Agent
 from agno.knowledge.knowledge import Knowledge
 from agno.vectordb.pgvector import PgVector
-from agno.embedder.openai import OpenAIEmbedder
+from agno.knowledge.embedder.openai import OpenAIEmbedder
 
 # Create knowledge
 knowledge = Knowledge(
@@ -35,12 +35,47 @@ agent = Agent(knowledge=knowledge)
 The following embedders are supported:
 
 - [OpenAI](/concepts/knowledge/embedder/openai)
+- [Cohere](/concepts/knowledge/embedder/cohere)
 - [Gemini](/concepts/knowledge/embedder/gemini)
-- [Ollama](/concepts/knowledge/embedder/ollama)
-- [Voyage AI](/concepts/knowledge/embedder/voyageai)
+- [AWS Bedrock](/concepts/knowledge/embedder/aws_bedrock)
 - [Azure OpenAI](/concepts/knowledge/embedder/azure_openai)
-- [Mistral](/concepts/knowledge/embedder/mistral)
 - [Fireworks](/concepts/knowledge/embedder/fireworks)
-- [Together](/concepts/knowledge/embedder/together)
 - [HuggingFace](/concepts/knowledge/embedder/huggingface)
+- [Jina](/concepts/knowledge/embedder/jina)
+- [Mistral](/concepts/knowledge/embedder/mistral)
+- [Ollama](/concepts/knowledge/embedder/ollama)
 - [Qdrant FastEmbed](/concepts/knowledge/embedder/qdrant_fastembed)
+- [Together](/concepts/knowledge/embedder/together)
+- [Voyage AI](/concepts/knowledge/embedder/voyageai)
+
+
+### Batch Embeddings
+
+Many embedding providers support processing multiple texts in a single API call, known as batch embedding. This approach offers several advantages: it reduces the number of API requests, 
+helps avoid rate limits, and significantly improves performance when processing large amounts of text.
+
+To enable batch processing, set the `enable_batch` flag to `True` when configuring your embedder.
+The `batch_size` paramater can be used to control the amount of texts sent per batch.
+
+```python
+from agno.knowledge.embedder.openai import OpenAIEmbedder
+
+embedder=OpenAIEmbedder(
+    id="text-embedding-3-small",
+    dimensions=1536,
+    enable_batch=True,
+    batch_size=100
+)
+```
+
+The following embedders currently support batching:
+- Azure OpenAI
+- Cohere
+- Fireworks
+- Gemini
+- Jina
+- Mistral
+- Nebius
+- OpenAI
+- Together
+- Voyage
