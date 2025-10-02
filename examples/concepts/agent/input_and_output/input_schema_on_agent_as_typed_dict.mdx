@@ -18,7 +18,7 @@ from agno.tools.hackernews import HackerNewsTools
 class ResearchTopicDict(TypedDict):
     topic: str
     focus_areas: List[str]
-    target_audience: str    
+    target_audience: str
     sources_required: int
 
 
@@ -34,7 +34,7 @@ class ResearchTopicWithOptionals(TypedDict, total=False):
 # Create agent with TypedDict input schema
 hackernews_agent = Agent(
     name="Hackernews Agent with TypedDict",
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[HackerNewsTools()],
     role="Extract key insights and content from Hackernews posts",
     input_schema=ResearchTopicDict,
@@ -54,7 +54,7 @@ hackernews_agent.print_response(
 # with optional fields
 optional_agent = Agent(
     name="Hackernews Agent with Optional Fields",
-    model=OpenAIChat(id="gpt-4o-mini"),
+    model=OpenAIChat(id="gpt-5-mini"),
     tools=[HackerNewsTools()],
     input_schema=ResearchTopicWithOptionals,
 )

@@ -38,7 +38,7 @@ You may remove the reranking step if you don't need it.
 """
 
 from agno.agent import Agent
-from agno.embedder.cohere import CohereEmbedder
+from agno.knowledge.embedder.cohere import CohereEmbedder
 from agno.knowledge.knowledge import Knowledge
 from agno.models.anthropic import Claude
 from agno.reranker.cohere import CohereReranker
@@ -94,7 +94,7 @@ Here's an example of an Agentic RAG Agent that uses reasoning to improve the qua
 """
 
 from agno.agent import Agent
-from agno.embedder.cohere import CohereEmbedder
+from agno.knowledge.embedder.cohere import CohereEmbedder
 from agno.knowledge.knowledge import Knowledge
 from agno.models.anthropic import Claude
 from agno.reranker.cohere import CohereReranker

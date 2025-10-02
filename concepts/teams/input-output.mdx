@@ -83,7 +83,7 @@ Let's create a Stock Research Team to generate a structured `StockReport` for us
         markdown=True,
     )
 
-    # This should route to the stock_searcher
+    # This should delegate to the stock_searcher
     response = team.run("What is the current stock price of NVDA?")
     assert isinstance(response.content, StockReport)
     pprint_run_response(response)
