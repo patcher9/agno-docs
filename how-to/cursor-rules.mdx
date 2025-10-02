@@ -1,473 +1,124 @@
 ---
 title: Cursor Rules for Building Agents
-description: Build AI agents with Agno using AI-powered code assistants like Cursor
+description: Use .cursorrules to improve AI coding assistant suggestions when building agents with Agno
 ---
 
-Building AI agents with Agno? A `.cursorrules` file teaches your AI coding assistant how to write better Agno code for building agents, teams, and workflows.
+A `.cursorrules` file teaches AI coding assistants (like Cursor, Windsurf) how to build better agents with Agno.
 
-## Why Use Cursor Rules?
+## What is .cursorrules?
 
-When building agents with Agno, AI assistants might suggest outdated patterns or incorrect syntax without proper context. With `.cursorrules`, your AI will:
+`.cursorrules` is a configuration file that provides your AI coding assistant with:
+- Agno-specific patterns and best practices
+- Correct parameter names and syntax
+- Common mistakes to avoid
+- When to use Agent vs Team vs Workflow
 
-- Build agents using correct Agno patterns
-- Choose the right approach (Agent vs Team vs Workflow)
-- Follow performance optimizations (~3μs agent instantiation)
-- Use tools, memory, and knowledge correctly
-- Suggest patterns that actually work with Agno
+Think of it as a reference guide that helps your AI assistant build agents correctly with Agno.
 
-<Note>
-This guide is focused on **building agents with Agno**. If you're looking to contribute to the Agno framework itself, that will be covered separately in future documentation.
-</Note>
+## Why Use It?
 
-## Using Cursor Rules in Your Project
+Without `.cursorrules`, AI assistants might suggest:
+- Wrong parameter names (like `agents=` instead of `members=` for Teams)
+- Outdated patterns or incorrect syntax
+- Performance anti-patterns (creating agents in loops)
+- Non-existent methods or features
 
-You can reference the Agno `.cursorrules` file when building your own agent applications:
+With `.cursorrules`, your AI will:
+- Suggest correct Agno patterns automatically
+- Follow performance best practices
+- Use the right approach for your use case
+- Catch common mistakes before you make them
+
+## How to Use .cursorrules
+
+Copy the Agno `.cursorrules` file to your project root:
 
 ```bash
+# Download the .cursorrules file
+curl -o .cursorrules https://raw.githubusercontent.com/agno-agi/agno/main/.cursorrules
+
+# Or clone and copy
 git clone https://github.com/agno-agi/agno.git
-cd agno
-# View the .cursorrules file for agent building patterns
+cp agno/.cursorrules /path/to/your/project/
 ```
 
-<Card title="View on GitHub" icon="github" href="https://github.com/agno-agi/agno/blob/main/.cursorrules">
-  Check out the full .cursorrules file for building agents
+Your AI assistant (Cursor, Windsurf, etc.) will automatically detect and use it.
+
+<Card title="View .cursorrules on GitHub" icon="github" href="https://github.com/agno-agi/agno/blob/main/.cursorrules">
+  View the full .cursorrules file for building agents with Agno
 </Card>
 
-## What You'll Learn
+### For Your Own Projects
 
-This guide covers everything you need to build AI agents with Agno:
+When building your own agent application, the `.cursorrules` file will help your AI assistant suggest correct patterns. Here are examples of what it teaches:
 
-- When to use Agent vs Team vs Workflow
-- How to add tools, memory, and knowledge to agents
-- Building custom tools for your agents
-- Multi-agent coordination patterns
-- Common mistakes and how to avoid them
-- Testing and deploying agents
-
-## Getting Started with Agents
-
-### Building a Basic Agent
-
+**Correct Team syntax:**
 ```python
-from agno.agent import Agent
-from agno.models.openai import OpenAIChat
-
-agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
-    instructions="Clear, specific instructions",
-    markdown=True,
-)
-
-agent.print_response("Hello!", stream=True)
-```
-
-### Adding Tools
-
-```python
-from agno.tools.duckduckgo import DuckDuckGoTools
-
-agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
-    tools=[DuckDuckGoTools()],
-    show_tool_calls=True,
-)
-```
-
-### Adding Memory
-
-```python
-from agno.memory.db import MemoryDb
-from agno.db.sqlite import SqliteDb
-
-agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
-    memory=MemoryDb(db=SqliteDb(db_file="memory.db")),
-    add_history_to_context=True,
-)
-```
-
-### Adding Knowledge (RAG)
-
-```python
-from agno.knowledge import Knowledge
-from agno.vectordb.pgvector import PgVector
-
-knowledge = Knowledge(
-    vector_db=PgVector(
-        table_name="docs",
-        db_url="postgresql://user:pass@localhost/db"
-    )
-)
-
-agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
-    knowledge=knowledge,
-    search_knowledge=True,
-)
-```
-
-## Which Pattern Should I Use?
-
-When building with Agno, you have three main patterns to choose from:
-
-### Agent
-
-Use when you have:
-- A single, focused task
-- One set of tools is sufficient
-- No need for collaboration
-
-```python
-agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
-    tools=[search_tool],
-    instructions="Specific task instructions"
-)
-```
-
-### Team
-
-Use when you have:
-- Multiple agents with different expertise
-- Want agents to coordinate autonomously
-- Task benefits from multiple perspectives
-
-```python
-from agno.team import Team
-
 team = Team(
-    members=[researcher, writer],  # Note: use 'members'
-    model=OpenAIChat(id="gpt-4o"),
-    instructions="Coordinate research and writing",
-)
-```
-
-<Note>
-Teams use the `members` parameter, not `agents`. This is a common mistake that `.cursorrules` helps prevent.
-</Note>
-
-### Workflow
-
-Use when you have:
-- Specific execution order requirements
-- Conditional logic between steps
-- Need full control over agent interactions
-
-```python
-from agno.workflow import Workflow, Step
-
-workflow = Workflow(
-    name="Research Workflow",
-    steps=[
-        Step(name="Research", agent=researcher),
-        Step(name="Write", agent=writer),
-    ]
-)
-
-result = workflow.run("AI developments in 2025")
-```
-
-## Multi-Agent Coordination
-
-### Team Coordination
-
-Teams allow agents to work together autonomously:
-
-```python
-researcher = Agent(
-    name="Researcher",
-    model=OpenAIChat(id="gpt-4o"),
-    tools=[DuckDuckGoTools()],
-)
-
-writer = Agent(
-    name="Writer",
+    members=[agent1, agent2],  # Uses 'members', not 'agents'
     model=OpenAIChat(id="gpt-4o"),
 )
-
-team = Team(
-    members=[researcher, writer],
-    model=OpenAIChat(id="gpt-4o"),
-    instructions="Create comprehensive research reports",
-)
-
-team.print_response("Research AI trends and write a report", stream=True)
 ```
 
-### Workflow Execution
-
-Workflows provide sequential, controlled execution:
-
+**Performance best practice:**
 ```python
-from agno.workflow import Workflow, Step
-
-workflow = Workflow(
-    name="Content Pipeline",
-    steps=[
-        Step(name="Research", agent=researcher),
-        Step(name="Write", agent=writer),
-    ]
-)
-
-result = workflow.run("Create article about quantum computing")
-```
-
-### Conditional Workflows
-
-Add logic to your workflows with conditions:
-
-```python
-from agno.workflow import Condition
-
-def needs_fact_checking(step_input):
-    content = step_input.previous_step_content or ""
-    return "study" in content.lower()
-
-workflow = Workflow(
-    steps=[
-        Step(name="Research", agent=researcher),
-        Condition(
-            evaluator=needs_fact_checking,
-            steps=[Step(name="Fact Check", agent=fact_checker)]
-        ),
-        Step(name="Write", agent=writer),
-    ]
-)
-```
-
-## Building Custom Tools
-
-### Simple Function Tools
-
-```python
-def calculate(operation: str, x: float, y: float) -> float:
-    """Perform mathematical operations.
-    
-    Args:
-        operation: add, subtract, multiply, divide
-        x: First number
-        y: Second number
-    """
-    operations = {
-        "add": lambda a, b: a + b,
-        "subtract": lambda a, b: a - b,
-    }
-    return operations[operation](x, y)
-
-agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
-    tools=[calculate],
-)
-```
-
-### Custom Toolkit
-
-```python
-from agno.tools import Toolkit
-
-class WeatherTool(Toolkit):
-    def __init__(self):
-        super().__init__(name="weather", tools=[self.get_weather])
-    
-    def get_weather(self, city: str) -> dict:
-        """Get current weather for a city.
-        
-        Args:
-            city: City name
-        """
-        # Implementation
-        return {"city": city, "temp": 72}
-
-agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
-    tools=[WeatherTool()],
-)
-```
-
-## Structured Output
-
-Use Pydantic models to get validated, structured responses:
-
-```python
-from pydantic import BaseModel, Field
-
-class ResearchOutput(BaseModel):
-    summary: str
-    key_points: list[str]
-    confidence: float = Field(ge=0, le=1)
-
-result = agent.run(
-    "Research AI trends",
-    response_model=ResearchOutput
-)
-
-# Access validated fields
-print(result.summary)
-print(result.key_points)
-```
-
-## Common Mistakes to Avoid
-
-### Don't Create Agents in Loops
-
-<CodeGroup>
-```python Incorrect
-for query in queries:
-    agent = Agent(model=OpenAIChat(id="gpt-4o"))
-    agent.run(query)
-```
-
-```python Correct
+# Reuse agents (don't create in loops)
 agent = Agent(model=OpenAIChat(id="gpt-4o"))
 for query in queries:
-    agent.run(query)
-```
-</CodeGroup>
-
-<Note>
-Creating agents in loops destroys Agno's performance advantage. Always reuse agent instances.
-</Note>
-
-### Limit Your Tools
-
-<CodeGroup>
-```python Too Many Tools
-agent = Agent(
-    tools=[tool1, tool2, ..., tool20]
-)
+    agent.run(query)  # Fast!
 ```
 
-```python Focused Set
-agent = Agent(
-    tools=[search, calculator, emailer]
-)
-```
-</CodeGroup>
-
-### Be Specific with Instructions
-
-<CodeGroup>
-```python Vague
-agent = Agent(
-    instructions="Help the user"
-)
-```
-
-```python Specific
-agent = Agent(
-    instructions="""
-    You are a technical documentation expert.
-    - Analyze code and generate clear documentation
-    - Follow Google-style docstrings
-    - Include usage examples
-    """
-)
-```
-</CodeGroup>
-
-### Always Handle Errors
-
-<CodeGroup>
-```python No Error Handling
-response = agent.run(query)
-print(response.content)
-```
-
-```python With Error Handling
-from agno.exceptions import AgentException
-
-try:
-    response = agent.run(query)
-    print(response.content)
-except AgentException as e:
-    logger.error(f"Error: {e}")
-```
-</CodeGroup>
-
-## Testing Your Agents
-
+**Structured output:**
 ```python
-import pytest
+# Use Pydantic for validation
+class Result(BaseModel):
+    summary: str
+    findings: list[str]
 
-@pytest.fixture
-def test_agent():
-    return Agent(model=OpenAIChat(id="gpt-4o"))
-
-def test_basic(test_agent):
-    response = test_agent.run("What is 2+2?")
-    assert "4" in response.content
-
-@pytest.mark.asyncio
-async def test_async(test_agent):
-    response = await test_agent.arun("Hello")
-    assert response is not None
+result = agent.run(query, response_model=Result)
 ```
 
-See the [Testing documentation](/how-to/testing) for more details.
+## What's Included
 
-## Deploying with AgentOS
+The Agno `.cursorrules` file teaches your AI about:
 
-```python
-from agno.os import AgentOS
-from agno.db.postgres import PostgresDb
+**Core Patterns**
+- When to use Agent, Team, or Workflow
+- Agent design patterns (Specialist, Coordinator, RAG-powered, Stateful)
+- How to add tools, memory, and knowledge to agents
 
-agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
-    db=PostgresDb(connection_url=os.getenv("DATABASE_URL")),
-)
+**Best Practices**
+- Performance rules (reuse agents, control context size)
+- Error handling patterns
+- Structured output with Pydantic
+- Testing strategies
+- Production deployment checklist
 
-agent_os = AgentOS(agent=agent)
-app = agent_os.get_app()
-```
+**Common Mistakes**
+- Don't create agents in loops
+- Limit tools per agent (5-8 max)
+- Use clear, specific instructions
+- Always handle errors
+- Use PostgreSQL in production (not SQLite)
 
-<Note>
-Always use PostgreSQL in production, not SQLite. See the [Storage documentation](/concepts/agents/storage) for more details.
-</Note>
+## IDE Support
 
-### Production Checklist
-
-Before deploying:
-- Use PostgreSQL instead of SQLite
-- Store API keys in environment variables
-- Add error handling to all agent calls
-- Configure logging appropriately
-- Write and run tests
-
-## Creating Cursor Rules for Your Agent Project
-
-When building your own agent application with Agno, create a `.cursorrules` file in your project root to customize the AI assistant for your specific use case:
-
-```text .cursorrules
-# My Agent Application Built with Agno
-
-You are an expert in building AI agents with Agno.
-
-## Project Overview
-- Application: [Your app name]
-- Purpose: [What it does]
-
-## Agno Patterns
-- Use Agent for focused tasks
-- Use Team for autonomous coordination
-- Use Workflow for sequential processes
-- Always reuse agents (never create in loops)
-- Use type hints and Pydantic models
-
-## Development Standards
-- Python 3.7+ with type hints
-- Environment variables for secrets
-- PostgreSQL for production
-```
+`.cursorrules` works with:
+- **Cursor** - Automatic detection
+- **Windsurf** - Native support
+- **Other AI assistants** - May vary by tool
 
 ## Learn More
 
+For detailed examples and patterns:
+
 <CardGroup cols={2}>
-  <Card title="Agent Concepts" icon="book" href="/concepts/agents/introduction">
-    Learn about agent fundamentals
+  <Card title="Agent Examples" icon="code" href="/examples/getting-started">
+    See complete agent examples
   </Card>
   
-  <Card title="Examples" icon="code" href="/examples/introduction">
-    View real-world examples
+  <Card title="Agent Concepts" icon="book" href="/concepts/agents/introduction">
+    Learn agent fundamentals
   </Card>
   
   <Card title="Teams" icon="users" href="/concepts/teams/introduction">
@@ -475,10 +126,10 @@ You are an expert in building AI agents with Agno.
   </Card>
   
   <Card title="Workflows" icon="workflow" href="/concepts/workflows/introduction">
-    Sequential agent processes
+    Sequential processes
   </Card>
 </CardGroup>
 
 <Note>
-The `.cursorrules` file is updated as Agno evolves. Check the [GitHub repository](https://github.com/agno-agi/agno/blob/main/.cursorrules) for the latest version.
+The `.cursorrules` file is focused on **building agents with Agno**. If you're contributing to the Agno framework itself, that will be covered separately.
 </Note>
