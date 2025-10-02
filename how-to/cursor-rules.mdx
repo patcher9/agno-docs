@@ -52,8 +52,22 @@ Your AI assistant (Cursor, Windsurf, etc.) will automatically detect and use it.
 
 When building your own agent application, the `.cursorrules` file will help your AI assistant suggest correct patterns. Here are examples of what it teaches:
 
+**Basic agent creation:**
+```python
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    instructions="You are a helpful assistant",
+    markdown=True,
+)
+```
+
 **Correct Team syntax:**
 ```python
+from agno.team.team import Team
+
 team = Team(
     members=[agent1, agent2],  # Uses 'members', not 'agents'
     model=OpenAIChat(id="gpt-4o"),
@@ -62,7 +76,11 @@ team = Team(
 
 **Performance best practice:**
 ```python
-# Reuse agents (don't create in loops)
+# WRONG - Recreates agent every time
+for query in queries:
+    agent = Agent(...)  # DON'T DO THIS
+
+# CORRECT - Reuse agents
 agent = Agent(model=OpenAIChat(id="gpt-4o"))
 for query in queries:
     agent.run(query)  # Fast!
@@ -70,12 +88,17 @@ for query in queries:
 
 **Structured output:**
 ```python
-# Use Pydantic for validation
+from pydantic import BaseModel
+
 class Result(BaseModel):
     summary: str
     findings: list[str]
 
-result = agent.run(query, response_model=Result)
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    output_schema=Result,  # Use output_schema for validation
+)
+result: Result = agent.run(query).content
 ```
 
 ## What's Included
@@ -84,22 +107,23 @@ The Agno `.cursorrules` file teaches your AI about:
 
 **Core Patterns**
 - When to use Agent, Team, or Workflow
-- Agent design patterns (Specialist, Coordinator, RAG-powered, Stateful)
+- Basic agent creation with tools
+- Agent design patterns (RAG-powered, Stateful, Teams, Workflows)
 - How to add tools, memory, and knowledge to agents
 
 **Best Practices**
-- Performance rules (reuse agents, control context size)
+- Performance rules (reuse agents, never create in loops)
 - Error handling patterns
 - Structured output with Pydantic
-- Testing strategies
-- Production deployment checklist
+- Production deployment with AgentOS
+- PostgreSQL for production (not SQLite)
 
 **Common Mistakes**
 - Don't create agents in loops
-- Limit tools per agent (5-8 max)
 - Use clear, specific instructions
-- Always handle errors
-- Use PostgreSQL in production (not SQLite)
+- Set search_knowledge=True with knowledge bases
+- Add history when context matters
+- Always use output_schema for structured responses
 
 ## IDE Support
 
