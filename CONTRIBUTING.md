@@ -59,7 +59,7 @@ The documentation is organized into the following main sections:
 - **tutorials/** - Step-by-step tutorials
 - **how-to/** - Task-oriented guides
 - **concepts/** - Conceptual explanations
-- **integrations/** - Integration guides
+- **integrations/** - Guides for external integrations
 - **reference/** - Reference documentation
 - **reference-api/** - API reference (auto-generated)
 - **examples/** - Example code and use cases
