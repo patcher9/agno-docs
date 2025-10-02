@@ -3,7 +3,7 @@ title: Cursor Rules for Building Agents
 description: Use .cursorrules to improve AI coding assistant suggestions when building agents with Agno
 ---
 
-A `.cursorrules` file teaches AI coding assistants (like Cursor, Windsurf) how to build better agents with Agno.
+A [`.cursorrules`](https://docs.cursor.com/context/rules-for-ai) file teaches AI coding assistants (like Cursor, Windsurf) how to build better agents with Agno.
 
 ## What is .cursorrules?
 
@@ -49,96 +49,19 @@ Your AI assistant (Cursor, Windsurf, etc.) will automatically detect and use it.
   View the full .cursorrules file for building agents with Agno
 </Card>
 
-### For Your Own Projects
-
-When building your own agent application, the `.cursorrules` file will help your AI assistant suggest correct patterns. Here are examples of what it teaches:
-
-**Basic agent creation:**
-```python
-from agno.agent import Agent
-from agno.models.openai import OpenAIChat
-
-agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
-    instructions="You are a helpful assistant",
-    markdown=True,
-)
-```
-
-**Correct Team syntax:**
-```python
-from agno.team.team import Team
-
-team = Team(
-    members=[agent1, agent2],  # Uses 'members', not 'agents'
-    model=OpenAIChat(id="gpt-4o"),
-)
-```
-
-**Performance best practice:**
-```python
-# WRONG - Recreates agent every time
-for query in queries:
-    agent = Agent(...)  # DON'T DO THIS
-
-# CORRECT - Reuse agents
-agent = Agent(model=OpenAIChat(id="gpt-4o"))
-for query in queries:
-    agent.run(query)  # Fast!
-```
-
-**Structured output:**
-```python
-from pydantic import BaseModel
-
-class Result(BaseModel):
-    summary: str
-    findings: list[str]
-
-agent = Agent(
-    model=OpenAIChat(id="gpt-4o"),
-    output_schema=Result,  # Use output_schema for validation
-)
-result: Result = agent.run(query).content
-```
-
-## What's Included
-
-The Agno `.cursorrules` file teaches your AI about:
-
-**Core Patterns**
-- When to use Agent, Team, or Workflow
-- Basic agent creation with tools
-- Agent design patterns (RAG-powered, Stateful, Teams, Workflows)
-- How to add tools, memory, and knowledge to agents
-
-**Best Practices**
-- Performance rules (reuse agents, never create in loops)
-- Error handling patterns
-- Structured output with Pydantic
-- Production deployment with AgentOS
-- PostgreSQL for production (not SQLite)
-
-**Common Mistakes**
-- Don't create agents in loops
-- Use clear, specific instructions
-- Set search_knowledge=True with knowledge bases
-- Add history when context matters
-- Always use output_schema for structured responses
-
 ## IDE Support
 
 `.cursorrules` works with:
 - **Cursor** - Automatic detection
 - **Windsurf** - Native support
-- **Other AI assistants** - May vary by tool
+- **Other AI assistants** - Support may vary
 
 ## Learn More
 
 For detailed examples and patterns:
 
 <CardGroup cols={2}>
-  <Card title="Agent Examples" icon="code" href="/examples/getting-started">
+  <Card title="Agent Examples" icon="code" href="/examples/getting-started/introduction">
     See complete agent examples
   </Card>
   
@@ -150,8 +73,8 @@ For detailed examples and patterns:
     Multi-agent coordination
   </Card>
   
-  <Card title="Workflows" icon="workflow" href="/concepts/workflows/introduction">
-    Sequential processes
+  <Card title="Workflows" icon="workflow" href="/concepts/workflows/overview">
+    Deterministic agent orchestration
   </Card>
 </CardGroup>
 
