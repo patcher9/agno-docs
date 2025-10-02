@@ -1,22 +1,22 @@
 ---
 title: Cursor Rules
-description: Build production-ready agents with Agno using AI-powered code assistants
+description: Use Agno with AI-powered code assistants like Cursor
 ---
 
-Using Cursor or another AI coding assistant with Agno? A `.cursorrules` file helps your AI understand Agno's patterns and best practices—making development faster and more accurate.
+Using Cursor or another AI coding assistant with Agno? A `.cursorrules` file helps your AI understand Agno's patterns and best practices.
 
-## Why This Matters
+## Why Use Cursor Rules?
 
 Without proper context, AI assistants might suggest outdated patterns or incorrect syntax. With `.cursorrules`, your AI will:
 
-- Use correct parameter names and patterns
-- Build workflows with the right approach (Agent vs Team vs Workflow)
-- Follow Agno's performance optimizations (~3μs agent instantiation)
-- Suggest tools and patterns that work with Agno
+- Use correct parameter names and Agno patterns
+- Choose the right approach (Agent vs Team vs Workflow)
+- Follow performance optimizations (~3μs agent instantiation)
+- Suggest tools and patterns that actually work with Agno
 
-## For Agno Contributors
+## For Contributors
 
-The `.cursorrules` file is in the repository root:
+If you're contributing to Agno itself, the `.cursorrules` file is already in the repository root:
 
 ```bash
 git clone https://github.com/agno-agi/agno.git
@@ -28,9 +28,9 @@ cd agno
   Check out the full .cursorrules file
 </Card>
 
-## Quick Start: Building Agents
+## Getting Started with Agents
 
-### Basic Agent
+### Building a Basic Agent
 
 ```python
 from agno.agent import Agent
@@ -45,7 +45,7 @@ agent = Agent(
 agent.print_response("Hello!", stream=True)
 ```
 
-### Agent with Tools
+### Adding Tools
 
 ```python
 from agno.tools.duckduckgo import DuckDuckGoTools
@@ -57,7 +57,7 @@ agent = Agent(
 )
 ```
 
-### Agent with Memory
+### Adding Memory
 
 ```python
 from agno.memory.db import MemoryDb
@@ -70,7 +70,7 @@ agent = Agent(
 )
 ```
 
-### Agent with Knowledge (RAG)
+### Adding Knowledge (RAG)
 
 ```python
 from agno.knowledge import Knowledge
@@ -90,53 +90,52 @@ agent = Agent(
 )
 ```
 
-## Choosing the Right Pattern
+## Which Pattern Should I Use?
 
-### Agent vs Team vs Workflow
+When building with Agno, you have three main patterns to choose from:
 
-**Use Agent** when:
-- Single focused task
-- One set of tools sufficient
-- No collaboration needed
+### Agent
 
-**Use Team** when:
+Use when you have:
+- A single, focused task
+- One set of tools is sufficient
+- No need for collaboration
+
+```python
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    tools=[search_tool],
+    instructions="Specific task instructions"
+)
+```
+
+### Team
+
+Use when you have:
 - Multiple agents with different expertise
-- Want autonomous coordination
+- Want agents to coordinate autonomously
 - Task benefits from multiple perspectives
-
-**Use Workflow** when:
-- Need specific execution order
-- Have conditional logic
-- Want full control over interactions
-
-## Building Multi-Agent Systems
-
-### Team Coordination
 
 ```python
 from agno.team import Team
-
-researcher = Agent(
-    name="Researcher",
-    model=OpenAIChat(id="gpt-4o"),
-    tools=[DuckDuckGoTools()],
-)
-
-writer = Agent(
-    name="Writer",
-    model=OpenAIChat(id="gpt-4o"),
-)
 
 team = Team(
     members=[researcher, writer],  # Note: use 'members'
     model=OpenAIChat(id="gpt-4o"),
     instructions="Coordinate research and writing",
 )
-
-team.print_response("Research AI trends and write a report", stream=True)
 ```
 
-### Step-Based Workflows
+<Note>
+Teams use the `members` parameter, not `agents`. This is a common mistake that `.cursorrules` helps prevent.
+</Note>
+
+### Workflow
+
+Use when you have:
+- Specific execution order requirements
+- Conditional logic between steps
+- Need full control over agent interactions
 
 ```python
 from agno.workflow import Workflow, Step
@@ -152,14 +151,61 @@ workflow = Workflow(
 result = workflow.run("AI developments in 2025")
 ```
 
+## Multi-Agent Coordination
+
+### Team Coordination
+
+Teams allow agents to work together autonomously:
+
+```python
+researcher = Agent(
+    name="Researcher",
+    model=OpenAIChat(id="gpt-4o"),
+    tools=[DuckDuckGoTools()],
+)
+
+writer = Agent(
+    name="Writer",
+    model=OpenAIChat(id="gpt-4o"),
+)
+
+team = Team(
+    members=[researcher, writer],
+    model=OpenAIChat(id="gpt-4o"),
+    instructions="Create comprehensive research reports",
+)
+
+team.print_response("Research AI trends and write a report", stream=True)
+```
+
+### Workflow Execution
+
+Workflows provide sequential, controlled execution:
+
+```python
+from agno.workflow import Workflow, Step
+
+workflow = Workflow(
+    name="Content Pipeline",
+    steps=[
+        Step(name="Research", agent=researcher),
+        Step(name="Write", agent=writer),
+    ]
+)
+
+result = workflow.run("Create article about quantum computing")
+```
+
 ### Conditional Workflows
+
+Add logic to your workflows with conditions:
 
 ```python
 from agno.workflow import Condition
 
 def needs_fact_checking(step_input):
     content = step_input.previous_step_content or ""
-    return "study" in content.lower() or "research" in content.lower()
+    return "study" in content.lower()
 
 workflow = Workflow(
     steps=[
@@ -173,9 +219,32 @@ workflow = Workflow(
 )
 ```
 
-## Advanced Patterns
+## Building Custom Tools
 
-### Custom Tools
+### Simple Function Tools
+
+```python
+def calculate(operation: str, x: float, y: float) -> float:
+    """Perform mathematical operations.
+    
+    Args:
+        operation: add, subtract, multiply, divide
+        x: First number
+        y: Second number
+    """
+    operations = {
+        "add": lambda a, b: a + b,
+        "subtract": lambda a, b: a - b,
+    }
+    return operations[operation](x, y)
+
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    tools=[calculate],
+)
+```
+
+### Custom Toolkit
 
 ```python
 from agno.tools import Toolkit
@@ -199,7 +268,9 @@ agent = Agent(
 )
 ```
 
-### Structured Output
+## Structured Output
+
+Use Pydantic models to get validated, structured responses:
 
 ```python
 from pydantic import BaseModel, Field
@@ -213,52 +284,60 @@ result = agent.run(
     "Research AI trends",
     response_model=ResearchOutput
 )
+
+# Access validated fields
+print(result.summary)
+print(result.key_points)
 ```
 
-## Common Mistakes
+## Common Mistakes to Avoid
 
-### Creating Agents in Loops
+### Don't Create Agents in Loops
 
 <CodeGroup>
-```python ❌ Don't do this
+```python Incorrect
 for query in queries:
     agent = Agent(model=OpenAIChat(id="gpt-4o"))
     agent.run(query)
 ```
 
-```python ✅ Do this instead
+```python Correct
 agent = Agent(model=OpenAIChat(id="gpt-4o"))
 for query in queries:
     agent.run(query)
 ```
 </CodeGroup>
 
-### Too Many Tools
+<Note>
+Creating agents in loops destroys Agno's performance advantage. Always reuse agent instances.
+</Note>
+
+### Limit Your Tools
 
 <CodeGroup>
-```python ❌ Don't do this
+```python Too Many Tools
 agent = Agent(
-    tools=[tool1, tool2, ..., tool20]  # Too many!
+    tools=[tool1, tool2, ..., tool20]
 )
 ```
 
-```python ✅ Do this instead
+```python Focused Set
 agent = Agent(
-    tools=[search, calculator, emailer]  # Focused set
+    tools=[search, calculator, emailer]
 )
 ```
 </CodeGroup>
 
-### Vague Instructions
+### Be Specific with Instructions
 
 <CodeGroup>
-```python ❌ Don't do this
+```python Vague
 agent = Agent(
     instructions="Help the user"
 )
 ```
 
-```python ✅ Do this instead
+```python Specific
 agent = Agent(
     instructions="""
     You are a technical documentation expert.
@@ -270,15 +349,15 @@ agent = Agent(
 ```
 </CodeGroup>
 
-### No Error Handling
+### Always Handle Errors
 
 <CodeGroup>
-```python ❌ Don't do this
+```python No Error Handling
 response = agent.run(query)
 print(response.content)
 ```
 
-```python ✅ Do this instead
+```python With Error Handling
 from agno.exceptions import AgentException
 
 try:
@@ -289,7 +368,7 @@ except AgentException as e:
 ```
 </CodeGroup>
 
-## Testing
+## Testing Your Agents
 
 ```python
 import pytest
@@ -308,7 +387,9 @@ async def test_async(test_agent):
     assert response is not None
 ```
 
-## Production Deployment
+See the [Testing documentation](/how-to/testing) for more details.
+
+## Deploying with AgentOS
 
 ```python
 from agno.os import AgentOS
@@ -323,13 +404,18 @@ agent_os = AgentOS(agent=agent)
 app = agent_os.get_app()
 ```
 
+<Note>
+Always use PostgreSQL in production, not SQLite. See the [Storage documentation](/concepts/agents/storage) for more details.
+</Note>
+
 ### Production Checklist
 
-- ✅ Use PostgreSQL (not SQLite)
-- ✅ Environment variables for secrets
-- ✅ Error handling on all calls
-- ✅ Logging configured
-- ✅ Tests passing
+Before deploying:
+- Use PostgreSQL instead of SQLite
+- Store API keys in environment variables
+- Add error handling to all agent calls
+- Configure logging appropriately
+- Write and run tests
 
 ## For Your Projects
 
@@ -360,20 +446,20 @@ You are an expert in building agents with Agno.
 ## Learn More
 
 <CardGroup cols={2}>
-  <Card title="Examples" icon="book" href="/examples/introduction">
-    Real-world code examples
+  <Card title="Agent Concepts" icon="book" href="/concepts/agents/introduction">
+    Learn about agent fundamentals
   </Card>
   
-  <Card title="Documentation" icon="file-lines" href="/introduction">
-    Full documentation
+  <Card title="Examples" icon="code" href="/examples/introduction">
+    View real-world examples
   </Card>
   
-  <Card title="Discord" icon="discord" href="https://discord.gg/4MtYHHrgA8">
-    Join the community
+  <Card title="Teams" icon="users" href="/concepts/teams/introduction">
+    Multi-agent coordination
   </Card>
   
-  <Card title="GitHub" icon="github" href="https://github.com/agno-agi/agno">
-    Source code
+  <Card title="Workflows" icon="workflow" href="/concepts/workflows/introduction">
+    Sequential agent processes
   </Card>
 </CardGroup>
 
