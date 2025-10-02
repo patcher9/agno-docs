@@ -1,32 +1,48 @@
 ---
-title: Cursor Rules
-description: Use Agno with AI-powered code assistants like Cursor
+title: Cursor Rules for Building Agents
+description: Build AI agents with Agno using AI-powered code assistants like Cursor
 ---
 
-Using Cursor or another AI coding assistant with Agno? A `.cursorrules` file helps your AI understand Agno's patterns and best practices.
+Building AI agents with Agno? A `.cursorrules` file teaches your AI coding assistant how to write better Agno code for building agents, teams, and workflows.
 
 ## Why Use Cursor Rules?
 
-Without proper context, AI assistants might suggest outdated patterns or incorrect syntax. With `.cursorrules`, your AI will:
+When building agents with Agno, AI assistants might suggest outdated patterns or incorrect syntax without proper context. With `.cursorrules`, your AI will:
 
-- Use correct parameter names and Agno patterns
+- Build agents using correct Agno patterns
 - Choose the right approach (Agent vs Team vs Workflow)
 - Follow performance optimizations (~3μs agent instantiation)
-- Suggest tools and patterns that actually work with Agno
+- Use tools, memory, and knowledge correctly
+- Suggest patterns that actually work with Agno
 
-## For Contributors
+<Note>
+This guide is focused on **building agents with Agno**. If you're looking to contribute to the Agno framework itself, that will be covered separately in future documentation.
+</Note>
 
-If you're contributing to Agno itself, the `.cursorrules` file is already in the repository root:
+## Using Cursor Rules in Your Project
+
+You can reference the Agno `.cursorrules` file when building your own agent applications:
 
 ```bash
 git clone https://github.com/agno-agi/agno.git
 cd agno
-# Cursor automatically detects .cursorrules
+# View the .cursorrules file for agent building patterns
 ```
 
 <Card title="View on GitHub" icon="github" href="https://github.com/agno-agi/agno/blob/main/.cursorrules">
-  Check out the full .cursorrules file
+  Check out the full .cursorrules file for building agents
 </Card>
+
+## What You'll Learn
+
+This guide covers everything you need to build AI agents with Agno:
+
+- When to use Agent vs Team vs Workflow
+- How to add tools, memory, and knowledge to agents
+- Building custom tools for your agents
+- Multi-agent coordination patterns
+- Common mistakes and how to avoid them
+- Testing and deploying agents
 
 ## Getting Started with Agents
 
@@ -417,14 +433,14 @@ Before deploying:
 - Configure logging appropriately
 - Write and run tests
 
-## For Your Projects
+## Creating Cursor Rules for Your Agent Project
 
-Create a `.cursorrules` file in your project root:
+When building your own agent application with Agno, create a `.cursorrules` file in your project root to customize the AI assistant for your specific use case:
 
 ```text .cursorrules
-# My Agno Application
+# My Agent Application Built with Agno
 
-You are an expert in building agents with Agno.
+You are an expert in building AI agents with Agno.
 
 ## Project Overview
 - Application: [Your app name]
