@@ -2800,11 +2800,13 @@
                     "pages": [
                       "reference/knowledge/embedder/azure_openai",
                       "reference/knowledge/embedder/cohere",
+                      "reference/knowledge/embedder/aws_bedrock",
                       "reference/knowledge/embedder/fastembed",
                       "reference/knowledge/embedder/fireworks",
                       "reference/knowledge/embedder/gemini",
                       "reference/knowledge/embedder/huggingface",
                       "reference/knowledge/embedder/mistral",
+                      "reference/knowledge/embedder/jina",
                       "reference/knowledge/embedder/ollama",
                       "reference/knowledge/embedder/openai",
                       "reference/knowledge/embedder/sentence-transformer",
