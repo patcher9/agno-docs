@@ -5,20 +5,20 @@ description: Learn about Agno Agents and how they work.
 hideToc: true
 ---
 
-**Agents are AI programs where a language model determines the flow of execution.**
+**Agents are AI programs where a language model controls the flow of execution.**
 
-The core of an Agent is made of a model, tools and instructions:
+The core of an Agent is a model using tools in a loop, guided by instructions:
 
 - **Model:** controls the flow of execution. It decides whether to reason, act or respond.
-- **Instructions:** are how we program the Agent, teaching it how to use tools and respond.
+- **Instructions:** program the Agent, teaching it how to use tools and respond.
 - **Tools:** enable an Agent to take actions and interact with external systems.
 
 Agents also have memory, knowledge, storage and the ability to reason:
 
-- **Memory:** gives Agents the ability to store and recall information from previous interactions, allowing them to learn user behavior and personalize their responses.
-- **Storage:** is used by Agents to save session history and state in a database. Model APIs are stateless and storage enables us to continue conversations from where they left off. This makes Agents stateful, enabling multi-turn, long-term conversations.
-- **Knowledge:** is domain-specific information that the Agent can **search at runtime** to make better decisions and provide accurate responses (RAG). Knowledge is stored in a vector database and this **search at runtime** pattern is known as Agentic RAG or Agentic Search.
-- **Reasoning:** enables Agents to "think" before responding and "analyze" the results of their actions (i.e. tool calls), this improves reliability and quality of responses.
+- **Memory:** gives Agents the ability to store and recall information from previous interactions, allowing them to learn and improve their responses.
+- **Storage:** is used by Agents to save session history and state in a database. Model APIs are stateless and storage makes Agents stateful, enabling multi-turn conversations.
+- **Knowledge:** is domain-specific information the Agent can **search at runtime** to provide better responses (RAG). Knowledge is stored in a vector database and this search at runtime pattern is known as **Agentic RAG** or **Agentic Search**.
+- **Reasoning:** enables Agents to "think" before responding and "analyze" the results of their actions before responding, this improves reliability and quality of responses.
 
 <Tip>
   If this is your first time building agents, [start
@@ -31,18 +31,18 @@ Learn how to build, run and manage your Agents using the following guides.
 
 <CardGroup cols={2}>
   <Card
-    title="Building your Agent"
+    title="Building Agents"
     icon="wrench"
     iconType="duotone"
-    href="/concepts/agents/building-your-agent"
+    href="/concepts/agents/building-agents"
   >
     Learn how to run your agents.
   </Card>
   <Card
-    title="Running your Agent"
+    title="Running Agents"
     icon="user-robot"
     iconType="duotone"
-    href="/concepts/agents/running-your-agent"
+    href="/concepts/agents/running-agents"
   >
     Learn how to run your agents.
   </Card>

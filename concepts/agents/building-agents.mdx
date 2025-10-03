@@ -1,0 +1,68 @@
+---
+title: Building Agents
+sidebarTitle: Building Agents
+description: Learn how to build Agents with Agno.
+---
+
+The best agents **start simple**, with a model, tools and instructions, then evolve with iteration.
+
+```python hackernews_agent.py lines
+from agno.agent import Agent, RunOutput
+from agno.models.anthropic import Claude
+from agno.tools.hackernews import HackerNewsTools
+
+agent = Agent(
+    model=Claude(id="claude-sonnet-4-5"),
+    tools=[HackerNewsTools()],
+    instructions="Write a report on the topic. Output only the report.",
+    markdown=True,
+)
+agent.print_response("Trending startups and products.", stream=True)
+```
+
+During development, it is typical to use `Agent.print_response()` to print the response in the terminal. In production, use the `Agent.run()` or `Agent.arun()` methods. Example:
+
+```python
+from typing import Iterator
+from agno.agent import Agent, RunOutput, RunOutputEvent
+from agno.models.anthropic import Claude
+from agno.tools.hackernews import HackerNewsTools
+from agno.utils.pprint import pprint_run_response
+
+agent = Agent(
+    model=Claude(id="claude-sonnet-4-5"),
+    tools=[HackerNewsTools()],
+    instructions="Write a report on the topic. Output only the report.",
+    markdown=True,
+)
+
+# Run agent and return the response as a variable
+response: RunOutput = agent.run("Trending startups and products.")
+# Print the response
+print(response.content)
+
+################ STREAM RESPONSE #################
+response_stream: Iterator[RunOutputEvent] = agent.run("Trending products", stream=True)
+for chunk in response_stream:
+    print(chunk.content)
+
+################ STREAM AND PRETTY PRINT #################
+response_stream: Iterator[RunOutputEvent] = agent.run("Trending products", stream=True)
+pprint_run_response(response_stream, markdown=True)
+```
+
+To build your agent, consider the following:
+
+- **Which model should I use?** -> See the [models](/concepts/models/introduction) documentation.
+- **How do I add tools?** -> See the [tools](/concepts/agents/tools) documentation.
+- **How do I manage agent context?** -> See the [context engineering](/concepts/agents/context) documentation.
+- **Do I need to manage agent state?** -> See the [agent state](/concepts/agents/state) documentation.
+- **Should I enable reasoning?** -> See the [reasoning](/concepts/reasoning) documentation.
+- **Do I need to add knowledge?** -> See the [knowledge](/concepts/agents/knowledge) documentation.
+- **How do I configure storage?** -> See the [storage](/concepts/agents/storage) documentation.
+- **How do I configure memory?** -> See the [memory](/concepts/agents/memory) documentation.
+
+## Developer Resources
+
+- View the [Agent reference](/reference/agents/agent)
+- View [Agent Cookbook](https://github.com/agno-agi/agno/tree/main/cookbook/agents/README.md)

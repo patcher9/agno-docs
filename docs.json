@@ -79,8 +79,8 @@
                 "group": "Agents",
                 "pages": [
                   "concepts/agents/introduction",
-                  "concepts/agents/building-your-agent",
-                  "concepts/agents/running-your-agent",
+                  "concepts/agents/building-agents",
+                  "concepts/agents/running-agents",
                   "concepts/agents/sessions",
                   "concepts/agents/input-output",
                   "concepts/agents/context",
@@ -659,8 +659,7 @@
                   "agent-os/customize/custom-fastapi",
                   {
                     "group": "Furth AgentOS",
-                    "pages": [
-                    ]
+                    "pages": []
                   },
                   {
                     "group": "Middleware",
