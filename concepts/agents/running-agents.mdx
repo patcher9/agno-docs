@@ -4,6 +4,19 @@ sidebarTitle: Running Agents
 description: Learn how to run Agno Agents.
 ---
 
+When we run an agent:
+
+1. The agent builds the context — including the system message, user message, chat history, and other relevant inputs — to send to the model. 2. The agent sends this context to the model. 3. The model processes the context and responds with either a message or a tool call. 4. If there are tool calls, the agent executes them and sends the results back to the model. 5. The model integrates the tool outputs (if any) and generates the final response. 6. The agent returns this response to the caller.
+
+The Agent.run() function executes the agent and returns the output — either as a RunOutput object (for synchronous runs) or as a stream of RunOutputEvent objects (for streaming responses).
+
+1. The agent builds the context (system message, user message, chat history, etc.) that is sent to the model.
+2. It sends the context to the model.
+3. The model responds with a response or a tool call.
+4. The agent runs the tool calls (if any) and sends the results back to the model.
+5. The model
+6. The agent returns the response.
+
 The `Agent.run()` function runs the agent and generates a response, either as a `RunOutput` object or a stream of `RunOutputEvent` objects.
 
 ## Running Agents
