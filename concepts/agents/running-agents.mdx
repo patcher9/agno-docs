@@ -1,63 +1,78 @@
 ---
 title: Running Agents
-sidebarTitle: Running Your Agent
-description: Learn how to run an agent and get the response.
+sidebarTitle: Running Agents
+description: Learn how to run Agno Agents.
 ---
 
-The `Agent.run()` function runs the agent and generates a response, either as a `RunOutput` object or a stream of `RunOutputEvent` objects.
+Run your Agent by calling `Agent.run()` or `Agent.arun()`. Here's how they work:
 
-## Running Agents
+1. The agent builds the context to send to the model (system message, user message, chat history, user memories, session state and other relevant inputs).
+2. The agent sends this context to the model.
+3. The model processes the input and responds with either a message or a tool call.
+4. If the model makes a tool call, the agent executes it and returns the results to the model.
+5. The model processes the updated context, repeating this loop until it produces a final message without any tool calls.
+6. The agent returns this final response to the caller.
 
-### Basic Execution
+## Basic Execution
 
-Here's how to run your agent. The response is captured in the `response`.
+The `Agent.run()` function runs the agent and returns the output — either as a `RunOutput` object or as a stream of `RunOutputEvent` objects (when `stream=True`). For example:
 
 ```python
 from agno.agent import Agent, RunOutput
-from agno.models.openai import OpenAIChat
+from agno.models.anthropic import Claude
+from agno.tools.hackernews import HackerNewsTools
 from agno.utils.pprint import pprint_run_response
 
-agent = Agent(model=OpenAIChat(id="gpt-5-mini"))
+agent = Agent(
+    model=Claude(id="claude-sonnet-4-5"),
+    tools=[HackerNewsTools()],
+    instructions="Write a report on the topic. Output only the report.",
+    markdown=True,
+)
 
 # Run agent and return the response as a variable
-response: RunOutput = agent.run("Tell me a 5 second short story about a robot")
-
+response: RunOutput = agent.run("Trending startups and products.")
 # Print the response in markdown format
 pprint_run_response(response, markdown=True)
 ```
 
 <Tip>
-You can also run the agent asynchronously using the `Agent.arun()` method.
-See the [Async Agent](/examples/concepts/agent/async/basic) example.
+
+You can also run the agent asynchronously using `Agent.arun()`. See
+this [example](/examples/concepts/agent/async/basic).
+
 </Tip>
 
-### Run Input
+## Run Input
 
-The `input` parameter is the input to send to the agent. It can be a string, a list, a dictionary, a message, a pydantic model or a list of messages.
-
-For example:
+The `input` parameter is the input to send to the agent. It can be a string, a list, a dictionary, a message, a pydantic model or a list of messages. For example:
 
 ```python
-from agno.agent import Agent
-from agno.models.openai import OpenAIChat
+from agno.agent import Agent, RunOutput
+from agno.models.anthropic import Claude
+from agno.tools.hackernews import HackerNewsTools
 from agno.utils.pprint import pprint_run_response
 
 agent = Agent(
-    model=OpenAIChat(id="gpt-5-mini"),
-    description="You write movie scripts.",
+    model=Claude(id="claude-sonnet-4-5"),
+    tools=[HackerNewsTools()],
+    instructions="Write a report on the topic. Output only the report.",
+    markdown=True,
 )
 
-response = agent.run("Write movie script about a girl living in New York")
+# Run agent with input="Trending startups and products."
+response: RunOutput = agent.run(input="Trending startups and products.")
+# Print the response in markdown format
 pprint_run_response(response, markdown=True)
 ```
 
 <Tip>
-The `pprint_run_response` utility is a helper function that prints the response on your terminal.
+
+    See the [Input & Output](/concepts/agents/input-output) docs for more information, and to see how to use structured input and output with agents.
+
 </Tip>
 
-For more information, and to see how to use structured input and output with agents, see the [Input & Output](/concepts/agents/input-output) documentation.
-
-### Run Output
+## Run Output
 
 The `Agent.run()` function returns a `RunOutput` object when not streaming. Here are some of the core attributes:
 
@@ -75,42 +90,44 @@ The `Agent.run()` function returns a `RunOutput` object when not streaming. Here
 
 See detailed documentation in the [RunOutput](/reference/agents/run-response) documentation.
 
-
-## Streaming Responses
+## Streaming
 
 To enable streaming, set `stream=True` when calling `run()`. This will return an iterator of `RunOutputEvent` objects instead of a single response.
 
 ```python
 from typing import Iterator
-from agno.agent import Agent, RunOutputEvent
-from agno.models.openai import OpenAIChat
-from agno.utils.pprint import pprint_run_response
+from agno.agent import Agent, RunOutputEvent, RunEvent
+from agno.models.anthropic import Claude
+from agno.tools.hackernews import HackerNewsTools
 
-agent = Agent(model=OpenAIChat(id="gpt-4-mini"))
-
-# Run agent and return the response as a stream
-response_stream: Iterator[RunOutputEvent] = agent.run(
-    "Tell me a 5 second short story about a lion",
-    stream=True
+agent = Agent(
+    model=Claude(id="claude-sonnet-4-5"),
+    tools=[HackerNewsTools()],
+    instructions="Write a report on the topic. Output only the report.",
+    markdown=True,
 )
 
-# Print the response stream in markdown format
-pprint_run_response(response_stream, markdown=True)
+# Run agent and return the response as a stream
+stream: Iterator[RunOutputEvent] = agent.run("Trending products", stream=True)
+for chunk in stream:
+    if chunk.event == RunEvent.run_content:
+        print(chunk.content)
 ```
 
 <Tip>
-You can also run the agent asynchronously using the `Agent.arun()` method. 
-See the [Async Agent Streaming](/examples/concepts/agent/async/streaming) example.
+
+For asynchronous streaming, see this [example](/examples/concepts/agent/async/streaming).
+
 </Tip>
 
 ### Streaming Intermediate Steps
 
-For even more detailed streaming, you can enable intermediate steps by setting `stream_intermediate_steps=True`. This will provide real-time updates about the agent's internal processes.
+For even more detailed streaming, you can enable intermediate steps by setting `stream_intermediate_steps=True`. This will provide real-time updates about the agent's internal processes. For example:
 
 ```python
 # Stream with intermediate steps
 response_stream: Iterator[RunOutputEvent] = agent.run(
-    "Tell me a 5 second short story about a lion",
+    "Trending products",
     stream=True,
     stream_intermediate_steps=True
 )
@@ -121,49 +138,33 @@ response_stream: Iterator[RunOutputEvent] = agent.run(
 You can process events as they arrive by iterating over the response stream:
 
 ```python
-response_stream = agent.run("Tell me a 5 second short story about a lion", stream=True, stream_intermediate_steps=True)
+from agno.agent import Agent, RunEvent
+from agno.models.anthropic import Claude
+from agno.tools.hackernews import HackerNewsTools
 
-for event in response_stream:
-    if event.event == "RunContent":
-        print(f"Content: {event.content}")
-    elif event.event == "ToolCallStarted":
-        print(f"Tool call started: {event.tool}")
-    elif event.event == "ReasoningStep":
-        print(f"Reasoning step: {event.content}")
-    ...
+agent = Agent(
+    model=Claude(id="claude-sonnet-4-5"),
+    tools=[HackerNewsTools()],
+    instructions="Write a report on the topic. Output only the report.",
+    markdown=True,
+)
+
+stream = agent.run("Trending products", stream=True, stream_intermediate_steps=True)
+
+for chunk in stream:
+    if chunk.event == RunEvent.run_content:
+        print(f"Content: {chunk.content}")
+    elif chunk.event == RunEvent.tool_call_started:
+        print(f"Tool call started: {chunk.tool.tool_name}")
+    elif chunk.event == RunEvent.reasoning_step:
+        print(f"Reasoning step: {chunk.content}")
 ```
 
-You can see this behavior in action in the [AgentOS UI](https://os.agno.com/chat/agents).
+<Check>
 
-### Storing Events
+RunEvents make it possible to build exceptional agent experiences.
 
-You can store all the events that happened during a run on the `RunOutput` object.
-
-```python
-from agno.agent import Agent
-from agno.models.openai import OpenAIChat
-from agno.utils.pprint import pprint_run_response
-
-agent = Agent(model=OpenAIChat(id="gpt-5-mini"), store_events=True)
-
-response = agent.run("Tell me a 5 second short story about a lion", stream=True, stream_intermediate_steps=True)
-pprint_run_response(response)
-
-for event in response.events:
-    print(event.event)
-```
-
-By default the `RunContentEvent` event is not stored (because it would be very verbose). You can modify which events are skipped by setting the `events_to_skip` parameter.
-
-For example:
-
-```python
-from agno.agent import Agent
-from agno.models.openai import OpenAIChat
-from agno.run.agent import RunEvent
-
-agent = Agent(model=OpenAIChat(id="gpt-5-mini"), store_events=True, events_to_skip=[RunEvent.run_started])
-```
+</Check>
 
 ### Event Types
 
@@ -223,13 +224,9 @@ The following events are yielded by the `Agent.run()` and `Agent.arun()` functio
 | `OutputModelResponseStarted`   | Indicates the start of the output model response |
 | `OutputModelResponseCompleted` | Signals completion of the output model response  |
 
-
 ### Custom Events
 
-If you are using your own custom tools, it will often be useful to be able to yield custom events. Your custom events will be yielded together with the rest of the expected Agno events.
-
-We recommend creating your custom event class extending the built-in `CustomEvent` class:
-
+If you are using your own custom tools, you can yield custom events along with the rest of the Agno events. Create a custom event class by extending the `CustomEvent` class. For example:
 
 ```python
 from dataclasses import dataclass
@@ -244,8 +241,7 @@ class CustomerProfileEvent(CustomEvent):
     customer_phone: Optional[str] = None
 ```
 
-
-You can then yield your custom event from your tool. The event will be handled internally as an Agno event, and you will be able to access it in the same way you would access any other Agno event.
+You can then yield your custom event from your tool. The event will be handled internally as an Agno event, and you will be able to access it in the same way you would access any other Agno event. For example:
 
 ```python
 from agno.tools import tool
@@ -263,13 +259,9 @@ async def get_customer_profile():
 
 See the [full example](/examples/concepts/agent/events/custom_events) for more details.
 
-## Options When Running an Agent
+## Specify Run User and Session
 
-### Specify the User and Session
-
-You can specify which user and session to use when running the agent by passing the `user_id` and `session_id` parameters.  This ensures the current run is associated with the correct user and session.
-
-For example:
+You can specify which user and session to use when running the agent by passing the `user_id` and `session_id` parameters. This ensures the current run is associated with the correct user and session. For example:
 
 ```python
 agent.run("Tell me a 5 second short story about a robot", user_id="john@example.com", session_id="session_123")
@@ -277,12 +269,9 @@ agent.run("Tell me a 5 second short story about a robot", user_id="john@example.
 
 For more information see the [Agent Sessions](/concepts/agents/sessions) documentation.
 
+## Passing Images / Audio / Video / Files
 
-### Passing Images / Audio / Video / Files
-
-You can pass images, audio, video, or files to the agent by passing the `images`, `audio`, `video`, or `files` parameters.
-
-For example:
+You can pass images, audio, video, or files to the agent by passing the `images`, `audio`, `video`, or `files` parameters. For example:
 
 ```python
 agent.run("Tell me a 5 second short story about this image", images=[Image(url="https://example.com/image.jpg")])
@@ -290,13 +279,13 @@ agent.run("Tell me a 5 second short story about this image", images=[Image(url="
 
 For more information see the [Multimodal Agents](/concepts/multimodal) documentation.
 
-### Pausing and Continuing a Run
+## Pausing and Continuing a Run
 
 An agent run can be paused when a human-in-the-loop flow is initiated. You can then continue the execution of the agent by calling the `Agent.continue_run()` method.
 
 See more details in the [Human-in-the-Loop](/concepts/hitl) documentation.
 
-### Cancelling a Run
+## Cancelling a Run
 
 A run can be cancelled by calling the `Agent.cancel_run()` method.
 
