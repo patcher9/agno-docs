@@ -81,6 +81,7 @@
                   "concepts/agents/introduction",
                   "concepts/agents/building-agents",
                   "concepts/agents/running-agents",
+                  "concepts/agents/debugging-agents",
                   "concepts/agents/sessions",
                   "concepts/agents/input-output",
                   "concepts/agents/context",
