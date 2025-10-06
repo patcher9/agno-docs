@@ -1,7 +1,7 @@
 ## Description
 Brief summary of what you changed and why.
 
-**Note:** Your PR title must start with a type tag in square brackets (e.g., `[docs] Add authentication guide`, `[fix] Correct broken links`, `[style] Update formatting`). See [CONTRIBUTING.md](../CONTRIBUTING.md) for details.
+**Note:** Your PR title must follow conventional commit format (e.g., `docs: add authentication guide`, `fix: correct broken links`, `style: update formatting`). See [CONTRIBUTING.md](../CONTRIBUTING.md) for details.
 
 ## Type of Change
 - [ ] Bug fix (errors, broken links, outdated info)

@@ -6,11 +6,12 @@ Agno is an open-source project and we welcome contributions to our documentation
 
 1. Fork the repository and clone it locally
 2. Install Mintlify CLI: `npm i -g mintlify`
-3. Create a new branch: `git checkout -b [type]/short-description` (e.g., `docs/add-auth-guide`)
-4. Make your changes and test locally with `mint dev`
-5. Run `mint build` to check for errors
-6. Commit and push your changes
-7. Open a pull request with the proper title format (see below)
+3. Run the docs locally: `mint dev` (from the root directory where `docs.json` is)
+4. Create a new branch: `git checkout -b [type]/short-description` (e.g., `docs/add-auth-guide`)
+5. Make your changes and test with `mint dev`
+6. Run `mint build` to check for errors
+7. Commit and push your changes
+8. Open a pull request with the proper title format (see below)
 
 ## 👩‍💻 How to contribute
 
@@ -28,28 +29,15 @@ Please follow the [fork and pull request](https://docs.github.com/en/get-started
 
 To maintain a clear and organized project history, please adhere to the following guidelines when submitting Pull Requests:
 
-1.  **Title Format:** Your PR title must start with a type tag enclosed in square brackets, followed by a space and a concise subject.
-    - Example: `[docs] Add authentication guide`
+1.  **Title Format:** Your PR title must follow conventional commit format with a type, followed by a colon and a concise subject.
+    - Example: `docs: add authentication guide`
     - Common types for documentation:
-      - `[docs]` - Documentation content changes (new pages, updates, improvements)
-      - `[fix]` - Fixes to documentation (broken links, typos, incorrect information)
-      - `[style]` - Formatting changes (no content changes)
-    - Other valid types: `[feat]`, `[test]`, `[refactor]`, `[build]`, `[ci]`, `[chore]`, `[perf]`, `[revert]`.
+      - `docs:` - Documentation content changes (new pages, updates, improvements)
+      - `fix:` - Fixes to documentation (broken links, typos, incorrect information)
+      - `style:` - Formatting changes (no content changes)
+    - Other valid types: `feat:`, `test:`, `refactor:`, `build:`, `ci:`, `chore:`, `perf:`, `revert:`.
 2.  **Link to Issue:** The PR description should ideally reference the issue it addresses using keywords like `fixes #<issue_number>`, `closes #<issue_number>`, or `resolves #<issue_number>`.
     - Example: `This PR fixes #42 by adding documentation for the new feature.`
-
-## Development setup
-
-1. Clone the repository.
-2. Install the [Mintlify CLI](https://www.npmjs.com/package/mintlify):
-   ```bash
-   npm i -g mintlify
-   ```
-3. Run the documentation site locally at the root of your documentation (where `docs.json` is):
-   ```bash
-   mint dev
-   ```
-4. The docs will be available at `http://localhost:3000`.
 
 ## Documentation Structure
 
@@ -63,12 +51,12 @@ The documentation is organized into the following main sections:
 - **reference/** - Reference documentation
 - **reference-api/** - API reference (auto-generated)
 - **examples/** - Example code and use cases
-- **templates/** - Documentation templates and boilerplates
+- **templates/** - Our code templates and how to use them
 - **agent-os/** - AgentOS-specific documentation
-- **deploy/** - Deployment guides
+- **deploy/** - Introduction to deploying Agno agents/agentOS
 - **evals/** - Evaluation documentation
 - **faq/** - Frequently asked questions
-- **videos/** - Video tutorials and resources
+- **videos/** - Video assets for the docs
 - **_snippets/** - Reusable code snippets
 
 ## Writing Guidelines
@@ -91,9 +79,9 @@ agent = Agent(name="MyAgent")
 agent.print_response("Hello, world!")
 ```
 
-For code snippets from files, you can reference them with filename and line numbers:
+For runnable code snippets, you can reference them with filename:
 
-```python hackernews_agent.py lines
+```python hackernews_agent.py
 from agno.agent import Agent
 from agno.tools.hackernews import HackerNewsTools
 
@@ -138,45 +126,7 @@ The `_snippets/` directory contains reusable MDX components (like common setup s
 
 ## Updating API Reference
 
-The API reference in `reference-api/` is auto-generated from the AgentOS OpenAPI schema. To update it:
-
-1. Run an AgentOS cookbook with the latest version of Agno.
-2. Download the latest API reference:
-   ```bash
-   curl -o reference-api/openapi.json http://localhost:7777/openapi.json
-   ```
-3. Delete all files in the `reference-api/schema/` folder (the auto-generated files).
-4. Generate the new API reference:
-   ```bash
-   npx @mintlify/scraping@latest openapi-file reference-api/openapi.json -o reference-api/schema
-   ```
-5. Run `mint dev` to preview the changes.
-
-## Types of Contributions
-
-We welcome various types of documentation contributions:
-
-**Content Improvements**
-- Fix typos, grammar, or unclear explanations
-- Add missing information or clarify existing content
-- Improve code examples or add new ones
-- Update outdated information
-
-**New Documentation**
-- Add tutorials for common use cases
-- Document new features or integrations
-- Create how-to guides for specific tasks
-- Add troubleshooting guides
-
-**Structure and Navigation**
-- Improve documentation organization
-- Enhance navigation in `docs.json`
-- Add cross-references between related pages
-
-**Issue Reports**
-- Report broken links or images
-- Identify outdated or incorrect information
-- Suggest improvements to existing content
+The API reference in `reference-api/` is auto-generated from the AgentOS OpenAPI schema. For instructions on how to update it, see the [README.md](README.md#how-to-generate-a-new-api-reference).
 
 ## Local Testing
 
