@@ -99,7 +99,13 @@ if __name__ == "__main__":
     """
     agent_os.serve(app="agentos_extra_configuration:app", reload=True)
 ```
+<Note>
+It's recommended to add `db_id` for better management and easier identification in the AgentOS interface. You can add it to your database configuration like this:
 
+```python
+db = PostgresDb(db_url="postgresql+psycopg://ai:ai@localhost:5532/ai", db_id='001')
+```
+</Note>
 ## Usage
 
 <Steps>
