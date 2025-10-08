@@ -231,6 +231,7 @@
                   "concepts/models/siliconflow",
                   "concepts/models/together",
                   "concepts/models/vercel",
+                  "concepts/models/vertexai-claude",
                   "concepts/models/vllm",
                   "concepts/models/xai"
                 ]
@@ -2663,6 +2664,26 @@
                   "examples/models/vercel/image_agent",
                   "examples/models/vercel/knowledge",
                   "examples/models/vercel/tool_use"
+                ]
+              },
+              {
+                "group": "Vertex AI",
+                "pages": [
+                  {
+                    "group": "Claude",
+                    "pages": [
+                      "examples/models/vertexai/claude/basic",
+                      "examples/models/vertexai/claude/basic_stream",
+                      "examples/models/vertexai/claude/tool_use",
+                      "examples/models/vertexai/claude/structured_output",
+                      "examples/models/vertexai/claude/knowledge",
+                      "examples/models/vertexai/claude/pdf_input_local",
+                      "examples/models/vertexai/claude/pdf_input_url",
+                      "examples/models/vertexai/claude/pdf_input_bytes",
+                      "examples/models/vertexai/claude/image_input_bytes",
+                      "examples/models/vertexai/claude/image_input_url"
+                    ]
+                  }
                 ]
               },
               {
