@@ -682,6 +682,7 @@
                 "group": "Interfaces",
                 "pages": [
                   "agent-os/interfaces/whatsapp/introduction",
+                  "agent-os/interfaces/a2a/introduction",
                   "agent-os/interfaces/ag-ui/introduction",
                   "agent-os/interfaces/slack/introduction"
                 ]
@@ -722,6 +723,14 @@
                       "examples/agent-os/interfaces/whatsapp/image_generation_model",
                       "examples/agent-os/interfaces/whatsapp/agent_with_media",
                       "examples/agent-os/interfaces/whatsapp/agent_with_user_memory"
+                    ]
+                  },
+                  {
+                    "group": "A2A",
+                    "pages": [
+                      "examples/agent-os/interfaces/a2a/basic",
+                      "examples/agent-os/interfaces/a2a/agent_with_tools",
+                      "examples/agent-os/interfaces/a2a/team"
                     ]
                   },
                   {
@@ -831,6 +840,18 @@
                 "pages": [
                   "reference-api/schema/metrics/get-agentos-metrics",
                   "reference-api/schema/metrics/refresh-metrics"
+                ]
+              },
+              {
+                "group": "Interfaces",
+                "pages": [
+                  {
+                    "group": "A2A",
+                    "pages": [
+                      "reference-api/schema/interfaces/a2a/run",
+                      "reference-api/schema/interfaces/a2a/stream"
+                    ]
+                  }
                 ]
               }
             ]
