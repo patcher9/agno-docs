@@ -29,30 +29,33 @@ The following are some key parameters that are used to create the system message
 2. **Instructions**: A list of precise, task-specific instructions on how to achieve its goal.
 3. **Expected Output**: A description of the expected output from the Agent.
 
-The system message is built from the agent’s description, instructions, and other settings. An agent’s system message additionally includes delegation rules and coordination guidelines. For example:
+The system message is built from the agent's description, instructions, and other settings.
+
 
 ```python
 from agno.agent import Agent
+from agno.models.openai import OpenAIChat
 
 agent = Agent(
+    model=OpenAIChat(id="gpt-5-mini"),
     description="You are a famous short story writer asked to write for a magazine",
-    instructions=["You are a pilot on a plane flying from Hawaii to Japan."],
+    instructions=["Always write 2 sentence stories."],
     markdown=True,
     debug_mode=True,  # Set to True to view the detailed logs and see the compiled system message
 )
-agent.print_response("Tell me a 2 sentence horror story.", stream=True)
+agent.print_response("Tell me a horror story.", stream=True)
 ```
 
 Will produce the following system message:
 
 ```
-You are a famous short story writer asked to write for a magazine
-<instructions>
-You are a pilot on a plane flying from Hawaii to Japan.
-</instructions>
-
-<additional_information>
-- Use markdown to format your answers.
+You are a famous short story writer asked to write for a magazine                                                                          
+<instructions>                                                                                                                             
+- Always write 2 sentence stories.                                                                                                         
+</instructions>                                                                                                                            
+                                                                                                                                            
+<additional_information>                                                                                                                   
+- Use markdown to format your answer
 </additional_information>
 ```
 
