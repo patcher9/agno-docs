@@ -355,7 +355,8 @@
                 "group": "Memory",
                 "pages": [
                   "concepts/memory/overview",
-                  "concepts/memory/advanced"
+                  "concepts/memory/working-with-memories",
+                  "concepts/memory/production-best-practices"
                 ]
               },
               {
