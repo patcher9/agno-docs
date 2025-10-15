@@ -610,6 +610,7 @@
                 "pages": [
                   "concepts/db/overview",
                   "concepts/db/postgres",
+                  "concepts/db/async_postgres",
                   "concepts/db/mysql",
                   "concepts/db/sqlite",
                   "concepts/db/in_memory",
@@ -1818,6 +1819,14 @@
                       "examples/concepts/db/postgres/postgres_for_agent",
                       "examples/concepts/db/postgres/postgres_for_team",
                       "examples/concepts/db/postgres/postgres_for_workflow"
+                    ]
+                  },
+                  {
+                    "group": "Async PostgreSQL",
+                    "pages": [
+                      "examples/concepts/db/async_postgres/async_postgres_for_agent",
+                      "examples/concepts/db/async_postgres/async_postgres_for_team",
+                      "examples/concepts/db/async_postgres/async_postgres_for_workflow"
                     ]
                   },
                   {
