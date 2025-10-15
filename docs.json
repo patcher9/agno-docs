@@ -636,11 +636,11 @@
               {
                 "group": "Other Integrations",
                 "pages": [
-                  "integrations/discord/introduction",
+                  "integrations/discord/overview",
                   {
                     "group": "Observability",
                     "pages": [
-                      "integrations/observability/introduction",
+                      "integrations/observability/overview",
                       "integrations/observability/agentops",
                       "integrations/observability/arize",
                       "integrations/observability/atla",
