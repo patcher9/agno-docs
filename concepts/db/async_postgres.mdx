@@ -10,7 +10,7 @@ Agno supports using [PostgreSQL](https://www.postgresql.org/) asynchronously, wi
 
 ```python postgres_for_agent.py
 from agno.agent import Agent
-from agno.db.async_postgres import AsyncPostgresDb
+from agno.db.postgres import AsyncPostgresDb
 
 # Replace with your own connection string, and notice the `async_` prefix
 db_url = "postgresql+async_psycopg://ai:ai@localhost:5532/ai"
