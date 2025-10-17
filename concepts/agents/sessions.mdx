@@ -339,6 +339,57 @@ agent.print_response(
 )  # It should only include the last 2 sessions
 ```
 
+## Control what gets stored in the session
+
+As your sessions grow, you may want to decide what data exactly is persisted. Agno provides three flags to optimize storage while maintaining full functionality during execution:
+
+- **`store_media`** - Controls storage of images, videos, audio, and files
+- **`store_tool_messages`** - Controls storage of tool requests and their results  
+- **`store_history_messages`** - Controls storage of history messages
+
+<Tip>
+### How it works
+
+These flags only affect what gets **persisted to the database**. During execution, all data remains available to your agent - media, tool results, and history are still accessible in the `RunOutput` object. The data is scrubbed right before saving to the database.
+
+This means:
+- Your agent functionality remains unchanged
+- Tools can access all data they need during execution
+- Only the database storage is optimized
+</Tip>
+
+<Warning>
+**Important considerations when using `store_tool_messages=False`:**
+
+- **Tool message pairs are removed together**: To maintain valid message sequences, when tool messages are removed from storage, the corresponding assistant messages that contains tool calls for that tool message are also removed. Most model providers require a strict "tool call pair"
+
+- **Metrics will still consider the tokens spent on the deleted messages**: Your run metrics will still reflect the **actual tokens used during execution**, including the tool calls and results. 
+</Warning>
+
+### Usage example
+
+```python
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.tools.duckduckgo import DuckDuckGoTools
+from agno.db.sqlite import SqliteDb
+
+agent = Agent(
+    model=OpenAIChat(id="gpt-4o"),
+    tools=[DuckDuckGoTools()],
+    db=SqliteDb(db_file="tmp/agents.db"),
+    add_history_to_context=True,
+    num_history_runs=5,
+    store_media=False,              # Don't store images/videos/audio/files
+    store_tool_messages=False,       # Don't store tool execution details
+    store_history_messages=False,   # Don't store history messages
+)
+
+agent.print_response("Search for the latest AI news and summarize it")
+```
+
+See more examples in [Disable Storing History Messages](/examples/concepts/agent/session/09_disable_storing_history_messages) and [Disable Storing Tool Messages](/examples/concepts/agent/session/10_disable_storing_tool_messages).
+
 ## Developer Resources
 
 - View the [Agent schema](/reference/agents/agent)

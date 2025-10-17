@@ -23,6 +23,11 @@
   },
   "navbar": {
     "links": [
+       {
+        "label": "Home",
+        "icon": "home",
+        "href": "https://www.agno.com/"
+      },
       {
         "label": "Github",
         "icon": "github",
@@ -274,6 +279,27 @@
                     ]
                   },
                   {
+                    "group": "Vector Databases",
+                    "pages": [
+                      "concepts/vectordb/overview",
+                      "concepts/vectordb/pgvector",
+                      "concepts/vectordb/lancedb",
+                      "concepts/vectordb/pinecone",
+                      "concepts/vectordb/qdrant",
+                      "concepts/vectordb/chroma",
+                      "concepts/vectordb/milvus",
+                      "concepts/vectordb/weaviate",
+                      "concepts/vectordb/couchbase",
+                      "concepts/vectordb/cassandra",
+                      "concepts/vectordb/clickhouse",
+                      "concepts/vectordb/singlestore",
+                      "concepts/vectordb/mongodb",
+                      "concepts/vectordb/azure_cosmos_mongodb",
+                      "concepts/vectordb/surrealdb",
+                      "concepts/vectordb/lightrag"
+                    ]
+                  },
+                  {
                     "group": "Building Knowledge Bases",
                     "pages": [
                       "concepts/knowledge/readers",
@@ -310,27 +336,7 @@
                           "concepts/knowledge/embedder/aws_bedrock"
                         ]
                       },
-                      {
-                        "group": "Vector Databases",
-                        "pages": [
-                          "concepts/knowledge/vectordb/overview",
-                          "concepts/knowledge/vectordb/pgvector",
-                          "concepts/knowledge/vectordb/lancedb",
-                          "concepts/knowledge/vectordb/pinecone",
-                          "concepts/knowledge/vectordb/qdrant",
-                          "concepts/knowledge/vectordb/chroma",
-                          "concepts/knowledge/vectordb/milvus",
-                          "concepts/knowledge/vectordb/weaviate",
-                          "concepts/knowledge/vectordb/couchbase",
-                          "concepts/knowledge/vectordb/cassandra",
-                          "concepts/knowledge/vectordb/clickhouse",
-                          "concepts/knowledge/vectordb/singlestore",
-                          "concepts/knowledge/vectordb/mongodb",
-                          "concepts/knowledge/vectordb/azure_cosmos_mongodb",
-                          "concepts/knowledge/vectordb/surrealdb",
-                          "concepts/knowledge/vectordb/lightrag"
-                        ]
-                      },
+                      
                       {
                         "group": "Knowledge Filters",
                         "pages": [
@@ -610,6 +616,7 @@
                 "pages": [
                   "concepts/db/overview",
                   "concepts/db/postgres",
+                  "concepts/db/async_postgres",
                   "concepts/db/mysql",
                   "concepts/db/sqlite",
                   "concepts/db/in_memory",
@@ -872,7 +879,7 @@
                   "reference-api/schema/knowledge/list-content",
                   "reference-api/schema/knowledge/get-content-by-id",
                   "reference-api/schema/knowledge/get-content-status",
-                  "reference-api/schema/knowledge/search-vectors",
+                  "reference-api/schema/knowledge/search-knowledge",
                   "reference-api/schema/knowledge/upload-content",
                   "reference-api/schema/knowledge/update-content",
                   "reference-api/schema/knowledge/delete-all-content",
@@ -892,10 +899,33 @@
                   {
                     "group": "A2A",
                     "pages": [
-                      "reference-api/schema/interfaces/a2a/run",
-                      "reference-api/schema/interfaces/a2a/stream"
+                      "reference-api/schema/a2a/send-message",
+                      "reference-api/schema/a2a/stream-message"
+                    ]
+                  },
+                  {
+                    "group": "AGUI",
+                    "pages": [
+                      "reference-api/schema/agui/get-status",
+                      "reference-api/schema/agui/run-agent"
+                    ]
+                  },
+                  {
+                    "group": "Slack",
+                    "pages": [
+                      "reference-api/schema/slack/slack-events"
+                    ]
+                  },
+                  {
+                    "group": "Whatsapp",
+                    "pages": [
+                      "reference-api/schema/whatsapp/status",
+                      "reference-api/schema/whatsapp/verify-webhook",
+                      "reference-api/schema/whatsapp/webhook"
+
                     ]
                   }
+
                 ]
               }
             ]
@@ -1189,7 +1219,9 @@
                       "examples/concepts/agent/session/05_chat_history",
                       "examples/concepts/agent/session/06_rename_session",
                       "examples/concepts/agent/session/07_in_memory_db",
-                      "examples/concepts/agent/session/08_cache_session"
+                      "examples/concepts/agent/session/08_cache_session",
+                      "examples/concepts/agent/session/09_disable_storing_history_messages",
+                      "examples/concepts/agent/session/10_disable_storing_tool_messages"
                     ]
                   },
                   {
@@ -1382,6 +1414,7 @@
                       "examples/concepts/workflows/01-basic-workflows/sequence_of_steps",
                       "examples/concepts/workflows/01-basic-workflows/step_with_function",
                       "examples/concepts/workflows/01-basic-workflows/step_with_function_streaming_agentos",
+                      "examples/concepts/workflows/01-basic-workflows/class_based_executor",
                       "examples/concepts/workflows/01-basic-workflows/workflow_using_steps",
                       "examples/concepts/workflows/01-basic-workflows/workflow_using_steps_nested"
                     ]
@@ -1795,6 +1828,14 @@
                       "examples/concepts/db/postgres/postgres_for_agent",
                       "examples/concepts/db/postgres/postgres_for_team",
                       "examples/concepts/db/postgres/postgres_for_workflow"
+                    ]
+                  },
+                  {
+                    "group": "Async PostgreSQL",
+                    "pages": [
+                      "examples/concepts/db/async_postgres/async_postgres_for_agent",
+                      "examples/concepts/db/async_postgres/async_postgres_for_team",
+                      "examples/concepts/db/async_postgres/async_postgres_for_workflow"
                     ]
                   },
                   {
