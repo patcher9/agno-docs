@@ -1077,6 +1077,7 @@
                       "examples/concepts/agent/context_management/datetime_instructions",
                       "examples/concepts/agent/context_management/dynamic_instructions",
                       "examples/concepts/agent/context_management/few_shot_learning",
+                      "examples/concepts/agent/context_management/filter_tool_calls_from_history",
                       "examples/concepts/agent/context_management/instructions",
                       "examples/concepts/agent/context_management/instructions_via_function",
                       "examples/concepts/agent/context_management/location_instructions"
@@ -1267,6 +1268,12 @@
                       "examples/concepts/teams/async/async_coordination_team",
                       "examples/concepts/teams/async/async_delegate_to_all_members",
                       "examples/concepts/teams/async/async_respond_directly"
+                    ]
+                  },
+                  {
+                    "group": "Context Management",
+                    "pages": [
+                      "examples/concepts/teams/context_management/filter_tool_calls_from_history"
                     ]
                   },
                   {
