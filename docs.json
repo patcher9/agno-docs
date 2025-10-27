@@ -657,6 +657,7 @@
                       "integrations/observability/langsmith",
                       "integrations/observability/langtrace",
                       "integrations/observability/maxim",
+                      "integrations/observability/openlit",
                       "integrations/observability/weave"
                     ]
                   },
